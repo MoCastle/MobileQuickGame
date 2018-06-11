@@ -13,6 +13,6 @@ public class StartGame : MonoBehaviour {
     }
     private void Update()
     {
-        _WorldTimer.Update();
+        //_WorldTimer.Update();
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCtrl {
     Rigidbody2D PlayerRigid;
+    PlayerActor Player;
+    public float MineDashSpeed = 10;
     static PlayerCtrl _PlayerCtrl;
     public static PlayerCtrl PlayerCtrler
     {
@@ -20,11 +22,26 @@ public class PlayerCtrl {
     public void SetPlayer(Rigidbody2D InputPlayerRigid)
     {
         PlayerRigid = InputPlayerRigid;
+        Player = PlayerRigid.GetComponent<PlayerActor>();
     }
 
-    public void Move( Vector2 Shift )
+    public void InputHandTouch( Vector2 Shift, bool IsHandOn )
     {
-        PlayerRigid.velocity = Shift/10; 
+        if (IsHandOn)
+        {
+            Shift.y = 0;
+            Shift = Shift / 10;
+            Player.Move(Shift);
+        }
+        else
+        {
+            if( Shift.sqrMagnitude > MineDashSpeed* MineDashSpeed)
+            {
+                Player.Dash(Shift);
+            }
+            
+        }
     }
+
 }
 

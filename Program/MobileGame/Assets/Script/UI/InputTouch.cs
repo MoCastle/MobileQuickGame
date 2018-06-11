@@ -37,8 +37,8 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     public void OnPointerUp(PointerEventData eventData)
     {
         _IsInputting = false;
-        ClearAllPs( );
-        _PlayerCtrler.Move( Vector2.zero );
+        OutPutCommand( );
+        ClearAllPs();
     }
 
 	// Update is called once per frame
@@ -53,6 +53,6 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     void OutPutCommand( )
     {
         Vector2 InputVector = PushingPs - PushStart;
-        _PlayerCtrler.Move(InputVector);
+        _PlayerCtrler.InputHandTouch(InputVector, _IsInputting);
     }
 }

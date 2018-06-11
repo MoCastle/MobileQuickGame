@@ -4,4 +4,6 @@ MobileGame.Editor.csproj
 *.sln
 .vs
 *.tmp
+*.csproj 
+*.user 
 Temp

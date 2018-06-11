@@ -1,7 +1,7 @@
 Library
 MobileGame.csproj
 MobileGame.Editor.csproj
-MobileGame.sln
+*.sln
 .vs
 *.tmp
 Temp

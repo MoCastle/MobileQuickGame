@@ -1,1 +1,7 @@
-Library/
+Library
+MobileGame.csproj
+MobileGame.Editor.csproj
+MobileGame.sln
+.vs
+*.tmp
+*.meta

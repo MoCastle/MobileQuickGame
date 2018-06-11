@@ -1,6 +1,5 @@
 Library
-MobileGame.csproj
-MobileGame.Editor.csproj
+*.csproj
 *.sln
 .vs
 *.tmp

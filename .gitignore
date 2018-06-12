@@ -1,9 +1,9 @@
-Library
+Library/
+Temp/
 *.csproj
 *.sln
 .vs
 *.tmp
 *.csproj 
 *.user 
-Temp
 ~$*

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerCtrl {
     public Rigidbody2D PlayerRigid;
-    PlayerActor Player;
+    public Camera MainCamera;
+    public PlayerActor Player;
     BaseState _PlayerState;
     public BaseState PlayerState
     {
@@ -39,6 +40,8 @@ public class PlayerCtrl {
         
         InputRoundArr = new StructRoundArr<InputInfo>(2);
         GameWorldTimer.GameInBattleEvent += Update;
+        Camera mainCamera;
+       
     }
     public void Update( )
     {
@@ -47,6 +50,13 @@ public class PlayerCtrl {
         {
             PlayerState.Update();
         }
+        if(MainCamera != null)
+        {
+            Vector3 NewCameraPs = Player.PlayerTransform.position;
+            NewCameraPs.z = MainCamera.transform.position.z;
+            MainCamera.transform.position = NewCameraPs;
+        }
+         
     }
 
     public void SetPlayer(Rigidbody2D InputPlayerRigid)
@@ -54,6 +64,8 @@ public class PlayerCtrl {
         PlayerRigid = InputPlayerRigid;
         Player = PlayerRigid.GetComponent<PlayerActor>();
         PlayerState = new InitState(this);
+        GameObject gameObject = GameObject.Find("Main Camera");
+        MainCamera = gameObject.GetComponent<Camera>();
     }
 
     public void InputHandTouch( InputInfo Input )

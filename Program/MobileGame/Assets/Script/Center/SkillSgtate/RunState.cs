@@ -28,6 +28,7 @@ public class RunState : BaseState
 
     public RunState(PlayerCtrl InPlayerCtrl) : base(InPlayerCtrl)
     {
+        _PlayerCtrl.Player.PlayerAnimator.SetTrigger("Run");
 
     }
 
@@ -37,7 +38,7 @@ public class RunState : BaseState
         {
             if (Input.Percent > 0.1)
             {
-                if (Input.XPercent > 0.1)
+                if (Input.XPercent > 0.1 && Command.Shift.x * Input.Shift.x < 0 )
                 {
                     Command = Input;
                 }
@@ -70,6 +71,13 @@ public class RunState : BaseState
             Shift.y = 0;
             Shift = Shift.normalized;
             _PlayerCtrl.PlayerRigid.velocity = Shift * 5;
+            Vector3 Scale = _PlayerCtrl.Player.transform.localScale;
+            if( Scale.x * Shift.x < 0)
+            {
+                Scale.x = Scale.x * -1;
+                _PlayerCtrl.Player.transform.localScale = Scale;
+            }
+            
         }
         if (_PlayerCtrl.InputRoundArr.HeadInfo.IsLegal)
         {

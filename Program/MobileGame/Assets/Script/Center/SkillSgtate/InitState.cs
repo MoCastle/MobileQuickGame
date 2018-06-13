@@ -15,6 +15,7 @@ public class InitState : BaseState
     public InitState( PlayerCtrl InPlayerCtrl ):base(InPlayerCtrl)
     {
         _PlayerCtrl.PlayerRigid.velocity = Vector2.zero;
+        _PlayerCtrl.Player.PlayerAnimator.SetTrigger("Idle");
     }
     public override void Input(InputInfo Input)
     {

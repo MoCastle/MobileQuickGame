@@ -5,6 +5,14 @@ using UnityEngine;
 public class PlayerActor : MonoBehaviour {
     bool _isOnGround = false;
     Rigidbody2D _Rigidbody;
+    Animator _PlayerAnimator;
+    public Animator PlayerAnimator
+    {
+        get
+        {
+            return _PlayerAnimator;
+        }
+    }
     public bool IsOnGround
     {
         get
@@ -13,10 +21,20 @@ public class PlayerActor : MonoBehaviour {
         }
     } 
     Transform _FootChecker;
+    Transform _PlayerTtransform;
+    public Transform PlayerTransform
+    {
+        get
+        {
+            return _PlayerTtransform;
+        }
+    }
 	// Use this for initialization
 	void Start () {
         _FootChecker = transform.FindChild("footcheck");
         _Rigidbody = GetComponent<Rigidbody2D>();
+        _PlayerTtransform = GetComponent<Transform>();
+        _PlayerAnimator = GetComponentInChildren<Animator>();
     }
 	
 	// Update is called once per frame

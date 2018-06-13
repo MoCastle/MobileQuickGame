@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StartGame : MonoBehaviour {
-    GameWorldTimer _WorldTimer;
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        _WorldTimer = GameWorldTimer.WorldTimer;
-        _WorldTimer.StartGameSet();
+        GameWorldTimer.StartGameSet();
         GameStartScence.StartScence();
     }
     private void Update()
     {
-        //_WorldTimer.Update();
+        GameWorldTimer.Update();
     }
 }

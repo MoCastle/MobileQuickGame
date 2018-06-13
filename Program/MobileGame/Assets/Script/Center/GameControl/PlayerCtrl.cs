@@ -3,9 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCtrl {
-    Rigidbody2D PlayerRigid;
+    public Rigidbody2D PlayerRigid;
     PlayerActor Player;
+    BaseState _PlayerState;
+    public BaseState PlayerState
+    {
+        get
+        {
+            return _PlayerState;
+        }
+        set
+        {
+            _PlayerState = value;
+        }
+    }
+    public StructRoundArr<InputInfo> InputRoundArr;
+    float PressingTime;
     public float MineDashSpeed = 10;
+
     static PlayerCtrl _PlayerCtrl;
     public static PlayerCtrl PlayerCtrler
     {
@@ -19,27 +34,33 @@ public class PlayerCtrl {
         }
     }
 
+    public PlayerCtrl()
+    {
+        
+        InputRoundArr = new StructRoundArr<InputInfo>(2);
+        GameWorldTimer.GameInBattleEvent += Update;
+    }
+    public void Update( )
+    {
+        
+        if( PlayerState != null )
+        {
+            PlayerState.Update();
+        }
+    }
+
     public void SetPlayer(Rigidbody2D InputPlayerRigid)
     {
         PlayerRigid = InputPlayerRigid;
         Player = PlayerRigid.GetComponent<PlayerActor>();
+        PlayerState = new InitState(this);
     }
 
-    public void InputHandTouch( Vector2 Shift, bool IsHandOn )
+    public void InputHandTouch( InputInfo Input )
     {
-        if (IsHandOn)
+        if( Input.IsLegal )
         {
-            Shift.y = 0;
-            Shift = Shift / 10;
-            Player.Move(Shift);
-        }
-        else
-        {
-            if( Shift.sqrMagnitude > MineDashSpeed* MineDashSpeed)
-            {
-                Player.Dash(Shift);
-            }
-            
+            InputRoundArr.Push(Input);
         }
     }
 

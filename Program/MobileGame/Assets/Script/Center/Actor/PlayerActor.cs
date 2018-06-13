@@ -25,10 +25,14 @@ public class PlayerActor : MonoBehaviour {
 	}
     public void Move(Vector2 Shift)
     {
-        _Rigidbody.velocity = Shift;
+        _Rigidbody.velocity = Shift*5;
     }
     public void Dash( Vector2 Shift )
     {
-            _Rigidbody.velocity = Shift;
+        _Rigidbody.velocity = Shift*15;
+    }
+    public void NoAction( )
+    {
+        _Rigidbody.velocity = Vector2.zero;
     }
 }

@@ -4,29 +4,17 @@ using UnityEngine;
 
 
 
-public class GameWorldTimer{
-    static GameWorldTimer _WorldTimerObj;
+public static class GameWorldTimer{
+    static bool GameStart = false;//是否游戏已开始
+    static bool GameInBattle = false;//是否进行战斗
 
-    bool GameStart = false;//是否游戏已开始
-    bool GameInBattle = false;//是否进行战斗
-
-    public event TimeEvent GameStartEvent;
-    public event TimeEvent GameInBattleEvent;
+    public static event TimeEvent GameStartEvent;
+    public static event TimeEvent GameInBattleEvent;
     public delegate void TimeEvent( );
     //public delegate void EventHandler<TEventArgs>(object sender, TEventArgs e) where;
     //对外接口
-    public static GameWorldTimer WorldTimer
-    {
-        get
-        {
-            if( _WorldTimerObj == null )
-            {
-                _WorldTimerObj = new GameWorldTimer( );
-            }
-            return _WorldTimerObj;
-        }
-    }
-    public void StartGameSet( bool StartGame = true )
+
+    public static void StartGameSet( bool StartGame = true )
     {
         GameStart = StartGame;
     }
@@ -34,7 +22,7 @@ public class GameWorldTimer{
     //内部功能
 	// Use this for initialization
 	// Update is called once per frame
-	public void Update () {
+	public static void Update () {
         if ( GameStart )
         {
             GameUpdateFunc();
@@ -44,18 +32,28 @@ public class GameWorldTimer{
             }
         }		
 	}
-    void GameUpdateFunc()
+    static void GameUpdateFunc()
     {
         if( GameStartEvent != null )
         {
             GameStartEvent();
         }
     }
-    void GameInBattleFunc( )
+    static void GameInBattleFunc( )
     {
         if (GameInBattleEvent != null)
         {
-            GameStartEvent();
+            GameInBattleEvent();
         }
+    }
+
+    //对外接口
+    public static void Pull( )
+    {
+        GameInBattle = false;
+    }
+    public static void Continue( )
+    {
+        GameInBattle = true;
     }
 }

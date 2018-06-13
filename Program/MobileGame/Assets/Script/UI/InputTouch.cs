@@ -6,9 +6,10 @@ using UnityEngine.EventSystems;
 
 public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
+    public float StD = 100;//向饱和距离
+
     PlayerCtrl _PlayerCtrler;
     Vector2 PushStart = Vector2.zero;
-    Vector2 EndPs = Vector2.zero;
     Vector2 PushingPs = Vector2.zero;
     bool _IsInputting = false;
     public Text LogOutPut;
@@ -19,7 +20,6 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     void ClearAllPs( )
     {
         PushStart = Vector2.zero;
-        EndPs = Vector2.zero;
         PushingPs = Vector2.zero;
     }
     public void OnDrag(PointerEventData eventData)
@@ -42,7 +42,8 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     }
 
 	// Update is called once per frame
-	void Update () {
+	void Update( )
+    {
         LogOutPut.text = PushingPs.ToString();
         if( _IsInputting )
         {
@@ -53,6 +54,10 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     void OutPutCommand( )
     {
         Vector2 InputVector = PushingPs - PushStart;
-        _PlayerCtrler.InputHandTouch(InputVector, _IsInputting);
+        InputInfo OutPut = new InputInfo( true );
+        OutPut.IsPushing = _IsInputting;
+        OutPut.Shift = InputVector;
+        OutPut.MaxDst = StD;
+        _PlayerCtrler.InputHandTouch(OutPut);
     }
 }

@@ -9,6 +9,7 @@ public class EnterDirector : MonoBehaviour {
     void Start () {
         PlayerCtrler = PlayerCtrl.PlayerCtrler;
         PlayerCtrler.SetPlayer(PlayerTrans);
+        GameWorldTimer.Continue();
     }
 	
 }

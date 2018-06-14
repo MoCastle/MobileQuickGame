@@ -58,6 +58,15 @@ public class RunState : BaseState
         }
         else
         {
+            /*
+            if( Input.Percent>0.8 )
+            {
+
+            }
+            else
+            {
+                _PlayerCtrl.PlayerState = new InitState(_PlayerCtrl);
+            }*/
             _PlayerCtrl.PlayerState = new InitState(_PlayerCtrl);
         }
         

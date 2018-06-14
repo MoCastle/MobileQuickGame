@@ -1,0 +1,17 @@
+﻿Log System Start
+
+StartGame
+TrapToENterSence
+EnterdirectStart
+GetPlayerCtrl
+SetPlayer
+COntinueGame
+EnterBattle
+InitStateUpdate
+InitStateUpdate
+RunState
+EnterRunState
+InitStateUpdate
+InitStateUpdate
+RunState
+EnterRunState

@@ -7,9 +7,13 @@ public class EnterDirector : MonoBehaviour {
     PlayerCtrl PlayerCtrler;
     // Use this for initialization
     void Start () {
+        Debug.Log("EnterdirectStart");
         PlayerCtrler = PlayerCtrl.PlayerCtrler;
+        Debug.Log("GetPlayerCtrl");
         PlayerCtrler.SetPlayer(PlayerTrans);
+        Debug.Log("SetPlayer");
         GameWorldTimer.Continue();
+        Debug.Log("EnterBattle");
     }
 	
 }

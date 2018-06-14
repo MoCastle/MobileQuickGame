@@ -28,12 +28,14 @@ public class RunState : BaseState
 
     public RunState(PlayerCtrl InPlayerCtrl) : base(InPlayerCtrl)
     {
+        Debug.Log("EnterRunState");
         _PlayerCtrl.Player.PlayerAnimator.SetTrigger("Run");
 
     }
 
     public override void Input(InputInfo Input)
     {
+        
         if( Input.IsPushing )
         {
             if (Input.Percent > 0.1)

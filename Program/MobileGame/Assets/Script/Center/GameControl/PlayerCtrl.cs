@@ -45,7 +45,6 @@ public class PlayerCtrl {
     }
     public void Update( )
     {
-        
         if( PlayerState != null )
         {
             PlayerState.Update();

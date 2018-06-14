@@ -30,11 +30,17 @@ public class PlayerActor : MonoBehaviour {
         }
     }
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+        Debug.Log("PlayerActor Is Initing");
         _FootChecker = transform.FindChild("footcheck");
         _Rigidbody = GetComponent<Rigidbody2D>();
         _PlayerTtransform = GetComponent<Transform>();
         _PlayerAnimator = GetComponentInChildren<Animator>();
+        if( null == _PlayerAnimator )
+        {
+            Debug.Log("PlayerActor:init EmptyAnimator");
+        }
+        Debug.Log("PlayerActor Initing Complete");
     }
 	
 	// Update is called once per frame

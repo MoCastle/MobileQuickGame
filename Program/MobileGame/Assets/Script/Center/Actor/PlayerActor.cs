@@ -32,7 +32,7 @@ public class PlayerActor : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         Debug.Log("PlayerActor Is Initing");
-        _FootChecker = transform.FindChild("footcheck");
+        _FootChecker = transform.Find("footcheck");
         _Rigidbody = GetComponent<Rigidbody2D>();
         _PlayerTtransform = GetComponent<Transform>();
         _PlayerAnimator = GetComponentInChildren<Animator>();

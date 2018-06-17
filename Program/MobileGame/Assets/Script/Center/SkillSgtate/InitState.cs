@@ -12,29 +12,21 @@ public class InitState : BaseState
             return SkillEnum.PlayerInit;
         }
     }
-    public InitState( PlayerCtrl InPlayerCtrl ):base(InPlayerCtrl)
+    public InitState( BaseActor InActor ):base(InActor)
     {
-        _PlayerCtrl.PlayerRigid.velocity = Vector2.zero;
-        if(_PlayerCtrl.Player == null)
-        {
-            Debug.Log("InitState:Init EmptyPlayer");
-        }else if(_PlayerCtrl.Player.PlayerAnimator == null)
-        {
-            Debug.Log("InitState:Init EmptyPlayerAnimator");
-        }
-        _PlayerCtrl.Player.PlayerAnimator.SetTrigger("Idle");
+        _Actor.RigidCtrl.velocity = Vector2.zero;
+        _Actor.AnimCtrl.SetTrigger("Idle");
     }
     public override void Input(InputInfo Input)
     {
-        Debug.Log("InitStateUpdate");
         if( Input.IsPushing )
         {
             if( Input.XPercent >0.1 )
             {
                 Debug.Log("RunState");
-                RunState NewState = new RunState(_PlayerCtrl);
+                RunState NewState = new RunState(_Actor);
                 NewState.Command = Input;
-                _PlayerCtrl.PlayerState = NewState;
+                _Actor.PlayerState = NewState;
                 
             }
             
@@ -49,9 +41,9 @@ public class InitState : BaseState
     public override void Update()
     {
         
-        if(_PlayerCtrl.InputRoundArr.HeadInfo.IsLegal )
+        if(PlayerCtrl.InputRoundArr.HeadInfo.IsLegal )
         {
-            InputInfo GetInput = _PlayerCtrl.InputRoundArr.Pop();
+            InputInfo GetInput = PlayerCtrl.InputRoundArr.Pop();
             Input(GetInput);
         }
     }

@@ -2,16 +2,10 @@
 
 StartGame
 TrapToENterSence
-EnterdirectStart
-GetPlayerCtrl
-SetPlayer
+PlayerActor Is Initing
+PlayerActor Initing Complete
 COntinueGame
-EnterBattle
-InitStateUpdate
-InitStateUpdate
 RunState
 EnterRunState
-InitStateUpdate
-InitStateUpdate
-RunState
-EnterRunState
+There are inconsistent line endings in the 'Assets/Script/Center/SkillSgtate/BaseSkillStae.cs' script. Some are Mac OS X (UNIX) and some are Windows.
+This might lead to incorrect line numbers in stacktraces and compiler errors. Many text editors can fix this using Convert Line Endings menu commands.

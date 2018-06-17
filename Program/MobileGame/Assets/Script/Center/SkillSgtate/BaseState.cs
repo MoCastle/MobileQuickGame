@@ -53,17 +53,18 @@ public struct InputInfo
 public enum SkillEnum
 {
     PlayerInit,//闲置状态类
+    PlayerRun,//玩家跑
 }
 
 public abstract class BaseState {
-    protected PlayerCtrl _PlayerCtrl;
+    protected BaseActor _Actor;
     public abstract SkillEnum SkillType
     {
         get;
     }
-    public BaseState( PlayerCtrl InPlayerCtrl )
+    public BaseState(BaseActor InActor )
     {
-        _PlayerCtrl = InPlayerCtrl;
+        _Actor = InActor;
     }
     // Use this for initialization
     public abstract void Input(InputInfo Input);

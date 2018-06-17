@@ -8,14 +8,13 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
 {
     public float StD = 100;//向饱和距离
 
-    PlayerCtrl _PlayerCtrler;
     Vector2 PushStart = Vector2.zero;
     Vector2 PushingPs = Vector2.zero;
     bool _IsInputting = false;
     public Text LogOutPut;
     void Awake()
     {
-        _PlayerCtrler = PlayerCtrl.PlayerCtrler;
+        PlayerCtrl.RefreshInputRoundArr();
     }
     void ClearAllPs( )
     {
@@ -58,6 +57,6 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
         OutPut.IsPushing = _IsInputting;
         OutPut.Shift = InputVector;
         OutPut.MaxDst = StD;
-        _PlayerCtrler.InputHandTouch(OutPut);
+        PlayerCtrl.InputHandTouch(OutPut);
     }
 }

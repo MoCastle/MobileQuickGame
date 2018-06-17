@@ -23,13 +23,7 @@ public class PlayerActor : BaseActor {
 	// Use this for initialization
 	void Awake () {
         Debug.Log("PlayerActor Is Initing");
-<<<<<<< HEAD
-        _FootChecker = transform.Find("footcheck");
-        _Rigidbody = GetComponent<Rigidbody2D>();
-        _PlayerTtransform = GetComponent<Transform>();
-=======
         _FootChecker = transform.FindChild("footcheck");
->>>>>>> 306125307c19cfde8e2003cf8689af675837fb77
         _PlayerAnimator = GetComponentInChildren<Animator>();
         if( null == _PlayerAnimator )
         {

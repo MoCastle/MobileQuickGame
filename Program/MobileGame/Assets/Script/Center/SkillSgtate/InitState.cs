@@ -23,17 +23,17 @@ public class InitState : BaseState
         {
             if( Input.XPercent >0.1 )
             {
-                Debug.Log("RunState");
                 RunState NewState = new RunState(_Actor);
                 NewState.Command = Input;
                 _Actor.PlayerState = NewState;
-                
             }
-            
         }
         else
         {
-            
+            if( Input.XPercent > 0.1 )
+            {
+                _Actor.PlayerState = new DashState(_Actor);
+            }
         }
         
     }

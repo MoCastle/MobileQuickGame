@@ -1,5 +1,6 @@
 Library/
 Temp/
+obj/
 *.sln
 *.csproj
 *.vs
@@ -8,3 +9,5 @@ Temp/
 *.user 
 
 Program/MobileGame/Assets/outLog.txt
+Program/MobileGame/Assets/outLog.txt
+Program/MobileGame/obj/Debug/Assembly-CSharp.csprojResolveAssemblyReference.cache

@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerActor : BaseActor {
-    bool _isOnGround = false;
     Animator _PlayerAnimator;
+    BoxCollider2D _ColliderCtrl;
+    public BoxCollider2D ColliderCtrl
+    {
+        get
+        {
+            if( _ColliderCtrl == null )
+            {
+                _ColliderCtrl = GetComponent<BoxCollider2D>();
+            }
+            return _ColliderCtrl;
+        }
+    }
     public Animator PlayerAnimator
     {
         get
@@ -12,13 +23,7 @@ public class PlayerActor : BaseActor {
             return _PlayerAnimator;
         }
     }
-    public bool IsOnGround
-    {
-        get
-        {
-            return _isOnGround;
-        }
-    } 
+
     Transform _FootChecker;
 	// Use this for initialization
 	void Awake () {
@@ -34,8 +39,20 @@ public class PlayerActor : BaseActor {
 	
 	// Update is called once per frame
 	public override void LogicUpdate() {
-        _isOnGround = Physics2D.OverlapBox(Vector2.down, Vector2.one, 0);
-	}
+        float Width = ColliderCtrl.size.x;
+        Vector2 Position = FootTransCtrl.position;
+        Vector2 Size = Vector2.right * Width;
+        Size.y = 0.5f;
+        Collider2D Collider = Physics2D.OverlapBox(Position, Size, 0, 1);
+        if( Collider )
+        {
+            IsOnGround = true;
+        }
+        else
+        {
+            IsOnGround = false;
+        }
+    }
     
     public void Dash( Vector2 Shift )
     {

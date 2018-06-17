@@ -27,10 +27,6 @@ public class AttackSecond : BaseState {
         {
             IsContinue = true;
         }
-        else
-        {
-            IsContinue = false;
-        }
     }
 
     public override void Update()

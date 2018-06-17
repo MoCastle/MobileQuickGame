@@ -26,9 +26,6 @@ public class AttackFirst : BaseState
         if(!Input.IsPushing )
         {
             IsContinue = true;
-        }else
-        {
-            IsContinue = false;
         }
         
     }

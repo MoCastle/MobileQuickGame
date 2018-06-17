@@ -28,7 +28,7 @@ public class RunState : BaseState
 
     public RunState(BaseActor InActor) : base(InActor)
     {
-        Debug.Log("EnterRunState");
+        Debug.Log("RunState");
         _Actor.AnimCtrl.SetTrigger("Run");
 
     }
@@ -60,16 +60,15 @@ public class RunState : BaseState
         }
         else
         {
-            /*
+            
             if( Input.Percent>0.8 )
             {
-
+                _Actor.PlayerState = new DashState(_Actor);
             }
             else
             {
-                _PlayerCtrl.PlayerState = new InitState(_PlayerCtrl);
-            }*/
-            _Actor.PlayerState = new InitState(_Actor);
+                _Actor.PlayerState = new InitState(_Actor);
+            }
         }
         
     }

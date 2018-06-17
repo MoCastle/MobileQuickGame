@@ -15,6 +15,7 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     void Awake()
     {
         PlayerCtrl.RefreshInputRoundArr();
+        StD = GetComponent<RectTransform>().sizeDelta.x / 2;
     }
     void ClearAllPs( )
     {

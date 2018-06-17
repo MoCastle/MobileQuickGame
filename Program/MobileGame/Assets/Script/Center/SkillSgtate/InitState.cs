@@ -14,6 +14,7 @@ public class InitState : BaseState
     }
     public InitState( BaseActor InActor ):base(InActor)
     {
+        Debug.Log("Init");
         _Actor.RigidCtrl.velocity = Vector2.zero;
         _Actor.AnimCtrl.SetTrigger("Idle");
     }
@@ -30,10 +31,15 @@ public class InitState : BaseState
         }
         else
         {
-            if( Input.XPercent > 0.1 )
-            {
-                _Actor.PlayerState = new DashState(_Actor);
-            }
+             
+           if( Input.Percent < 0.3 )
+           {
+                _Actor.PlayerState = new AttackFirst(_Actor);
+           }
+           else if (Input.XPercent > 0.8)
+           {
+               _Actor.PlayerState = new DashState(_Actor);
+           }
         }
         
     }

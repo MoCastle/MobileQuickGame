@@ -11,16 +11,16 @@ public class DashState:BaseState {
             return SkillEnum.PlayerInit;
         }
     }
-    public DashState(PlayerCtrl InPlayerCtrl) : base(InPlayerCtrl)
+    public DashState(BaseActor Actor) : base(Actor)
     {
         Vector2 Direction = Vector2.right;
-        if( _PlayerCtrl.PlayerRigid.velocity.x < 0 )
+        if( _Actor.RigidCtrl.velocity.x < 0 )
         {
             Direction.x = -1;
         }
         
-        _PlayerCtrl.PlayerRigid.velocity = Direction * 10;
-        _PlayerCtrl.Player.PlayerAnimator.SetTrigger("Dash");
+        _Actor.RigidCtrl.velocity = Direction * 10;
+        _Actor.AnimCtrl.SetTrigger("Dash");
     }
     public override void Input(InputInfo Input)
     {
@@ -28,9 +28,9 @@ public class DashState:BaseState {
         {
             if (Input.XPercent > 0.1)
             {
-                RunState NewState = new RunState(_PlayerCtrl);
+                RunState NewState = new RunState(_Actor);
                 NewState.Command = Input;
-                _PlayerCtrl.PlayerState = NewState;
+                _Actor.PlayerState = NewState;
 
             }
 
@@ -45,9 +45,9 @@ public class DashState:BaseState {
     public override void Update()
     {
 
-        if (_PlayerCtrl.InputRoundArr.HeadInfo.IsLegal)
+        if ( PlayerCtrl.InputRoundArr.HeadInfo.IsLegal)
         {
-            InputInfo GetInput = _PlayerCtrl.InputRoundArr.Pop();
+            InputInfo GetInput = PlayerCtrl.InputRoundArr.Pop();
             Input(GetInput);
         }
     }

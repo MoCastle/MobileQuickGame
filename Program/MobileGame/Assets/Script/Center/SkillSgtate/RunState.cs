@@ -22,14 +22,14 @@ public class RunState : BaseState
     {
         get
         {
-            return SkillEnum.PlayerInit;
+            return SkillEnum.PlayerRun;
         }
     }
 
-    public RunState(PlayerCtrl InPlayerCtrl) : base(InPlayerCtrl)
+    public RunState(BaseActor InActor) : base(InActor)
     {
         Debug.Log("EnterRunState");
-        _PlayerCtrl.Player.PlayerAnimator.SetTrigger("Run");
+        _Actor.AnimCtrl.SetTrigger("Run");
 
     }
 
@@ -54,7 +54,7 @@ public class RunState : BaseState
                 }
                 if (Time.fixedDeltaTime > TimeCount + 0.2)
                 {
-                    _PlayerCtrl.PlayerState = new InitState(_PlayerCtrl);
+                    _Actor.PlayerState = new InitState(_Actor);
                 }
             }
         }
@@ -69,7 +69,7 @@ public class RunState : BaseState
             {
                 _PlayerCtrl.PlayerState = new InitState(_PlayerCtrl);
             }*/
-            _PlayerCtrl.PlayerState = new InitState(_PlayerCtrl);
+            _Actor.PlayerState = new InitState(_Actor);
         }
         
     }
@@ -81,18 +81,18 @@ public class RunState : BaseState
             Vector2 Shift = Command.Shift;
             Shift.y = 0;
             Shift = Shift.normalized;
-            _PlayerCtrl.PlayerRigid.velocity = Shift * 5;
-            Vector3 Scale = _PlayerCtrl.Player.transform.localScale;
+            _Actor.RigidCtrl.velocity = Shift * 5;
+            Vector3 Scale = _Actor.TransCtrl.localScale;
             if( Scale.x * Shift.x < 0)
             {
                 Scale.x = Scale.x * -1;
-                _PlayerCtrl.Player.transform.localScale = Scale;
+                _Actor.TransCtrl.localScale = Scale;
             }
             
         }
-        if (_PlayerCtrl.InputRoundArr.HeadInfo.IsLegal)
+        if (PlayerCtrl.InputRoundArr.HeadInfo.IsLegal)
         {
-            InputInfo GetInput = _PlayerCtrl.InputRoundArr.Pop();
+            InputInfo GetInput = PlayerCtrl.InputRoundArr.Pop();
             Input(GetInput);
         }
     }

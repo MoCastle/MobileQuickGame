@@ -1,0 +1,11 @@
+﻿Log System Start
+
+StartGame
+TrapToENterSence
+PlayerActor Is Initing
+PlayerActor Initing Complete
+COntinueGame
+RunState
+EnterRunState
+There are inconsistent line endings in the 'Assets/Script/Center/SkillSgtate/BaseSkillStae.cs' script. Some are Mac OS X (UNIX) and some are Windows.
+This might lead to incorrect line numbers in stacktraces and compiler errors. Many text editors can fix this using Convert Line Endings menu commands.

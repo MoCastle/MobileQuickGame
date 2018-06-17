@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DashState:BaseState {
-    public float ContinueTime = 0.5f;
+    public float ContinueTime = 0.25f;
     public float StartTime;
     public override SkillEnum SkillType
     {
@@ -21,7 +21,7 @@ public class DashState:BaseState {
             Direction.x = -1;
         }
         StartTime = Time.time;
-        _Actor.RigidCtrl.velocity = Direction * 40;
+        _Actor.RigidCtrl.velocity = Direction * 80;
         _Actor.AnimCtrl.SetTrigger("Dash");
     }
     public override void Input(InputInfo Input)

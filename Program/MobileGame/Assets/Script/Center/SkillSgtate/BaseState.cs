@@ -58,6 +58,8 @@ public enum SkillEnum
     PlayerAttackFirst,//一阶打击
     PlayerAttackSecond,//二阶打击
     PlayerAttackThird,//三阶打击
+    Falling,//坠落
+    FallingEnd,//着地
 }
 
 public abstract class BaseState {

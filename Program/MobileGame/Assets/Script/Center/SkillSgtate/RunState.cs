@@ -63,7 +63,41 @@ public class RunState : BaseState
             
             if( Input.Percent>0.8 )
             {
-                _Actor.PlayerState = new DashState(_Actor);
+                Vector2 Direction = Input.Shift;
+                float Rate = Mathf.Abs(Direction.y / Direction.x);
+                //方向修正
+                if (Rate < (4f / 3f) && Rate > (3f / 4f))
+                {
+                    Direction.x = 0.5f;
+                    Direction.y = 0.5f;
+                }
+                else if (Rate > (4f / 3f))
+                {
+                    Direction.y = 1;
+                    Direction.x = 0;
+                }
+                else
+                {
+                    Direction.x = 1;
+                    Direction.y = 0;
+                }
+                if (Input.Shift.y < 0)
+                {
+                    Direction.y = Direction.y * -1;
+                }
+                if (Input.Shift.x < 0)
+                {
+                    Direction.x = Direction.x * -1;
+                }
+                //向下冲做单独处理
+                if (Mathf.Abs(Direction.x) < 0.1 && Mathf.Abs(Direction.y) > 0.1 && Direction.y < 0)
+                { }
+                else
+                {
+                    DashState NewState = new DashState(_Actor);
+                    NewState.InputDirection(Direction);
+                    _Actor.PlayerState = NewState;
+                }
             }
             else
             {

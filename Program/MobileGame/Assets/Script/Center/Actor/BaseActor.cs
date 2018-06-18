@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseActor : MonoBehaviour {
+    Transform _ActorTransCtrl;
+    public Transform ActorTransCtrl
+    {
+        get
+        {
+            if( _ActorTransCtrl == null )
+            {
+                Transform NewTransCtrl = TransCtrl.FindChild("Actor");
+                _ActorTransCtrl = NewTransCtrl;
+            }
+            return _ActorTransCtrl;
+        }
+        
+    }
+
     Animator _AnimCtrl;
     public Animator AnimCtrl
     {

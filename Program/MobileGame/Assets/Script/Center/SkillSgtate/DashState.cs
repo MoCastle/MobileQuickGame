@@ -11,7 +11,7 @@ public class DashState:BaseState {
     {
         get
         {
-            return SkillEnum.PlayerDash;
+            return SkillEnum.Dash;
         }
     }
     public DashState(BaseActor Actor) : base(Actor)
@@ -70,7 +70,7 @@ public class DashState:BaseState {
             }
             else
             {
-                _Actor.PlayerState = new InitState(_Actor);
+                _Actor.ActorState = new InitState(_Actor);
                 _Actor.ActorTransCtrl.localEulerAngles = Vector3.zero;
             }
             

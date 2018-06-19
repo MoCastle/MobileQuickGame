@@ -29,7 +29,7 @@ public class FallingEndState : BaseState {
     {
         if (StartTime + ContinueTime < Time.time)
         {
-            _Actor.PlayerState = new InitState(_Actor);
+            _Actor.ActorState = new InitState(_Actor);
         }
     }
 }

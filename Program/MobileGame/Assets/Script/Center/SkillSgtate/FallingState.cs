@@ -27,7 +27,7 @@ public class FallingState : BaseState
     {
         if( _Actor.IsOnGround )
         {
-            _Actor.PlayerState = new FallingEndState(_Actor);
+            _Actor.ActorState = new FallingEndState(_Actor);
         }
     }
 }

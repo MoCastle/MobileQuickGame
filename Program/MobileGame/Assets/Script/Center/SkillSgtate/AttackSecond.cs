@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackSecond : BaseState {
-
+    
     float ContinueTime = 0.5f;
     float StartTime;
     bool IsContinue = false;
@@ -17,7 +17,7 @@ public class AttackSecond : BaseState {
     {
         get
         {
-            return SkillEnum.PlayerAttackSecond;
+            return SkillEnum.AttackSecond;
         }
     }
 
@@ -35,11 +35,11 @@ public class AttackSecond : BaseState {
         {
             if (IsContinue)
             {
-                _Actor.PlayerState = new AttackThird(_Actor);
+                _Actor.ActorState = new AttackThird(_Actor);
             }
             else
             {
-                _Actor.PlayerState = new InitState(_Actor);
+                _Actor.ActorState = new InitState(_Actor);
             }
         }
 

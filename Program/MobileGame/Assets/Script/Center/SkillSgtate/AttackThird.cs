@@ -16,7 +16,7 @@ public class AttackThird : BaseState {
     {
         get
         {
-            return SkillEnum.PlayerAttackThird;
+            return SkillEnum.AttackThird;
         }
     }
 
@@ -29,7 +29,7 @@ public class AttackThird : BaseState {
     {
         if (StartTime + ContinueTime < Time.time)
         {
-            _Actor.PlayerState = new InitState(_Actor);
+            _Actor.ActorState = new InitState(_Actor);
         }
     }
 }

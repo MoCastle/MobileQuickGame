@@ -22,7 +22,7 @@ public class RunState : BaseState
     {
         get
         {
-            return SkillEnum.PlayerRun;
+            return SkillEnum.Run;
         }
     }
 
@@ -54,7 +54,7 @@ public class RunState : BaseState
                 }
                 if (Time.fixedDeltaTime > TimeCount + 0.2)
                 {
-                    _Actor.PlayerState = new InitState(_Actor);
+                    _Actor.ActorState = new InitState(_Actor);
                 }
             }
         }
@@ -96,12 +96,12 @@ public class RunState : BaseState
                 {
                     DashState NewState = new DashState(_Actor);
                     NewState.InputDirection(Direction);
-                    _Actor.PlayerState = NewState;
+                    _Actor.ActorState = NewState;
                 }
             }
             else
             {
-                _Actor.PlayerState = new InitState(_Actor);
+                _Actor.ActorState = new InitState(_Actor);
             }
         }
         

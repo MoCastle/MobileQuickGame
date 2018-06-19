@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AttackFirst : BaseState
 {
+
     float ContinueTime = 0.5f;
     float StartTime;
     bool IsContinue = false;
@@ -17,7 +18,7 @@ public class AttackFirst : BaseState
     {
         get
         {
-            return SkillEnum.PlayerAttackFirst;
+            return SkillEnum.AttackFirst;
         }
     }
 
@@ -36,11 +37,11 @@ public class AttackFirst : BaseState
         {
             if(IsContinue)
             {
-                _Actor.PlayerState = new AttackSecond(_Actor);
+                _Actor.ActorState = new AttackSecond(_Actor);
             }
             else
             {
-                _Actor.PlayerState = new InitState(_Actor);
+                _Actor.ActorState = new InitState(_Actor);
             }
         }
 

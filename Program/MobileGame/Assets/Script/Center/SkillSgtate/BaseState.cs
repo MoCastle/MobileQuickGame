@@ -52,12 +52,12 @@ public struct InputInfo
 
 public enum SkillEnum
 {
-    PlayerInit,//闲置状态类
-    PlayerRun,//玩家跑
-    PlayerDash,//玩家冲
-    PlayerAttackFirst,//一阶打击
-    PlayerAttackSecond,//二阶打击
-    PlayerAttackThird,//三阶打击
+    Idle,//闲置状态类
+    Run,//玩家跑
+    Dash,//玩家冲
+    AttackFirst,//一阶打击
+    AttackSecond,//二阶打击
+    AttackThird,//三阶打击
     Falling,//坠落
     FallingEnd,//着地
 }

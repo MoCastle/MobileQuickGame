@@ -9,9 +9,10 @@ public class InitState : BaseState
     {
         get
         {
-            return SkillEnum.PlayerInit;
+            return SkillEnum.Idle;
         }
     }
+    
     public InitState( BaseActor InActor ):base(InActor)
     {
         Debug.Log("Init");
@@ -26,14 +27,14 @@ public class InitState : BaseState
             {
                 RunState NewState = new RunState(_Actor);
                 NewState.Command = Input;
-                _Actor.PlayerState = NewState;
+                _Actor.ActorState = NewState;
             }
         }
         else
         {
            if( Input.Percent < 0.3 )
            {
-                _Actor.PlayerState = new AttackFirst(_Actor);
+                _Actor.ActorState = new AttackFirst(_Actor);
            }
            else if (Input.Percent > 0.8)
            {
@@ -70,9 +71,8 @@ public class InitState : BaseState
                 {
                     DashState NewState = new DashState(_Actor);
                     NewState.InputDirection(Direction);
-                    _Actor.PlayerState = NewState;
+                    _Actor.ActorState = NewState;
                 }
-
             }
         }
         
@@ -82,7 +82,7 @@ public class InitState : BaseState
     {
         if( !_Actor.IsOnGround)
         {
-            _Actor.PlayerState = new FallingState(_Actor);
+            _Actor.ActorState = new FallingState(_Actor);
             return;
         }
         if(PlayerCtrl.InputRoundArr.HeadInfo.IsLegal )

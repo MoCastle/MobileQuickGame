@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashState:BaseState {
-    public float ContinueTime = 0.25f;
-    public float StartTime;
-    public bool IsInited = false;
-    public Vector2 _Direction;
+public class DashState:PlayerState {
+    float Speed = 80;
     public override SkillEnum SkillType
     {
         get
@@ -14,67 +11,59 @@ public class DashState:BaseState {
             return SkillEnum.Dash;
         }
     }
+    NormInput InputOrder;
+    public Vector2 Direction
+    {
+        get
+        {
+            Vector2 CurDirection = InputOrder.Direction;
+            if( _Actor.IsOnGround )
+            {
+                CurDirection.y = 0;
+            }
+            return InputOrder.Direction;
+        }
+    }
+    
     public DashState(BaseActor Actor) : base(Actor)
     {
-        Debug.Log("DashState");
-        _Actor.AnimCtrl.SetTrigger("Dash");
-    }
-    public void InputDirection( Vector2 Direction )
-    {
+        InputOrder = PlayerCtrl.CurOrder;
         //朝向设置
-        if( Mathf.Abs( Direction.x ) > 0.1 )
+        if (InputOrder.Direction.x * _Actor.transform.localScale.x < 0)
         {
-            if( _Actor.TransCtrl.localScale.x * Direction.x < 0)
-            {
-                Vector2 NewVector = _Actor.TransCtrl.localScale;
-                NewVector.x = NewVector.x * -1;
-                _Actor.TransCtrl.localScale = NewVector;
-            }
+            Vector2 NewScale = _Actor.transform.localScale;
+            NewScale.x = NewScale.x * -1;
+            _Actor.TransCtrl.localScale = NewScale;
         }
-        
-        //角度设置
-        if( Mathf.Abs( Direction.y ) > 0 )
+        //旋转设置
+        float Rotate = 0;
+        switch( InputOrder.Dir )
         {
-            float Rotate = 45;
-            if (Mathf.Abs(Direction.y) > 0.6)
-            {
+            case InputDir.Up:
                 Rotate = 90;
-            }
-            
-            if( Direction.y < 0 )
-            {
-                Rotate = Rotate * -1;
-            }
-            Vector3 Rotation = Vector3.forward * Rotate;
-
-            _Actor.ActorTransCtrl.localEulerAngles = Rotation;
+                break;
+            case InputDir.Down:
+                Rotate = -90;
+                break;
+            case InputDir.Left:
+            case InputDir.Right:
+                Rotate = 0;
+                break;
+            case InputDir.LeftUp:
+            case InputDir.RightUp:
+                Rotate = 45;
+                break;
+            case InputDir.LeftDown:
+            case InputDir.RightDown:
+                Rotate = -45;
+                break;
         }
-        StartTime = Time.time;
-        
-        _Direction = Direction;
-        IsInited = true;
-    }
-    public override void Input(InputInfo Input)
-    {
-
+        Vector3 Rotation = Vector3.forward * Rotate;
+        _Actor.ActorTransCtrl.localEulerAngles = Rotation;
     }
 
     public override void Update()
     {
-        
-        if ( IsInited )
-        {
-            if(StartTime + ContinueTime > Time.time)
-            {
-                _Actor.RigidCtrl.velocity = _Direction * 80;
-            }
-            else
-            {
-                _Actor.ActorState = new InitState(_Actor);
-                _Actor.ActorTransCtrl.localEulerAngles = Vector3.zero;
-            }
-            
-           
-        }
+        _Actor.RigidCtrl.velocity = Direction * Speed;
     }
 }

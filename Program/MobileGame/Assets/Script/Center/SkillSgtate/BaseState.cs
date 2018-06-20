@@ -73,12 +73,8 @@ public abstract class BaseState {
         _Actor = InActor;
     }
     // Use this for initialization
-    public abstract void Input(InputInfo Input);
+    public abstract void Input(NormInput HandInput);
 
     // Update is called once per frame
     public abstract void Update();
-    protected void SwitchState( )
-    {
-
-    }
 }

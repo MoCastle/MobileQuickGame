@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackSecond : BaseState {
-    
-    float ContinueTime = 0.5f;
-    float StartTime;
-    bool IsContinue = false;
+public class AttackSecond : PlayerState
+{
     public AttackSecond(BaseActor _player) : base(_player)
     {
         Debug.Log("AttackSecondState");
-        StartTime = Time.time;
-        _Actor.AnimCtrl.SetTrigger("AttackSecond");
     }
     public override SkillEnum SkillType
     {
@@ -20,33 +15,12 @@ public class AttackSecond : BaseState {
             return SkillEnum.AttackSecond;
         }
     }
-
-    public override void Input(InputInfo Input)
-    {
-        if (!Input.IsPushing)
-        {
-            IsContinue = true;
-        }
-    }
-
     public override void Update()
     {
-        if (StartTime + ContinueTime < Time.time)
+        NormInput HandInput = PlayerCtrl.InputRoundArr.Pop();
+        if (HandInput.IsLegal)
         {
-            if (IsContinue)
-            {
-                _Actor.ActorState = new AttackThird(_Actor);
-            }
-            else
-            {
-                _Actor.ActorState = new InitState(_Actor);
-            }
-        }
-
-        if (PlayerCtrl.InputRoundArr.HeadInfo.IsLegal)
-        {
-            InputInfo GetInput = PlayerCtrl.InputRoundArr.Pop();
-            Input(GetInput);
+            Input(HandInput);
         }
     }
 }

@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackThird : BaseState {
-    float ContinueTime = 0.5f;
-    float StartTime;
-    bool IsContinue = false;
+public class AttackThird : PlayerState
+{
     public AttackThird(BaseActor _player) : base(_player)
     {
         Debug.Log("AttackThirdState");
-        StartTime = Time.time;
-        _Actor.AnimCtrl.SetTrigger("AttackThird");
     }
     public override SkillEnum SkillType
     {
@@ -20,16 +16,7 @@ public class AttackThird : BaseState {
         }
     }
 
-    public override void Input(InputInfo Input)
-    {
-
-    }
-
     public override void Update()
     {
-        if (StartTime + ContinueTime < Time.time)
-        {
-            _Actor.ActorState = new InitState(_Actor);
-        }
     }
 }

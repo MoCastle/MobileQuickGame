@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using System.Reflection;
 using UnityEngine;
 
@@ -20,7 +21,6 @@ public abstract class BaseActor : MonoBehaviour {
             return _SkillEnum;
         }
     }
-
     BoxCollider2D _ColliderCtrl;
     public BoxCollider2D ColliderCtrl
     {
@@ -36,7 +36,7 @@ public abstract class BaseActor : MonoBehaviour {
 
     Transform _ActorTransCtrl;
     
-    string _CurAnimName;
+    string _CurAnimName = "None";
     public string CurAnimName
     {
         get
@@ -151,17 +151,18 @@ public abstract class BaseActor : MonoBehaviour {
         }
 
         //检测动画的运行状态
-        if ( !AnimCtrl.GetAnimatorTransitionInfo(0).IsName( CurAnimName ) )
+        if ( !AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName( CurAnimName ) )
         {
             if( SkillMenue != null && SkillMenue.Length > 0 )
             {
                 foreach( AnimStruct Info in SkillMenue )
                 {
-                    if(AnimCtrl.GetAnimatorTransitionInfo(0).IsName(Info.AnimName))
+                    if(AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
                     {
                         _CurAnimName = Info.AnimName;
                         Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-                        BaseState NewState = (BaseState)assembly.CreateInstance(Info.ClassName); // 创建类的实例，返回为 object 类型，需要强制类型转换
+                        Type State = assembly.GetType(Info.ClassName);
+                        BaseState NewState = (BaseState)Activator.CreateInstance(State,new object[]{this}); // 创建类的实例，返回为 object 类型，需要强制类型转换
                         _ActorState = NewState;
                         break;
                     }
@@ -183,5 +184,6 @@ public abstract class BaseActor : MonoBehaviour {
     }
     public virtual void LogicAwake( )
     {
+
     }
 }

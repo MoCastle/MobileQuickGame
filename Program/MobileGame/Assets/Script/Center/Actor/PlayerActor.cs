@@ -2,6 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerActEnum
+{
+    Hand_Drag,
+    Hand_Click,
+    Hand_Slip,
+    Hand_Holding,
+    Dir_Left,
+    Dir_Right,
+    Dir_Up,
+    InputPercent
+}
+
 public class PlayerActor : BaseActor {
     
 	// Use this for initialization
@@ -13,4 +25,5 @@ public class PlayerActor : BaseActor {
 	public override void LogicUpdate() {
         
     }
+
 }

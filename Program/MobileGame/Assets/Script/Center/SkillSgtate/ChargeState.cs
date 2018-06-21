@@ -19,6 +19,15 @@ public class ChargeState : PlayerState
     public override void Input(NormInput Input)
     {
         Input.LifeTime = CountTime;
+        if (Input.Dir != InputDir.Middle)
+        {
+            if (Input.Direction.x * _Actor.transform.localScale.x < 0)
+            {
+                Vector2 NewScale = _Actor.transform.localScale;
+                NewScale.x = NewScale.x * -1;
+                _Actor.TransCtrl.localScale = NewScale;
+            }
+        }
         SetAnimParam(Input);
         PlayerCtrl.CurOrder = Input;
     }

@@ -60,6 +60,10 @@ public enum SkillEnum
     AttackThird,//三阶打击
     Falling,//坠落
     FallingEnd,//着地
+    RocketCut,//升龙击
+    ImpactCut_pre,//
+    ImpactCut_Falling,
+    ImpactCut_Damage,
 }
 
 public abstract class BaseState {

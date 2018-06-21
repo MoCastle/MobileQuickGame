@@ -21,7 +21,7 @@ public class DashState:PlayerState {
             {
                 CurDirection.y = 0;
             }
-            return InputOrder.Direction;
+            return InputOrder.Direction.normalized;
         }
     }
     

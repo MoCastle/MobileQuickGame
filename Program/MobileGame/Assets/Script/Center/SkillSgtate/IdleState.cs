@@ -16,4 +16,11 @@ public class IdleState : PlayerState {
     {
         Debug.Log("Init");
     }
+    public override void Update()
+    {
+        if( _Actor.IsOnGround )
+        {
+            base.Update();
+        }
+    }
 }

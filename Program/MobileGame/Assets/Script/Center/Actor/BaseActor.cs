@@ -125,6 +125,7 @@ public abstract class BaseActor : MonoBehaviour {
             {
                 _IsOnGround = value;
                 AnimCtrl.SetBool("IsOnGround", _IsOnGround);
+                IsJustOnGround = value;
             }
             
         }
@@ -133,12 +134,33 @@ public abstract class BaseActor : MonoBehaviour {
     public virtual void LogicUpdate( )
     {
     }
+    float _TimeJustOnGround = 0;
+    bool _IsJustOnGround;
+    public bool IsJustOnGround
+    {
+        get
+        {
+            return _IsJustOnGround;
+        }
+        set
+        {
+            if( _IsJustOnGround != value )
+            {
+                _IsJustOnGround = value;
+                AnimCtrl.SetBool("IsJustOnGround", _IsJustOnGround);
+                if( _IsJustOnGround )
+                {
+                    _TimeJustOnGround = Time.time;
+                }
+            }
+        }
+    }
     public void Update()
     {
         //着地状态检测
         float Width = ColliderCtrl.size.x;
         Vector2 Position = FootTransCtrl.position;
-        Vector2 Size = Vector2.right * Width;
+        Vector2 Size = Vector2.right * (0.4f- 0.01f);
         Size.y = 0.5f;
         Collider2D Collider = Physics2D.OverlapBox(Position, Size, 0, 1);
         if (Collider)
@@ -149,7 +171,11 @@ public abstract class BaseActor : MonoBehaviour {
         {
             IsOnGround = false;
         }
-
+        //触地检测
+        if( IsJustOnGround &&_TimeJustOnGround + 0.2 < Time.time )
+        {
+            IsJustOnGround = false;
+        }
         //检测动画的运行状态
         if ( !AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName( CurAnimName ) )
         {

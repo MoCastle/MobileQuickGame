@@ -15,7 +15,5 @@ public class IdleState : PlayerState {
     public IdleState(BaseActor InActor) : base(InActor)
     {
         Debug.Log("Init");
-        _Actor.RigidCtrl.velocity = Vector2.zero;
     }
-
 }

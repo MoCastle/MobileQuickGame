@@ -46,6 +46,10 @@ public class RunState : PlayerState
     }
     public override void Update()
     {
+        if( !_Actor.IsOnGround )
+        {
+            return;
+        }
         NormInput HandInput = PlayerCtrl.InputRoundArr.Pop();
         
         if( HandInput.Dir!= InputDir.Middle )

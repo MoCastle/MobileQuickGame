@@ -12,6 +12,14 @@ public struct AnimStruct
 }
 
 public abstract class BaseActor : MonoBehaviour {
+    float _GravityScale;
+    public float GetGravityScale
+    {
+        get
+        {
+            return _GravityScale;
+        }
+    }
     [SerializeField]
     protected AnimStruct[] _SkillEnum;
     public AnimStruct[] SkillMenue
@@ -206,6 +214,7 @@ public abstract class BaseActor : MonoBehaviour {
     }
     public void Awake()
     {
+        _GravityScale = RigidCtrl.gravityScale;
         LogicAwake();
     }
     public virtual void LogicAwake( )

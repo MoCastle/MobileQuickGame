@@ -27,6 +27,7 @@ public class DashState:PlayerState {
     
     public DashState(BaseActor Actor) : base(Actor)
     {
+        _Actor.RigidCtrl.gravityScale = 0f;
         InputOrder = PlayerCtrl.CurOrder;
         //朝向设置
         if (InputOrder.Direction.x * _Actor.transform.localScale.x < 0)

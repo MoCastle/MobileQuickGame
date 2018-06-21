@@ -7,6 +7,7 @@ public abstract class PlayerState : BaseState {
     {
         ClearAnimParam();
         _Actor.ActorTransCtrl.localEulerAngles = Vector3.zero;
+        _Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
     }
     public void ClearAnimParam()
     {

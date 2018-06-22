@@ -25,5 +25,13 @@ public class PlayerActor : BaseActor {
 	public override void LogicUpdate() {
         
     }
+    public void FireOff()
+    {
+        if( ActorState.SkillType == SkillEnum.RocketCut )
+        {
+            RocketCutState State = (RocketCutState)ActorState;
+            State.FireOff();
+        }
+    }
 
 }

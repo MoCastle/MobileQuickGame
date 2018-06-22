@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RocketCutState : PlayerState {
     float Speed = 20;
+    bool IsFireOff;
     public RocketCutState(BaseActor InActor) : base(InActor)
     {
     }
@@ -16,6 +17,13 @@ public class RocketCutState : PlayerState {
     }
     public override void Update()
     {
-        _Actor.RigidCtrl.velocity = Vector2.up * Speed;
+        if( !IsFireOff)
+        {
+            _Actor.RigidCtrl.velocity = Vector2.up * Speed;
+        }
+    }
+    public void FireOff( )
+    {
+        IsFireOff = true;
     }
 }

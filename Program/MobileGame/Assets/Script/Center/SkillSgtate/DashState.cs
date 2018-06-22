@@ -16,12 +16,12 @@ public class DashState:PlayerState {
     {
         get
         {
-            Vector2 CurDirection = InputOrder.Direction;
-            if( _Actor.IsOnGround )
+            Vector2 CurDirection = InputOrder.InputInfo.Shift;
+            if( _Actor.IsOnGround && CurDirection.y<0)
             {
                 CurDirection.y = 0;
             }
-            return InputOrder.Direction.normalized;
+            return CurDirection.normalized;
         }
     }
     
@@ -30,7 +30,7 @@ public class DashState:PlayerState {
         _Actor.RigidCtrl.gravityScale = 0f;
         InputOrder = PlayerCtrl.CurOrder;
         //朝向设置
-        if (InputOrder.Direction.x * _Actor.transform.localScale.x < 0)
+        if (InputOrder.InputInfo.Shift.x * _Actor.transform.localScale.x < 0)
         {
             Vector2 NewScale = _Actor.transform.localScale;
             NewScale.x = NewScale.x * -1;
@@ -38,6 +38,13 @@ public class DashState:PlayerState {
         }
         //旋转设置
         float Rotate = 0;
+        Rotate = Mathf.Atan2(Direction.y, Mathf.Abs(Direction.x))*180/Mathf.PI;
+        Debug.Log(Rotate);
+        if(InputOrder.InputInfo.Shift.x < 0)
+        {
+            Rotate = Rotate * -1;
+        }
+        /*
         switch( InputOrder.Dir )
         {
             case InputDir.Up:
@@ -58,9 +65,9 @@ public class DashState:PlayerState {
             case InputDir.RightDown:
                 Rotate = -45;
                 break;
-        }
+        }*/
         Vector3 Rotation = Vector3.forward * Rotate;
-        _Actor.ActorTransCtrl.localEulerAngles = Rotation;
+        _Actor.ActorTransCtrl.eulerAngles = Rotation;
     }
 
     public override void Update()

@@ -20,10 +20,14 @@ public abstract class PlayerState : BaseState {
         _Actor.AnimCtrl.SetBool("Dir_Down", false);
         _Actor.AnimCtrl.SetBool("Dir_Up", false);
         _Actor.AnimCtrl.SetFloat("InputPercent", 0f);
+        _Actor.AnimCtrl.SetFloat("XInputPercent", 0f);
+        _Actor.AnimCtrl.SetFloat("YInputPercent", 0f);
     }
     public void SetAnimParam( NormInput HandInput )
     {
         ClearAnimParam();
+        _Actor.AnimCtrl.SetFloat("XInputPercent", HandInput.InputInfo.XPercent);
+        _Actor.AnimCtrl.SetFloat("XInputPercent", HandInput.InputInfo.YPercent);
         if (HandInput.Dir != InputDir.Middle )
         {
             int InputNum = (int)HandInput.Dir;

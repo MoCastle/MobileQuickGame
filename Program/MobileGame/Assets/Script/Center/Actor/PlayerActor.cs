@@ -15,7 +15,8 @@ public enum PlayerActEnum
 }
 
 public class PlayerActor : BaseActor {
-    
+    public float MoveVector;
+    public float ChargeAddSpeed;
 	// Use this for initialization
 	public override void LogicAwake(){
         
@@ -33,5 +34,10 @@ public class PlayerActor : BaseActor {
             State.FireOff();
         }
     }
-
+    public void MoveForward()
+    {
+        Vector3 OldPst = TransCtrl.position;
+        OldPst.x = OldPst.x + MoveVector;
+        TransCtrl.position = OldPst;
+    }
 }

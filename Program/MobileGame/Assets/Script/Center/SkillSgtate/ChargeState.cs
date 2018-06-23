@@ -15,6 +15,15 @@ public class ChargeState : PlayerState
     public ChargeState(BaseActor InActor) : base(InActor)
     {
         CountTime = Time.time;
+        if( !_Actor.IsOnGround )
+        {
+            Vector2 OldVector = _Actor.RigidCtrl.velocity;
+
+            PlayerActor Player = (PlayerActor)_Actor;
+            OldVector.y = Player.ChargeAddSpeed;
+            _Actor.RigidCtrl.velocity = OldVector;
+        }
+        
     }
     public override void Input(NormInput Input)
     {

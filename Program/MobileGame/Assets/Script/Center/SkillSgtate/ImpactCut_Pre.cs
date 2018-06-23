@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ImpactCut_Pre : PlayerState
 {
-    float Speed = 20;
+    float Speed = 5;
     public ImpactCut_Pre(BaseActor InActor) : base(InActor)
     {
     }

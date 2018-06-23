@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ImpactCut_Falling : PlayerState
 {
-    float Speed = 20;
+    float Speed = 50;
     public ImpactCut_Falling(BaseActor InActor) : base(InActor)
     {
     }

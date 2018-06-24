@@ -196,10 +196,11 @@ public abstract class BaseActor : MonoBehaviour {
                         _ActorState = NewState;
                         break;
                     }
+                    AnimCtrl.SetFloat("AnimTime",0 );
                 }
             }
         }
-        
+        AnimCtrl.SetFloat("AnimTime",AnimCtrl.GetCurrentAnimatorStateInfo(0).normalizedTime);
         if ( _ActorState != null )
         {
             _ActorState.Update();

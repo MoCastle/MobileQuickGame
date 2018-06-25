@@ -15,8 +15,4 @@ public class AttackThird : PlayerState
             return SkillEnum.AttackThird;
         }
     }
-
-    public override void Update()
-    {
-    }
 }

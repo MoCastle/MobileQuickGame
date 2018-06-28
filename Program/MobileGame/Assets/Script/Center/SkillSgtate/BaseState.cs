@@ -64,6 +64,7 @@ public enum SkillEnum
     ImpactCut_pre,//
     ImpactCut_Falling,
     ImpactCut_Damage,
+    Default,//默认状态
 }
 
 public abstract class BaseState {
@@ -77,7 +78,7 @@ public abstract class BaseState {
         _Actor = InActor;
     }
     // Use this for initialization
-    public abstract void Input(NormInput HandInput);
+    
 
     // Update is called once per frame
     public abstract void Update();

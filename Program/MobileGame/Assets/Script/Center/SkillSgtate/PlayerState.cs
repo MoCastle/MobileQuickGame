@@ -83,7 +83,7 @@ public abstract class PlayerState : BaseState {
                 break;
         }
     }
-    public override void Input(NormInput Input)
+    public virtual void Input(NormInput Input)
     {
         SetAnimParam(Input);
         PlayerCtrl.CurOrder = Input;

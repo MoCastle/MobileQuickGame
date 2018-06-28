@@ -180,21 +180,61 @@ public abstract class BaseActor : MonoBehaviour {
         {
             IsJustOnGround = false;
         }
+        
         //检测动画的运行状态
         if ( !AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName( CurAnimName ) )
         {
-            if( SkillMenue != null && SkillMenue.Length > 0 )
+            foreach (AnimatorClipInfo ClipInfo in AnimCtrl.GetCurrentAnimatorClipInfo(0))
+            {
+                if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(ClipInfo.clip.name))
+                {
+                    _CurAnimName = ClipInfo.clip.name;
+                    AnimCtrl.SetFloat("AnimTime", 0);
+                    //如果设置了对应的动画状态 则创建新状态
+                    if (SkillMenue != null && SkillMenue.Length > 0)
+                    {
+                        string NewStateName = "";
+                        foreach (AnimStruct Info in SkillMenue)
+                        {
+                            if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
+                            {
+                                _CurAnimName = Info.AnimName;
+                                if (Info.ClassName != null && Info.ClassName != "")
+                                {
+                                    NewStateName = Info.ClassName;
+                                    
+                                    break;
+                                }
+                            }
+                            
+                        }
+                        if (NewStateName != "")
+                        {
+                            Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
+                            Type State = assembly.GetType(NewStateName);
+                            BaseState NewState = (BaseState)Activator.CreateInstance(State, new object[] { this }); // 创建类的实例，返回为 object 类型，需要强制类型转换
+                            _ActorState = NewState;
+                        }
+                    }
+                    break;
+                }
+            }
+
+            if ( SkillMenue != null && SkillMenue.Length > 0 )
             {
                 foreach( AnimStruct Info in SkillMenue )
                 {
                     if(AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
                     {
                         _CurAnimName = Info.AnimName;
-                        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-                        Type State = assembly.GetType(Info.ClassName);
-                        BaseState NewState = (BaseState)Activator.CreateInstance(State,new object[]{this}); // 创建类的实例，返回为 object 类型，需要强制类型转换
-                        _ActorState = NewState;
-                        break;
+                        if( Info.ClassName != null && Info.ClassName != "" )
+                        {
+                            Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
+                            Type State = assembly.GetType(Info.ClassName);
+                            BaseState NewState = (BaseState)Activator.CreateInstance(State, new object[] { this }); // 创建类的实例，返回为 object 类型，需要强制类型转换
+                            _ActorState = NewState;
+                            break;
+                        }
                     }
                     AnimCtrl.SetFloat("AnimTime",0 );
                 }

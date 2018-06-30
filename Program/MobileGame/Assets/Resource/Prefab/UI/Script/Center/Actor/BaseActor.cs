@@ -29,6 +29,15 @@ public abstract class BaseActor : MonoBehaviour {
             return _SkillEnum;
         }
     }
+    [SerializeField]
+    protected float _MoveSpeed = 10;
+    public float MoveSpeed
+    {
+        get
+        {
+            return _MoveSpeed;
+        }
+    }
     BoxCollider2D _ColliderCtrl;
     public BoxCollider2D ColliderCtrl
     {
@@ -257,5 +266,9 @@ public abstract class BaseActor : MonoBehaviour {
     public virtual void LogicAwake( )
     {
 
+    }
+    public virtual void Move( Vector2 InDirection )
+    {
+        RigidCtrl.velocity = InDirection;
     }
 }

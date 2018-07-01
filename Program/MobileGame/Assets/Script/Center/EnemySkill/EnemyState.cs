@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class EnemyState : BaseState
 {
+
     public override SkillEnum SkillType
     {
         get

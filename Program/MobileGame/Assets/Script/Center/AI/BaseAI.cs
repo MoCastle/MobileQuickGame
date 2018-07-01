@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseAI {
-    LinkedList<BaseAct> ActList;
     static BaseActor _TargetActor;
 
     EnemyActor _Actor;

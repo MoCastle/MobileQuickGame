@@ -9,6 +9,8 @@ public struct AttackRate
 }
 public class EnemyActor : BaseActor
 {
+
+
     public AttackRate[] CloseAttackArray;
     public AttackRate[] FarAttackArray;
 
@@ -49,11 +51,11 @@ public class EnemyActor : BaseActor
         }
     }
     public float RunSpeed = 1;
-    public void Awake()
+    public override void LogicAwake()
     {
         SwitcfhToGuardState();
     }
-    public void Update()
+    public override void LogicUpdate()
     {
         _AICtrler.Update();
     }
@@ -105,18 +107,13 @@ public class EnemyActor : BaseActor
             TransCtrl.localScale = OldScale;
         }
     }
-    public virtual void Chasing( Transform Target )
-    {
-        FaceTo(Target.position - TransCtrl.position);
-        Move(Target.position - TransCtrl.position);
-    }
+    //移动
     public override void Move( Vector2 InDirection )
     {
-        AnimCtrl.SetTrigger("Run");
         InDirection.y = 0;
         base.Move(InDirection);
     }
-
+    
     public void Guard()
     {
         AnimCtrl.SetBool("Run", false);

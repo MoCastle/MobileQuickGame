@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Reflection;
 using UnityEngine;
+using UnityEditor.Animations;
 
 [System.Serializable]
 public struct AnimStruct
@@ -12,6 +13,9 @@ public struct AnimStruct
 }
 
 public abstract class BaseActor : MonoBehaviour {
+    public float CAttackMove = 1;
+    public float LAttackSpeed = 3;
+
     float _GravityScale;
     public float GetGravityScale
     {
@@ -193,11 +197,13 @@ public abstract class BaseActor : MonoBehaviour {
         //检测动画的运行状态
         if ( !AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName( CurAnimName ) )
         {
-            foreach (AnimatorClipInfo ClipInfo in AnimCtrl.GetCurrentAnimatorClipInfo(0))
+            AnimatorController animatorController = AnimCtrl.runtimeAnimatorController as AnimatorController;
+            AnimatorStateMachine stateMachine = animatorController.layers[0].stateMachine;
+            foreach( ChildAnimatorState State in stateMachine.states)
             {
-                if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(ClipInfo.clip.name))
+                if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(State.state.name))
                 {
-                    _CurAnimName = ClipInfo.clip.name;
+                    _CurAnimName = State.state.name;
                     AnimCtrl.SetFloat("AnimTime", 0);
                     //如果设置了对应的动画状态 则创建新状态
                     if (SkillMenue != null && SkillMenue.Length > 0)
@@ -211,41 +217,25 @@ public abstract class BaseActor : MonoBehaviour {
                                 if (Info.ClassName != null && Info.ClassName != "")
                                 {
                                     NewStateName = Info.ClassName;
-                                    
+
                                     break;
                                 }
                             }
-                            
+
+                        }
+                        if(NewStateName == "")
+                        {
+                            NewStateName = "DefaultState";
                         }
                         if (NewStateName != "")
                         {
                             Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-                            Type State = assembly.GetType(NewStateName);
-                            BaseState NewState = (BaseState)Activator.CreateInstance(State, new object[] { this }); // 创建类的实例，返回为 object 类型，需要强制类型转换
+                            Type GetState = assembly.GetType(NewStateName);
+                            BaseState NewState = (BaseState)Activator.CreateInstance(GetState, new object[] { this }); // 创建类的实例，返回为 object 类型，需要强制类型转换
                             _ActorState = NewState;
                         }
                     }
                     break;
-                }
-            }
-
-            if ( SkillMenue != null && SkillMenue.Length > 0 )
-            {
-                foreach( AnimStruct Info in SkillMenue )
-                {
-                    if(AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
-                    {
-                        _CurAnimName = Info.AnimName;
-                        if( Info.ClassName != null && Info.ClassName != "" )
-                        {
-                            Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-                            Type State = assembly.GetType(Info.ClassName);
-                            BaseState NewState = (BaseState)Activator.CreateInstance(State, new object[] { this }); // 创建类的实例，返回为 object 类型，需要强制类型转换
-                            _ActorState = NewState;
-                            break;
-                        }
-                    }
-                    AnimCtrl.SetFloat("AnimTime",0 );
                 }
             }
         }
@@ -270,5 +260,22 @@ public abstract class BaseActor : MonoBehaviour {
     public virtual void Move( Vector2 InDirection )
     {
         RigidCtrl.velocity = InDirection;
+    }
+    //改变位置
+    public virtual void MovePs(Vector2 InDirection)
+    {
+        Vector3 DirTo3 = Vector3.zero;
+        DirTo3.x = InDirection.x;
+        DirTo3.y = InDirection.y;
+        TransCtrl.position = TransCtrl.position + DirTo3;
+    }
+
+    public void Attackting()
+    {
+        ActorState.Attacking();
+    }
+    public void AttackEnd()
+    {
+        ActorState.AttackEnd();
     }
 }

@@ -69,6 +69,18 @@ public enum SkillEnum
 
 public abstract class BaseState {
     protected BaseActor _Actor;
+    public Vector2 Direction
+    {
+        get
+        {
+            Vector2 ReturnVect = Vector2.left;
+            if (ReturnVect.x * _Actor.transform.localScale.x < 0)
+            {
+                ReturnVect.x = ReturnVect.x * -1;
+            }
+            return ReturnVect;
+        }
+    }
     public abstract SkillEnum SkillType
     {
         get;
@@ -78,8 +90,15 @@ public abstract class BaseState {
         _Actor = InActor;
     }
     // Use this for initialization
-    
-
+    public virtual void AttackStart()
+    {
+    }
+    public virtual void Attacking()
+    {
+    }
+    public virtual void AttackEnd()
+    {
+    }
     // Update is called once per frame
     public abstract void Update();
 }

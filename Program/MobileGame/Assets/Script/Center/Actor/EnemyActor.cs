@@ -50,7 +50,6 @@ public class EnemyActor : BaseActor
             _AICtrler = value;
         }
     }
-    public float RunSpeed = 1;
     public override void LogicAwake()
     {
         SwitcfhToGuardState();

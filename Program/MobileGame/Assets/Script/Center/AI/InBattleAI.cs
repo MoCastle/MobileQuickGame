@@ -2,15 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum InBattleState
+{
+    AttackStart,
+    AttackTing,
+    AttackEnd
+}
+
 public class InBattleAI : BaseAI
 {
+    InBattleState State;
+    public bool AttackTing;
     public BaseActor TargetActor;
+    float _SpaceTimeCount;
+    public float SpaceTime
+    {
+        get
+        {
+            return 0.3f;
+        }
+    }
+
     public InBattleAI(EnemyActor Actor, BaseActor InTargetActor) : base(Actor)
     {
         float CloseDis = ((FatEnemyActor)Actor).CloseDis;
         float HightDis = ((FatEnemyActor)Actor).HightCheck;
         TargetActor = InTargetActor;
-        ReleaseAttack();
+        State = InBattleState.AttackStart;
     }
     //
     public void ReleaseAttack( )
@@ -19,14 +37,20 @@ public class InBattleAI : BaseAI
         Vector2 Distance = TargetActor.TransCtrl.position - Actor.TransCtrl.position;
         //Actor.SwitchAttackAI();
         AttackRate[] ActList;
-        if (Mathf.Abs(Distance.x) > 3)
+        if (Mathf.Abs(Distance.x) < ((FatEnemyActor)Actor).CloseDis)
+        {
+            ActList = Actor.CloseAttackArray;
+        }
+        else if(Mathf.Abs(Distance.x) < ((FatEnemyActor)Actor).FarDis)
         {
             ActList = Actor.FarAttackArray;
         }
         else
         {
-            ActList = Actor.CloseAttackArray;
+            Actor.AICtrl = new ChasingAI(Actor, TargetActor);
+            return;
         }
+
         AttackRate[] NewActList = new AttackRate[ActList.Length];
         float TotalRate = 0;
         for (int Idx = 0; Idx < ActList.Length; ++Idx)
@@ -44,6 +68,7 @@ public class InBattleAI : BaseAI
                 break;
             }
         }
+        State = InBattleState.AttackTing;
     }
     public override void Update()
     {
@@ -55,12 +80,33 @@ public class InBattleAI : BaseAI
         Vector2 Distance = TargetActor.TransCtrl.position - Actor.TransCtrl.position;
         //先面向玩家
         Actor.FaceTo(Distance);
+        switch( State )
+        {
+            case InBattleState.AttackStart:
+                ReleaseAttack();
+                break;
+            case InBattleState.AttackEnd:
+                if( _SpaceTimeCount + SpaceTime < Time.time )
+                {
+                    State = InBattleState.AttackStart;
+                }
+                break;
+            case InBattleState.AttackTing:
+                if( Actor.AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                {
+                    State = InBattleState.AttackEnd;
+                }
+                break;
+            default:
+                break;
+        }
         
         //检查玩家是否还在作战区域
         //不在 进入搜寻状态
     }
     public override void EndAI()
     {
-        ReleaseAttack();
+        _SpaceTimeCount = Time.time;
+        State = InBattleState.AttackEnd;
     }
 }

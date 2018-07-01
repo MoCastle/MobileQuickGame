@@ -40,4 +40,5 @@ public class PlayerActor : BaseActor {
         OldPst.x = OldPst.x + MoveVector;
         TransCtrl.position = OldPst;
     }
+
 }

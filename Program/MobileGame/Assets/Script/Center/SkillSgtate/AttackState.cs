@@ -47,7 +47,6 @@ public class AttackState : PlayerState
     {
         OldSpeed = _Actor.RigidCtrl.velocity;
         _Actor.RigidCtrl.velocity = Vector2.zero;
-        gravityScale = _Actor.RigidCtrl.gravityScale;
         _Actor.RigidCtrl.gravityScale = 0;
     }
     public virtual void IsAttackEnding()
@@ -65,6 +64,6 @@ public class AttackState : PlayerState
     public override void AttackEnd()
     {
         AttackTingState = AttackEnum.AttackEnd;
-        _Actor.RigidCtrl.gravityScale = gravityScale;
+        _Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
     }
 }

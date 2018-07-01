@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCloseAttackState : EnemyState
-{
-	public EnemyCloseAttackState( EnemyActor InaActor):base( InaActor ){ }
+public class CloseAttackState : AttackState {
 
-    public override void Update()
-    {
-    }
+	public CloseAttackState( PlayerActor InActor ):base( InActor )
+    { }
     public override void Attacking()
     {
         base.Attacking();
         _Actor.MovePs(Direction * _Actor.CAttackMove);
+    }
+    public override void AttackEnd()
+    {
+        base.AttackEnd();
     }
 }

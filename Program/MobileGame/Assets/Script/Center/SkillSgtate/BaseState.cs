@@ -68,8 +68,9 @@ public enum SkillEnum
 }
 
 public abstract class BaseState {
+    protected Vector2 OldSpeed;
     protected BaseActor _Actor;
-    public Vector2 Direction
+    public virtual Vector2 Direction
     {
         get
         {

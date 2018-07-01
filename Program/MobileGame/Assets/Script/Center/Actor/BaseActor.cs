@@ -15,7 +15,7 @@ public struct AnimStruct
 public abstract class BaseActor : MonoBehaviour {
     public float CAttackMove = 1;
     public float LAttackSpeed = 3;
-
+    public bool LockFace;
     float _GravityScale;
     public float GetGravityScale
     {

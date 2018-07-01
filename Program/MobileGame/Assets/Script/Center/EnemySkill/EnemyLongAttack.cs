@@ -2,26 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyLongAttack : EnemyState
+public class EnemyLongAttack : EnemyAttackState
 {
     bool Attackting = false;
     public EnemyLongAttack(EnemyActor InaActor) : base(InaActor) { }
     Vector2 OldSpeed;
 
-    public override void Update()
+    public override void IsAttackting()
     {
-        if( Attackting )
-        {
-            _Actor.RigidCtrl.velocity = Direction * _Actor.LAttackSpeed;
-        }
-    }
-    public override void Attacking()
-    {
-        Attackting = true;
-        OldSpeed = _Actor.RigidCtrl.velocity;
-    }
-    public override void AttackEnd()
-    {
-        _Actor.RigidCtrl.velocity = OldSpeed;
+        _Actor.RigidCtrl.velocity = Direction * _Actor.LAttackSpeed;
     }
 }

@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCloseAttackState : EnemyState
+public class EnemyCloseAttackState : EnemyAttackState
 {
 	public EnemyCloseAttackState( EnemyActor InaActor):base( InaActor ){ }
 
-    public override void Update()
-    {
-    }
     public override void Attacking()
     {
         base.Attacking();

@@ -90,6 +90,7 @@ public abstract class BaseState {
     public BaseState(BaseActor InActor )
     {
         _Actor = InActor;
+        _Actor.LockFace = false;
     }
     // Use this for initialization
     public virtual void AttackStart()

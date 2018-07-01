@@ -99,6 +99,10 @@ public class EnemyActor : BaseActor
     }
     public virtual void FaceTo( Vector2 InDir )
     {
+        if( LockFace )
+        {
+            return;
+        }
         Vector3 OldScale = TransCtrl.localScale;
         if ( InDir.x * OldScale.x < 0)
         {

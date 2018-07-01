@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class EnemyAttackState : EnemyState {
 
-
-
-public class AttackState : PlayerState
-{
     protected enum AttackEnum
     {
         Start,
@@ -22,14 +19,15 @@ public class AttackState : PlayerState
         }
     }
 
-    public AttackState(PlayerActor InaActor) : base(InaActor) { }
+    public EnemyAttackState(EnemyActor InaActor) : base(InaActor)
+    {
+    }
     public override void Update()
     {
-        base.Update();
-        switch(AttackTingState)
+        switch (AttackTingState)
         {
             case AttackEnum.Start:
-                IsAttackting();
+                IsStarting();
                 break;
             case AttackEnum.Attackting:
                 IsAttackting();
@@ -43,9 +41,8 @@ public class AttackState : PlayerState
     {
         _Actor.LockFace = true;
     }
-    public virtual void IsAttackting( )
+    public virtual void IsAttackting()
     {
-        OldSpeed = _Actor.RigidCtrl.velocity;
         _Actor.RigidCtrl.velocity = Vector2.zero;
         _Actor.RigidCtrl.gravityScale = 0;
     }

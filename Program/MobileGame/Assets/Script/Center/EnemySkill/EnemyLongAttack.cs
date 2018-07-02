@@ -12,4 +12,9 @@ public class EnemyLongAttack : EnemyAttackState
     {
         _Actor.RigidCtrl.velocity = Direction * _Actor.LAttackSpeed;
     }
+    public override void AttackEnd()
+    {
+        base.AttackEnd();
+        _Actor.RigidCtrl.velocity = Vector2.zero;
+    }
 }

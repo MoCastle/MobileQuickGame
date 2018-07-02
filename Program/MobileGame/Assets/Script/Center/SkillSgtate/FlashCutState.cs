@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlashCutState : PlayerState {
+public class FlashCutState : AttackState {
     float Speed = 20;
     public Vector2 Direction
     {
@@ -16,7 +16,7 @@ public class FlashCutState : PlayerState {
             return ReturnDirection;
         }
     }
-    public FlashCutState(BaseActor InActor) : base(InActor)
+    public FlashCutState(PlayerActor InActor) : base(InActor)
     {
     }
     public override SkillEnum SkillType
@@ -26,8 +26,18 @@ public class FlashCutState : PlayerState {
             return SkillEnum.RocketCut;
         }
     }
-    public override void Update()
+    /* public override void Update()
+     {
+         _Actor.RigidCtrl.velocity = Direction * Speed;
+     }*/
+    public override void IsAttackting()
     {
+        base.IsAttackting();
         _Actor.RigidCtrl.velocity = Direction * Speed;
+    }
+    public override void AttackEnd()
+    {
+        base.AttackEnd();
+        _Actor.RigidCtrl.velocity = Vector2.zero;
     }
 }

@@ -37,6 +37,10 @@ public class EnemyAttackState : EnemyState {
                 IsAttackEnding();
                 break;
         }
+        if (_Actor.SkillHurtBox.enabled)
+        {
+            SkillAttack();
+        }
     }
     public virtual void IsStarting()
     {

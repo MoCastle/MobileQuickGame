@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using System.Reflection;
 using UnityEngine;
-using UnityEditor.Animations;
 
 [System.Serializable]
 public struct AnimStruct
@@ -17,6 +16,18 @@ public abstract class BaseActor : MonoBehaviour {
     public float LAttackSpeed = 3;
     public bool LockFace;
     float _GravityScale;
+    BoxCollider2D _SkillHurtBox;
+    public BoxCollider2D SkillHurtBox
+    {
+        get
+        {
+            if (_SkillHurtBox == null)
+            {
+                _SkillHurtBox = TransCtrl.FindChild("SkillCheck").GetComponent<BoxCollider2D>();
+            }
+            return _SkillHurtBox;
+        }
+    }
     public float GetGravityScale
     {
         get
@@ -57,8 +68,8 @@ public abstract class BaseActor : MonoBehaviour {
 
     Transform _ActorTransCtrl;
     
-    string _CurAnimName = "None";
-    public string CurAnimName
+    int _CurAnimName = 0;
+    public int CurAnimName
     {
         get
         {
@@ -193,53 +204,11 @@ public abstract class BaseActor : MonoBehaviour {
         {
             IsJustOnGround = false;
         }
-        
-        //检测动画的运行状态
-        if ( !AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName( CurAnimName ) )
-        {
-            AnimatorController animatorController = AnimCtrl.runtimeAnimatorController as AnimatorController;
-            AnimatorStateMachine stateMachine = animatorController.layers[0].stateMachine;
-            foreach( ChildAnimatorState State in stateMachine.states)
-            {
-                if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(State.state.name))
-                {
-                    _CurAnimName = State.state.name;
-                    AnimCtrl.SetFloat("AnimTime", 0);
-                    //如果设置了对应的动画状态 则创建新状态
-                    if (SkillMenue != null && SkillMenue.Length > 0)
-                    {
-                        string NewStateName = "";
-                        foreach (AnimStruct Info in SkillMenue)
-                        {
-                            if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
-                            {
-                                _CurAnimName = Info.AnimName;
-                                if (Info.ClassName != null && Info.ClassName != "")
-                                {
-                                    NewStateName = Info.ClassName;
-
-                                    break;
-                                }
-                            }
-
-                        }
-                        if(NewStateName == "")
-                        {
-                            NewStateName = "DefaultState";
-                        }
-                        if (NewStateName != "")
-                        {
-                            Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-                            Type GetState = assembly.GetType(NewStateName);
-                            BaseState NewState = (BaseState)Activator.CreateInstance(GetState, new object[] { this }); // 创建类的实例，返回为 object 类型，需要强制类型转换
-                            _ActorState = NewState;
-                        }
-                    }
-                    break;
-                }
-            }
-        }
         AnimCtrl.SetFloat("AnimTime",AnimCtrl.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        if( CurAnimName != AnimCtrl.GetCurrentAnimatorStateInfo(0).nameHash )
+        {
+            SwitchState();
+        }
         if ( _ActorState != null )
         {
             _ActorState.Update();
@@ -247,6 +216,32 @@ public abstract class BaseActor : MonoBehaviour {
 
         LogicUpdate();
 
+    }
+    public void SwitchState( )
+    {
+        string NewStateName = "";
+        _CurAnimName = AnimCtrl.GetCurrentAnimatorStateInfo(0).nameHash;
+        if ( SkillMenue != null && SkillMenue.Length > 0 )
+        {
+            foreach (AnimStruct Info in SkillMenue)
+            {
+                if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
+                {
+                    NewStateName = Info.ClassName;
+                    AnimCtrl.SetFloat("AnimTime", 0);
+                    break;
+                }
+            }
+        }
+        if (NewStateName == "")
+        {
+            NewStateName = "DefaultState";
+        }
+        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
+        Type GetState = assembly.GetType(NewStateName);
+        BaseState NewState = (BaseState)Activator.CreateInstance(GetState, new object[] { this }); // 创建类的实例，返回为 object 类型，需要强制类型转换
+        _ActorState = NewState;
+        Debug.Log(_ActorState.ToString());
     }
     public void Awake()
     {
@@ -277,5 +272,32 @@ public abstract class BaseActor : MonoBehaviour {
     public void AttackEnd()
     {
         ActorState.AttackEnd();
+    }
+    //击退
+    public void HitBack( )
+    {
+        AnimCtrl.SetTrigger("HitBack");
+    }
+    public virtual void FaceForce( Vector2 InDir)
+    {
+        Vector3 OldScale = TransCtrl.localScale;
+        if (InDir.x * OldScale.x < 0)
+        {
+            OldScale.x = OldScale.x * -1;
+            TransCtrl.localScale = OldScale;
+        }
+    }
+    //面向某个方向
+    public virtual void FaceTo(Vector2 InDir)
+    {
+        if (LockFace)
+        {
+            return;
+        }
+        if( InDir.x * TransCtrl.localScale.x< 0)
+        {
+            Debug.Log("May Be Wrong");
+        }
+        FaceForce(InDir);
     }
 }

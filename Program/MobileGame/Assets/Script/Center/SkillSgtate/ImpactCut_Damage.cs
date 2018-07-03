@@ -16,5 +16,6 @@ public class ImpactCut_Damage : PlayerState
     }
     public override void Update()
     {
+        Debug.Log("Damaging");
     }
 }

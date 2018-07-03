@@ -4,7 +4,13 @@ using UnityEngine;
 
 public abstract class EnemyState : BaseState
 {
-
+    public override int Layer
+    {
+        get
+        {
+            return 1 << LayerMask.NameToLayer("Player");
+        }
+    }
     public override SkillEnum SkillType
     {
         get

@@ -19,13 +19,12 @@ public class PlayerActor : BaseActor {
     public float ChargeAddSpeed;
 	// Use this for initialization
 	public override void LogicAwake(){
-        
     }
 	
 	// Update is called once per frame
 	public override void LogicUpdate() {
-        
     }
+
     public void FireOff()
     {
         if( ActorState.SkillType == SkillEnum.RocketCut )

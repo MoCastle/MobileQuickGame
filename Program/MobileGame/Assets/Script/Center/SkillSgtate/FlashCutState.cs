@@ -38,6 +38,6 @@ public class FlashCutState : AttackState {
     public override void AttackEnd()
     {
         base.AttackEnd();
-        _Actor.RigidCtrl.velocity = Vector2.zero;
+        _Actor.RigidCtrl.velocity = _Actor.RigidCtrl.velocity * 0.5f;
     }
 }

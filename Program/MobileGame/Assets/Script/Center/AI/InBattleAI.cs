@@ -77,7 +77,7 @@ public class InBattleAI : BaseAI
             Actor.SwitcfhToGuardState();
             return;
         }
-        Vector2 Distance = TargetActor.TransCtrl.position - Actor.TransCtrl.position;
+        Vector2 Distance = TargetActor.FootTransCtrl.position - Actor.FootTransCtrl.position;
         //先面向玩家
         Actor.FaceTo(Distance);
         switch( State )

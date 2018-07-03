@@ -97,19 +97,7 @@ public class EnemyActor : BaseActor
 
         return false;
     }
-    public virtual void FaceTo( Vector2 InDir )
-    {
-        if( LockFace )
-        {
-            return;
-        }
-        Vector3 OldScale = TransCtrl.localScale;
-        if ( InDir.x * OldScale.x < 0)
-        {
-            OldScale.x = OldScale.x * -1;
-            TransCtrl.localScale = OldScale;
-        }
-    }
+    
     //移动
     public override void Move( Vector2 InDirection )
     {

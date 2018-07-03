@@ -101,7 +101,6 @@ public struct NormInput
                 DirNum = DirNum + (int)InputDir.Down;
             }
             Dir = (InputDir)DirNum;
-            Debug.Log(Dir);
         }
         if (InputInfo.IsPushing)
         {

@@ -66,8 +66,27 @@ public enum SkillEnum
     ImpactCut_Damage,
     Default,//默认状态
 }
+public enum HurtTypeEnum
+{
+    Normal
+}
 
 public abstract class BaseState {
+    protected AttackEnum AttackTingState;
+    protected enum AttackEnum
+    {
+        Start,
+        Attackting,
+        AttackEnd,
+        None,
+    }
+    public virtual int Layer
+    {
+        get
+        {
+            return 1;
+        }
+    }
     protected Vector2 OldSpeed;
     protected float gravityScale;
     protected BaseActor _Actor;
@@ -87,21 +106,108 @@ public abstract class BaseState {
     {
         get;
     }
+    public virtual HurtTypeEnum HurtType
+    {
+        get
+        {
+            return HurtTypeEnum.Normal;
+        }
+    }
     public BaseState(BaseActor InActor )
     {
         _Actor = InActor;
         _Actor.LockFace = false;
+        AttackStart();
     }
     // Use this for initialization
+    public virtual void Update()
+    {
+        switch (AttackTingState)
+        {
+            case AttackEnum.Start:
+                IsAttackting();
+                break;
+            case AttackEnum.Attackting:
+                IsAttackting();
+                break;
+            case AttackEnum.AttackEnd:
+                IsAttackEnding();
+                break;
+            default:
+                IsNoneState();
+                break;
+        }
+        if(_Actor.SkillHurtBox.enabled)
+        {
+            SkillAttack();
+        }
+    }
+    public virtual void IsStarting()
+    {
+        _Actor.LockFace = true;
+    }
+    public virtual void IsAttackting()
+    {
+        OldSpeed = _Actor.RigidCtrl.velocity;
+        _Actor.RigidCtrl.velocity = Vector2.zero;
+        _Actor.RigidCtrl.gravityScale = 0;
+    }
+    public virtual void IsAttackEnding()
+    {
+
+    }
+    public virtual void IsNoneState( )
+    {
+
+    }
+    
+    //进入前摇
     public virtual void AttackStart()
     {
+        AttackTingState = AttackEnum.None;
     }
+    //进入后摇
     public virtual void Attacking()
     {
+        AttackTingState = AttackEnum.Attackting;
     }
+    //结束
     public virtual void AttackEnd()
     {
+        AttackTingState = AttackEnum.AttackEnd;
+        _Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
     }
     // Update is called once per frame
-    public abstract void Update();
+    public virtual void SkillAttack()
+    {
+        Collider2D[] TargetList = AttackList();
+        foreach (Collider2D TargetCollider in TargetList)
+        {
+            if( TargetCollider == null )
+            {
+                return;
+            }
+            BaseActor TargetActor = TargetCollider.GetComponent<BaseActor>();
+            if( TargetActor!= null )
+            {
+                SkillEffect( TargetActor);
+            }
+        }
+    }
+    public virtual Collider2D[] AttackList( )
+    {
+        Collider2D[] ColliderList = new Collider2D[100];
+        ContactFilter2D ContactFilter = new ContactFilter2D();
+        ContactFilter.SetLayerMask(Layer);
+        _Actor.SkillHurtBox.OverlapCollider(ContactFilter, ColliderList);
+
+        BaseActor TargetActor = null;
+        return ColliderList;
+    }
+    public virtual void SkillEffect( BaseActor TargetActor )
+    {
+        Vector2 FaceToVect = (TargetActor.TransCtrl.position - _Actor.TransCtrl.position);
+        TargetActor.FaceForce(FaceToVect);
+        TargetActor.HitBack();
+    }
 }

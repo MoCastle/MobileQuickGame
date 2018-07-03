@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class PlayerState : BaseState {
+    public override int Layer
+    {
+        get
+        {
+            return 1 << LayerMask.NameToLayer("Enemy");
+        }
+    }
     public PlayerState( BaseActor Actor ):base( Actor )
     {
         ClearAnimParam();
@@ -85,6 +92,7 @@ public abstract class PlayerState : BaseState {
     }
     public virtual void Input(NormInput Input)
     {
+        
         SetAnimParam(Input);
         PlayerCtrl.CurOrder = Input;
     }
@@ -93,5 +101,6 @@ public abstract class PlayerState : BaseState {
     {
         NormInput HandInput = PlayerCtrl.InputRoundArr.Pop();
         Input(HandInput);
+        base.Update();
     }
 }

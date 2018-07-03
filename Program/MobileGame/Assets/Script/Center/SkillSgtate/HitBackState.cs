@@ -12,7 +12,7 @@ public class HitBackState : PlayerState {
             return ReturnDir;
         }
     }
-    public float HitBackDis = 0.2f;
+    public float HitBackDis = 12f;
     public override SkillEnum SkillType
     {
         get
@@ -23,8 +23,8 @@ public class HitBackState : PlayerState {
 
     // Use this for initialization
     public HitBackState( PlayerActor InActor):base(InActor) {
-		
-	}
+        Attacking();
+    }
     public override void IsAttackting()
     {
         _Actor.RigidCtrl.velocity = _Actor.HitMoveDir * HitBackDis;

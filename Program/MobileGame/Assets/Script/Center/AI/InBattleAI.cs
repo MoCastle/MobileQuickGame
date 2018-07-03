@@ -19,7 +19,7 @@ public class InBattleAI : BaseAI
     {
         get
         {
-            return 0.3f;
+            return 0.6f;
         }
     }
 

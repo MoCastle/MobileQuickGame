@@ -19,8 +19,6 @@ public class ChasingAI : BaseAI {
             Actor.AICtrl = new InBattleAI(Actor, TargetActor);
             return;
         }        
-        Actor.Move(Dis);
-        
     }
 
 }

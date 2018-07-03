@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyCloseAttackState : EnemyAttackState
 {
 	public EnemyCloseAttackState( EnemyActor InaActor):base( InaActor ){ }
-
+    
     public override void Attacking()
     {
         base.Attacking();

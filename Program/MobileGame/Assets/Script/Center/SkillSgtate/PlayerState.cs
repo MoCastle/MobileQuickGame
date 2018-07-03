@@ -39,8 +39,6 @@ public abstract class PlayerState : BaseState {
         {
             int InputNum = (int)HandInput.Dir;
             //将逻辑枚举拆分成
-            InputDir Hori;
-            InputDir Virt;
             switch ( HandInput.GetHoriEnum( ) )
             {
                 case InputDir.Left:

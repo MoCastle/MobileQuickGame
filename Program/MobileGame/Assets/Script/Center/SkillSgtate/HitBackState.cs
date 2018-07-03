@@ -27,7 +27,7 @@ public class HitBackState : PlayerState {
 	}
     public override void IsAttackting()
     {
-        _Actor.RigidCtrl.velocity = Direction * HitBackDis;
+        _Actor.RigidCtrl.velocity = _Actor.HitMoveDir * HitBackDis;
     }
     public override void AttackEnd()
     {

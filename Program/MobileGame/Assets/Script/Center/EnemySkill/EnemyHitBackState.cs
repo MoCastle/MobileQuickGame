@@ -13,7 +13,7 @@ public class EnemyHitBackState : EnemyState {
             return ReturnDir;
         }
     }
-    public float HitBackDis= 14f;
+    public float HitBackDis= 2f;
     public override SkillEnum SkillType
     {
         get
@@ -30,7 +30,7 @@ public class EnemyHitBackState : EnemyState {
 
     public override void IsAttackting()
     {
-        _Actor.RigidCtrl.velocity = Direction * HitBackDis;
+        _Actor.RigidCtrl.velocity = _Actor.HitMoveDir * HitBackDis;
     }
     public override void AttackEnd()
     {

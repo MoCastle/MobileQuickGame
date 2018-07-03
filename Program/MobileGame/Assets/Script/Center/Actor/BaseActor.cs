@@ -16,6 +16,7 @@ public abstract class BaseActor : MonoBehaviour {
     public float LAttackSpeed = 3;
     public bool LockFace;
     float _GravityScale;
+    public Vector2 HitMoveDir;
     BoxCollider2D _SkillHurtBox;
     public BoxCollider2D SkillHurtBox
     {
@@ -265,6 +266,7 @@ public abstract class BaseActor : MonoBehaviour {
         TransCtrl.position = TransCtrl.position + DirTo3;
     }
 
+    //动画事件
     public void Attackting()
     {
         ActorState.Attacking();

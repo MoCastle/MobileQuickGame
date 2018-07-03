@@ -201,13 +201,13 @@ public abstract class BaseState {
         ContactFilter.SetLayerMask(Layer);
         _Actor.SkillHurtBox.OverlapCollider(ContactFilter, ColliderList);
 
-        BaseActor TargetActor = null;
         return ColliderList;
     }
     public virtual void SkillEffect( BaseActor TargetActor )
     {
-        Vector2 FaceToVect = (TargetActor.TransCtrl.position - _Actor.TransCtrl.position);
+        Vector2 FaceToVect = (_Actor.FootTransCtrl.position - TargetActor.FootTransCtrl.position );
         TargetActor.FaceForce(FaceToVect);
+        TargetActor.HitMoveDir = Direction.normalized;
         TargetActor.HitBack();
     }
 }

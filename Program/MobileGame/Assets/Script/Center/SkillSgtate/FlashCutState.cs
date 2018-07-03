@@ -18,6 +18,7 @@ public class FlashCutState : AttackState {
     }
     public FlashCutState(PlayerActor InActor) : base(InActor)
     {
+        Attacking();
     }
     public override SkillEnum SkillType
     {

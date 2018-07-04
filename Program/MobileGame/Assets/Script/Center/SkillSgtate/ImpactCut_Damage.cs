@@ -14,8 +14,4 @@ public class ImpactCut_Damage : PlayerState
             return SkillEnum.RocketCut;
         }
     }
-    public override void Update()
-    {
-        Debug.Log("Damaging");
-    }
 }

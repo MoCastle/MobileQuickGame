@@ -18,5 +18,6 @@ public class ImpactCut_Pre : PlayerState
     public override void Update()
     {
         _Actor.RigidCtrl.velocity = Vector2.up * Speed;
+        base.Update( );
     }
 }

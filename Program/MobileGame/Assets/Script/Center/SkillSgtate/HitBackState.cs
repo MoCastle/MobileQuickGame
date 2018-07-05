@@ -12,7 +12,7 @@ public class HitBackState : PlayerState {
             return ReturnDir;
         }
     }
-    public float HitBackDis = 2f;
+    public float HitBackDis = 12f;
     public override SkillEnum SkillType
     {
         get

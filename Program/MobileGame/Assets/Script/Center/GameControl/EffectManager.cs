@@ -63,12 +63,17 @@ public class EffectManager {
     //生成特效
 	public GameObject GenEffect( string InName)
     {
-        Transform Target = GamePool.Spawn(InName);
-        if(Target == null )
+        //检查是否有注册过
+        GameObject SampleEffect = LoadEffect.LoadEffectObj(InName);
+        if( SampleEffect == null )
+        {
+            return null;
+        }
+        if( !GamePool.IsSpawned(SampleEffect.transform) )
         {
             Regist(InName);
-            Target = GamePool.Spawn(InName);
         }
+        Transform Target = GamePool.Spawn(InName);
         return Target.gameObject;
     }
 }

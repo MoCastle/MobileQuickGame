@@ -68,6 +68,7 @@ public class DashState:PlayerState {
         }*/
         Vector3 Rotation = Vector3.forward * Rotate;
         _Actor.ActorTransCtrl.eulerAngles = Rotation;
+        GameObject Effect = EffectManager.Manager.GenEffect("chong_qibo");
     }
 
     public override void Update()

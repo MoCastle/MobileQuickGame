@@ -76,4 +76,8 @@ public class EffectManager {
         Transform Target = GamePool.Spawn(InName);
         return Target.gameObject;
     }
+    public void PutBackEffect( GameObject Effect )
+    {
+        GamePool.Despawn(Effect.transform);
+    }
 }

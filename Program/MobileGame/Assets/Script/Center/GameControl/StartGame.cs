@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using PathologicalGames;
 public class StartGame : MonoBehaviour {
     private void Awake()
     {
@@ -12,6 +12,11 @@ public class StartGame : MonoBehaviour {
         GameWorldTimer.StartGameSet();
         GameStartScence.StartScence();
         
+    }
+    private void Start()
+    {
+        GameCtrl GameCtrler = GameCtrl.GameCtrler;
+        GameCtrler.Pool = GetComponent<SpawnPool>();
     }
     private void Update()
     {

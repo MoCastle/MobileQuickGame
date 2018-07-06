@@ -18,12 +18,7 @@ public class EnemyAttackState : EnemyState {
             throw new System.NotImplementedException();
         }
     }
-
-    public EnemyAttackState(EnemyActor InaActor) : base(InaActor)
-    {
-        Debug.Log("Attackting");
-    }
-    public override void Update()
+    public override void JugeStateActive()
     {
         switch (AttackTingState)
         {
@@ -36,11 +31,14 @@ public class EnemyAttackState : EnemyState {
             case AttackEnum.AttackEnd:
                 IsAttackEnding();
                 break;
+            default:
+                IsNoneState();
+                break;
         }
-        if (_Actor.SkillHurtBox.enabled)
-        {
-            SkillAttack();
-        }
+    }
+    public EnemyAttackState(EnemyActor InaActor) : base(InaActor)
+    {
+        Debug.Log("Attackting");
     }
     public virtual void IsStarting()
     {

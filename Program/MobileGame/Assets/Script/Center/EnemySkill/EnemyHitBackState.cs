@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHitBackState : EnemyState {
-
     public override Vector2 Direction
     {
         get
@@ -25,6 +24,11 @@ public class EnemyHitBackState : EnemyState {
     // Use this for initialization
     public EnemyHitBackState(EnemyActor InActor) : base(InActor)
     {
+        
+        RangeTime = _Actor.BeCut.RangeTime;
+        SpeedRate = _Actor.BeCut.SpeedRate;
+        CutTime = Time.time + RangeTime;
+        _Actor.AnimCtrl.speed = SpeedRate;
         Attacking();
     }
 

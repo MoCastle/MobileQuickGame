@@ -11,6 +11,7 @@ enum InBattleState
 
 public class InBattleAI : BaseAI
 {
+
     InBattleState State;
     public bool AttackTing;
     public BaseActor TargetActor;
@@ -104,6 +105,7 @@ public class InBattleAI : BaseAI
         //检查玩家是否还在作战区域
         //不在 进入搜寻状态
     }
+
     public override void EndAI()
     {
         _SpaceTimeCount = Time.time;

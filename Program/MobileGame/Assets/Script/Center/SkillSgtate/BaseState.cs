@@ -72,6 +72,20 @@ public enum HurtTypeEnum
 }
 
 public abstract class BaseState {
+    float _CutTime = 0;
+    public float CutTime
+    {
+        get
+        {
+            return _CutTime;
+        }
+        set
+        {
+            _CutTime = value;
+        }
+    }
+    public float RangeTime = 0.5f;
+    public float SpeedRate = 0.1f;
     //已受击列表
     Dictionary<BaseActor, int> AttackedList;
     protected AttackEnum AttackTingState;
@@ -121,9 +135,21 @@ public abstract class BaseState {
         _Actor.LockFace = false;
         AttackStart();
         AttackedList = new Dictionary<BaseActor, int>();
+        _Actor.AnimCtrl.speed = 1;
     }
     // Use this for initialization
     public virtual void Update()
+    {
+        JugeStateActive();
+        if (_Actor.SkillHurtBox.enabled)
+        {
+            SkillAttack();
+        }
+        //卡肉时间过 重置
+        CutMeat();
+    }
+    //攻击状态抉择
+    public virtual void JugeStateActive( )
     {
         switch (AttackTingState)
         {
@@ -140,9 +166,21 @@ public abstract class BaseState {
                 IsNoneState();
                 break;
         }
-        if(_Actor.SkillHurtBox.enabled)
+    }
+    //卡肉效果
+    public virtual void CutMeat()
+    {
+        if (CutTime > 0)
         {
-            SkillAttack();
+            if (CutTime < Time.time)
+            {
+                _Actor.AnimCtrl.speed = 1;
+                CutTime = 0;
+            }
+            else
+            {
+                _Actor.RigidCtrl.velocity = _Actor.RigidCtrl.velocity * SpeedRate;
+            }
         }
     }
     public virtual void IsStarting()
@@ -151,7 +189,6 @@ public abstract class BaseState {
     }
     public virtual void IsAttackting()
     {
-        OldSpeed = _Actor.RigidCtrl.velocity;
         _Actor.RigidCtrl.velocity = Vector2.zero;
         _Actor.RigidCtrl.gravityScale = 0;
     }
@@ -195,6 +232,8 @@ public abstract class BaseState {
             {
                 AttackedList.Add(TargetActor, 1);
                 SkillEffect( TargetActor);
+                CutTime = Time.time + RangeTime;
+                _Actor.AnimCtrl.speed = SpeedRate;
             }
         }
     }
@@ -211,7 +250,11 @@ public abstract class BaseState {
         Vector2 FaceToVect = (_Actor.FootTransCtrl.position - TargetActor.FootTransCtrl.position );
         TargetActor.FaceForce(FaceToVect);
         TargetActor.HitMoveDir = Direction.normalized;
-        TargetActor.HitBack();
+        CutEffect Cut = new CutEffect();
+        Cut.CutTime = CutTime;
+        Cut.RangeTime = RangeTime;
+        Cut.SpeedRate = SpeedRate;
+        TargetActor.HitBack(Cut);
         Vector3 Offset = Vector3.zero;
         Offset.x = _Actor.SkillHurtBox.offset.x;
         Offset.y = _Actor.SkillHurtBox.offset.y;

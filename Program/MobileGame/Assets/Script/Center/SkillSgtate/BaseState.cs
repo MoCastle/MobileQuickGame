@@ -70,8 +70,16 @@ public enum HurtTypeEnum
 {
     Normal
 }
+public enum HitTypeEnum
+{
+    HitBack,
+    ClickFly,
+    None
+}
 
 public abstract class BaseState {
+    HitTypeEnum _HitType;
+
     float _CutTime = 0;
     public float CutTime
     {
@@ -232,12 +240,17 @@ public abstract class BaseState {
             {
                 AttackedList.Add(TargetActor, 1);
                 SkillEffect( TargetActor);
-                CutTime = Time.time + RangeTime;
-                _Actor.AnimCtrl.speed = SpeedRate;
+                SetCutMeet();
             }
         }
     }
-    public virtual Collider2D[] AttackList( )
+    //设置卡肉状态
+    public virtual void SetCutMeet( )
+    {
+        CutTime = Time.time + RangeTime;
+        _Actor.AnimCtrl.speed = SpeedRate;
+    }
+    public virtual Collider2D[] AttackList()
     {
         Collider2D[] ColliderList = new Collider2D[100];
         ContactFilter2D ContactFilter = new ContactFilter2D();
@@ -245,16 +258,27 @@ public abstract class BaseState {
         _Actor.SkillHurtBox.OverlapCollider(ContactFilter, ColliderList);
         return ColliderList;
     }
+
     public virtual void SkillEffect( BaseActor TargetActor )
     {
         Vector2 FaceToVect = (_Actor.FootTransCtrl.position - TargetActor.FootTransCtrl.position );
         TargetActor.FaceForce(FaceToVect);
         TargetActor.HitMoveDir = Direction.normalized;
+
+        AttackEffect(TargetActor);
+        ReleaseEffect(TargetActor);
+    }
+    //攻击效果
+    public virtual void AttackEffect( BaseActor TargetActor )
+    {
         CutEffect Cut = new CutEffect();
-        Cut.CutTime = CutTime;
         Cut.RangeTime = RangeTime;
         Cut.SpeedRate = SpeedRate;
         TargetActor.HitBack(Cut);
+    }
+    //释放特效
+    public virtual void ReleaseEffect(BaseActor TargetActor)
+    {
         Vector3 Offset = Vector3.zero;
         Offset.x = _Actor.SkillHurtBox.offset.x;
         Offset.y = _Actor.SkillHurtBox.offset.y;

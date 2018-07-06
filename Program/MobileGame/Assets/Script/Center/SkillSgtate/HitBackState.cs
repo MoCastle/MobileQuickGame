@@ -22,9 +22,15 @@ public class HitBackState : PlayerState {
     }
 
     // Use this for initialization
-    public HitBackState( PlayerActor InActor):base(InActor) {
+    public HitBackState( PlayerActor InActor):base(InActor)
+    {
+        ClearAnimParam();
+        RangeTime = _Actor.BeCut.RangeTime;
+        SpeedRate = _Actor.BeCut.SpeedRate;
+        SetCutMeet();
         Attacking();
     }
+
     public override void IsAttackting()
     {
         _Actor.RigidCtrl.velocity = _Actor.HitMoveDir * HitBackDis;

@@ -12,10 +12,8 @@ public struct AnimStruct
 }
 public struct CutEffect
 {
-    public float CutTime;
     public float RangeTime;
     public float SpeedRate;
-    public bool UnEffected;
 }
 public abstract class BaseActor : MonoBehaviour {
     //受击效果
@@ -285,10 +283,16 @@ public abstract class BaseActor : MonoBehaviour {
         ActorState.AttackEnd();
     }
     //击退
-    public void HitBack( CutEffect HitEffect = new CutEffect() )
+    public virtual void HitBack( CutEffect HitEffect = new CutEffect() )
     {
         BeCut = HitEffect;
         AnimCtrl.SetTrigger("HitBack");
+    }
+    //击飞
+    public virtual void ClickFly(CutEffect HitEffect = new CutEffect())
+    {
+        BeCut = HitEffect;
+        AnimCtrl.SetTrigger("ClickFly");
     }
     public virtual void FaceForce( Vector2 InDir)
     {

@@ -27,8 +27,7 @@ public class EnemyHitBackState : EnemyState {
         
         RangeTime = _Actor.BeCut.RangeTime;
         SpeedRate = _Actor.BeCut.SpeedRate;
-        CutTime = Time.time + RangeTime;
-        _Actor.AnimCtrl.speed = SpeedRate;
+        SetCutMeet();
         Attacking();
     }
 

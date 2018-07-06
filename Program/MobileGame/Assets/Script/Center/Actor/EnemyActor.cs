@@ -119,4 +119,15 @@ public class EnemyActor : BaseActor
     {
         _AICtrler.EndAI();
     }
+
+    //击退
+    public override void HitBack(CutEffect HitEffect = new CutEffect())
+    {
+        float RandValue = Random.Range(0, 1);
+        if( RandValue < 0.8f )
+        {
+            base.HitBack(HitEffect);
+        }
+    }
+
 }

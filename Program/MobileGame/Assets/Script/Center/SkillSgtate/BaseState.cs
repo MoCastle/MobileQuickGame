@@ -72,6 +72,8 @@ public enum HurtTypeEnum
 }
 
 public abstract class BaseState {
+    //已受击列表
+    Dictionary<BaseActor, int> AttackedList;
     protected AttackEnum AttackTingState;
     protected enum AttackEnum
     {
@@ -118,6 +120,7 @@ public abstract class BaseState {
         _Actor = InActor;
         _Actor.LockFace = false;
         AttackStart();
+        AttackedList = new Dictionary<BaseActor, int>();
     }
     // Use this for initialization
     public virtual void Update()
@@ -188,8 +191,9 @@ public abstract class BaseState {
                 return;
             }
             BaseActor TargetActor = TargetCollider.GetComponent<BaseActor>();
-            if( TargetActor!= null )
+            if( TargetActor!= null && !AttackedList.ContainsKey(TargetActor) )
             {
+                AttackedList.Add(TargetActor, 1);
                 SkillEffect( TargetActor);
             }
         }
@@ -200,7 +204,6 @@ public abstract class BaseState {
         ContactFilter2D ContactFilter = new ContactFilter2D();
         ContactFilter.SetLayerMask(Layer);
         _Actor.SkillHurtBox.OverlapCollider(ContactFilter, ColliderList);
-
         return ColliderList;
     }
     public virtual void SkillEffect( BaseActor TargetActor )
@@ -209,5 +212,16 @@ public abstract class BaseState {
         TargetActor.FaceForce(FaceToVect);
         TargetActor.HitMoveDir = Direction.normalized;
         TargetActor.HitBack();
+        Vector3 Offset = Vector3.zero;
+        Offset.x = _Actor.SkillHurtBox.offset.x;
+        Offset.y = _Actor.SkillHurtBox.offset.y;
+        Vector3 EffectPS = _Actor.SkillHurtBox.transform.position + Offset;
+        Offset = Vector3.zero;
+        Offset.x = TargetActor.ColliderCtrl.offset.x;
+        Offset.y = TargetActor.ColliderCtrl.offset.y;
+        EffectPS = TargetActor.ColliderCtrl.transform.position + Offset + EffectPS;
+        EffectPS = EffectPS * 0.5f;
+        GameObject Effect = EffectManager.Manager.GenEffect("chong_qibo");
+        Effect.transform.position = EffectPS;
     }
 }

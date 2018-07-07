@@ -94,7 +94,7 @@ public abstract class BaseState {
     }
 
     //持续时间
-    float _RangeTime = 0.5f;
+    float _RangeTime = 0.2f;
     public virtual float RangeTime
     {
         get

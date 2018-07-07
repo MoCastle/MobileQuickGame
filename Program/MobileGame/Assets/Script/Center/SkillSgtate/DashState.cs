@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DashState:PlayerState {
-    float Speed = 20;
+    protected float Speed = 20;
     public override SkillEnum SkillType
     {
         get
@@ -25,10 +25,10 @@ public class DashState:PlayerState {
         }
     }
     
-    public DashState(BaseActor Actor) : base(Actor)
+    public DashState(PlayerActor Actor) : base(Actor)
     {
         _Actor.RigidCtrl.gravityScale = 0f;
-        InputOrder = PlayerCtrl.CurOrder;
+        InputOrder = Actor.CurInput;
         //朝向设置
         if (InputOrder.InputInfo.Shift.x * _Actor.transform.localScale.x < 0)
         {
@@ -36,38 +36,7 @@ public class DashState:PlayerState {
             NewScale.x = NewScale.x * -1;
             _Actor.TransCtrl.localScale = NewScale;
         }
-        //旋转设置
-        float Rotate = 0;
-        Rotate = Mathf.Atan2(Direction.y, Mathf.Abs(Direction.x))*180/Mathf.PI;
-        Debug.Log(Rotate);
-        if(InputOrder.InputInfo.Shift.x < 0)
-        {
-            Rotate = Rotate * -1;
-        }
-        /*
-        switch( InputOrder.Dir )
-        {
-            case InputDir.Up:
-                Rotate = 90;
-                break;
-            case InputDir.Down:
-                Rotate = -90;
-                break;
-            case InputDir.Left:
-            case InputDir.Right:
-                Rotate = 0;
-                break;
-            case InputDir.LeftUp:
-            case InputDir.RightUp:
-                Rotate = 45;
-                break;
-            case InputDir.LeftDown:
-            case InputDir.RightDown:
-                Rotate = -45;
-                break;
-        }*/
-        Vector3 Rotation = Vector3.forward * Rotate;
-        _Actor.ActorTransCtrl.eulerAngles = Rotation;
+        RotateToDirection(Direction);
         GameObject Effect = EffectManager.Manager.GenEffect("chong_qibo");
         Effect.transform.position = _Actor.TransCtrl.position;
     }

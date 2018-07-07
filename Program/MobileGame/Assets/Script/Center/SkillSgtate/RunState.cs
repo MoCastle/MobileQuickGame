@@ -39,18 +39,18 @@ public class RunState : PlayerState
         }
     }
 
-    public RunState(BaseActor InActor) : base(InActor)
+    public RunState(PlayerActor InActor) : base(InActor)
     {
         Debug.Log("RunState");
-
     }
+
     public override void Update()
     {
         if( !_Actor.IsOnGround )
         {
             return;
         }
-        NormInput HandInput = PlayerCtrl.InputRoundArr.Pop();
+        NormInput HandInput = Actor.CurInput;
         
         if( HandInput.Dir!= InputDir.Middle )
         {
@@ -62,9 +62,6 @@ public class RunState : PlayerState
             }
             _Actor.RigidCtrl.velocity = Direction * Speed;
         }
-        
-        Input(HandInput);
-
     }
 
 }

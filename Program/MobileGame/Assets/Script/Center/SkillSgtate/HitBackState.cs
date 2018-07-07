@@ -24,7 +24,6 @@ public class HitBackState : PlayerState {
     // Use this for initialization
     public HitBackState( PlayerActor InActor):base(InActor)
     {
-        ClearAnimParam();
         RangeTime = _Actor.BeCut.RangeTime;
         SpeedRate = _Actor.BeCut.SpeedRate;
         SetCutMeet();

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ImpactCut_Falling : PlayerState
 {
     float Speed = 50;
-    public ImpactCut_Falling(BaseActor InActor) : base(InActor)
+    public ImpactCut_Falling(PlayerActor InActor) : base(InActor)
     {
     }
     public override SkillEnum SkillType

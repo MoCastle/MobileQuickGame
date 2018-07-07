@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ImpactCut_Damage : PlayerState
 {
-    public ImpactCut_Damage(BaseActor InActor) : base(InActor)
+    public ImpactCut_Damage(PlayerActor InActor) : base(InActor)
     {
     }
     public override SkillEnum SkillType

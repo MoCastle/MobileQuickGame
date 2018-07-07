@@ -12,7 +12,7 @@ public class CloseSkillState : PlayerState
         }
     }
 
-    public CloseSkillState(EnemyActor InaActor) : base(InaActor) { }
+    public CloseSkillState(PlayerActor InaActor) : base(InaActor) { }
 
     public override void Update()
     {

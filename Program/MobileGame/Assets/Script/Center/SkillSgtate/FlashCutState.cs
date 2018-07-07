@@ -41,4 +41,11 @@ public class FlashCutState : AttackState {
         base.AttackEnd();
         _Actor.RigidCtrl.velocity = _Actor.RigidCtrl.velocity * 0.5f;
     }
+    public override void AttackEffect(BaseActor TargetActor)
+    {
+        CutEffect Cut = new CutEffect();
+        Cut.RangeTime = RangeTime;
+        Cut.SpeedRate = SpeedRate;
+        TargetActor.ClickFly(Cut, Direction);
+    }
 }

@@ -18,6 +18,7 @@ public struct CutEffect
 public abstract class BaseActor : MonoBehaviour {
     //受击效果
     public CutEffect BeCut;
+    public Vector2 ForceMoveDirection = Vector2.up;
 
     public float CAttackMove = 1;
     public float LAttackSpeed = 3;
@@ -225,7 +226,7 @@ public abstract class BaseActor : MonoBehaviour {
         LogicUpdate();
 
     }
-    public void SwitchState( )
+    public virtual void SwitchState( )
     {
         string NewStateName = "";
         _CurAnimName = AnimCtrl.GetCurrentAnimatorStateInfo(0).nameHash;
@@ -249,7 +250,6 @@ public abstract class BaseActor : MonoBehaviour {
         Type GetState = assembly.GetType(NewStateName);
         BaseState NewState = (BaseState)Activator.CreateInstance(GetState, new object[] { this }); // 创建类的实例，返回为 object 类型，需要强制类型转换
         _ActorState = NewState;
-        Debug.Log(_ActorState.ToString());
     }
     public void Awake()
     {
@@ -289,8 +289,9 @@ public abstract class BaseActor : MonoBehaviour {
         AnimCtrl.SetTrigger("HitBack");
     }
     //击飞
-    public virtual void ClickFly(CutEffect HitEffect = new CutEffect())
+    public virtual void ClickFly(CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2() )
     {
+        ForceMoveDirection = Direction;
         BeCut = HitEffect;
         AnimCtrl.SetTrigger("ClickFly");
     }

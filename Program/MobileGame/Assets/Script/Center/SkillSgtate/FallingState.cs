@@ -5,7 +5,7 @@ using UnityEngine;
 public class FallingState : PlayerState
 {
     
-    public FallingState(BaseActor InActor) : base(InActor)
+    public FallingState(PlayerActor InActor) : base(InActor)
     {
     }
     public override SkillEnum SkillType

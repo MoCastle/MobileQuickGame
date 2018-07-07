@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//子类负责标记目标层级 记录目标角色
 public abstract class EnemyState : BaseState
 {
+    public EnemyActor Actor;
     public override int Layer
     {
         get
@@ -20,5 +21,6 @@ public abstract class EnemyState : BaseState
     }
     public EnemyState(EnemyActor actor) : base(actor)
     {
+        Actor = actor;
     }
 }

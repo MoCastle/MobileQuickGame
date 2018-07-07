@@ -92,6 +92,8 @@ public abstract class BaseState {
             _CutTime = value;
         }
     }
+
+
     public float RangeTime = 0.5f;
     public float SpeedRate = 0.1f;
     //已受击列表
@@ -144,6 +146,8 @@ public abstract class BaseState {
         AttackStart();
         AttackedList = new Dictionary<BaseActor, int>();
         _Actor.AnimCtrl.speed = 1;
+        _Actor.ActorTransCtrl.localEulerAngles = Vector3.zero;
+        _Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
     }
     // Use this for initialization
     public virtual void Update()
@@ -290,5 +294,18 @@ public abstract class BaseState {
         EffectPS = EffectPS * 0.5f;
         GameObject Effect = EffectManager.Manager.GenEffect("chong_qibo");
         Effect.transform.position = EffectPS;
+    }
+    //根据运动方向旋转
+    public void RotateToDirection(Vector2 MoveDirection)
+    {
+        Vector2 NormDir = MoveDirection.normalized;
+        float Rotate = 0;
+        Rotate = Mathf.Atan2(NormDir.y, Mathf.Abs(NormDir.x)) * 180 / Mathf.PI;
+        if (NormDir.x < 0)
+        {
+            Rotate = Rotate * -1;
+        }
+        Vector3 Rotation = Vector3.forward * Rotate;
+        _Actor.ActorTransCtrl.eulerAngles = Rotation;
     }
 }

@@ -12,15 +12,7 @@ public class IdleState : PlayerState {
         }
     }
 
-    public IdleState(BaseActor InActor) : base(InActor)
+    public IdleState(PlayerActor InActor) : base(InActor)
     {
-        Debug.Log("Init");
-    }
-    public override void Update()
-    {
-        if( _Actor.IsOnGround )
-        {
-            base.Update();
-        }
     }
 }

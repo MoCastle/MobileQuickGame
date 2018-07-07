@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChargeState : PlayerState
 {
     float CountTime;
+    
     public override SkillEnum SkillType
     {
         get
@@ -12,8 +13,9 @@ public class ChargeState : PlayerState
             throw new System.NotImplementedException();
         }
     }
-    public ChargeState(BaseActor InActor) : base(InActor)
+    public ChargeState(PlayerActor InActor) : base(InActor)
     {
+        Actor = InActor;
         CountTime = Time.time;
         if( !_Actor.IsOnGround )
         {
@@ -26,9 +28,9 @@ public class ChargeState : PlayerState
         }
         
     }
-    public override void Input(NormInput Input)
+    public override void Update()
     {
-        Input.LifeTime = CountTime;
+        NormInput Input = Actor.CurInput;
         if (Input.Dir != InputDir.Middle)
         {
             if (Input.Direction.x * _Actor.transform.localScale.x < 0)
@@ -38,7 +40,6 @@ public class ChargeState : PlayerState
                 _Actor.TransCtrl.localScale = NewScale;
             }
         }
-        SetAnimParam(Input);
-        PlayerCtrl.CurOrder = Input;
+        base.Update();
     }
 }

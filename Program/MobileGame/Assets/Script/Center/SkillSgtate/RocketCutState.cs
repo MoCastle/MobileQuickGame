@@ -6,7 +6,7 @@ public class RocketCutState : PlayerState
 {
     float Speed = 20;
     bool IsFireOff;
-    public RocketCutState(BaseActor InActor) : base(InActor)
+    public RocketCutState(PlayerActor InActor) : base(InActor)
     {
         Attacking();
     }
@@ -29,5 +29,13 @@ public class RocketCutState : PlayerState
     {
         _Actor.RigidCtrl.velocity = _Actor.RigidCtrl.velocity * 0.5f;
         base.AttackEnd();
+    }
+    //攻击效果
+    public override void AttackEffect(BaseActor TargetActor)
+    {
+        CutEffect Cut = new CutEffect();
+        Cut.RangeTime = RangeTime;
+        Cut.SpeedRate = SpeedRate;
+        TargetActor.ClickFly(Cut,Vector2.up);
     }
 }

@@ -73,7 +73,6 @@ public class InBattleAI : BaseAI
     }
     public override void Update()
     {
-        return;
         if (TargetActor == null )
         {
             Actor.SwitcfhToGuardState();

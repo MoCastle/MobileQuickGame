@@ -94,10 +94,23 @@ public abstract class BaseState {
     }
 
     //持续时间
-    public float RangeTime = 0.5f;
+    float _RangeTime = 0.5f;
+    public virtual float RangeTime
+    {
+        get
+        {
+            return _RangeTime;
+        }
+    }
     //减速后的时间速率
-    public float SpeedRate = 0.1f;
-
+    float _SpeedRate = 0.1f;
+    public virtual float SpeedRate
+    {
+        get
+        {
+            return _SpeedRate;
+        }
+    }
     //已受击列表
     Dictionary<BaseActor, int> AttackedList;
     protected AttackEnum AttackTingState;

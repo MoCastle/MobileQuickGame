@@ -93,9 +93,11 @@ public abstract class BaseState {
         }
     }
 
-
+    //持续时间
     public float RangeTime = 0.5f;
+    //减速后的时间速率
     public float SpeedRate = 0.1f;
+
     //已受击列表
     Dictionary<BaseActor, int> AttackedList;
     protected AttackEnum AttackTingState;

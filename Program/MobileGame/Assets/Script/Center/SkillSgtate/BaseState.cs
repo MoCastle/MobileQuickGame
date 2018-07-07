@@ -101,6 +101,10 @@ public abstract class BaseState {
         {
             return _RangeTime;
         }
+        set
+        {
+            _RangeTime = value;
+        }
     }
     //减速后的时间速率
     float _SpeedRate = 0.1f;
@@ -109,6 +113,10 @@ public abstract class BaseState {
         get
         {
             return _SpeedRate;
+        }
+        set
+        {
+            _SpeedRate = value;
         }
     }
     //已受击列表

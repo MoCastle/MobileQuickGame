@@ -34,7 +34,9 @@ public class RocketCutState : PlayerState
     public override void AttackEffect(BaseActor TargetActor)
     {
         CutEffect Cut = new CutEffect();
+        //设置间隔时间
         Cut.RangeTime = RangeTime;
+        //减速后速率
         Cut.SpeedRate = SpeedRate;
         TargetActor.ClickFly(Cut,Vector2.up);
     }

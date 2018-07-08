@@ -10,6 +10,13 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     public float DragSpaceTime;
     public float DragDistancePer;
     public int DragSpaceFrame;
+    float SpaceTime
+    {
+        get
+        {
+            return DragSpaceFrame * Time.fixedDeltaTime + PushCount;
+        }
+    }
     float PushCount = 0;
     StructRoundArrCovered<Vector2> _InputRoundArr;
     public StructRoundArrCovered<Vector2> InputRoundArr
@@ -65,8 +72,28 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
         if( _IsInputting )
         {
             OutPutCommand();
-            Vector2 InputVector = PushingPs - PushStart;
-            InputRoundArr.Push(InputVector);
+            bool IfPush = true;
+            if( PushCount > 0)
+            {
+                if(SpaceTime> Time.time)
+                {
+                    IfPush = false;
+                }else
+                {
+                    PushCount = Time.time;
+                }
+            }
+            else
+            {
+                PushCount = Time.time;
+            }
+
+            if( IfPush )
+            {
+                Vector2 InputVector = PushingPs - PushStart;
+                InputRoundArr.Push(InputVector);
+            }
+            
         }
     }
 
@@ -75,10 +102,9 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
         Vector2 InputVector = PushingPs - PushStart;
         InputInfo OutPut = new InputInfo( true );
         OutPut.IsPushing = _IsInputting;
-        Vector2 SlideInput;
-        if(!OutPut.IsPushing && (SlideInput = CheckMaxVectorInRound(InputVector)).sqrMagnitude > 0.01f)
+        if(!OutPut.IsPushing)
         {
-            InputVector = SlideInput;
+            InputVector = CheckMaxVectorInRound(InputVector);
         }
         OutPut.Shift = InputVector;
         OutPut.MaxDst = StD;
@@ -89,27 +115,32 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     Vector2 CheckMaxVectorInRound( Vector2 EndInput )
     {
         InputRoundArr.InitTailEnum();
+        //记录最后一个有效输入的放下
         Vector2 CurDir = Vector2.zero; ;
         while( !InputRoundArr.IfEndTailEnum )
         {
             Vector2 PopVector = InputRoundArr.GetTailEnumT();
+            //记录当前触碰点与终止输入点的向量
             Vector2 Direction = EndInput - PopVector;
             if (Direction.sqrMagnitude > 0.01f )
             {
                 if(CurDir.sqrMagnitude < 0.01f)
                 {
-                    CurDir = EndInput - PopVector;
+                    CurDir = Direction;
                 }//对夹角进行判断
-                if (Vector2.Angle(Direction, PopVector) < 90)
+                if (Vector2.Angle(CurDir, Direction) < 90)
                 {
                     //判断距离是否达标
-                    if (Direction.sqrMagnitude > DragDistancePer * DragDistancePer)
+                    if (Direction.sqrMagnitude > Mathf.Pow(DragDistancePer * StD,2))
                     {
-                        return Direction;
+                        Debug.Log("InputTouch: CheckOver direction Distance:" + Direction.sqrMagnitude + "    Target Distance:" + Mathf.Pow(DragDistancePer * StD, 2));
+                        return Direction.normalized* StD;
                     }
+                    Debug.Log("InputTouch:direction Distance:" + Direction.sqrMagnitude + "    Target Distance:" + Mathf.Pow(DragDistancePer * StD, 2));
                 }
                 else
                 {
+                    Debug.Log("InputTouch:CheckMaxVectorInRound:OutOfRotate:" + Vector2.Angle(CurDir, Direction));
                     //夹角过大 发生转向
                     return Vector2.zero;
                 }

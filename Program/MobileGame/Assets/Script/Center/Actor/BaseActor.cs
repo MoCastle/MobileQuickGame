@@ -311,10 +311,6 @@ public abstract class BaseActor : MonoBehaviour {
         {
             return;
         }
-        if( InDir.x * TransCtrl.localScale.x< 0)
-        {
-            Debug.Log("May Be Wrong");
-        }
         FaceForce(InDir);
     }
 }

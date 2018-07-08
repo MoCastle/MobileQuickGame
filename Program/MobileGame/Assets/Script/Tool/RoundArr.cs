@@ -27,7 +27,12 @@ public class StructRoundArr<T> where T : struct
     {
         get
         {
-            return TArray[_TailPoint];
+            int Point = _TailPoint;
+            if( CountReducePoint( Point ) != _HeadPoint )
+            {
+                Point = Point - 1;
+            }
+            return TArray[Point];
         }
         set
         {
@@ -75,7 +80,7 @@ public class StructRoundArr<T> where T : struct
         Point = Point - 1;
         if(Point<0)
         {
-            Point = TArray.Length - Point;
+            Point = TArray.Length + Point;
         }
         return Point;
     }
@@ -96,7 +101,11 @@ public class StructRoundArrCovered<T>:StructRoundArr<T> where T : struct
     {
         get
         {
-            return CurPoint == _HeadPoint && TArray.Length < 1;
+            if(CurPoint == _HeadPoint || TArray.Length < 1)
+            {
+                Debug.Log("StructRoundArrCovered: HeadPoint:" + _HeadPoint + " TailPoint:" + _TailPoint + " CurPoint"+ CurPoint);
+            }
+            return CurPoint == _HeadPoint || TArray.Length < 1;
         }
     }
     int CurPoint;
@@ -117,10 +126,20 @@ public class StructRoundArrCovered<T>:StructRoundArr<T> where T : struct
     public void InitTailEnum( )
     {
         CurPoint = _TailPoint;
+        if( CurPoint != _HeadPoint )
+        {
+            CurPoint = CurPoint - 1;
+        }
+        Debug.Log("StructRoundArrCovered: ArrayLength:"+ TArray.Length + "  Headpoint:" + _HeadPoint + "    TailePoint" + _TailPoint +" CurPoint:" + CurPoint);
     }
     //反向获取当前元素
     public T GetTailEnumT()
     {
+        if( CurPoint > TArray.Length -1 || CurPoint < 0 )
+        {
+            Debug.Log( "RoundArr GetTailEnum:CurPoint" + CurPoint + "   Tarray.Length:"+ TArray.Length);
+            return new T();
+        }
         T Target = TArray[CurPoint];
         CurPoint = CountReducePoint(CurPoint);
         return Target;

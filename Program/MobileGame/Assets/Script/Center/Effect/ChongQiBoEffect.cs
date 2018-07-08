@@ -19,8 +19,11 @@ public class ChongQiBoEffect : MonoBehaviour {
 	// Use this for initialization
     void OnEnable( )
     {
-        EFAnimator.playbackTime = 1f;
-        EFAnimator.Play("chong_qibo", 0,0f);
+        if (EFAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+        {
+            EFAnimator.playbackTime = 1f;
+            EFAnimator.Play("chong_qibo", 0, 0f);
+        }
     }
 	
 	// Update is called once per frame

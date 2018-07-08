@@ -38,7 +38,6 @@ public class EnemyAttackState : EnemyState {
     }
     public EnemyAttackState(EnemyActor InaActor) : base(InaActor)
     {
-        Debug.Log("Attackting");
     }
     public virtual void IsStarting()
     {

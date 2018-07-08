@@ -15,10 +15,26 @@ public enum PlayerActEnum
 }
 
 public class PlayerActor : BaseActor {
+    public override bool IsOnGround
+    {
+        get
+        {
+            return base.IsOnGround;
+        }
+
+        set
+        {
+            if( IsOnGround != value )
+            {
+                AnimCtrl.SetInteger( "Dashed" ,0);
+            }
+            base.IsOnGround = value;
+        }
+    }
     public float MoveVector;
     public float ChargeAddSpeed;
-    bool _Dashed;
-    public bool Dashed
+    int _Dashed;
+    public int Dashed
     {
         get
         {
@@ -29,7 +45,7 @@ public class PlayerActor : BaseActor {
             if( _Dashed != value )
             {
                 _Dashed = value;
-                AnimCtrl.SetTrigger("Dashed");
+                AnimCtrl.SetInteger("Dashed", _Dashed);
             }
         }
     }

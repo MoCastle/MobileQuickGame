@@ -27,7 +27,7 @@ public class DashState:PlayerState {
     
     public DashState(PlayerActor Actor) : base(Actor)
     {
-        Actor.Dashed = true;
+        Actor.Dashed = Actor.Dashed + 1;
         _Actor.RigidCtrl.gravityScale = 0f;
         InputOrder = Actor.GetTempInput(HandGesture.Slip);
         //朝向设置

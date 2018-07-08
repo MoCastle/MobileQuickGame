@@ -95,7 +95,7 @@ public class InBattleAI : BaseAI
             case InBattleState.AttackTing:
                 if( Actor.AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                 {
-                    State = InBattleState.AttackEnd;
+                    EndAI();
                 }
                 break;
             default:

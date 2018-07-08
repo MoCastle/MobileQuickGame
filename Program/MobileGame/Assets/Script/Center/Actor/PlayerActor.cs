@@ -17,12 +17,53 @@ public enum PlayerActEnum
 public class PlayerActor : BaseActor {
     public float MoveVector;
     public float ChargeAddSpeed;
+    bool _Dashed;
+    public bool Dashed
+    {
+        get
+        {
+            return _Dashed;
+        }
+        set
+        {
+            if( _Dashed != value )
+            {
+                _Dashed = value;
+                AnimCtrl.SetTrigger("Dashed");
+            }
+        }
+    }
     NormInput _CurInput;
+    Dictionary<HandGesture, NormInput> LegalnputDict = new Dictionary<HandGesture, NormInput>( );
+    NormInput TempInput;
+    public NormInput GetTempInput( HandGesture Key )
+    {
+        NormInput Result = new NormInput();
+        if( LegalnputDict.TryGetValue( Key, out Result ))
+        {
+            LegalnputDict[Key] = new NormInput();
+        }
+        return Result;
+    }
     public NormInput CurInput
     {
         get
         {
             return _CurInput;
+        }set
+        {
+            _CurInput = value;
+            if( _CurInput.IsLegal )
+            {
+                if( LegalnputDict.ContainsKey( _CurInput.Gesture ) )
+                {
+                    LegalnputDict[_CurInput.Gesture] = _CurInput;
+                }
+                else
+                {
+                    LegalnputDict.Add(_CurInput.Gesture, _CurInput);
+                }
+            }
         }
     }
     // Use this for initialization
@@ -122,7 +163,7 @@ public class PlayerActor : BaseActor {
     }
     public virtual void Input(NormInput Input)
     {
-        _CurInput = Input;
+        CurInput = Input;
         SetAnimParam(Input);
         PlayerCtrl.CurOrder = Input;
     }

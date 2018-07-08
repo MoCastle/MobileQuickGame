@@ -27,8 +27,9 @@ public class DashState:PlayerState {
     
     public DashState(PlayerActor Actor) : base(Actor)
     {
+        Actor.Dashed = true;
         _Actor.RigidCtrl.gravityScale = 0f;
-        InputOrder = Actor.CurInput;
+        InputOrder = Actor.GetTempInput(HandGesture.Slip);
         //朝向设置
         if (InputOrder.InputInfo.Shift.x * _Actor.transform.localScale.x < 0)
         {
@@ -39,6 +40,7 @@ public class DashState:PlayerState {
         RotateToDirection(Direction);
         GameObject Effect = EffectManager.Manager.GenEffect("chong_qibo");
         Effect.transform.position = _Actor.TransCtrl.position;
+        _Actor.IsHoly = true;
     }
 
     public override void Update()

@@ -171,6 +171,7 @@ public abstract class BaseState {
         _Actor.AnimCtrl.speed = 1;
         _Actor.ActorTransCtrl.localEulerAngles = Vector3.zero;
         _Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
+        _Actor.IsHoly = false;
     }
     // Use this for initialization
     public virtual void Update()

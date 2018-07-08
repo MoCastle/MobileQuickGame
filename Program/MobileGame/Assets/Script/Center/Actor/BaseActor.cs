@@ -19,6 +19,7 @@ public abstract class BaseActor : MonoBehaviour {
     //受击效果
     public CutEffect BeCut;
     public Vector2 ForceMoveDirection = Vector2.up;
+    public bool IsHoly;
 
     public float CAttackMove = 1;
     public float LAttackSpeed = 3;
@@ -285,12 +286,20 @@ public abstract class BaseActor : MonoBehaviour {
     //击退
     public virtual void HitBack( CutEffect HitEffect = new CutEffect() )
     {
+        if( IsHoly )
+        {
+            return;
+        }
         BeCut = HitEffect;
         AnimCtrl.SetTrigger("HitBack");
     }
     //击飞
     public virtual void ClickFly(CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2() )
     {
+        if (IsHoly)
+        {
+            return;
+        }
         ForceMoveDirection = Direction;
         BeCut = HitEffect;
         AnimCtrl.SetTrigger("ClickFly");

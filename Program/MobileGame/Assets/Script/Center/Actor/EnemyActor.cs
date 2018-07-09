@@ -130,5 +130,13 @@ public class EnemyActor : BaseActor
             base.HitBack(HitEffect);
         }
     }
-
+    public override void ClickFly(CutEffect HitEffect = default(CutEffect), Vector2 Direction = default(Vector2))
+    {
+        float RandValue = Random.Range(0f, 1f);
+        //击退概率 暂时写死
+        if (RandValue < 0.2f)
+        {
+            base.ClickFly(HitEffect, Direction);
+        } 
+    }
 }

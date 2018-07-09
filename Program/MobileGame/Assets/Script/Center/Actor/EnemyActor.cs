@@ -123,8 +123,9 @@ public class EnemyActor : BaseActor
     //击退
     public override void HitBack(CutEffect HitEffect = new CutEffect())
     {
-        float RandValue = Random.Range(0, 1);
-        if( RandValue < 0.8f )
+        float RandValue = Random.Range(0f, 1f);
+        //击退概率 暂时写死
+        if( RandValue < 0.2f )
         {
             base.HitBack(HitEffect);
         }

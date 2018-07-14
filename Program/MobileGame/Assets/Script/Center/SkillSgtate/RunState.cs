@@ -41,7 +41,6 @@ public class RunState : PlayerState
 
     public RunState(PlayerActor InActor) : base(InActor)
     {
-        Debug.Log("RunState");
     }
 
     public override void Update()

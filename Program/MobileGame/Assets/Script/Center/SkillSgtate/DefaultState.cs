@@ -13,7 +13,6 @@ public class DefaultState : BaseState {
 
     public override void Update()
     {
-        Debug.Log("try");
     }
 
     // Use this for initialization

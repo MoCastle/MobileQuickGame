@@ -13,7 +13,7 @@ public class HitBackState : PlayerState {
         }
     }
     //硬直距离
-    public float HitBackDis = 12f;
+    public float HitBackDis = 2f;
     public override SkillEnum SkillType
     {
         get

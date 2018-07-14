@@ -1,18 +1,26 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Center\Actor\EnemyActor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Center\EnemySkill\ClickFlyState.cs">
     <Files>
       <File FileName="Assets\Script\Center\SkillSgtate\DashState.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\Center\SkillSgtate\ImpactCut_Pre.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\Center\SkillSgtate\ImpactCut_Falling.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\Center\SkillSgtate\BaseState.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\Center\AI\InBattleAI.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\Center\Actor\FatEnemyActor.cs" Line="7" Column="22" />
-      <File FileName="Assets\Script\Center\Actor\EnemyActor.cs" Line="129" Column="10" />
+      <File FileName="Assets\Script\Center\Actor\FatEnemyActor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Center\Actor\EnemyActor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Center\SkillSgtate\HitBackState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Center\EnemySkill\EnemyClickFlyState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Center\EnemySkill\ClickFlyState.cs" Line="6" Column="23" />
+      <File FileName="Assets\Script\Center\SkillSgtate\RocketCutState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Center\EnemySkill\EnemyCloseAttackState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Center\EnemySkill\EnemyAttackState.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="D:\LJ_game\MobileQuickGame\Program\MobileGame\Assets\Script\Center\EnemySkill\EnemyClickFlyState.cs" line="22" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

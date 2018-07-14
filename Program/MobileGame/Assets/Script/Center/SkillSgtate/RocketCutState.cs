@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RocketCutState : PlayerState
 {
-    float Speed = 20;
+    float Speed = 25;
     bool IsFireOff;
     public RocketCutState(PlayerActor InActor) : base(InActor)
     {

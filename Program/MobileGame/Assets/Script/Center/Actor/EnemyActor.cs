@@ -125,7 +125,7 @@ public class EnemyActor : BaseActor
     {
         float RandValue = Random.Range(0f, 1f);
         //击退概率 暂时写死
-        if( RandValue < 0.2f )
+        if( RandValue < 0.6f )
         {
             base.HitBack(HitEffect);
         }
@@ -134,7 +134,7 @@ public class EnemyActor : BaseActor
     {
         float RandValue = Random.Range(0f, 1f);
         //击退概率 暂时写死
-        if (RandValue < 0.2f)
+        if (RandValue < 0.6f)
         {
             base.ClickFly(HitEffect, Direction);
         } 

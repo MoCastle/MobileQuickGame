@@ -35,4 +35,8 @@ public class ClickFlyState : BaseState {
         }
         
     }
+    public override void AttackEnd()
+    {
+        base.AttackEnd();
+    }
 }

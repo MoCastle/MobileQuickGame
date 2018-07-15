@@ -101,14 +101,31 @@ public class StructRoundArrCovered<T>:StructRoundArr<T> where T : struct
     {
         get
         {
-            if(CurPoint == _HeadPoint || TArray.Length < 1)
+            if(TailCurPoint == _HeadPoint || TArray.Length < 1)
             {
-                Debug.Log("StructRoundArrCovered: HeadPoint:" + _HeadPoint + " TailPoint:" + _TailPoint + " CurPoint"+ CurPoint);
+                Debug.Log("StructRoundArrCovered: HeadPoint:" + _HeadPoint + " TailPoint:" + _TailPoint + " CurPoint"+ TailCurPoint);
             }
-            return CurPoint == _HeadPoint || TArray.Length < 1;
+            return TailCurPoint == _HeadPoint || TArray.Length < 1;
         }
     }
-    int CurPoint;
+    int _CurPoint;
+    int TailCurPoint
+    {
+        get
+        {
+            return _CurPoint;
+        }
+        set
+        {
+            _CurPoint = value;
+            if( _CurPoint < 0 || _CurPoint > TArray.Length )
+            {
+                string trackStr = new System.Diagnostics.StackTrace().ToString();
+                Debug.Log("TrasckStrace:trackStr" + "Wrong:StructRoundArrCovered PointWrong:" + _CurPoint);
+                _CurPoint = _TailPoint;
+            }
+        }
+    }
     public StructRoundArrCovered(int ArrayLength):base(ArrayLength)
     {
     }
@@ -125,23 +142,23 @@ public class StructRoundArrCovered<T>:StructRoundArr<T> where T : struct
     //反向遍历
     public void InitTailEnum( )
     {
-        CurPoint = _TailPoint;
-        if( CurPoint != _HeadPoint )
+        TailCurPoint = _TailPoint;
+        if( TailCurPoint != _HeadPoint )
         {
-            CurPoint = CurPoint - 1;
+            TailCurPoint = TailCurPoint - 1;
         }
-        Debug.Log("StructRoundArrCovered: ArrayLength:"+ TArray.Length + "  Headpoint:" + _HeadPoint + "    TailePoint" + _TailPoint +" CurPoint:" + CurPoint);
+        Debug.Log("StructRoundArrCovered: ArrayLength:"+ TArray.Length + "  Headpoint:" + _HeadPoint + "    TailePoint" + _TailPoint +" CurPoint:" + TailCurPoint);
     }
     //反向获取当前元素
     public T GetTailEnumT()
     {
-        if( CurPoint > TArray.Length -1 || CurPoint < 0 )
+        if( TailCurPoint > TArray.Length -1 || TailCurPoint < 0 )
         {
-            Debug.Log( "RoundArr GetTailEnum:CurPoint" + CurPoint + "   Tarray.Length:"+ TArray.Length);
+            Debug.Log( "RoundArr GetTailEnum:CurPoint" + TailCurPoint + "   Tarray.Length:"+ TArray.Length);
             return new T();
         }
-        T Target = TArray[CurPoint];
-        CurPoint = CountReducePoint(CurPoint);
+        T Target = TArray[TailCurPoint];
+        TailCurPoint = CountReducePoint(TailCurPoint);
         return Target;
     }
 }

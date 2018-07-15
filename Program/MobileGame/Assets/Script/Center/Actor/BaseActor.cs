@@ -27,6 +27,8 @@ public abstract class BaseActor : MonoBehaviour {
     float _GravityScale;
     public Vector2 HitMoveDir;
     BoxCollider2D _SkillHurtBox;
+    
+    public Propty ActorPropty;
     public BoxCollider2D SkillHurtBox
     {
         get
@@ -225,7 +227,7 @@ public abstract class BaseActor : MonoBehaviour {
         }
 
         LogicUpdate();
-
+        ActorPropty.ModVIT(1);
     }
     public virtual void SwitchState( )
     {
@@ -256,6 +258,9 @@ public abstract class BaseActor : MonoBehaviour {
     {
         _GravityScale = RigidCtrl.gravityScale;
         LogicAwake();
+        AnimCtrl.SetInteger("PercentVIT",(int)(ActorPropty.PercentLife * 100));
+        AnimCtrl.SetInteger("PercentLife", (int)(ActorPropty.PercentVIT * 100));
+        AnimCtrl.SetBool("Inited",true);
     }
     public virtual void LogicAwake( )
     {
@@ -321,5 +326,18 @@ public abstract class BaseActor : MonoBehaviour {
             return;
         }
         FaceForce(InDir);
+    }
+    //伤害
+    public virtual void Hurt( int InAttack )
+    {
+        ActorPropty.DeDuctLife(InAttack);
+        AnimCtrl.SetInteger("PercentLife", (int)(ActorPropty.PercentLife * 100));
+    }
+
+    //扣除体力
+    public virtual void CostVIT( int InCostVIT )
+    {
+        ActorPropty.DeDuctVIT(InCostVIT);
+        AnimCtrl.SetInteger("PercentVIT", (int)(ActorPropty.PercentVIT * 100));
     }
 }

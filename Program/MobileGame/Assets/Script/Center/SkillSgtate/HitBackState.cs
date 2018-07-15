@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitBackState : PlayerState {
+public class HitBackState : BaseState {
     public override Vector2 Direction
     {
         get
@@ -23,7 +23,7 @@ public class HitBackState : PlayerState {
     }
 
     // Use this for initialization
-    public HitBackState( PlayerActor InActor):base(InActor)
+    public HitBackState( BaseActor InActor):base(InActor)
     {
         RangeTime = _Actor.BeCut.RangeTime;
         SpeedRate = _Actor.BeCut.SpeedRate;
@@ -38,7 +38,7 @@ public class HitBackState : PlayerState {
     public override void AttackEnd()
     {
         base.AttackEnd();
-        _Actor.RigidCtrl.velocity = _Actor.RigidCtrl.velocity * 0.5f;
+        _Actor.RigidCtrl.velocity = _Actor.RigidCtrl.velocity;
     }
 
 }

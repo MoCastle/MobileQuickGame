@@ -79,7 +79,14 @@ public enum HitTypeEnum
 
 public abstract class BaseState {
     HitTypeEnum _HitType;
-
+    //体力消耗量 需要定义的话在对应的技能里重写
+    public virtual int CostVITNum
+    {
+        get
+        {
+            return 50;
+        }
+    }
     float _CutTime = 0;
     public float CutTime
     {
@@ -172,6 +179,7 @@ public abstract class BaseState {
         _Actor.ActorTransCtrl.localEulerAngles = Vector3.zero;
         _Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
         _Actor.IsHoly = false;
+        CostVIT();
     }
     // Use this for initialization
     public virtual void Update()
@@ -269,6 +277,8 @@ public abstract class BaseState {
                 AttackedList.Add(TargetActor, 1);
                 SkillEffect( TargetActor);
                 SetCutMeet();
+                //产生伤害
+                TargetActor.Hurt( _Actor.ActorPropty.Attack );
             }
         }
     }
@@ -331,5 +341,10 @@ public abstract class BaseState {
         }
         Vector3 Rotation = Vector3.forward * Rotate;
         _Actor.ActorTransCtrl.eulerAngles = Rotation;
+    }
+    //消耗体力
+    protected virtual void CostVIT( )
+    {
+        _Actor.CostVIT(CostVITNum);
     }
 }

@@ -15,6 +15,9 @@ public enum PlayerActEnum
 }
 
 public class PlayerActor : BaseActor {
+    public SkillEnum PreState;
+    public Vector2 PreInput;
+
     public override bool IsOnGround
     {
         get

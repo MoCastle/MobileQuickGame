@@ -108,7 +108,7 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
         }
         OutPut.Shift = InputVector;
         OutPut.MaxDst = StD;
-
+        OutPut.EndPs = PushingPs;
         PlayerCtrl.InputHandTouch(OutPut);
     }
     //判断按压期间是否达到某指令

@@ -29,6 +29,7 @@ public class RocketCutState : PlayerState
     {
         _Actor.RigidCtrl.velocity = _Actor.RigidCtrl.velocity * 0.5f;
         base.AttackEnd();
+        _Actor.RigidCtrl.gravityScale = 0f;
     }
     //攻击效果
     public override void AttackEffect(BaseActor TargetActor)

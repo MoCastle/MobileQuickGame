@@ -8,12 +8,14 @@ public struct InputInfo
     public bool IsLegal;
     public bool IsPushing;
     public float MaxDst;
+    public Vector2 EndPs;
     public InputInfo( bool InIsLegal = false )
     {
         Shift = Vector2.zero;
         IsLegal = InIsLegal;
         IsPushing = false;
         MaxDst = 0;
+        EndPs = Vector2.zero;
     }
     public float Percent
     {
@@ -55,6 +57,7 @@ public enum SkillEnum
     Idle,//闲置状态类
     Run,//玩家跑
     Dash,//玩家冲
+    Attack,
     AttackFirst,//一阶打击
     AttackSecond,//二阶打击
     AttackThird,//三阶打击

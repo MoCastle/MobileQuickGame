@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ClickFlyState : BaseState {
-    float Speed = 15f;
+    float Speed = 10f;
     public override Vector2 Direction
     {
         get

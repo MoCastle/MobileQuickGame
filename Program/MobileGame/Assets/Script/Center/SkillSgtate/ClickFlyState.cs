@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ClickFlyState : BaseState {
-    float Speed = 30f;
+    float Speed = 15f;
     public override Vector2 Direction
     {
         get
@@ -38,5 +38,18 @@ public class ClickFlyState : BaseState {
     public override void AttackEnd()
     {
         base.AttackEnd();
+        _Actor.RigidCtrl.gravityScale = 0;
+    }
+    public override void IsAttackEnding()
+    {
+        
+        if(_Actor.RigidCtrl.velocity.y < 0 )
+        {
+            Vector2 NewVector = _Actor.RigidCtrl.velocity;
+            _Actor.RigidCtrl.gravityScale = 0;
+            NewVector.y = 0;
+            _Actor.RigidCtrl.velocity = NewVector;
+        }
+        return;
     }
 }

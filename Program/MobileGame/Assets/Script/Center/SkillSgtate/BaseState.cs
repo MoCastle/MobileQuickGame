@@ -238,7 +238,6 @@ public abstract class BaseState {
     }
     public virtual void IsAttackEnding()
     {
-
     }
     public virtual void IsNoneState( )
     {
@@ -278,9 +277,22 @@ public abstract class BaseState {
                 SkillEffect( TargetActor);
                 SetCutMeet();
                 //产生伤害
-                TargetActor.Hurt( _Actor.ActorPropty.Attack );
+                MakeHurt(TargetActor);
             }
         }
+    }
+    public virtual void MakeHurt(BaseActor TargetActor)
+    {
+        float Damage = SkillManager.GetAttPercent(this.ToString())/100 * _Actor.ActorPropty.Attack;
+        float CrtPercent = SkillManager.GetCritPercent(this.ToString());
+        float RandResult = Random.Range(0, 1f);
+        //算暴击伤害
+        if(RandResult < CrtPercent)
+        {
+            Damage = Damage * 2;
+        }
+       
+        TargetActor.Hurt(_Actor.ActorPropty.Attack);
     }
     //设置卡肉状态
     public virtual void SetCutMeet( )

@@ -278,7 +278,16 @@ public abstract class BaseActor : MonoBehaviour {
         DirTo3.y = InDirection.y;
         TransCtrl.position = TransCtrl.position + DirTo3;
     }
-
+    //动画事件
+    public void AttackNone()
+    {
+        ActorState.NoneState();
+    }
+    //动画事件
+    public void AttackStart()
+    {
+        ActorState.AttackStart();
+    }
     //动画事件
     public void Attackting()
     {

@@ -117,7 +117,7 @@ public abstract class BaseState {
         }
     }
     //减速后的时间速率
-    float _SpeedRate = 0.1f;
+    float _SpeedRate = 0f;
     public virtual float SpeedRate
     {
         get
@@ -201,7 +201,7 @@ public abstract class BaseState {
         switch (AttackTingState)
         {
             case AttackEnum.Start:
-                IsAttackting();
+                IsStarting();
                 break;
             case AttackEnum.Attackting:
                 IsAttackting();
@@ -262,6 +262,10 @@ public abstract class BaseState {
     {
         AttackTingState = AttackEnum.AttackEnd;
         _Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
+    }
+    public virtual void NoneState()
+    {
+        AttackTingState = AttackEnum.None;
     }
     // Update is called once per frame
     public virtual void SkillAttack()

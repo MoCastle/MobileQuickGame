@@ -81,6 +81,13 @@ public enum HitTypeEnum
 }
 
 public abstract class BaseState {
+    public virtual Vector2 ClickFly
+    {
+        get
+        {
+            return Vector2.zero;
+        }
+    }
     HitTypeEnum _HitType;
     //体力消耗量 需要定义的话在对应的技能里重写
     public virtual int CostVITNum
@@ -325,13 +332,14 @@ public abstract class BaseState {
         AttackEffect(TargetActor);
         ReleaseEffect(TargetActor);
     }
+
     //攻击效果
     public virtual void AttackEffect( BaseActor TargetActor )
     {
         CutEffect Cut = new CutEffect();
         Cut.RangeTime = RangeTime;
         Cut.SpeedRate = SpeedRate;
-        TargetActor.HitBack(Cut);
+        TargetActor.HitBack(Cut, ClickFly);
     }
     //释放特效
     public virtual void ReleaseEffect(BaseActor TargetActor)

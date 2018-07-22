@@ -10,6 +10,13 @@ public class CloseAttackState : AttackState {
             return SkillEnum.Attack;
         }
     }
+    public override Vector2 ClickFly
+    {
+        get
+        {
+            return Vector2.up * 0.5f;
+        }
+    }
     public CloseAttackState( PlayerActor InActor ):base( InActor )
     {
         //2018.7.17 目前只有普攻有转向问题 暂时的解决方案 三联时记录下最终输入的位置 下一次有输入时做比较
@@ -25,6 +32,12 @@ public class CloseAttackState : AttackState {
         }
         InActor.PreInput = CurInputPS;
         InActor.PreState = SkillType;
+        //2018.7.22 空中攻击技能流畅度调整
+        if(!_Actor.IsOnGround)
+        {
+            _Actor.RigidCtrl.gravityScale = 0;
+            _Actor.RigidCtrl.velocity = Vector2.zero;
+        }
     }
     public override void Attacking()
     {
@@ -35,5 +48,10 @@ public class CloseAttackState : AttackState {
     {
         base.IsAttackEnding();
 
+    }
+
+    public override void Update()
+    {
+        base.Update();
     }
 }

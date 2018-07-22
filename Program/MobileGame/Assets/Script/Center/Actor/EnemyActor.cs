@@ -119,7 +119,7 @@ public class EnemyActor : BaseActor
     {
         _AICtrler.EndAI();
     }
-
+    /*
     //击退
     public override void HitBack(CutEffect HitEffect = new CutEffect())
     {
@@ -129,14 +129,5 @@ public class EnemyActor : BaseActor
         {
             base.HitBack(HitEffect);
         }
-    }
-    public override void ClickFly(CutEffect HitEffect = default(CutEffect), Vector2 Direction = default(Vector2))
-    {
-        float RandValue = Random.Range(0f, 1f);
-        //击退概率 暂时写死
-        if (RandValue < 0.6f)
-        {
-            base.ClickFly(HitEffect, Direction);
-        } 
-    }
+    }*/
 }

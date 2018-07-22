@@ -298,26 +298,43 @@ public abstract class BaseActor : MonoBehaviour {
         ActorState.AttackEnd();
     }
     //击退
-    public virtual void HitBack( CutEffect HitEffect = new CutEffect() )
+    public virtual void HitBack( CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2())
     {
         if( IsHoly )
         {
             return;
         }
-        BeCut = HitEffect;
-        AnimCtrl.SetTrigger("HitBack");
+        
+        if( !IsOnGround)
+        {
+            HitEffect.RangeTime = HitEffect.RangeTime * 4;
+            HitEffect.SpeedRate = 0;
+            ClickFly(HitEffect, Direction);
+        }else
+        {
+            BeCut = HitEffect;
+            AnimCtrl.SetTrigger("HitBack");
+        }
     }
     //击飞
-    public virtual void ClickFly(CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2() )
+    public virtual bool ClickFly(CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2() )
     {
         if (IsHoly)
         {
-            return;
+            return false;
         }
         ForceMoveDirection = Direction;
         BeCut = HitEffect;
         AnimCtrl.SetTrigger("ClickFly");
+        return true;
     }
+    //拽取
+    public virtual bool DragFly( )
+    {
+        AnimCtrl.SetTrigger("DragFly");
+        return true;
+    }
+
     public virtual void FaceForce( Vector2 InDir)
     {
         Vector3 OldScale = TransCtrl.localScale;

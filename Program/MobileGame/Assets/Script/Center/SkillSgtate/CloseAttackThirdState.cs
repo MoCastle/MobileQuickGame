@@ -36,5 +36,8 @@ public class CloseAttackThirdState : CloseAttackState
     public override void IsAttackting()
     {
         Actor.RigidCtrl.velocity = Direction * Speed;
+
     }
+
+
 }

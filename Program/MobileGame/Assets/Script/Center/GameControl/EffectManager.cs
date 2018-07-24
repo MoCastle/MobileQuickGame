@@ -4,7 +4,13 @@ using UnityEngine;
 using PathologicalGames;
 
 public class EffectManager {
-    SpawnPool GamePool;
+    GamePoolManager GamePool
+    {
+        get
+        {
+            return GamePoolManager.Manager;
+        }
+    }
     static EffectManager _Manager;
     public static EffectManager Manager
     {
@@ -21,47 +27,10 @@ public class EffectManager {
     EffectManager()
     {
         GameCtrl GameCtrler = GameCtrl.GameCtrler;
-        GamePool = GameCtrler.Pool;
     }
 
-    PrefabPool GetPool( string InName )
-    {
-        PrefabPool ReturnPool = new PrefabPool();
-        if ( !GamePool.prefabPools.TryGetValue( InName,out ReturnPool) )
-        {
-            ReturnPool = null;
-            GameObject Effect = LoadEffect.LoadEffectObj(InName);
-            if( Effect != null )
-            {
-                Transform NewEffect = LoadEffect.LoadEffectObj(InName).transform;
-                ReturnPool = new PrefabPool(NewEffect);
-                ReturnPool.cullDespawned = true;
-                ReturnPool.cullDelay = 5;
-                GamePool.CreatePrefabPool(ReturnPool);
-            }
-        }
-        return ReturnPool;
-    }
-    //注册特效
-    void Regist(string InName)
-    {
-        PrefabPool ReturnPool = new PrefabPool();
-        if (!GamePool.prefabPools.TryGetValue(InName, out ReturnPool))
-        {
-            ReturnPool = null;
-            GameObject Effect = LoadEffect.LoadEffectObj(InName);
-            if (Effect != null)
-            {
-                Transform NewEffect = LoadEffect.LoadEffectObj(InName).transform;
-                ReturnPool = new PrefabPool(NewEffect);
-                ReturnPool.cullDespawned = true;
-                ReturnPool.cullDelay = 5;
-                GamePool.CreatePrefabPool(ReturnPool);
-            }
-        }
-    }
     //生成特效
-	public GameObject GenEffect( string InName)
+    public GameObject GenEffect( string InName)
     {
         //检查是否有注册过
         GameObject SampleEffect = LoadEffect.LoadEffectObj(InName);
@@ -71,11 +40,12 @@ public class EffectManager {
         }
         if( !GamePool.IsSpawned(SampleEffect.transform) )
         {
-            Regist(InName);
+            GamePool.Regist(InName, SampleEffect.transform);
         }
         Transform Target = GamePool.Spawn(InName);
         return Target.gameObject;
     }
+
     public void PutBackEffect( GameObject Effect )
     {
         GamePool.Despawn(Effect.transform);

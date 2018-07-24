@@ -356,8 +356,13 @@ public abstract class BaseActor : MonoBehaviour {
     //伤害
     public virtual void Hurt( int InAttack )
     {
-        ActorPropty.DeDuctLife(InAttack);
+        int LeftLife = ActorPropty.DeDuctLife(InAttack);
         AnimCtrl.SetInteger("PercentLife", (int)(ActorPropty.PercentLife * 100));
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        Color TextColor = new Color();
+        TextColor.a = 255;
+        TextColor.r = 255;
+        GameObject NewUI = UIEffectMgr.AddHurtInfo(InAttack.ToString(), TextColor, screenPos);
     }
 
     //扣除体力

@@ -5,9 +5,9 @@ using UnityEngine;
 public class CloseAttackThirdState : CloseAttackState
 {
     //重击硬直时间
-    float ChargingTime = 0.5f;
+    float ChargingTime = 0.2f;
     float CountTime = 0;
-    float Speed = 20;
+    float Speed = 15;
     public CloseAttackThirdState(PlayerActor InActor) : base(InActor)
     {
         NoneState();

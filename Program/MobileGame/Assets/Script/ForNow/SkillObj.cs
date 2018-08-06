@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public struct SkillObjInfo
@@ -21,7 +20,9 @@ public struct SkillObjInfo
 }
 
 public class SkillObj : MonoBehaviour {
-    [Title("技能列表", "yellow")]
+    [Title("通用技能列表", "black")]
+    public AnimStruct[] _SkillEnum;
+    [Title("技能列表", "black")]
     public SkillObjInfo[] SkArray;
     public Dictionary<string, int> SkillInfoDic = new Dictionary<string, int>();
     private void Awake()

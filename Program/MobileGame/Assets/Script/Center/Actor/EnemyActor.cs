@@ -36,8 +36,8 @@ public class EnemyActor : BaseActor
             return _GuardingArea;
         }
     }
-    BaseAI _AICtrler;
-    public BaseAI AICtrl
+    protected AICtrler _AICtrler;
+    public AICtrler AICtrl
     {
         get
         {
@@ -50,12 +50,13 @@ public class EnemyActor : BaseActor
     }
     public override void LogicAwake()
     {
-        SwitcfhToGuardState();
+        
     }
     public override void LogicUpdate()
     {
         _AICtrler.Update();
     }
+
     public BaseActor CheckGetPlayer( )
     {
         Collider2D[] ColliderList = new Collider2D[1];
@@ -86,10 +87,7 @@ public class EnemyActor : BaseActor
         }
         return TargetActor;
     }
-    public virtual void SwitcfhToGuardState( )
-    {
-        _AICtrler = new GuardAI(this);
-    }
+
     public virtual bool CheckOnGroundClose( )
     {
 
@@ -108,14 +106,9 @@ public class EnemyActor : BaseActor
         AnimCtrl.SetBool("Run", false);
     }
 
-    public void SwitchAttackAI( )
-    {
-        _AICtrler = new CloseAttack(this);
-    }
-
     public void AIComplete( )
     {
-        _AICtrler.EndAI();
+        //_AICtrler.EndAI();
     }
     /*
     //击退

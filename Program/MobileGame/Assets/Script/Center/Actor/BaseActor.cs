@@ -19,15 +19,18 @@ public abstract class BaseActor : MonoBehaviour {
     //受击效果
     public CutEffect BeCut;
     public Vector2 ForceMoveDirection = Vector2.up;
+    [Title("是正否处于无敌状态", "black")]
     public bool IsHoly;
-
+    [Title("击退速度", "black")]
     public float CAttackMove = 1;
+    [Title("无丢失参数", "black")]
     public float LAttackSpeed = 3;
     public bool LockFace;
     float _GravityScale;
     public Vector2 HitMoveDir;
     BoxCollider2D _SkillHurtBox;
-    
+
+    [Title("人物属性", "black")]
     public Propty ActorPropty;
     public BoxCollider2D SkillHurtBox
     {
@@ -48,6 +51,7 @@ public abstract class BaseActor : MonoBehaviour {
         }
     }
     [SerializeField]
+    [Title("技能与动画列表", "black")]
     protected AnimStruct[] _SkillEnum;
     public AnimStruct[] SkillMenue
     {
@@ -57,6 +61,7 @@ public abstract class BaseActor : MonoBehaviour {
         }
     }
     [SerializeField]
+    [Title("移动速度", "black")]
     protected float _MoveSpeed = 10;
     public float MoveSpeed
     {
@@ -89,7 +94,6 @@ public abstract class BaseActor : MonoBehaviour {
         }
     }
     
-    //该属性已废弃
     public Transform ActorTransCtrl
     {
         get
@@ -99,6 +103,7 @@ public abstract class BaseActor : MonoBehaviour {
         
     }
 
+    //除非为了省事 尽量不要直接使用动画状态机
     Animator _AnimCtrl;
     public Animator AnimCtrl
     {
@@ -109,6 +114,20 @@ public abstract class BaseActor : MonoBehaviour {
                 _AnimCtrl = GetComponentInChildren<Animator>();
             }
             return _AnimCtrl;
+        }
+    }
+
+    //动画状态机封装接口 有事用这个
+    AnimAdaptor _AnimAdaptor;
+    public AnimAdaptor AnimAdaptor
+    {
+        get
+        {
+            if( _AnimAdaptor == null )
+            {
+                _AnimAdaptor = new AnimAdaptor(GetComponentInChildren<Animator>());
+            }
+            return _AnimAdaptor;
         }
     }
     public Transform TransCtrl
@@ -228,14 +247,29 @@ public abstract class BaseActor : MonoBehaviour {
 
         LogicUpdate();
         ActorPropty.ModVIT(1);
+
     }
     public virtual void SwitchState( )
     {
         string NewStateName = "";
         _CurAnimName = AnimCtrl.GetCurrentAnimatorStateInfo(0).nameHash;
-        if ( SkillMenue != null && SkillMenue.Length > 0 )
+        //先检查是否符合自己的设定
+        if ( (SkillMenue != null) && SkillMenue.Length > 0 )
         {
             foreach (AnimStruct Info in SkillMenue)
+            {
+                if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
+                {
+                    NewStateName = Info.ClassName;
+                    AnimCtrl.SetFloat("AnimTime", 0);
+                    break;
+                }
+            }
+        }
+        //再检查是否符合通用技能设定
+        if (NewStateName == "" && (SkillManager.Obj._SkillEnum != null) && SkillManager.Obj._SkillEnum.Length > 0)
+        {
+            foreach (AnimStruct Info in SkillManager.Obj._SkillEnum)
             {
                 if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
                 {

@@ -405,4 +405,10 @@ public abstract class BaseActor : MonoBehaviour {
         ActorPropty.DeDuctVIT(InCostVIT);
         AnimCtrl.SetInteger("PercentVIT", (int)(ActorPropty.PercentVIT * 100));
     }
+
+    //死亡
+    public virtual void Death( )
+    {
+         
+    }
 }

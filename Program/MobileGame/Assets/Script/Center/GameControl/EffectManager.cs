@@ -4,7 +4,7 @@ using UnityEngine;
 using PathologicalGames;
 
 public class EffectManager {
-    GamePoolManager GamePool
+    GamePoolManager GamePoolMgr
     {
         get
         {
@@ -38,16 +38,16 @@ public class EffectManager {
         {
             return null;
         }
-        if( !GamePool.IsSpawned(SampleEffect.transform) )
+        if( !GamePoolMgr.IsSpawned(SampleEffect.transform) )
         {
-            GamePool.Regist(InName, SampleEffect.transform);
+            GamePoolMgr.Regist(InName, SampleEffect.transform);
         }
-        Transform Target = GamePool.Spawn(InName);
+        Transform Target = GamePoolMgr.Spawn(InName);
         return Target.gameObject;
     }
 
     public void PutBackEffect( GameObject Effect )
     {
-        GamePool.Despawn(Effect.transform);
+        GamePoolMgr.Despawn(Effect.transform);
     }
 }

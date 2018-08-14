@@ -22,7 +22,6 @@ public abstract class AICtrler {
         if(AIActionList.First != null)
         {
             AIActionList.First.Value.Update();
-            Debug.Log("AIISGoing");
         }
     }
     //设置攻击目标

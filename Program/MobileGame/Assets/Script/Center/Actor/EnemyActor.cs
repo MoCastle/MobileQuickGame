@@ -9,6 +9,7 @@ public struct AttackRate
 }
 public class EnemyActor : BaseActor
 {
+    public int InitID;
     public AttackRate[] CloseAttackArray;
     public AttackRate[] FarAttackArray;
 

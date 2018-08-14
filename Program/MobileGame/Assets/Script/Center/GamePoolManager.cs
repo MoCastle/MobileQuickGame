@@ -55,4 +55,19 @@ public class GamePoolManager {
     {
         GamePool.Despawn(Target);
     }
+    //从池子中生成目标对象
+    public GameObject GenObj( GameObject SamplaeObj )
+    {
+        //检查是否有注册过
+        if (SamplaeObj == null)
+        {
+            return null;
+        }
+        if (!GamePool.IsSpawned(SamplaeObj.transform))
+        {
+            Regist(SamplaeObj.name, SamplaeObj.transform);
+        }
+        Transform Target = GamePool.Spawn(SamplaeObj.name);
+        return Target.gameObject;
+    }
 }

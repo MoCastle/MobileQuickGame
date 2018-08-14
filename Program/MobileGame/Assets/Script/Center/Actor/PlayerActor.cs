@@ -190,7 +190,10 @@ public class PlayerActor : BaseActor {
 
     public override void LogicUpdate()
     {
-        NormInput HandInput = PlayerCtrl.InputRoundArr.Pop();
-        Input(HandInput);
+        if( Alive )
+        {
+            NormInput HandInput = PlayerCtrl.InputRoundArr.Pop();
+            Input(HandInput);
+        }
     }
 }

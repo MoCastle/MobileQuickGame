@@ -285,7 +285,7 @@ public abstract class BaseState {
                 return;
             }
             BaseActor TargetActor = TargetCollider.GetComponent<BaseActor>();
-            if( TargetActor!= null && !AttackedList.ContainsKey(TargetActor) )
+            if( TargetActor!= null && TargetActor.Alive && !AttackedList.ContainsKey(TargetActor) )
             {
                 AttackedList.Add(TargetActor, 1);
                 SkillEffect( TargetActor);

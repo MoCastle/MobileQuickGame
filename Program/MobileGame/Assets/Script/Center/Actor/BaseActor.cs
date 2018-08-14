@@ -16,6 +16,21 @@ public struct CutEffect
     public float SpeedRate;
 }
 public abstract class BaseActor : MonoBehaviour {
+    public delegate void Action();
+    public event Action DeathEvent;
+    public void AddDeathEvent( Action InFunction )
+    {
+        DeathEvent += InFunction;
+    }
+    //生命状态
+    protected bool _Alive;
+    public bool Alive
+    {
+        get
+        {
+            return _Alive;
+        }
+    }
     //受击效果
     public CutEffect BeCut;
     public Vector2 ForceMoveDirection = Vector2.up;
@@ -290,6 +305,8 @@ public abstract class BaseActor : MonoBehaviour {
     }
     public void Awake()
     {
+        //设置初始生命状态
+        _Alive = true;
         _GravityScale = RigidCtrl.gravityScale;
         LogicAwake();
         AnimCtrl.SetInteger("PercentVIT",(int)(ActorPropty.PercentLife * 100));
@@ -397,6 +414,10 @@ public abstract class BaseActor : MonoBehaviour {
         TextColor.a = 255;
         TextColor.r = 255;
         GameObject NewUI = UIEffectMgr.AddHurtInfo(InAttack.ToString(), TextColor, screenPos);
+        if( LeftLife < 0.0001f )
+        {
+            Death();
+        }
     }
 
     //扣除体力
@@ -409,6 +430,8 @@ public abstract class BaseActor : MonoBehaviour {
     //死亡
     public virtual void Death( )
     {
-         
+        _Alive = false;
+        AnimCtrl.SetTrigger("Death");
+        DeathEvent();
     }
 }

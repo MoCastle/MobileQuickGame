@@ -19,6 +19,9 @@ public class StartGame : MonoBehaviour {
         
         LogMgr.InitSet();
 
+        GameCtrl GameCtrler = GameCtrl.GameCtrler;
+        GameCtrler.Pool = GetComponent<SpawnPool>();
+
         Debug.Log("StartGame");
         DontDestroyOnLoad(this.gameObject);
         SkillManager.Obj = SkillObj.GetComponent<SkillObj>();
@@ -28,8 +31,7 @@ public class StartGame : MonoBehaviour {
     }
     private void Start()
     {
-        GameCtrl GameCtrler = GameCtrl.GameCtrler;
-        GameCtrler.Pool = GetComponent<SpawnPool>();
+        
     }
     private void Update()
     {

@@ -67,7 +67,7 @@ public class EnemyActor : BaseActor
         GuardingArea.OverlapCollider(ContactFilter, ColliderList);
 
         BaseActor TargetActor = null;
-        if(ColliderList[0] != null && ColliderList[0].gameObject.name == "Player" )
+        if(ColliderList[0] != null && ColliderList[0].gameObject.tag == "Player" )
         {
             TargetActor = ColliderList[0].GetComponent<PlayerActor>();
         }

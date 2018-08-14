@@ -19,7 +19,7 @@ public abstract class AICtrler {
     }
     public void Update()
     {
-        if(AIActionList.First != null)
+        if(AIActionList.First != null && Actor.Alive)
         {
             AIActionList.First.Value.Update();
         }

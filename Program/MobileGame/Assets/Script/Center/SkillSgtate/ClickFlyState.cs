@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ClickFlyState : BaseState {
     float Speed = 10f;
+    Vector2 _ForceMoveDirection;
     public override Vector2 Direction
     {
         get
         {
-            return _Actor.ForceMoveDirection;
+            return _ForceMoveDirection;
         }
     }
     public override SkillEnum SkillType
@@ -25,6 +26,12 @@ public class ClickFlyState : BaseState {
         SpeedRate = _Actor.BeCut.SpeedRate;
         SetCutMeet();
         Attacking();
+        _ForceMoveDirection = _Actor.ForceMoveDirection;
+        _Actor.ForceMoveDirection = Vector2.zero;
+        if( _ForceMoveDirection.magnitude< 0.001f )
+        {
+            Speed = 0;
+        }
     }
     public override void IsAttackting()
     {

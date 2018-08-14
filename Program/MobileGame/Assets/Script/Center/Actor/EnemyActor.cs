@@ -9,8 +9,7 @@ public struct AttackRate
 }
 public class EnemyActor : BaseActor
 {
-
-
+    public int InitID;
     public AttackRate[] CloseAttackArray;
     public AttackRate[] FarAttackArray;
 
@@ -38,8 +37,8 @@ public class EnemyActor : BaseActor
             return _GuardingArea;
         }
     }
-    BaseAI _AICtrler;
-    public BaseAI AICtrl
+    protected AICtrler _AICtrler;
+    public AICtrler AICtrl
     {
         get
         {
@@ -52,12 +51,13 @@ public class EnemyActor : BaseActor
     }
     public override void LogicAwake()
     {
-        SwitcfhToGuardState();
+        
     }
     public override void LogicUpdate()
     {
         _AICtrler.Update();
     }
+
     public BaseActor CheckGetPlayer( )
     {
         Collider2D[] ColliderList = new Collider2D[1];
@@ -88,10 +88,7 @@ public class EnemyActor : BaseActor
         }
         return TargetActor;
     }
-    public virtual void SwitcfhToGuardState( )
-    {
-        _AICtrler = new GuardAI(this);
-    }
+
     public virtual bool CheckOnGroundClose( )
     {
 
@@ -110,16 +107,11 @@ public class EnemyActor : BaseActor
         AnimCtrl.SetBool("Run", false);
     }
 
-    public void SwitchAttackAI( )
-    {
-        _AICtrler = new CloseAttack(this);
-    }
-
     public void AIComplete( )
     {
-        _AICtrler.EndAI();
+        //_AICtrler.EndAI();
     }
-
+    /*
     //击退
     public override void HitBack(CutEffect HitEffect = new CutEffect())
     {
@@ -129,14 +121,5 @@ public class EnemyActor : BaseActor
         {
             base.HitBack(HitEffect);
         }
-    }
-    public override void ClickFly(CutEffect HitEffect = default(CutEffect), Vector2 Direction = default(Vector2))
-    {
-        float RandValue = Random.Range(0f, 1f);
-        //击退概率 暂时写死
-        if (RandValue < 0.6f)
-        {
-            base.ClickFly(HitEffect, Direction);
-        } 
-    }
+    }*/
 }

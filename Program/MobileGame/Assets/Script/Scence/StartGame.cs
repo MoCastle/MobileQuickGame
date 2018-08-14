@@ -5,8 +5,18 @@ using PathologicalGames;
 
 public class StartGame : MonoBehaviour {
     public GameObject SkillObj;
+    public GameObject Test;
     private void Awake()
     {
+        try
+        {
+            CfgMgr.Init();
+        }
+        catch
+        {
+
+        }
+        
         LogMgr.InitSet();
 
         Debug.Log("StartGame");

@@ -81,6 +81,13 @@ public enum HitTypeEnum
 }
 
 public abstract class BaseState {
+    public virtual Vector2 ClickFly
+    {
+        get
+        {
+            return Vector2.zero;
+        }
+    }
     HitTypeEnum _HitType;
     //体力消耗量 需要定义的话在对应的技能里重写
     public virtual int CostVITNum
@@ -117,7 +124,7 @@ public abstract class BaseState {
         }
     }
     //减速后的时间速率
-    float _SpeedRate = 0.1f;
+    float _SpeedRate = 0f;
     public virtual float SpeedRate
     {
         get
@@ -201,7 +208,7 @@ public abstract class BaseState {
         switch (AttackTingState)
         {
             case AttackEnum.Start:
-                IsAttackting();
+                IsStarting();
                 break;
             case AttackEnum.Attackting:
                 IsAttackting();
@@ -263,6 +270,10 @@ public abstract class BaseState {
         AttackTingState = AttackEnum.AttackEnd;
         _Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
     }
+    public virtual void NoneState()
+    {
+        AttackTingState = AttackEnum.None;
+    }
     // Update is called once per frame
     public virtual void SkillAttack()
     {
@@ -321,13 +332,14 @@ public abstract class BaseState {
         AttackEffect(TargetActor);
         ReleaseEffect(TargetActor);
     }
+
     //攻击效果
     public virtual void AttackEffect( BaseActor TargetActor )
     {
         CutEffect Cut = new CutEffect();
         Cut.RangeTime = RangeTime;
         Cut.SpeedRate = SpeedRate;
-        TargetActor.HitBack(Cut);
+        TargetActor.HitBack(Cut, ClickFly);
     }
     //释放特效
     public virtual void ReleaseEffect(BaseActor TargetActor)

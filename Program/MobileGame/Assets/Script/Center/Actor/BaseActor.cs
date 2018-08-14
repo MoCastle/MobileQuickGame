@@ -19,15 +19,18 @@ public abstract class BaseActor : MonoBehaviour {
     //受击效果
     public CutEffect BeCut;
     public Vector2 ForceMoveDirection = Vector2.up;
+    [Title("是正否处于无敌状态", "black")]
     public bool IsHoly;
-
+    [Title("击退速度", "black")]
     public float CAttackMove = 1;
+    [Title("无丢失参数", "black")]
     public float LAttackSpeed = 3;
     public bool LockFace;
     float _GravityScale;
     public Vector2 HitMoveDir;
     BoxCollider2D _SkillHurtBox;
-    
+
+    [Title("人物属性", "black")]
     public Propty ActorPropty;
     public BoxCollider2D SkillHurtBox
     {
@@ -48,6 +51,7 @@ public abstract class BaseActor : MonoBehaviour {
         }
     }
     [SerializeField]
+    [Title("技能与动画列表", "black")]
     protected AnimStruct[] _SkillEnum;
     public AnimStruct[] SkillMenue
     {
@@ -57,6 +61,7 @@ public abstract class BaseActor : MonoBehaviour {
         }
     }
     [SerializeField]
+    [Title("移动速度", "black")]
     protected float _MoveSpeed = 10;
     public float MoveSpeed
     {
@@ -89,7 +94,6 @@ public abstract class BaseActor : MonoBehaviour {
         }
     }
     
-    //该属性已废弃
     public Transform ActorTransCtrl
     {
         get
@@ -99,6 +103,7 @@ public abstract class BaseActor : MonoBehaviour {
         
     }
 
+    //除非为了省事 尽量不要直接使用动画状态机
     Animator _AnimCtrl;
     public Animator AnimCtrl
     {
@@ -109,6 +114,20 @@ public abstract class BaseActor : MonoBehaviour {
                 _AnimCtrl = GetComponentInChildren<Animator>();
             }
             return _AnimCtrl;
+        }
+    }
+
+    //动画状态机封装接口 有事用这个
+    AnimAdaptor _AnimAdaptor;
+    public AnimAdaptor AnimAdaptor
+    {
+        get
+        {
+            if( _AnimAdaptor == null )
+            {
+                _AnimAdaptor = new AnimAdaptor(GetComponentInChildren<Animator>());
+            }
+            return _AnimAdaptor;
         }
     }
     public Transform TransCtrl
@@ -228,14 +247,29 @@ public abstract class BaseActor : MonoBehaviour {
 
         LogicUpdate();
         ActorPropty.ModVIT(1);
+
     }
     public virtual void SwitchState( )
     {
         string NewStateName = "";
         _CurAnimName = AnimCtrl.GetCurrentAnimatorStateInfo(0).nameHash;
-        if ( SkillMenue != null && SkillMenue.Length > 0 )
+        //先检查是否符合自己的设定
+        if ( (SkillMenue != null) && SkillMenue.Length > 0 )
         {
             foreach (AnimStruct Info in SkillMenue)
+            {
+                if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
+                {
+                    NewStateName = Info.ClassName;
+                    AnimCtrl.SetFloat("AnimTime", 0);
+                    break;
+                }
+            }
+        }
+        //再检查是否符合通用技能设定
+        if (NewStateName == "" && (SkillManager.Obj._SkillEnum != null) && SkillManager.Obj._SkillEnum.Length > 0)
+        {
+            foreach (AnimStruct Info in SkillManager.Obj._SkillEnum)
             {
                 if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
                 {
@@ -278,7 +312,16 @@ public abstract class BaseActor : MonoBehaviour {
         DirTo3.y = InDirection.y;
         TransCtrl.position = TransCtrl.position + DirTo3;
     }
-
+    //动画事件
+    public void AttackNone()
+    {
+        ActorState.NoneState();
+    }
+    //动画事件
+    public void AttackStart()
+    {
+        ActorState.AttackStart();
+    }
     //动画事件
     public void Attackting()
     {
@@ -289,26 +332,43 @@ public abstract class BaseActor : MonoBehaviour {
         ActorState.AttackEnd();
     }
     //击退
-    public virtual void HitBack( CutEffect HitEffect = new CutEffect() )
+    public virtual void HitBack( CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2())
     {
         if( IsHoly )
         {
             return;
         }
-        BeCut = HitEffect;
-        AnimCtrl.SetTrigger("HitBack");
+        
+        if( !IsOnGround)
+        {
+            HitEffect.RangeTime = HitEffect.RangeTime * 4;
+            HitEffect.SpeedRate = 0;
+            ClickFly(HitEffect, Direction);
+        }else
+        {
+            BeCut = HitEffect;
+            AnimCtrl.SetTrigger("HitBack");
+        }
     }
     //击飞
-    public virtual void ClickFly(CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2() )
+    public virtual bool ClickFly(CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2() )
     {
         if (IsHoly)
         {
-            return;
+            return false;
         }
         ForceMoveDirection = Direction;
         BeCut = HitEffect;
         AnimCtrl.SetTrigger("ClickFly");
+        return true;
     }
+    //拽取
+    public virtual bool DragFly( )
+    {
+        AnimCtrl.SetTrigger("DragFly");
+        return true;
+    }
+
     public virtual void FaceForce( Vector2 InDir)
     {
         Vector3 OldScale = TransCtrl.localScale;
@@ -330,8 +390,13 @@ public abstract class BaseActor : MonoBehaviour {
     //伤害
     public virtual void Hurt( int InAttack )
     {
-        ActorPropty.DeDuctLife(InAttack);
+        int LeftLife = ActorPropty.DeDuctLife(InAttack);
         AnimCtrl.SetInteger("PercentLife", (int)(ActorPropty.PercentLife * 100));
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        Color TextColor = new Color();
+        TextColor.a = 255;
+        TextColor.r = 255;
+        GameObject NewUI = UIEffectMgr.AddHurtInfo(InAttack.ToString(), TextColor, screenPos);
     }
 
     //扣除体力
@@ -339,5 +404,11 @@ public abstract class BaseActor : MonoBehaviour {
     {
         ActorPropty.DeDuctVIT(InCostVIT);
         AnimCtrl.SetInteger("PercentVIT", (int)(ActorPropty.PercentVIT * 100));
+    }
+
+    //死亡
+    public virtual void Death( )
+    {
+         
     }
 }

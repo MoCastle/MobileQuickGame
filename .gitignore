@@ -1,8 +1,13 @@
 Library/
 Temp/
 obj/
+*.dtbcache
 *.tmp
 *.user 
+*.lock
+*ide
+*ide-shm
+*ide-wal
 
 Program/MobileGame/Assets/outLog.txt
 Program/MobileGame/obj/Debug/Assembly-CSharp.csprojResolveAssemblyReference.cache

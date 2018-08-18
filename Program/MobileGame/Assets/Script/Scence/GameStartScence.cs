@@ -6,7 +6,7 @@ public class GameStartScence {
 
 	public static void StartScence( )
     {
-        Debug.Log("TrapToENterSence");
-        Application.LoadLevel("EnterSence");
+        Debug.Log("TrapToMenuSence");
+        Application.LoadLevel("MenuSence");
     }
 }

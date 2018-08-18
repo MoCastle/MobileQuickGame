@@ -1,9 +1,7 @@
 Library/
 Temp/
 obj/
-*.vs
 *.tmp
-*.csproj 
 *.user 
 
 Program/MobileGame/Assets/outLog.txt

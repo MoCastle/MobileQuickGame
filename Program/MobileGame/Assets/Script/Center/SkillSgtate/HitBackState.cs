@@ -13,7 +13,7 @@ public class HitBackState : BaseState {
         }
     }
     //硬直距离
-    public float HitBackDis = 2f;
+    public float HitBackDis = 4f;
     public override SkillEnum SkillType
     {
         get
@@ -25,6 +25,7 @@ public class HitBackState : BaseState {
     // Use this for initialization
     public HitBackState( BaseActor InActor):base(InActor)
     {
+        _Actor.RigidCtrl.gravityScale = 0;
         RangeTime = _Actor.BeCut.RangeTime;
         SpeedRate = _Actor.BeCut.SpeedRate;
         SetCutMeet();
@@ -37,7 +38,7 @@ public class HitBackState : BaseState {
     }
     public override void AttackEnd()
     {
-        base.AttackEnd();
+        AttackTingState = AttackEnum.AttackEnd;
         _Actor.RigidCtrl.velocity = _Actor.RigidCtrl.velocity;
     }
 

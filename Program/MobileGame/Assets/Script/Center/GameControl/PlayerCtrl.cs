@@ -178,11 +178,14 @@ public static class PlayerCtrl {
                 
             }
             NormInput NewInput = new NormInput(Input,Time.time - CountTime);
+            /*
             if (NewInput.Gesture != HandGesture.None)
             {
                 InputRoundArr.Push(NewInput);
-            }
-            if( !Input.IsPushing )
+            }*/
+            //松手的指令也需要缓存
+            InputRoundArr.Push(NewInput);
+            if ( !Input.IsPushing )
             {
                 IsInputing = false;
             }

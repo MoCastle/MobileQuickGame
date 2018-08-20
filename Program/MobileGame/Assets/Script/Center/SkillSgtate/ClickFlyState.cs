@@ -23,7 +23,7 @@ public class ClickFlyState : BaseState {
     public ClickFlyState( BaseActor InActor ):base(InActor)
     {
         RangeTime = _Actor.BeCut.RangeTime;
-        SpeedRate = _Actor.BeCut.SpeedRate;
+        SpeedRate = 0;
         SetCutMeet();
         Attacking();
         _ForceMoveDirection = _Actor.ForceMoveDirection;

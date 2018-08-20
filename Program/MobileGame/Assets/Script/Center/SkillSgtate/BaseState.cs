@@ -374,4 +374,8 @@ public abstract class BaseState {
     {
         _Actor.CostVIT(CostVITNum);
     }
+
+    //状态完结
+    public virtual void CompleteFunc()
+    { }
 }

@@ -44,6 +44,12 @@ public class CloseAttackState : AttackState {
         base.Attacking();
         _Actor.MovePs(Direction * _Actor.CAttackMove);
     }
+    /*
+    public override void AttackEnd()
+    {
+        AttackTingState = AttackEnum.AttackEnd;
+        //_Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
+    }*/
     public override void IsAttackEnding()
     {
         base.IsAttackEnding();

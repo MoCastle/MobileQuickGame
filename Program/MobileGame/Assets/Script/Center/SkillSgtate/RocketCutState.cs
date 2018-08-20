@@ -33,11 +33,18 @@ public class RocketCutState : PlayerState
         _Actor.RigidCtrl.velocity = _Actor.RigidCtrl.velocity * 0.5f;
         base.AttackEnd();
         _Actor.RigidCtrl.gravityScale = 0f;
+        ReleaseTarget();
+    }
+
+    //放开所有拽着的对象
+    void ReleaseTarget()
+    {
         foreach (BaseActor TargetActor in DragList)
         {
             TargetActor.Attackting();
         }
     }
+
     public override void Update()
     {
         foreach (BaseActor TargetActor in DragList)
@@ -69,5 +76,9 @@ public class RocketCutState : PlayerState
         Vector3 FixVector = TargetActor.FootTransCtrl.localPosition - _Actor.FootTransCtrl.localPosition + Shifting;
         Vector3 NewPs = _Actor.TransCtrl.position + FixVector;
         TargetActor.TransCtrl.position = NewPs;
+    }
+    public override void CompleteFunc()
+    {
+        ReleaseTarget();
     }
 }

@@ -266,6 +266,11 @@ public abstract class BaseActor : MonoBehaviour {
     }
     public virtual void SwitchState( )
     {
+        if( _ActorState!=null )
+        {
+            _ActorState.CompleteFunc();
+        }
+        
         string NewStateName = "";
         _CurAnimName = AnimCtrl.GetCurrentAnimatorStateInfo(0).nameHash;
         //先检查是否符合自己的设定
@@ -355,7 +360,7 @@ public abstract class BaseActor : MonoBehaviour {
         {
             return;
         }
-        
+        /*
         if( !IsOnGround)
         {
             HitEffect.RangeTime = HitEffect.RangeTime * 4;
@@ -365,7 +370,9 @@ public abstract class BaseActor : MonoBehaviour {
         {
             BeCut = HitEffect;
             AnimCtrl.SetTrigger("HitBack");
-        }
+        }*/
+        BeCut = HitEffect;
+        AnimCtrl.SetTrigger("HitBack");
     }
     //击飞
     public virtual bool ClickFly(CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2() )
@@ -376,7 +383,15 @@ public abstract class BaseActor : MonoBehaviour {
         }
         ForceMoveDirection = Direction;
         BeCut = HitEffect;
-        AnimCtrl.SetTrigger("ClickFly");
+        if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName("ClickFly"))
+        {
+            SwitchState();
+        }
+        else
+        {
+            AnimCtrl.SetTrigger("ClickFly");
+        }
+        
         return true;
     }
     //拽取

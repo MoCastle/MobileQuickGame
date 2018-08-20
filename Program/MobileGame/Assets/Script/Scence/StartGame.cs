@@ -10,7 +10,9 @@ public class StartGame : MonoBehaviour {
     {
         try
         {
-            CfgMgr.Init();
+            CfgMgr.InitCfg();
+            NpcProptyReader Npc = new NpcProptyReader();
+            Npc.Getname(0);
         }
         catch
         {

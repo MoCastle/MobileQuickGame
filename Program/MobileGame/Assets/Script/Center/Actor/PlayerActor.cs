@@ -193,7 +193,11 @@ public class PlayerActor : BaseActor {
         if( Alive )
         {
             NormInput HandInput = PlayerCtrl.InputRoundArr.Pop();
-            Input(HandInput);
+            if(HandInput.IsLegal)
+            {
+                Input(HandInput);
+            }
+            
         }
     }
 }

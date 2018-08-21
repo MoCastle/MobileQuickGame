@@ -9,7 +9,7 @@ public abstract class RoundArr<T>:IEnumerable
     IEnumerator IEnumerable.GetEnumerator()
     {
         bool Start = true;
-        for(int CurEnumPoint = CurFirstPoint; !Empty&&(Start||CurEnumPoint != CurPoint); CurEnumPoint = CountAddFirstPoint(CurEnumPoint) )
+        for(int CurEnumPoint = CurFirstPoint; !Empty&&(Start||CurEnumPoint != CountAddCurPoint(CurPoint)); CurEnumPoint = CountAddFirstPoint(CurEnumPoint) )
         {
             Start = false;
             yield return TArray[CurEnumPoint];
@@ -210,7 +210,7 @@ public class HeadInRoundArr<T>:RoundArr<T>
     protected override int CountAddFirstPoint(int FirstPoint)
     {
         //到底了 推不动了
-        if (FirstPoint == _TailPoint)
+        if (Empty)
         {
             return FirstPoint;
         }
@@ -250,6 +250,10 @@ public class StructRoundArr<T> where T : struct
             if( CountReducePoint( Point ) != _HeadPoint )
             {
                 Point = Point - 1;
+            }
+            if(Point< 0)
+            {
+                Point = TArray.Length - 1;
             }
             return TArray[Point];
         }

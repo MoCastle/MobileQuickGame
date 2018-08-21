@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AICtrler {
+    
     protected LinkedList<AIAction> AIActionList = new LinkedList<AIAction>();
     protected EnemyActor Actor;
     protected BaseActor Target;
@@ -23,7 +24,9 @@ public abstract class AICtrler {
         {
             AIActionList.First.Value.Update();
         }
+        LogicUpdate();
     }
+    public abstract void LogicUpdate();
     //设置攻击目标
     public virtual void FoundTarget( BaseActor InActor )
     {
@@ -42,5 +45,9 @@ public abstract class AICtrler {
     public virtual void PopAIStack()
     {
         AIActionList.RemoveFirst();
+    }
+    public void Break()
+    {
+        AIActionList = new LinkedList<AIAction>();
     }
 }

@@ -52,7 +52,7 @@ public struct NormInput
             return;
         }
 
-        if (InInfo.Percent < 0.01)
+        if (InInfo.Percent < 0.2)
         {
             Dir = InputDir.Middle;
             Direction = Vector2.zero;
@@ -121,7 +121,7 @@ public struct NormInput
             if( Dir!= InputDir.Middle && InputInfo.Percent > 0.7 )
             {
                 Gesture = HandGesture.Slip;
-            }else if(LifeTime < 0.3)
+            }else if(LifeTime < 0.5)
             {
                 Gesture = HandGesture.Click;
             }

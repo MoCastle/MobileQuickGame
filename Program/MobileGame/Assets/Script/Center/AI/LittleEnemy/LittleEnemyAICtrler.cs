@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LittleEnemyAICtrler : AICtrler {
+    public override void LogicUpdate()
+    {
+        if (AIActionList.First == null && Actor.Alive && Actor.AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            AIActionList = new LinkedList<AIAction>();
+            GuardAction Guarding = new GuardAction(Actor, this);
+            AddAction(Guarding);
+        }
+    }
     public LittleEnemyAICtrler( EnemyActor InActor ) : base(InActor)
     {
-        AIActionList = new LinkedList<AIAction>();
-        GuardAction Guarding = new GuardAction(InActor,this);
-        AddAction(Guarding);
+        
     }
     public void AddAction( AIAction InAction )
     {

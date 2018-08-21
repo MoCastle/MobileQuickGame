@@ -22,6 +22,7 @@ public class ClickFlyState : BaseState {
 
     public ClickFlyState( BaseActor InActor ):base(InActor)
     {
+        
         RangeTime = _Actor.BeCut.RangeTime;
         SpeedRate = 0;
         SetCutMeet();
@@ -32,6 +33,12 @@ public class ClickFlyState : BaseState {
         {
             Speed = 0;
         }
+    }
+    public override void Attacking()
+    {
+        _Actor.LockFace = true;
+        base.Attacking();
+
     }
     public override void IsAttackting()
     {

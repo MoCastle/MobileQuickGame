@@ -373,14 +373,17 @@ public abstract class BaseActor : MonoBehaviour {
         }*/
         BeCut = HitEffect;
         AnimCtrl.SetTrigger("HitBack");
+        BeBreak();
     }
     //击飞
     public virtual bool ClickFly(CutEffect HitEffect = new CutEffect(), Vector2 Direction = new Vector2() )
     {
+        
         if (IsHoly)
         {
             return false;
         }
+        BeBreak();
         ForceMoveDirection = Direction;
         BeCut = HitEffect;
         if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName("ClickFly"))
@@ -448,5 +451,10 @@ public abstract class BaseActor : MonoBehaviour {
         _Alive = false;
         AnimCtrl.SetTrigger("Death");
         DeathEvent();
+    }
+
+    public virtual void BeBreak()
+    {
+        
     }
 }

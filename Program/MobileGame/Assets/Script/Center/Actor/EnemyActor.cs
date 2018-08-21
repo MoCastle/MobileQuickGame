@@ -111,6 +111,12 @@ public class EnemyActor : BaseActor
     {
         //_AICtrler.EndAI();
     }
+
+    //被打断
+    public override void BeBreak()
+    {
+        AICtrl.Break();
+    }
     /*
     //击退
     public override void HitBack(CutEffect HitEffect = new CutEffect())

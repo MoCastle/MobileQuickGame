@@ -61,7 +61,7 @@ public class MainWindow : MonoBehaviour {
             ArrLength = ArrLength + 1;
         }
 
-        for( int LeftLength = ArrLength; LeftLength<10;++LeftLength )
+        for( int LeftLength = ArrLength; LeftLength<9;++LeftLength )
         {
             PutInfo.Append("无输入\n");
         }

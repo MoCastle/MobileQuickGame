@@ -25,6 +25,7 @@ public class HitBackState : BaseState {
     // Use this for initialization
     public HitBackState( BaseActor InActor):base(InActor)
     {
+        
         _Actor.RigidCtrl.gravityScale = 0;
         RangeTime = _Actor.BeCut.RangeTime;
         SpeedRate = _Actor.BeCut.SpeedRate;
@@ -34,6 +35,7 @@ public class HitBackState : BaseState {
 
     public override void IsAttackting()
     {
+        _Actor.LockFace = true;
         _Actor.RigidCtrl.velocity = _Actor.HitMoveDir * HitBackDis;
     }
     public override void AttackEnd()

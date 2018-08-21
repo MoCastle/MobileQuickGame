@@ -2,35 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class RoundArr<T>:IEnumerable,IEnumerator
+public abstract class RoundArr<T>:IEnumerable
 {
     //迭代器定义
     #region
     IEnumerator IEnumerable.GetEnumerator()
     {
-        throw new System.NotImplementedException();
+        bool Start = true;
+        for(int CurEnumPoint = CurFirstPoint; !Empty&&(Start||CurEnumPoint != CurPoint); CurEnumPoint = CountAddFirstPoint(CurEnumPoint) )
+        {
+            Start = false;
+            yield return TArray[CurEnumPoint];
+        }
     }
     #endregion
-
+    /*
     //枚举器定义
     #region 
+    bool StartEnum = false;
+    int CurEnumPoint = -1;
     public object Current
     {
         get
         {
-            return 1;
+            return TArray[CurEnumPoint];
         }
     }
     public bool MoveNext()
     {
-        throw new System.NotImplementedException();
+        //空的 不用看了
+        if (Empty)
+        {
+            return false;
+        }
+        CurEnumPoint = CountAddFirstPoint(CurEnumPoint);
+        
+        if(!StartEnum && CurEnumPoint == CurPoint )
+        {
+            return false;
+        }
+        StartEnum = false;
+        return true;
     }
 
     public void Reset()
     {
-        throw new System.NotImplementedException();
+        CurEnumPoint = CurFirstPoint - 1;
+        StartEnum = true;
     }
-    #endregion
+    #endregion*/
 
     //可重写部分
     //当前指针位置
@@ -38,10 +58,18 @@ public abstract class RoundArr<T>:IEnumerable,IEnumerator
     {
         get;
     }
+    //当第一个元素指针位置
+    protected abstract int CurFirstPoint
+    {
+        get;
+    }
     //把当前指针向下移
     protected abstract void AddCurPoint();
     //将第一个元素指针向后推
     protected abstract void AddFirstPoint();
+    //计算指针下移后的位置
+    protected abstract int CountAddCurPoint(int InTailPoint);
+    protected abstract int CountAddFirstPoint(int FirstPoint);
 
     //内部数据
     //缓存数据内容
@@ -51,14 +79,7 @@ public abstract class RoundArr<T>:IEnumerable,IEnumerator
     //尾元素指针
     protected int _TailPoint = 0;
     //每次移出元素时做判断
-    protected bool _Empty;
-
-
-    //内部功能
-
-
-
-
+    protected bool _Empty = true;
 
     //外部功能
     public RoundArr( int ArrayLength )
@@ -97,7 +118,12 @@ public abstract class RoundArr<T>:IEnumerable,IEnumerator
     //塞入元素
     public void AddInfo( T InInfo )
     {
-        AddCurPoint();
+        //如果原本就是空的 直接放进去 否则指针向后移找位置
+        if(!Empty)
+        {
+            AddCurPoint();
+        }
+        
         TArray[CurPoint] = InInfo;
         //一有数据必然不为空
         _Empty = false;
@@ -133,8 +159,8 @@ public class HeadInRoundArr<T>:RoundArr<T>
     public HeadInRoundArr(int ArrayLength):base(ArrayLength)
     {
     }
-    
 
+    
     //私有成员
     protected override int CurPoint
     {
@@ -144,33 +170,54 @@ public class HeadInRoundArr<T>:RoundArr<T>
         }
     }
 
+    //当前第一个元素指针
+    protected override int CurFirstPoint
+    {
+        get
+        {
+            return _HeadPoint;
+        }
+    }
+
 
 
     //放入无限制 随便放 大不了把头顶掉
     protected override void AddCurPoint()
     {
-        _TailPoint = _TailPoint + 1;
-        _TailPoint = _TailPoint % TArray.Length;
+        _TailPoint = CountAddCurPoint(_TailPoint);
         //头部元素将被覆盖
-        if(_TailPoint == _HeadPoint)
+        if (_TailPoint == _HeadPoint)
         {
             AddFirstPoint();
         }
+    }
+
+    //计算尾指针下移后的位置
+    protected override int CountAddCurPoint(int InTailPoint)
+    {
+        InTailPoint = InTailPoint + 1;
+        InTailPoint = InTailPoint % TArray.Length;
+        return InTailPoint;
     }
 
     //头向后移动
     protected override void AddFirstPoint()
     {
         //到底了 推不动了
-        if(_HeadPoint == _TailPoint)
-        {
-            return;
-        }
-        _HeadPoint = _HeadPoint + 1;
-        _HeadPoint = _HeadPoint % TArray.Length;
+        _HeadPoint = CountAddFirstPoint(_HeadPoint);
     }
-
-
+    
+    protected override int CountAddFirstPoint(int FirstPoint)
+    {
+        //到底了 推不动了
+        if (FirstPoint == _TailPoint)
+        {
+            return FirstPoint;
+        }
+        FirstPoint = FirstPoint + 1;
+        FirstPoint = FirstPoint % TArray.Length;
+        return FirstPoint;
+    }
 }
 
 //往里放命令不会把前面的挤础去

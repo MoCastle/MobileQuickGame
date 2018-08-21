@@ -22,6 +22,6 @@ public class DebugInfoUI : MonoBehaviour {
 	// Update is called once per frame
 	public void ShowInfo (string Info)
     {
-        _InfoText.text = Info;
+        InfoText.text = Info;
     }
 }

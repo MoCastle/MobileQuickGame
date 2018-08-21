@@ -24,6 +24,7 @@ public enum HandGesture
 
 public struct NormInput
 {
+
     public InputInfo InputInfo;
     public InputDir Dir;
     public HandGesture Gesture;
@@ -142,6 +143,13 @@ public struct NormInput
 }
 
 public static class PlayerCtrl {
+    public static event Input InputEvent;
+    public delegate void Input(NormInput Input);
+    public static void AddInputEvent(Input InFunction)
+    {
+        InputEvent += InFunction;
+    }
+
     public static NormInput CurOrder;
     static private bool _IsInputing;
     static public bool IsInputing
@@ -178,6 +186,7 @@ public static class PlayerCtrl {
                 
             }
             NormInput NewInput = new NormInput(Input,Time.time - CountTime);
+            InputEvent(NewInput);
             /*
             if (NewInput.Gesture != HandGesture.None)
             {

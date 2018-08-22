@@ -325,9 +325,17 @@ public abstract class BaseState {
 
     public virtual void SkillEffect( BaseActor TargetActor )
     {
-        Vector2 FaceToVect = (_Actor.FootTransCtrl.position - TargetActor.FootTransCtrl.position );
+        Vector2 ImpactDir = TargetActor.FootTransCtrl.position - _Actor.FootTransCtrl.position;
+        ImpactDir.y = 0;
+        ImpactDir = ImpactDir.normalized;
+        if (Mathf.Abs( ImpactDir.x)<0.1)
+        {
+            ImpactDir = Direction;
+        }
+        Vector2 FaceToVect = ImpactDir;
+        FaceToVect.x = FaceToVect.x * -1;
         TargetActor.FaceForce(FaceToVect);
-        TargetActor.HitMoveDir = Direction.normalized;
+        TargetActor.HitMoveDir = ImpactDir;
 
         AttackEffect(TargetActor);
         ReleaseEffect(TargetActor);

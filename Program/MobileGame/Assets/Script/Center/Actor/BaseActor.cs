@@ -407,7 +407,7 @@ public abstract class BaseActor : MonoBehaviour {
     public virtual void FaceForce( Vector2 InDir)
     {
         Vector3 OldScale = TransCtrl.localScale;
-        if (InDir.x * OldScale.x < 0)
+        if (InDir.x * (OldScale.x*10) < 0.01)
         {
             OldScale.x = OldScale.x * -1;
             TransCtrl.localScale = OldScale;

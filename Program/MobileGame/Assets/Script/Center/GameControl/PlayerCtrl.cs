@@ -110,7 +110,7 @@ public struct NormInput
             {
                 Gesture = HandGesture.Drag;
             }
-            else if( LifeTime > 0.1f )
+            else if( LifeTime > 0.5f )
             {
                 Gesture = HandGesture.Holding;
             }

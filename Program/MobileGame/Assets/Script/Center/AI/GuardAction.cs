@@ -10,6 +10,12 @@ public class GuardAction :AIAction {
     }
     public override void LogicUpdate()
     {
+        if (_Ctrler.Target != null)
+        {
+            _Ctrler.EnterBattle();
+            return;
+        }
+
         BaseActor FoundActor = Enemy.CheckGetPlayer();
         //检查是否发现玩家
         if( FoundActor != null )
@@ -17,6 +23,8 @@ public class GuardAction :AIAction {
             _Ctrler.FoundTarget(FoundActor);
             _Ctrler.EnterBattle();
         }
+
+        
     }
     public override void Start()
     {

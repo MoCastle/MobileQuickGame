@@ -110,7 +110,7 @@ public struct NormInput
             {
                 Gesture = HandGesture.Drag;
             }
-            else if( LifeTime > 0.5f )
+            else if( LifeTime > 0.30f )
             {
                 Gesture = HandGesture.Holding;
             }
@@ -118,10 +118,10 @@ public struct NormInput
         else
         {
             Gesture = HandGesture.None;
-            if( Dir!= InputDir.Middle && InputInfo.Percent > 0.7 )
+            if( Dir!= InputDir.Middle && InputInfo.Percent > 0.4 )
             {
                 Gesture = HandGesture.Slip;
-            }else if(LifeTime < 0.5)
+            }else if(LifeTime < 0.3)
             {
                 Gesture = HandGesture.Click;
             }
@@ -143,6 +143,7 @@ public struct NormInput
 }
 
 public static class PlayerCtrl {
+
     public static event Input InputEvent;
     public delegate void Input(NormInput Input);
     public static void AddInputEvent(Input InFunction)
@@ -151,6 +152,20 @@ public static class PlayerCtrl {
     }
 
     public static NormInput CurOrder;
+    //手指放入事件
+    public static event InputFunc FingerOn;
+    //手指挪开事件
+    static event InputFunc _FingerOff;
+    public static void AddFingerOff(InputFunc Func)
+    {
+        _FingerOff += Func;
+    }
+    public static void RemoveFingerOff(InputFunc Func)
+    {
+        _FingerOff -= Func;
+    }
+
+    public delegate void InputFunc();
     static private bool _IsInputing;
     static public bool IsInputing
     {
@@ -165,9 +180,18 @@ public static class PlayerCtrl {
                 if(value)
                 {
                     CountTime = Time.time;
-                }else
+                    if(FingerOn!=null)
+                    {
+                        FingerOn();
+                    }
+                }
+                else
                 {
                     CountTime = 0;
+                    if (_FingerOff != null)
+                    {
+                        _FingerOff();
+                    }
                 }
                 _IsInputing = value;
             }

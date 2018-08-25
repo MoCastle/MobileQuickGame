@@ -327,11 +327,12 @@ public abstract class BaseState {
     {
         Vector2 ImpactDir = TargetActor.FootTransCtrl.position - _Actor.FootTransCtrl.position;
         ImpactDir.y = 0;
-        ImpactDir = ImpactDir.normalized;
-        if (Mathf.Abs( ImpactDir.x)<0.1)
+        if (Mathf.Abs( ImpactDir.x)< _Actor.ColliderCtrl.bounds.size.x/2)
         {
             ImpactDir = Direction;
         }
+
+        ImpactDir = ImpactDir.normalized;
         Vector2 FaceToVect = ImpactDir;
         FaceToVect.x = FaceToVect.x * -1;
         TargetActor.FaceForce(FaceToVect);

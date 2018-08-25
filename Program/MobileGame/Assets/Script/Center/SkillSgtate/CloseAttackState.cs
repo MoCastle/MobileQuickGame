@@ -25,7 +25,7 @@ public class CloseAttackState : AttackState {
         if (InActor.PreState == SkillType)
         {
             Vector2 DirVector = CurInputPS - InActor.PreInput;
-            if (DirVector.x * Direction.x<0 && DirVector.magnitude > CurInput.MaxDst* 0.3)
+            if (Mathf.Abs(DirVector.x) > CurInput.MaxDst * 0.4 && DirVector.x * Direction.x<0 )
             {
                 _Actor.FaceTo(DirVector);
             }

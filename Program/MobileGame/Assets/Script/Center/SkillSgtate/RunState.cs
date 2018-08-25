@@ -41,6 +41,7 @@ public class RunState : PlayerState
 
     public RunState(PlayerActor InActor) : base(InActor)
     {
+        _Actor.AnimCtrl.SetBool("IsRunning", true);
     }
 
     public override void Update()

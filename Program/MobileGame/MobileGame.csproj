@@ -104,6 +104,7 @@
     <Compile Include="Assets\Script\Center\AI\GuardAction.cs" />
     <Compile Include="Assets\Script\Center\AI\LittleEnemy\LittleEnemyAICtrler.cs" />
     <Compile Include="Assets\Script\Center\AI\LittleEnemy\LittleEnemyNormAction.cs" />
+    <Compile Include="Assets\Script\Center\AI\LittleEnemy\LittleEnemySerAtcAction.cs" />
     <Compile Include="Assets\Script\Center\Actor\BaseActor.cs" />
     <Compile Include="Assets\Script\Center\Actor\EnemyActor.cs" />
     <Compile Include="Assets\Script\Center\Actor\FatEnemyActor.cs" />

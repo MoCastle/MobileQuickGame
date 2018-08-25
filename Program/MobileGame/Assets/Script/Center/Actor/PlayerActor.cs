@@ -34,6 +34,7 @@ public class PlayerActor : BaseActor {
             base.IsOnGround = value;
         }
     }
+
     public float MoveVector;
     public float ChargeAddSpeed;
     int _Dashed;
@@ -87,6 +88,7 @@ public class PlayerActor : BaseActor {
     }
     // Use this for initialization
     public override void LogicAwake(){
+        PlayerCtrl.AddFingerOff (OnFingerOut);
     }
 	
     public void FireOff()
@@ -187,7 +189,6 @@ public class PlayerActor : BaseActor {
         PlayerCtrl.CurOrder = Input;
     }
     
-
     public override void LogicUpdate()
     {
         if( Alive )
@@ -199,5 +200,18 @@ public class PlayerActor : BaseActor {
             }
             
         }
+    }
+
+    //手指挪开触发事件
+    public void OnFingerOut()
+    {
+        //不再处于跑动状态
+        this.AnimCtrl.SetBool("IsRunning",false);
+    }
+
+    //销毁事件
+    public void OnDestroy()
+    {
+        PlayerCtrl.RemoveFingerOff(OnFingerOut);
     }
 }

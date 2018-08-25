@@ -6,7 +6,7 @@ public abstract class AICtrler {
     
     protected LinkedList<AIAction> AIActionList = new LinkedList<AIAction>();
     protected EnemyActor Actor;
-    protected BaseActor Target;
+    public BaseActor Target;
     public BaseActor CurTarget
     {
         get
@@ -23,6 +23,13 @@ public abstract class AICtrler {
         if(AIActionList.First != null && Actor.Alive)
         {
             AIActionList.First.Value.Update();
+        }
+
+        if (AIActionList.First == null && Actor.Alive && Actor.AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            AIActionList = new LinkedList<AIAction>();
+            GuardAction Guarding = new GuardAction(Actor, this);
+            PushAction(Guarding);
         }
         LogicUpdate();
     }
@@ -41,6 +48,11 @@ public abstract class AICtrler {
     {
         AIActionList = new LinkedList<AIAction>();
     }
+    //往里压
+    public void PushAction(AIAction InAction)
+    {
+        AIActionList.AddFirst(InAction);
+    }
     //弹栈
     public virtual void PopAIStack()
     {
@@ -49,5 +61,6 @@ public abstract class AICtrler {
     public void Break()
     {
         AIActionList = new LinkedList<AIAction>();
+        EnterBattle();
     }
 }

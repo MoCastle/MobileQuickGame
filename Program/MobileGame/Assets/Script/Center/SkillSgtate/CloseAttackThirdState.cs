@@ -7,7 +7,7 @@ public class CloseAttackThirdState : CloseAttackState
     //重击硬直时间
     float ChargingTime = 0.2f;
     float CountTime = 0;
-    float Speed = 15;
+    float Speed = 10;
     public CloseAttackThirdState(PlayerActor InActor) : base(InActor)
     {
         NoneState();

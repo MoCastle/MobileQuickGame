@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
-    public float StD = 100;//向饱和距离
+    float StD = 10;//向饱和距离
     public float DragSpaceTime;
     public float DragDistancePer;
     public int DragSpaceFrame;
@@ -38,7 +38,8 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     void Awake()
     {
         PlayerCtrl.RefreshInputRoundArr();
-        StD = GetComponent<RectTransform>().sizeDelta.x / 2;
+        //StD = GetComponent<RectTransform>().sizeDelta.x / 2;
+        StD = Screen.width / 2;
     }
     void ClearAllPs( )
     {
@@ -68,8 +69,8 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
 	// Update is called once per frame
 	void Update( )
     {
-        LogOutPut.text = PushingPs.ToString();
-        if( _IsInputting )
+        LogOutPut.text = "ScreenWidth = " + StD + "\n " + PushingPs.ToString();
+        if ( _IsInputting )
         {
             OutPutCommand();
             bool IfPush = true;

@@ -100,7 +100,7 @@
     <Compile Include="Assets\Script\Center\AI\AICtrler.cs" />
     <Compile Include="Assets\Script\Center\AI\ChasingAction.cs" />
     <Compile Include="Assets\Script\Center\AI\EnemyAction.cs" />
-    <Compile Include="Assets\Script\Center\AI\FatAss\CloseAttack.cs" />
+    <Compile Include="Assets\Script\Center\AI\FatAss\FatAssAICtrler.cs" />
     <Compile Include="Assets\Script\Center\AI\GuardAction.cs" />
     <Compile Include="Assets\Script\Center\AI\LittleEnemy\LittleEnemyAICtrler.cs" />
     <Compile Include="Assets\Script\Center\AI\LittleEnemy\LittleEnemyNormAction.cs" />

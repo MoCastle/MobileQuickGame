@@ -40,9 +40,7 @@ public abstract class AICtrler {
         Target = InActor;
     }
     //生成战斗AI
-    public virtual void EnterBattle()
-    {
-    }
+    public abstract void EnterBattle();
     //重置AI列表
     public virtual void ResetAIStack()
     {

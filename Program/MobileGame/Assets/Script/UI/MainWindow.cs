@@ -5,6 +5,16 @@ using System.Text;
 using UnityEngine.UI;
 
 public class MainWindow : MonoBehaviour {
+    bool _IfPaul = false;
+
+    //暂停事件
+    public void PauseEvent()
+    {
+        _IfPaul = !_IfPaul;
+        Time.timeScale = _IfPaul? 0:1;
+        GameCtrl.GameCtrler.SwitchPause();
+    }
+
     public Slider PlayerHP;
     public Slider PlayerVIT;
     public DebugInfoUI DebugText;

@@ -22,6 +22,19 @@ public abstract class BaseActor : MonoBehaviour {
     {
         DeathEvent += InFunction;
     }
+
+    GameCtrl _GameCtr;
+    GameCtrl GameCtrler
+    {
+        get
+        {
+            if(_GameCtr == null)
+            {
+                _GameCtr = GameCtrl.GameCtrler;
+            }
+            return _GameCtr;
+        }
+    }
     //生命状态
     protected bool _Alive;
     public bool Alive
@@ -231,6 +244,10 @@ public abstract class BaseActor : MonoBehaviour {
     }
     public void Update()
     {
+        if(GameCtrler.IsPaused)
+        {
+            return;
+        }
         //着地状态检测
         float Width = ColliderCtrl.size.x;
         Vector2 Position = FootTransCtrl.position;

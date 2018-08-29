@@ -5,6 +5,26 @@ using PathologicalGames;
 
 public class GameCtrl
 {
+    //暂停功能
+    #region
+    public bool _IsPaused = false;
+    public bool IsPaused
+    {
+        get
+        {
+            return _IsPaused;
+        }
+    }
+
+    //暂停/继续 操作
+    public void SwitchPause()
+    {
+        _IsPaused = !IsPaused;
+        Time.timeScale = _IsPaused ? 0 : 1;
+    }
+
+    #endregion
+
     static GameCtrl _GameCtrler;
     static public GameCtrl GameCtrler
     {

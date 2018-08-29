@@ -144,6 +144,20 @@ public struct NormInput
 
 public static class PlayerCtrl {
 
+    //游戏控制器
+    static GameCtrl _GmCtrler;
+    public static GameCtrl GmCtrler
+    {
+        get
+        {
+            if (_GmCtrler == null)
+            {
+                _GmCtrler = GameCtrl.GameCtrler;
+            }
+            return _GmCtrler;
+        }
+    }
+
     public static event Input InputEvent;
     public delegate void Input(NormInput Input);
     public static void AddInputEvent(Input InFunction)
@@ -202,7 +216,7 @@ public static class PlayerCtrl {
 
     public static void InputHandTouch( InputInfo Input )
     {
-        if( Input.IsLegal )
+        if( Input.IsLegal && !GmCtrler.IsPaused)
         {
             if( Input.IsPushing )
             {

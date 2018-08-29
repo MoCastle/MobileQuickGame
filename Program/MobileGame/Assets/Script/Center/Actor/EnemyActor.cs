@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 [System.Serializable]
 public struct AttackRate
 {
@@ -12,6 +13,7 @@ public class EnemyActor : BaseActor
     public int InitID;
     public AttackRate[] CloseAttackArray;
     public AttackRate[] FarAttackArray;
+    public Slider LifeSlider;
 
     BoxCollider2D _GuardingArea;
     BoxCollider2D GuardingArea
@@ -56,6 +58,8 @@ public class EnemyActor : BaseActor
     public override void LogicUpdate()
     {
         _AICtrler.Update();
+        LifeSlider.value = ActorPropty.PercentLife;
+        Debug.Log(LifeSlider.value);
     }
 
     public BaseActor CheckGetPlayer( )

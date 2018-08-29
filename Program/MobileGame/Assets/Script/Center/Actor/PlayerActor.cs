@@ -89,6 +89,7 @@ public class PlayerActor : BaseActor {
     // Use this for initialization
     public override void LogicAwake(){
         PlayerCtrl.AddFingerOff (OnFingerOut);
+        
     }
 	
     public void FireOff()

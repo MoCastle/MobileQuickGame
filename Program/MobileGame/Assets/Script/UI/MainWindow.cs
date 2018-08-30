@@ -5,15 +5,31 @@ using System.Text;
 using UnityEngine.UI;
 
 public class MainWindow : MonoBehaviour {
-    bool _IfPaul = false;
 
+    
+    bool _IfPaul = false;
+    //打开菜单
+    #region
+    public OptionMenue Menue;
     //暂停事件
     public void PauseEvent()
     {
-        _IfPaul = !_IfPaul;
-        Time.timeScale = _IfPaul? 0:1;
         GameCtrl.GameCtrler.SwitchPause();
+        Menue.gameObject.active = GameCtrl.GameCtrler.IsPaused;
     }
+    //返回主菜单
+    public void ReturnToMain()
+    {
+        Application.LoadLevel("MenuSence");
+    }
+    //返回主菜单
+    public void Restart()
+    {
+        PauseEvent();
+        Application.LoadLevel("EnterSence");
+    }
+
+    #endregion
 
     public Slider PlayerHP;
     public Slider PlayerVIT;

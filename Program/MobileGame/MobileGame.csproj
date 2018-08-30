@@ -171,6 +171,7 @@
     <Compile Include="Assets\Script\UI\InputTouch.cs" />
     <Compile Include="Assets\Script\UI\MainWindow.cs" />
     <Compile Include="Assets\Script\UI\MenueUI.cs" />
+    <Compile Include="Assets\Script\UI\OptionMenue.cs" />
     <Compile Include="Assets\Script\UI\ShowText.cs" />
     <Compile Include="Assets\Script\UI\UIEffectMgr.cs" />
     <Compile Include="Assets\Script\UI\UIManager.cs" />

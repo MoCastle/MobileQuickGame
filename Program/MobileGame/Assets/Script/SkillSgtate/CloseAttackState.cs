@@ -19,26 +19,32 @@ public class CloseAttackState : AttackState {
     }
     public CloseAttackState( PlayerActor InActor ):base( InActor )
     {
-        //2018.7.17 目前只有普攻有转向问题 暂时的解决方案 三联时记录下最终输入的位置 下一次有输入时做比较
-        InputInfo CurInput = InActor.GetTempInput(HandGesture.Click).InputInfo;
-        Vector2 CurInputPS = CurInput.EndPs;
-        if (InActor.PreState == SkillType)
-        {
-            Vector2 DirVector = CurInputPS - InActor.PreInput;
-            if (Mathf.Abs(DirVector.x) > CurInput.MaxDst * 0.4 && DirVector.x * Direction.x<0 )
-            {
-                _Actor.FaceTo(DirVector);
-            }
-        }
-        InActor.PreInput = CurInputPS;
-        InActor.PreState = SkillType;
         //2018.7.22 空中攻击技能流畅度调整
-        if(!_Actor.IsOnGround)
+        if (!_Actor.IsOnGround)
         {
             _Actor.RigidCtrl.gravityScale = 0;
             _Actor.RigidCtrl.velocity = Vector2.zero;
         }
     }
+
+    //处理转向问题
+    public override void DealFaceTo()
+    {
+        //2018.7.17 目前只有普攻有转向问题 暂时的解决方案 三联时记录下最终输入的位置 下一次有输入时做比较
+        InputInfo CurInput = Actor.GetTempInput(HandGesture.Click).InputInfo;
+        Vector2 CurInputPS = CurInput.EndPs;
+        if (Actor.PreState == SkillType)
+        {
+            Vector2 DirVector = CurInputPS - Actor.PreInput;
+            if (Mathf.Abs(DirVector.x) > CurInput.MaxDst * 0.4 && DirVector.x * Direction.x < 0)
+            {
+                _Actor.FaceTo(DirVector);
+            }
+        }
+        Actor.PreInput = CurInputPS;
+        
+    }
+
     public override void Attacking()
     {
         base.Attacking();

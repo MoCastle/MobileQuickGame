@@ -145,6 +145,7 @@
     <Compile Include="Assets\Script\SkillSgtate\ClickFlyState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\CloseAttackState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\CloseAttackThirdState.cs" />
+    <Compile Include="Assets\Script\SkillSgtate\CloseFirstAttackState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\CloseSkillState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\DashState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\DefaultState.cs" />

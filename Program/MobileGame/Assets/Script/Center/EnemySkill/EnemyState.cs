@@ -12,13 +12,6 @@ public abstract class EnemyState : BaseState
             return 1 << LayerMask.NameToLayer("Player");
         }
     }
-    public override SkillEnum SkillType
-    {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
-    }
     public EnemyState(EnemyActor actor) : base(actor)
     {
         Actor = actor;

@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class CloseSkillState : PlayerState
 {
-    public override SkillEnum SkillType
-    {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
-    }
 
     public CloseSkillState(PlayerActor InaActor) : base(InaActor) { }
 

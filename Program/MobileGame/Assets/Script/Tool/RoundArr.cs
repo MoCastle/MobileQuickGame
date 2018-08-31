@@ -362,7 +362,7 @@ public class StructRoundArrCovered<T>:StructRoundArr<T> where T : struct
         base.Push(Target);
     }
 
-    //反向遍历
+    //反向遍历初始化
     public void InitTailEnum( )
     {
         TailCurPoint = _TailPoint;

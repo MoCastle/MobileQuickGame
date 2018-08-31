@@ -20,6 +20,7 @@ public class MainWindow : MonoBehaviour {
     //返回主菜单
     public void ReturnToMain()
     {
+        PauseEvent();
         Application.LoadLevel("MenuSence");
     }
     //返回主菜单
@@ -78,6 +79,12 @@ public class MainWindow : MonoBehaviour {
             {
                 PutInfo.Append("手势:");
                 PutInfo.Append(Input.Gesture.ToString());
+                PutInfo.Append(" 百比");
+                PutInfo.Append(((int)(Input.InputInfo.Percent*100)).ToString());
+                PutInfo.Append(" 方向");
+                PutInfo.Append(Input.Dir.ToString());
+                PutInfo.Append(" 时间");
+                PutInfo.Append(Input.LifeTime.ToString());
                 PutInfo.Append("\n");
             }
             else

@@ -52,7 +52,7 @@ public struct NormInput
             return;
         }
 
-        if (InInfo.Percent < 0.2)
+        if (InInfo.Percent < 0.1)
         {
             Dir = InputDir.Middle;
             Direction = Vector2.zero;

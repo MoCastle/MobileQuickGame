@@ -10,9 +10,20 @@ public abstract class PlayerState : BaseState {
             return 1 << LayerMask.NameToLayer("Enemy");
         }
     }
+
     protected PlayerActor Actor;
     public PlayerState(PlayerActor InActor ):base( InActor )
     {
         Actor = InActor;
+        //有的技能需要发招前做修正 让它修
+        DealFaceTo();
+        if( SkillType != SkillEnum.Idle )
+            Actor.PreState = SkillType;
+    }
+
+    //处理转向问题
+    public virtual void DealFaceTo()
+    {
+       
     }
 }

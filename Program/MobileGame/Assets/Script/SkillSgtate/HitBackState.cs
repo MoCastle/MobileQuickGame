@@ -14,13 +14,6 @@ public class HitBackState : BaseState {
     }
     //硬直距离
     public float HitBackDis = 4f;
-    public override SkillEnum SkillType
-    {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
-    }
 
     // Use this for initialization
     public HitBackState( BaseActor InActor):base(InActor)

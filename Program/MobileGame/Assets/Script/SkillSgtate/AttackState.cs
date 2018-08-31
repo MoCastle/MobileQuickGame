@@ -8,15 +8,9 @@ using UnityEngine;
 public class AttackState : PlayerState
 {
 
-    
-    public override SkillEnum SkillType
+    public AttackState(PlayerActor InaActor) : base(InaActor)
     {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
-
-    public AttackState(PlayerActor InaActor) : base(InaActor) { }
  
 }

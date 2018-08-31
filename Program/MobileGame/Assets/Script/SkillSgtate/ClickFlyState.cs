@@ -12,13 +12,6 @@ public class ClickFlyState : BaseState {
             return _ForceMoveDirection;
         }
     }
-    public override SkillEnum SkillType
-    {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
-    }
 
     public ClickFlyState( BaseActor InActor ):base(InActor)
     {

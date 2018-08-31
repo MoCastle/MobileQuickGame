@@ -11,13 +11,7 @@ public class EnemyAttackState : EnemyState {
         AttackEnd
     }
     protected AttackEnum AttackTingState;
-    public override SkillEnum SkillType
-    {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
-    }
+
     public override void JugeStateActive()
     {
         switch (AttackTingState)

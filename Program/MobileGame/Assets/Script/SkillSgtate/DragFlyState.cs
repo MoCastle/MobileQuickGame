@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class DragFlyState : BaseState
 {
-    public override SkillEnum SkillType
-    {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
-    }
     public DragFlyState( BaseActor InActor ):base( InActor )
     {
         _Actor.RigidCtrl.gravityScale = 0;

@@ -59,7 +59,6 @@ public class EnemyActor : BaseActor
     {
         _AICtrler.Update();
         LifeSlider.value = ActorPropty.PercentLife;
-        Debug.Log(LifeSlider.value);
     }
 
     public BaseActor CheckGetPlayer( )

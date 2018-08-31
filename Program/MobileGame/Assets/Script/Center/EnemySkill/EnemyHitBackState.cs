@@ -13,13 +13,6 @@ public class EnemyHitBackState : EnemyState {
         }
     }
     public float HitBackDis= 2f;
-    public override SkillEnum SkillType
-    {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
-    }
 
     // Use this for initialization
     public EnemyHitBackState(EnemyActor InActor) : base(InActor)

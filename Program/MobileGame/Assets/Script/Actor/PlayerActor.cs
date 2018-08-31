@@ -65,6 +65,10 @@ public class PlayerActor : BaseActor {
         }
         return Result;
     }
+    public void RemoveInput( HandGesture Key )
+    {
+        LegalnputDict.Remove(Key);
+    }
     public NormInput CurInput
     {
         get

@@ -6,13 +6,6 @@ public class ChargeState : PlayerState
 {
     float CountTime;
     
-    public override SkillEnum SkillType
-    {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
-    }
     public ChargeState(PlayerActor InActor) : base(InActor)
     {
         Actor = InActor;
@@ -24,7 +17,7 @@ public class ChargeState : PlayerState
             PlayerActor Player = (PlayerActor)_Actor;
             OldVector.y = Player.ChargeAddSpeed;
             _Actor.RigidCtrl.velocity = OldVector;
-            _Actor.RigidCtrl.gravityScale = _Actor.RigidCtrl.gravityScale * 0.5f;
+            _Actor.RigidCtrl.gravityScale = 0.1f;//_Actor.RigidCtrl.gravityScale * 0.5f;
         }
         
     }

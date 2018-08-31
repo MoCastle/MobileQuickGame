@@ -7,17 +7,25 @@ using UnityEngine.EventSystems;
 public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     float StD = 10;//向饱和距离
+                   //输入间隔设置
+    #region
+    //缓存队列的总时间
     public float DragSpaceTime;
     public float DragDistancePer;
+    //记录时间间隔
     public int DragSpaceFrame;
-    float SpaceTime
+    float NextCountTime
     {
         get
         {
             return DragSpaceFrame * Time.fixedDeltaTime + PushCount;
         }
     }
+    //帧率记录
     float PushCount = 0;
+    #endregion
+
+
     StructRoundArrCovered<Vector2> _InputRoundArr;
     public StructRoundArrCovered<Vector2> InputRoundArr
     {
@@ -55,6 +63,8 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     {
         PushStart = eventData.position;
         PushingPs = eventData.position;
+        //这里把初始零向量给算上 不然会少算
+        InputRoundArr.Push(Vector2.zero);
         _IsInputting = true;
     }
 
@@ -63,6 +73,7 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
         _IsInputting = false;
         OutPutCommand( );
         ClearAllPs();
+        //该处待优化 平白创建一个对象 浪费资源
         _InputRoundArr = null;
     }
 
@@ -74,9 +85,11 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
         {
             OutPutCommand();
             bool IfPush = true;
+            /*
+            //计算到达做一次记录的时间间隔
             if( PushCount > 0)
             {
-                if(SpaceTime> Time.time)
+                if(NextCountTime> Time.time)
                 {
                     IfPush = false;
                 }else
@@ -87,10 +100,11 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
             else
             {
                 PushCount = Time.time;
-            }
+            }*/
 
             if( IfPush )
             {
+                //向队列中放入触屏过程中的向量
                 Vector2 InputVector = PushingPs - PushStart;
                 InputRoundArr.Push(InputVector);
             }
@@ -105,6 +119,7 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
         OutPut.IsPushing = _IsInputting;
         if(!OutPut.IsPushing)
         {
+            //最后手指按压时的向量给传进去
             InputVector = CheckMaxVectorInRound(InputVector);
         }
         OutPut.Shift = InputVector;
@@ -117,22 +132,32 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
     {
         InputRoundArr.InitTailEnum();
         //记录最后一个有效输入的放下
-        Vector2 CurDir = Vector2.zero; ;
-        while( !InputRoundArr.IfEndTailEnum )
+        Vector2 CurDir = Vector2.zero;
+        Vector2 FirstPoint;
+        Vector2 LastVector;
+        while ( !InputRoundArr.IfEndTailEnum )
         {
             Vector2 PopVector = InputRoundArr.GetTailEnumT();
             //记录当前触碰点与终止输入点的向量
             Vector2 Direction = EndInput - PopVector;
+
+            LastVector = PopVector;
             if (Direction.sqrMagnitude > 0.01f )
             {
-                if(CurDir.sqrMagnitude < 0.01f)
+                
+                if (CurDir.sqrMagnitude < 0.1f && Direction.sqrMagnitude > (StD*0.1)* (StD * 0.1))
                 {
                     CurDir = Direction;
+                    FirstPoint = PopVector;
                 }//对夹角进行判断
-                if (Vector2.Angle(CurDir, Direction) < 90)
+                if (CurDir == Vector2.zero)
+                {
+
+                }
+                else if( Vector2.Angle(CurDir, Direction) < 90)
                 {
                     //判断距离是否达标
-                    if (Direction.sqrMagnitude > Mathf.Pow(DragDistancePer * StD,2))
+                    if (Direction.magnitude > DragDistancePer * StD)
                     {
                         Debug.Log("InputTouch: CheckOver direction Distance:" + Direction.sqrMagnitude + "    Target Distance:" + Mathf.Pow(DragDistancePer * StD, 2));
                         return Direction.normalized* StD;

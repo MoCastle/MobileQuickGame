@@ -168,9 +168,12 @@ public abstract class BaseState {
             return ReturnVect;
         }
     }
-    public abstract SkillEnum SkillType
+    public virtual SkillEnum SkillType
     {
-        get;
+        get
+        {
+            return SkillEnum.Default;
+        }
     }
     public virtual HurtTypeEnum HurtType
     {

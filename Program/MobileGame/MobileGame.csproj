@@ -130,6 +130,7 @@
     <Compile Include="Assets\Script\Center\Spawn\BaseSpawn.cs" />
     <Compile Include="Assets\Script\Center\Spawn\EnemySpawn.cs" />
     <Compile Include="Assets\Script\Center\Spawn\PlayerSpawn.cs" />
+    <Compile Include="Assets\Script\Cfg\SkillInfoReader.cs" />
     <Compile Include="Assets\Script\EnumLabelAttribute.cs" />
     <Compile Include="Assets\Script\ForNow\SkillObj.cs" />
     <Compile Include="Assets\Script\ResourceCtrl\LoadEffect.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Assets\Script\TitleAttribute.cs" />
     <Compile Include="Assets\Script\Tool\ActorManager.cs" />
     <Compile Include="Assets\Script\Tool\Cfg\BaseCfgReader.cs" />
+    <Compile Include="Assets\Script\Tool\Cfg\CfgBase.cs" />
     <Compile Include="Assets\Script\Tool\Cfg\CfgMgr.cs" />
     <Compile Include="Assets\Script\Tool\Cfg\NpcProptyReader.cs" />
     <Compile Include="Assets\Script\Tool\RoundArr.cs" />

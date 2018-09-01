@@ -71,4 +71,9 @@ public static class CfgMgr {
     {
         return Data[Name][Line][Column];
     }
+
+    public static List<string[]> GetCfgInfo( string Name )
+    {
+        return Data[Name];
+    }
  }

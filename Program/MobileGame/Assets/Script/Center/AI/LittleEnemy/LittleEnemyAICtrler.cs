@@ -15,6 +15,10 @@ public class LittleEnemyAICtrler : AICtrler {
     //进入战斗力状态
     public override void EnterBattle()
     {
+        if( CurTarget == null )
+        {
+            return;
+        }
         ResetAIStack();
         Vector2 Dis = CurTarget.TransCtrl.position - Actor.TransCtrl.position;
         if (Target != null)

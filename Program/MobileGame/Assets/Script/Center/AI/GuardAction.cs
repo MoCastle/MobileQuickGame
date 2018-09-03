@@ -10,9 +10,9 @@ public class GuardAction :AIAction {
     }
     public override void LogicUpdate()
     {
-        if (_Ctrler.Target != null)
+        if (_Ctrler.CurTarget != null)
         {
-            _Ctrler.EnterBattle();
+            //_Ctrler.EnterBattle();
             return;
         }
 
@@ -21,7 +21,7 @@ public class GuardAction :AIAction {
         if( FoundActor != null )
         {
             _Ctrler.FoundTarget(FoundActor);
-            _Ctrler.EnterBattle();
+            //_Ctrler.EnterBattle();
         }
 
         

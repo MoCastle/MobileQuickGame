@@ -17,10 +17,11 @@ public class EnemySpawn : BaseSpawn
         Vector3 NewPs = this.transform.position;
         NewPs.z = 0;
         GameObject NewEnemy = GamePoolManager.Manager.GenObj(EnemySample);
-        BaseActor EnemyActor = NewEnemy.GetComponent<BaseActor>();
+        EnemyActor EnemyActor = NewEnemy.GetComponent<EnemyActor>();
         EnemyActor.AddDeathEvent(Break);
         NewEnemy.transform.position = NewPs;
         NewEnemy.transform.rotation = transform.rotation;
+        EnemyActor.BirthPlace = NewPs;
         return NewEnemy;
     }
     public void Break( )

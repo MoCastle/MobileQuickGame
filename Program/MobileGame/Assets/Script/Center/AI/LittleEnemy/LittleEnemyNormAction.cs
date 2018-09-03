@@ -24,6 +24,10 @@ public class LittleEnemyNormAction : EnemyAction {
     public override void Start()
     {
         _EnemyActor.AnimCtrl.SetTrigger(Triggername);
-        _EnemyActor.FaceTo(_Ctrler.CurTarget.transform.position - _Actor.transform.position);
+        if(_Ctrler.CurTarget!=null)
+        {
+            _EnemyActor.FaceTo(_Ctrler.CurTarget.transform.position - _Actor.transform.position);
+        }
+        
     }
 }

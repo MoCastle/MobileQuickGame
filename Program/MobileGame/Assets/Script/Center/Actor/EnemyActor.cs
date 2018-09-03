@@ -8,8 +8,9 @@ public struct AttackRate
     public string Name;
     public float Rate;
 }
-public class EnemyActor : BaseActor
+public abstract class EnemyActor : BaseActor
 {
+    public Vector3 BirthPlace;
     public int InitID;
     public AttackRate[] CloseAttackArray;
     public AttackRate[] FarAttackArray;
@@ -51,9 +52,11 @@ public class EnemyActor : BaseActor
             _AICtrler = value;
         }
     }
+
     public override void LogicAwake()
     {
-        
+        BirthPlace = TransCtrl.position;
+        EnterGuarding();
     }
     public override void LogicUpdate()
     {
@@ -85,7 +88,7 @@ public class EnemyActor : BaseActor
         BattleArea.OverlapCollider(ContactFilter, ColliderList);
 
         BaseActor TargetActor = null;
-        if (ColliderList[0] != null && ColliderList[0].gameObject.name == "Player")
+        if (ColliderList[0] != null && ColliderList[0].gameObject.tag == "Player")
         {
             TargetActor = ColliderList[0].GetComponent<PlayerActor>();
         }
@@ -131,4 +134,20 @@ public class EnemyActor : BaseActor
             base.HitBack(HitEffect);
         }
     }*/
+
+    //公共接口
+    #region
+    //判断是否超出战斗区域
+    public virtual bool IfInBattleArea()
+    {
+        return (TransCtrl.position - BirthPlace).x > 60;
+     }
+    #endregion
+
+    //AI相关
+    #region
+    //进入哨戒状态
+    public abstract void EnterGuarding();
+    public abstract void EnterBattle();
+    #endregion
 }

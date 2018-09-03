@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AIAction {
-    protected BaseActor _Actor;
+    protected EnemyActor _Actor;
     protected AICtrler _Ctrler;
-    public AIAction(BaseActor InActor, AICtrler InCtrler)
+    
+    public AIAction(EnemyActor InActor, AICtrler InCtrler)
     {
         _Actor = InActor;
         _Ctrler = InCtrler;
@@ -24,4 +25,6 @@ public abstract class AIAction {
     public abstract void LogicUpdate();
     public abstract void Start();
     public bool IsInited;
+    public virtual void EndAction()
+    { }
 }

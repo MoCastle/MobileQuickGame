@@ -23,7 +23,8 @@ public class ChasingAction : AIAction {
     //限时
     float LimitTime;
     float _TimeCount;
-    public ChasingAction( EnemyActor InActor, AICtrler InCtrler, float InMisArea = 2f, Vector3 InShift = new Vector3(), float LimitTime = 0 ) :base( InActor, InCtrler)
+    public ChasingAction( EnemyActor InActor, AICtrler InCtrler, float InMisArea = 2f, Vector3 InShift
+        = new Vector3(), float LimitTime = 0 ) :base( InActor, InCtrler)
     {
         
         MisArea = InMisArea;
@@ -31,13 +32,18 @@ public class ChasingAction : AIAction {
     }
     public override void LogicUpdate()
     {
+        if( _Ctrler.CurTarget == null )
+        {
+            _Ctrler.GenAction();
+            return;
+        }
         Vector2 Dis = _Ctrler.CurTarget.TransCtrl.position - _Actor.TransCtrl.position - RealityShift;
         _Actor.FaceTo(Dis);
         //追击条件达成 结束追击
         if (Mathf.Abs(Dis.x) < MisArea)
         {
             _Actor.AnimAdaptor.IsRuning = false;
-            _Ctrler.EnterBattle();
+            _Ctrler.PopAIStack();
         }
         else if(LimitTime > 0.0001f)
         {
@@ -51,16 +57,26 @@ public class ChasingAction : AIAction {
     }
     public override void Start()
     {
+        if (_Ctrler.CurTarget == null)
+        {
+            EndAction();
+            _Ctrler.GenAction();
+            return;
+        }
         Vector2 Dis = _Ctrler.CurTarget.TransCtrl.position - _Actor.TransCtrl.position - RealityShift;
         _Actor.FaceTo(Dis);
         //追击条件达成 结束追击
         if (Mathf.Abs(Dis.x) < MisArea)
         {
-            _Ctrler.EnterBattle();
+            _Ctrler.PopAIStack();
         }else
         {
             _Actor.AnimAdaptor.IsRuning = true;
         }
         
+    }
+    public override void EndAction()
+    {
+        _Actor.AnimAdaptor.IsRuning = false;
     }
 }

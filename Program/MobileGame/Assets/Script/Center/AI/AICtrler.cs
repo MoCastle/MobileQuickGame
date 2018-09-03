@@ -6,12 +6,16 @@ public abstract class AICtrler {
     
     protected LinkedList<AIAction> AIActionList = new LinkedList<AIAction>();
     protected EnemyActor Actor;
-    public BaseActor Target;
+    protected BaseActor Target;
     public BaseActor CurTarget
     {
         get
         {
             return Target;
+        }
+        set
+        {
+            Target = value;
         }
     }
     public AICtrler(EnemyActor InActor )
@@ -23,42 +27,59 @@ public abstract class AICtrler {
         if(AIActionList.First != null && Actor.Alive)
         {
             AIActionList.First.Value.Update();
+        }else
+        {
+            GenAction();
         }
 
-        if (AIActionList.First == null && Actor.Alive && Actor.AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            AIActionList = new LinkedList<AIAction>();
-            GuardAction Guarding = new GuardAction(Actor, this);
-            PushAction(Guarding);
-        }
         LogicUpdate();
     }
     public abstract void LogicUpdate();
+
     //设置攻击目标
     public virtual void FoundTarget( BaseActor InActor )
     {
         Target = InActor;
     }
-    //生成战斗AI
-    public abstract void EnterBattle();
-    //重置AI列表
+
+    //外部接口
+    #region
+    //重置AI栈
     public virtual void ResetAIStack()
     {
+        if(AIActionList.First != null )
+        {
+            AIActionList.First.Value.EndAction();
+        }
         AIActionList = new LinkedList<AIAction>();
     }
+
     //往里压
     public void PushAction(AIAction InAction)
     {
         AIActionList.AddFirst(InAction);
     }
+
+    //生成战斗AI
+    public abstract void GenAction();
     //弹栈
     public virtual void PopAIStack()
     {
+        AIActionList.First.Value.EndAction();
         AIActionList.RemoveFirst();
     }
-    public void Break()
+
+    //中断处理
+    public virtual void Break()
     {
-        AIActionList = new LinkedList<AIAction>();
-        EnterBattle();
+        ResetAIStack();
+        GenAction();
     }
+    //
+    public virtual void BeAttack()
+    { }
+
+    #endregion
+
+
 }

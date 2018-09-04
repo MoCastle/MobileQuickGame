@@ -7,23 +7,29 @@ public class EnemySpawn : BaseSpawn
     //敌人模板
     public GameObject EnemySample;
 
-    public void Awake()
+    public override void LogicStart()
     {
         GenActor();
     }
+
     //生怪
-    public override GameObject GenActor()
+    public EnemyActor GenActor()
     {
         Vector3 NewPs = this.transform.position;
         NewPs.z = 0;
-        GameObject NewEnemy = GamePoolManager.Manager.GenObj(EnemySample);
-        EnemyActor EnemyActor = NewEnemy.GetComponent<EnemyActor>();
-        EnemyActor.AddDeathEvent(Break);
+        BaseActor NewActor = CenceDir.GenActor(EnemySample);
+        EnemyActor NewEnemy = NewActor as EnemyActor;
+        if( NewEnemy == null )
+        {
+            return null;
+        }
         NewEnemy.transform.position = NewPs;
         NewEnemy.transform.rotation = transform.rotation;
-        EnemyActor.BirthPlace = NewPs;
+        NewEnemy.BirthPlace = NewPs;
+        NewEnemy.AddDeathEvent(Break);
         return NewEnemy;
     }
+
     public void Break( )
     {
         GenActor();

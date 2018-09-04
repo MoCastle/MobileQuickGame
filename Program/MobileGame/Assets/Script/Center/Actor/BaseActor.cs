@@ -16,6 +16,21 @@ public struct CutEffect
     public float SpeedRate;
 }
 public abstract class BaseActor : MonoBehaviour {
+    #region
+    //当前ID
+    static int TotalActorID = 0;
+    public int _ActorID;
+    public int ActorID
+    {
+        get
+        {
+            return _ActorID;
+        }
+    }
+
+    BaseDir CenceDir;
+    #endregion
+
     public delegate void Action();
     public event Action DeathEvent;
     public void AddDeathEvent( Action InFunction )
@@ -325,8 +340,20 @@ public abstract class BaseActor : MonoBehaviour {
         BaseState NewState = (BaseState)Activator.CreateInstance(GetState, new object[] { this }); // 创建类的实例，返回为 object 类型，需要强制类型转换
         _ActorState = NewState;
     }
+    public void OnEnable( )
+    {
+        LogicEnable();
+    }
+    public virtual void LogicEnable( )
+    {
+
+    }
+
     public void Awake()
     {
+        _ActorID = TotalActorID;
+        TotalActorID = TotalActorID + 1;
+
         //设置初始生命状态
         _Alive = true;
         _GravityScale = RigidCtrl.gravityScale;
@@ -335,6 +362,7 @@ public abstract class BaseActor : MonoBehaviour {
         AnimCtrl.SetInteger("PercentLife", (int)(ActorPropty.PercentVIT * 100));
         AnimCtrl.SetBool("Inited",true);
     }
+
     public virtual void LogicAwake( )
     {
 

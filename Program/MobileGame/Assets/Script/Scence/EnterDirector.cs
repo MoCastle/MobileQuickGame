@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnterDirector : SenceDir
+public class EnterDirector : BaseDir
 {
     
     public Transform _MainCamera;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CenceMgr {
     //当前场景导演
-    public SenceDir CurSenceDir;
+    public BaseDir CurSenceDir;
     static CenceMgr _Mgr;
     public static CenceMgr Mgr
     {

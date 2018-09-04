@@ -112,6 +112,7 @@
     <Compile Include="Assets\Script\Center\AI\LittleEnemy\LittleEnemyNormAction.cs" />
     <Compile Include="Assets\Script\Center\Actor\BaseActor.cs" />
     <Compile Include="Assets\Script\Center\Actor\EnemyActor.cs" />
+    <Compile Include="Assets\Script\Center\Cence\BaseDir.cs" />
     <Compile Include="Assets\Script\Center\Debug\DebugShow.cs" />
     <Compile Include="Assets\Script\Center\Debug\LogMgr.cs" />
     <Compile Include="Assets\Script\Center\Effect\ChongQiBoEffect.cs" />
@@ -139,7 +140,6 @@
     <Compile Include="Assets\Script\Scence\CenceMgr.cs" />
     <Compile Include="Assets\Script\Scence\EnterDirector.cs" />
     <Compile Include="Assets\Script\Scence\GameStartScence.cs" />
-    <Compile Include="Assets\Script\Scence\SenceDir.cs" />
     <Compile Include="Assets\Script\Scence\StartGame.cs" />
     <Compile Include="Assets\Script\SkillSgtate\AttackState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\BaseState.cs" />

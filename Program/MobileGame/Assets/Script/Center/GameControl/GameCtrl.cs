@@ -39,6 +39,7 @@ public class GameCtrl
     }
     GameCtrl()
     { }
+
     SpawnPool _Pool;
     public SpawnPool Pool
     {
@@ -52,6 +53,19 @@ public class GameCtrl
             {
                 _Pool = value;
             }
+        }
+    }
+
+    BaseDir _CurDir;
+    public BaseDir CurDir
+    {
+        get
+        {
+            return _CurDir;
+        }
+        set
+        {
+            _CurDir = value;
         }
     }
 }

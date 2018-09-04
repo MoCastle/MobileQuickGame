@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerSpawn : BaseSpawn
 {
     public GameObject Player;
-    public override GameObject GenActor()
+    public GameObject GenActor()
     {
         Vector3 NewPs = this.transform.position;
         NewPs.z = 0;

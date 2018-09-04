@@ -55,9 +55,9 @@ public abstract class EnemyActor : BaseActor
 
     public override void LogicAwake()
     {
-        BirthPlace = TransCtrl.position;
         EnterGuarding();
     }
+
     public override void LogicUpdate()
     {
         _AICtrler.Update();

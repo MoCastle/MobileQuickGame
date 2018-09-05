@@ -57,7 +57,7 @@ public abstract class AICtrler {
     //往里压
     public void PushAction(AIAction InAction)
     {
-        AIActionList.AddFirst(InAction);
+        AIActionList.AddLast(InAction);
     }
 
     //生成战斗AI

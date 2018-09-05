@@ -129,6 +129,7 @@
     <Compile Include="Assets\Script\Center\GameControl\GameWorldTimer.cs" />
     <Compile Include="Assets\Script\Center\GameControl\PlayerCtrl.cs" />
     <Compile Include="Assets\Script\Center\GamePoolManager.cs" />
+    <Compile Include="Assets\Script\Center\Player\PlayerDelegate.cs" />
     <Compile Include="Assets\Script\Center\Propty\Propty.cs" />
     <Compile Include="Assets\Script\Center\Spawn\BaseSpawn.cs" />
     <Compile Include="Assets\Script\Center\Spawn\EnemySpawn.cs" />

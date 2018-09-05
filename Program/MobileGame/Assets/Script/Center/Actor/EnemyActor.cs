@@ -33,11 +33,11 @@ public abstract class EnemyActor : BaseActor
     {
         get
         {
-            if (_GuardingArea == null)
+            if (_BattleArea == null)
             {
-                _GuardingArea = transform.FindChild("BattleArea").GetComponent<BoxCollider2D>();
+                _BattleArea = transform.FindChild("BattleEyeSize").GetComponent<BoxCollider2D>();
             }
-            return _GuardingArea;
+            return _BattleArea;
         }
     }
     protected AICtrler _AICtrler;

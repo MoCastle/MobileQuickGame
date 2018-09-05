@@ -103,14 +103,11 @@ public abstract class BaseActor : MonoBehaviour {
             return _SkillEnum;
         }
     }
-    [SerializeField]
-    [Title("移动速度", "black")]
-    protected float _MoveSpeed = 10;
     public float MoveSpeed
     {
         get
         {
-            return _MoveSpeed;
+            return ActorPropty.MoveSpeed;
         }
     }
     BoxCollider2D _ColliderCtrl;

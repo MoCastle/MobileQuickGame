@@ -5,35 +5,73 @@ using UnityEngine;
 [System.Serializable]
 public class Propty {
     //生命
-    public int Life;
-    public int MaxLife;
+    [System.NonSerialized]
+    public int HP;
+    [Title("最大生命值", "black")]
+    public int MaxHP;
+    //体力
+    [System.NonSerialized]
+    public int VIT;
+    [Title("最大体力值", "black")]
+    public int MaxVIT;
+
+    //移动速度
+    [Title("移动速度", "black")]
+    public float MoveSpeed;
+    //攻击力
+    [Title("攻击力", "black")]
+    public int Attack;
+    //击退速度
+    [Title("击退基础速度", "black")]
+    public float HitBackSpeed;
+
+    public Propty(  )
+    {
+        /*
+        NpcProptyReader NpcProptyCfg = NpcProptyReader.Cfg;
+        MaxHP = NpcProptyCfg.GetHealthy(ID);
+        MaxVIT = NpcProptyCfg.GetVirtical(ID);
+        MoveSpeed = NpcProptyCfg.GetMoveSpeed(ID);
+        Attack = NpcProptyCfg.GetAttack(ID);
+        HitBackSpeed = NpcProptyCfg.GetHitBackSpeed(ID);
+
+        HP = MaxHP;
+        VIT = MaxVIT;
+        */
+        Init();
+    }
+    public void Init()
+    {
+        HP = MaxHP;
+        VIT = MaxVIT;
+    }
+
     public float PercentLife
     {
         get
         {
-            if (MaxLife == 0)
+            if (MaxHP == 0)
             {
                 return 0;
             }
-            float Percent = (float)Life / (float)MaxLife;
+            float Percent = (float)HP / (float)MaxHP;
             Percent = Percent > 0.001f && Percent < 0.1f ? 0.1f : Percent;
             return Percent;
         }
     }
-    public int DeDuctLife( int InLife )
+
+    public int DeDuctLife( int DeHp )
     {
-        Life = Life > InLife? (Life - InLife):0;
-        return Life;
+        HP = HP > DeHp? (HP - DeHp):0;
+        return HP;
     }
-    public int ModLife(int InLife)
+    public int ModLife(int ModHp)
     {
-        Life = Life + InLife > MaxLife ? (InLife + InLife) : MaxLife;
-        return Life;
+        HP = HP + ModHp > MaxHP ? (ModHp + ModHp) : MaxHP;
+        return HP;
     }
 
-    //体力
-    public int VIT;
-    public int MaxVIT;
+    
     public float PercentVIT
     {
         get
@@ -57,5 +95,4 @@ public class Propty {
         VIT = VIT + InVIT > MaxVIT ? MaxVIT:(VIT + InVIT);
         return VIT;
     }
-    public int Attack;
 }

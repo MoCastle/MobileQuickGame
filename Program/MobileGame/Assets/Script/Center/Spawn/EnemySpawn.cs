@@ -27,6 +27,7 @@ public class EnemySpawn : BaseSpawn
         NewEnemy.transform.rotation = transform.rotation;
         NewEnemy.BirthPlace = NewPs;
         NewEnemy.AddDeathEvent(Break);
+        NewEnemy.ActorPropty.Init();
         return NewEnemy;
     }
 

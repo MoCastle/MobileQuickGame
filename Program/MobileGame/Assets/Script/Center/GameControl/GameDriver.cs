@@ -15,8 +15,6 @@ public class GameDriver : MonoBehaviour
         try
         {
             CfgMgr.InitCfg();
-            NpcProptyReader Npc = new NpcProptyReader();
-            Npc.Getname(0);
         }
         catch
         {

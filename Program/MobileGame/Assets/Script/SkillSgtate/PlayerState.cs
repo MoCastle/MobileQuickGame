@@ -15,6 +15,7 @@ public abstract class PlayerState : BaseState {
     public PlayerState(PlayerActor InActor ):base( InActor )
     {
         Actor = InActor;
+        Actor.ReOpenPlatFoot();
         //有的技能需要发招前做修正 让它修
         DealFaceTo();
         if( SkillType != SkillEnum.Idle )

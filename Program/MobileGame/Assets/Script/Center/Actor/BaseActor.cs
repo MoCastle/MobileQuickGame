@@ -16,6 +16,40 @@ public struct CutEffect
     public float SpeedRate;
 }
 public abstract class BaseActor : MonoBehaviour {
+    //平台脚相关
+    #region
+    public BoxCollider2D _PlatFoot;
+    public BoxCollider2D PlatFoot
+    {
+        get
+        {
+            if( !_PlatFoot )
+            {
+                _PlatFoot = TransCtrl.FindChild("PlaneFoot").GetComponent<BoxCollider2D>();
+            }
+            return _PlatFoot;
+        }
+    }
+    public bool _OnPlat;
+    public bool OnPlat
+    {
+        get
+        {
+            return _OnPlat;
+        }
+    }
+    //重新可以踩在平台上
+    public void ReOpenPlatFoot( )
+    {
+        PlatFoot.isTrigger = false;
+
+    }
+    public void ClosePlatFoot( )
+    {
+        PlatFoot.isTrigger = true;
+    }
+
+    #endregion
     #region
     //当前ID
     static int TotalActorID = 0;
@@ -265,14 +299,28 @@ public abstract class BaseActor : MonoBehaviour {
         Vector2 Position = FootTransCtrl.position;
         Vector2 Size = Vector2.right * (0.4f- 0.01f);
         Size.y = 0.5f;
-        Collider2D Collider = Physics2D.OverlapBox(Position, Size, 0, 1);
+        LayerMask Layer = 1 << LayerMask.NameToLayer("Default");
+        if(!PlatFoot.isTrigger)
+        {
+            Layer += 1 << LayerMask.NameToLayer("PlatForm");
+        }
+        
+        Collider2D Collider = Physics2D.OverlapBox(Position, Size, 0, Layer);
         if (Collider)
         {
+            //判断角色是否有可以站在平台上的脚
             IsOnGround = true;
+
+            //检查脚下的是不是平台
+            if( Collider.gameObject.layer == 1 << LayerMask.NameToLayer("PlatForm"))
+            {
+                _OnPlat = true;
+            }
         }
         else
         {
             IsOnGround = false;
+            _OnPlat = false;
         }
         //触地检测
         if( IsJustOnGround &&_TimeJustOnGround + 0.2 < Time.time )

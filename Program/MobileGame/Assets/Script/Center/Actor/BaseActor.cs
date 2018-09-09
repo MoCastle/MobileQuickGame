@@ -540,7 +540,11 @@ public abstract class BaseActor : MonoBehaviour {
     {
         _Alive = false;
         AnimCtrl.SetTrigger("Death");
-        DeathEvent();
+        if( DeathEvent!=null )
+        {
+            DeathEvent();
+        }
+        
     }
 
     public virtual void BeBreak()

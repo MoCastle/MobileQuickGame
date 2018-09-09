@@ -74,7 +74,10 @@
      <Compile Include="Assets\Script\Center\AI\LittleEnemy\LittleEnemyNormAction.cs" />
      <Compile Include="Assets\Script\Center\Actor\BaseActor.cs" />
      <Compile Include="Assets\Script\Center\Actor\EnemyActor.cs" />
+     <Compile Include="Assets\Script\Center\Cence\BaseCence.cs" />
      <Compile Include="Assets\Script\Center\Cence\BaseDir.cs" />
+     <Compile Include="Assets\Script\Center\Cence\CenceCtrl.cs" />
+     <Compile Include="Assets\Script\Center\Cence\EnterCence.cs" />
      <Compile Include="Assets\Script\Center\Debug\DebugShow.cs" />
      <Compile Include="Assets\Script\Center\Debug\LogMgr.cs" />
      <Compile Include="Assets\Script\Center\Effect\ChongQiBoEffect.cs" />

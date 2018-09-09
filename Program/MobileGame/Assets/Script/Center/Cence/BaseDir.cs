@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+struct SenceData
+{
+    int PlayerSpawnID;
+}
+
 public class BaseDir : MonoBehaviour {
 
     PlayerActor _Player;

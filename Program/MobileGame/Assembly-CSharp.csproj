@@ -61,6 +61,7 @@
      <Compile Include="Assets\Script\AI\AICtrler\GuardAiCtrl.cs" />
      <Compile Include="Assets\Script\AI\AICtrler\InBattleAICtrl.cs" />
      <Compile Include="Assets\Script\AI\AICtrler\LittleEnemy\ModEnemInBattleCtrl.cs" />
+     <Compile Include="Assets\Script\Actor\DoorActor.cs" />
      <Compile Include="Assets\Script\Actor\LittleEnemyActor.cs" />
      <Compile Include="Assets\Script\Actor\PlayerActor.cs" />
      <Compile Include="Assets\Script\Animator\AnimAdaptor.cs" />

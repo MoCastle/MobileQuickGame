@@ -23,9 +23,6 @@ public abstract class BaseDir : MonoBehaviour {
     }
     // Use this for initialization
 
-    protected virtual void LogicAwake()
-    { }
-
     Dictionary<int, BaseActor> ActorMenue;
     protected GameCtrl GM;
     private void Awake()
@@ -34,24 +31,16 @@ public abstract class BaseDir : MonoBehaviour {
         ActorMenue = new Dictionary<int, BaseActor>();
         GM = GameCtrl.GameCtrler;
         GM.CurDir = this;
-        LogicAwake();
     }
 
     //生命循环相关
     #region 
-    //开始函数暴露出去
-    public void Start()
+    //开幕
+    public void StartGame()
     {
         
     }
-    public abstract void LogicStart();
-    //更新函数暴露出去
-    public void Update()
-    {
-        
-    }
-    public abstract void LogicUpdate();
-
+    //谢幕
     public void End()
     {
         foreach (BaseActor Actor in ActorMenue.Values)
@@ -64,6 +53,10 @@ public abstract class BaseDir : MonoBehaviour {
     }
     #endregion
 
+    //角色生成相关
+    #region
+
+    public int CurBirthID = 0;
     public BaseActor GenActor( string Name )
     {
         BaseActor NewActor = null;
@@ -76,5 +69,5 @@ public abstract class BaseDir : MonoBehaviour {
         ActorMenue.Add(NewActor.ActorID, NewActor);
         return NewActor;
     }
-    
+    #endregion
 }

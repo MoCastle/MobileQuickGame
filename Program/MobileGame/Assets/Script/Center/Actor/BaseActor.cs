@@ -4,6 +4,12 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
+struct ActorSaveInfo
+{
+    Vector2 Position;
+    Propty ActorPropty;
+}
+
 [System.Serializable]
 public struct AnimStruct
 {

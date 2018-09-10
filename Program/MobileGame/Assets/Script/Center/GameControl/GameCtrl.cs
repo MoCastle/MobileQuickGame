@@ -37,8 +37,14 @@ public class GameCtrl
             return _GameCtrler;
         }
     }
+
+    #region
+    CenceCtrl CenceCtroler;
+    #endregion
     GameCtrl()
-    { }
+    {
+        CenceCtroler = new CenceCtrl();
+    }
 
     SpawnPool _Pool;
     public SpawnPool Pool

@@ -12,7 +12,7 @@ public class CenceCtrl {
 
     public CenceCtrl( )
     {
-        EnterCence("StartGame", new EnterCence( this ) );
+        CurCence = new StartCence( this);
     }
 
     //跳转到某个场景

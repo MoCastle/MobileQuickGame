@@ -7,14 +7,8 @@ public class NormalDir : BaseDir {
     public Transform _MainCamera;
     public PlayerSpawn[] PlayerSpawnList;
     int CurSpawnID = 0;
-
-    protected override void LogicAwake()
-    {
-
-    }
-
     // Use this for initialization
-    public override void LogicStart()
+    public void Start()
     {
         GameWorldTimer.Continue();
     }
@@ -26,7 +20,7 @@ public class NormalDir : BaseDir {
         Player = PlayerObj.GetComponent<PlayerActor>();
     }
 
-    public override void LogicUpdate()
+    public void Update()
     {
         Vector3 NewPs = Player.TransCtrl.position;
         Vector3 OldPs = _MainCamera.transform.position;

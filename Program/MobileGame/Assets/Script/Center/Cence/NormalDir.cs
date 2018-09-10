@@ -2,31 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnterDirector : BaseDir
-{
-    
+public class NormalDir : BaseDir {
+
     public Transform _MainCamera;
     public PlayerSpawn[] PlayerSpawnList;
-    public PlayerSpawn CurSpawn;
-    int CurSpawnID;
+    int CurSpawnID = 0;
 
     protected override void LogicAwake()
     {
-        if(PlayerSpawnList!=null && PlayerSpawnList.Length > 0)
-        {
-            CurSpawn = PlayerSpawnList[0];
-        }
+
     }
 
     // Use this for initialization
-    void Start ()
+    public override void LogicStart()
     {
         GameWorldTimer.Continue();
+    }
+
+    public void GenPlayer()
+    {
+        PlayerSpawn CurSpawn = PlayerSpawnList[CurSpawnID];
         GameObject PlayerObj = CurSpawn.GenActor();
         Player = PlayerObj.GetComponent<PlayerActor>();
     }
 
-    private void Update()
+    public override void LogicUpdate()
     {
         Vector3 NewPs = Player.TransCtrl.position;
         Vector3 OldPs = _MainCamera.transform.position;
@@ -34,5 +34,4 @@ public class EnterDirector : BaseDir
         OldPs.y = NewPs.y;
         _MainCamera.transform.position = OldPs;
     }
-
 }

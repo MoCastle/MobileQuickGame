@@ -7,7 +7,7 @@ struct SenceData
     int PlayerSpawnID;
 }
 
-public class BaseDir : MonoBehaviour {
+public abstract class BaseDir : MonoBehaviour {
 
     PlayerActor _Player;
     public PlayerActor Player
@@ -36,6 +36,34 @@ public class BaseDir : MonoBehaviour {
         GM.CurDir = this;
         LogicAwake();
     }
+
+    //生命循环相关
+    #region 
+    //开始函数暴露出去
+    public void Start()
+    {
+        
+    }
+    public abstract void LogicStart();
+    //更新函数暴露出去
+    public void Update()
+    {
+        
+    }
+    public abstract void LogicUpdate();
+
+    public void End()
+    {
+        foreach (BaseActor Actor in ActorMenue.Values)
+        {
+            if ((Actor as EnemyActor) != null)
+            {
+                GamePoolManager.Manager.Despawn(Actor.gameObject.transform);
+            }
+        }
+    }
+    #endregion
+
     public BaseActor GenActor( string Name )
     {
         BaseActor NewActor = null;
@@ -48,14 +76,5 @@ public class BaseDir : MonoBehaviour {
         ActorMenue.Add(NewActor.ActorID, NewActor);
         return NewActor;
     }
-    private void OnDestroy()
-    {
-        foreach( BaseActor Actor in ActorMenue.Values )
-        {
-            if( (Actor as EnemyActor)!=null)
-            {
-                GamePoolManager.Manager.Despawn(Actor.gameObject.transform);
-            }
-        }
-    }
+    
 }

@@ -2,21 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-struct ScenceMsg
+public struct ScenceMsg
 {
-    //当前重生ID
-    int CurBirthSpawn;
-    
+    public int JumpID;
+    public string CenceName;
+    public ScenceMsg( string InCenceName = "",int InJumpID = -1 )
+    {
+        CenceName = InCenceName;
+        JumpID = InJumpID;
+    }
 }
 
 public class BaseCence {
     string CenceName;
-    CenceCtrl CenceCtrl;
+    protected CenceCtrl CenceCtrl;
     BaseDir Director;
-    public BaseCence( CenceCtrl InCenceCtrl,string InCenceName )
+    ScenceMsg _Msg;
+    public ScenceMsg Msg
+    {
+        get
+        {
+            return _Msg;
+        }
+    }
+
+    public BaseCence( CenceCtrl InCenceCtrl, ScenceMsg InMsg )
     {
         CenceCtrl = InCenceCtrl;
-        CenceName = InCenceName;
+        CenceName = InMsg.CenceName;
+        _Msg = InMsg;
     }
 
     //始
@@ -32,14 +46,15 @@ public class BaseCence {
             Debug.Log("Director Obj Wrong");
         }else
         {
-            Director.StartGame();
+            Director.StartGame(Msg);
         }
     }
 
     //末
     public virtual void End( )
     {
-        Director.End();
+        if( Director!= null )
+            Director.End();
     }
 
     //更新
@@ -47,4 +62,5 @@ public class BaseCence {
     {
         
     }
+    
 }

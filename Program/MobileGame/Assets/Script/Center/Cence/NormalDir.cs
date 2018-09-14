@@ -3,29 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NormalDir : BaseDir {
-
-    public Transform _MainCamera;
+    public CameraControler CameraCtrler;
     public PlayerSpawn[] PlayerSpawnList;
     int CurSpawnID = 0;
     // Use this for initialization
     public void Start()
     {
         GameWorldTimer.Continue();
+        CameraCtrler = new CameraControler(this);
     }
 
     public void GenPlayer()
     {
         PlayerSpawn CurSpawn = PlayerSpawnList[CurSpawnID];
-        GameObject PlayerObj = CurSpawn.GenActor();
-        Player = PlayerObj.GetComponent<PlayerActor>();
+        BaseActor PlayerObj = CurSpawn.GenActor();
+        Player = PlayerObj as PlayerActor;
     }
 
     public void Update()
     {
-        Vector3 NewPs = Player.TransCtrl.position;
-        Vector3 OldPs = _MainCamera.transform.position;
-        OldPs.x = NewPs.x;
-        OldPs.y = NewPs.y;
-        _MainCamera.transform.position = OldPs;
+        CameraCtrler.Update();
     }
 }

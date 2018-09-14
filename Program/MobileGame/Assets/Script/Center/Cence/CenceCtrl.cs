@@ -16,19 +16,20 @@ public class CenceCtrl {
     }
 
     //跳转到某个场景
-	public void EnterCence( string CenceName,BaseCence InCence )
+    public void EnterCence( BaseCence InCence )
     {
         if( InCence==null )
         {
             return;
         }
-        Application.LoadLevel(CenceName);
+        
         if(CurCence != null)
         {
             CurCence.End();
         }
         _IfEnterCence = false;
         CurCence = InCence;
+        Application.LoadLevel(InCence.Msg.CenceName);
     }
    
     public void Update( )

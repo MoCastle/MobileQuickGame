@@ -35,11 +35,11 @@ public class MainWindow : MonoBehaviour {
     public Slider PlayerHP;
     public Slider PlayerVIT;
     public DebugInfoUI DebugText;
-    public PlayerActor Player
+    public Propty PlayerPropty
     {
         get
         {
-            return CenceMgr.Mgr.CurSenceDir.Player;
+            return PlayerDelegate.GetPropty();
         }
     }
     public EnemyActor Enemy;
@@ -51,9 +51,13 @@ public class MainWindow : MonoBehaviour {
     }
     private void Update()
     {
-        PlayerHP.value = Player.ActorPropty.PercentLife;
-        PlayerVIT.value = Player.ActorPropty.PercentVIT;
-        PrintDebugInfo();
+        if( PlayerPropty!= null )
+        {
+            PlayerHP.value = PlayerPropty.PercentLife;
+            PlayerVIT.value = PlayerPropty.PercentVIT;
+            PrintDebugInfo();
+        }
+        
     }
 
     private void PrintDebugInfo()

@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnterDir : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+public class BaseCameraControler {
+       
 	// Update is called once per frame
 	void Update () {
 		

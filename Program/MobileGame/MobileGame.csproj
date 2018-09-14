@@ -51,31 +51,31 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/work/unity5.6/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>D:/tool/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/work/unity5.6/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/tool/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
-      <HintPath>D:/work/unity5.6/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+      <HintPath>D:/tool/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>D:/work/unity5.6/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>D:/tool/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>D:/work/unity5.6/Editor/Data/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
+      <HintPath>D:/tool/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>D:/work/unity5.6/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>D:/tool/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
-      <HintPath>D:/work/unity5.6/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+      <HintPath>D:/tool/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VR">
-      <HintPath>D:/work/unity5.6/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+      <HintPath>D:/tool/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/work/unity5.6/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/tool/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -100,12 +100,13 @@
     <Compile Include="Assets\Script\AI\AICtrler\GuardAiCtrl.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\InBattleAICtrl.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\LittleEnemy\ModEnemInBattleCtrl.cs" />
-    <Compile Include="Assets\Script\Actor\DoorActor.cs" />
     <Compile Include="Assets\Script\Actor\LittleEnemyActor.cs" />
     <Compile Include="Assets\Script\Actor\PlayerActor.cs" />
     <Compile Include="Assets\Script\Animator\AnimAdaptor.cs" />
     <Compile Include="Assets\Script\Animator\CharactorAnimator.cs" />
     <Compile Include="Assets\Script\Animator\EnemyAnim\EnemyAnimAdaptor.cs" />
+    <Compile Include="Assets\Script\Camera\BaseCameraControler.cs" />
+    <Compile Include="Assets\Script\Camera\CameraControler.cs" />
     <Compile Include="Assets\Script\Center\AI\AIAction.cs" />
     <Compile Include="Assets\Script\Center\AI\AICtrler.cs" />
     <Compile Include="Assets\Script\Center\AI\EnemyAction.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="Assets\Script\Center\Cence\BaseCence.cs" />
     <Compile Include="Assets\Script\Center\Cence\BaseDir.cs" />
     <Compile Include="Assets\Script\Center\Cence\CenceCtrl.cs" />
-    <Compile Include="Assets\Script\Center\Cence\EnterDir.cs" />
     <Compile Include="Assets\Script\Center\Cence\NormalDir.cs" />
     <Compile Include="Assets\Script\Center\Cence\StartCence.cs" />
     <Compile Include="Assets\Script\Center\Cence\StartDir.cs" />
@@ -134,11 +134,13 @@
     <Compile Include="Assets\Script\Center\GameControl\GameCtrl.cs" />
     <Compile Include="Assets\Script\Center\GameControl\GameDriver.cs" />
     <Compile Include="Assets\Script\Center\GameControl\GameWorldTimer.cs" />
+    <Compile Include="Assets\Script\Center\GameControl\NormalScence.cs" />
     <Compile Include="Assets\Script\Center\GameControl\PlayerCtrl.cs" />
     <Compile Include="Assets\Script\Center\GamePoolManager.cs" />
     <Compile Include="Assets\Script\Center\Player\PlayerDelegate.cs" />
     <Compile Include="Assets\Script\Center\Propty\Propty.cs" />
     <Compile Include="Assets\Script\Center\Spawn\BaseSpawn.cs" />
+    <Compile Include="Assets\Script\Center\Spawn\DoorSpawn.cs" />
     <Compile Include="Assets\Script\Center\Spawn\EnemySpawn.cs" />
     <Compile Include="Assets\Script\Center\Spawn\PlayerSpawn.cs" />
     <Compile Include="Assets\Script\Cfg\SkillInfoReader.cs" />
@@ -146,7 +148,6 @@
     <Compile Include="Assets\Script\ForNow\SkillObj.cs" />
     <Compile Include="Assets\Script\ResourceCtrl\LoadEffect.cs" />
     <Compile Include="Assets\Script\Scence\CenceMgr.cs" />
-    <Compile Include="Assets\Script\Scence\EnterDirector.cs" />
     <Compile Include="Assets\Script\Scence\GameStartScence.cs" />
     <Compile Include="Assets\Script\Scence\StartGame.cs" />
     <Compile Include="Assets\Script\SkillSgtate\AttackState.cs" />

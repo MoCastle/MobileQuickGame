@@ -2,32 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorActor : MonoBehaviour {
-    public int CenceID;
+public class DoorSpawn : PlayerSpawn
+{
+    public string CenceName;
+    public int DoorID;
     // Use this for initialization
 
     public BoxCollider2D EnemyChecker;
     public BoxCollider2D PlayerChecker;
 
+    bool Inited;
+
     //跳场景
-	public void SwitchCence( )
+    public void SwitchCence()
     {
-        if( CenceID != 0 )
+        if (CenceName != "" || DoorID > 0)
         {
-            Application.LoadLevel(CenceID);
+            GameCtrl.GameCtrler.CenceCtroler.EnterCence(new NormalScence(GameCtrl.GameCtrler.CenceCtroler, new ScenceMsg(CenceName, DoorID)));
         }
     }
 
     public void Update()
     {
-        if(CheckGetPlayer())
+        if( !Inited )
         {
-            if(CheckEnemyInArea())
+            if( CheckGetPlayer( ) )
             {
                 return;
             }
+            else
+                Inited = true;
+        }
+
+        if (CheckGetPlayer())
+        {
+            if (CheckEnemyInArea())
+            {
+                return;
+            }
+            
             SwitchCence();
         }
+    }
+    public override BaseActor GenActor()
+    {
+        BaseActor Actor = base.GenActor();
+        Inited = false;
+        return Actor;
     }
 
     public bool CheckGetPlayer()

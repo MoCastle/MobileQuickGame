@@ -8,6 +8,18 @@ struct SenceData
 }
 
 public abstract class BaseDir : MonoBehaviour {
+    protected Transform MainCamera;
+    public Transform CameraTrans
+    {
+        get
+        {
+            if( MainCamera == null )
+            {
+                MainCamera = Camera.main.transform;
+            }
+            return MainCamera;
+        }
+    }
 
     PlayerActor _Player;
     public PlayerActor Player
@@ -36,10 +48,12 @@ public abstract class BaseDir : MonoBehaviour {
     //生命循环相关
     #region 
     //开幕
-    public void StartGame()
+    public void StartGame( ScenceMsg InMsg )
     {
-        
+        BaseActor Player = SendPlayer(InMsg.JumpID);
+        _Player = Player as PlayerActor;
     }
+
     //谢幕
     public void End()
     {
@@ -55,8 +69,35 @@ public abstract class BaseDir : MonoBehaviour {
 
     //角色生成相关
     #region
+    DoorSpawn GetDoor(int ID)
+     {
+        DoorSpawn DoorSpawn = null;
+        Transform DoorTrans = transform.FindChild("Doors");
+        if(DoorTrans== null|| ID + 1 > DoorTrans.childCount )
+        {
 
-    public int CurBirthID = 0;
+        }else
+        {
+            Transform SpawnTrans = DoorTrans.GetChild(ID);
+
+            if (SpawnTrans != null)
+            {
+                DoorSpawn = SpawnTrans.GetComponent<DoorSpawn>();
+            }
+        }
+        
+        return DoorSpawn;
+    }
+
+    PlayerSpawn GetPlayerSpawn( int ID = 0 )
+    {
+        PlayerSpawn Spawn = null;
+        Transform SpawnTrans = transform.FindChild("PlayerSpawn");
+        if( SpawnTrans!= null )
+            Spawn = SpawnTrans.GetComponent< PlayerSpawn >();
+        return Spawn;
+    }
+
     public BaseActor GenActor( string Name )
     {
         BaseActor NewActor = null;
@@ -68,6 +109,21 @@ public abstract class BaseDir : MonoBehaviour {
         BaseActor NewActor = NewEnemy.GetComponent<EnemyActor>();
         ActorMenue.Add(NewActor.ActorID, NewActor);
         return NewActor;
+    }
+    public BaseActor SendPlayer( int DoorID )
+    {
+        BaseSpawn Spawn = null;
+        if (DoorID >= 0)
+        {
+            Spawn = GetDoor(DoorID);
+        }else
+        {
+            Spawn = GetPlayerSpawn();
+        }
+        BaseActor Player = null;
+        if(Spawn != null)
+            Player = Spawn.GenActor();
+        return Player;
     }
     #endregion
 }

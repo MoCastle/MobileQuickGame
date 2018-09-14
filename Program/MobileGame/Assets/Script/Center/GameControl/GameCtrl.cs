@@ -38,8 +38,12 @@ public class GameCtrl
         }
     }
 
+    //玩家信息
+    public GameObject PlayerSample;
+
+    //场景功能
     #region
-    CenceCtrl CenceCtroler;
+    public CenceCtrl CenceCtroler;
     #endregion
     GameCtrl()
     {
@@ -74,4 +78,12 @@ public class GameCtrl
             _CurDir = value;
         }
     }
+
+    //生命周期
+    #region
+    public void Update()
+    {
+        CenceCtroler.Update();
+    }
+    #endregion
 }

@@ -13,7 +13,7 @@ public class EnemySpawn : BaseSpawn
     }
 
     //生怪
-    public EnemyActor GenActor()
+    public override BaseActor GenActor()
     {
         Vector3 NewPs = this.transform.position;
         NewPs.z = 0;

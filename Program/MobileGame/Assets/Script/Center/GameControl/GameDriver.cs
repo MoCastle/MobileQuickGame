@@ -9,7 +9,7 @@ public class GameDriver : MonoBehaviour
 
 
     public GameObject SkillObj;
-    public GameObject Test;
+    public GameObject PlayerSample;
     private void Awake()
     {
         try
@@ -24,13 +24,13 @@ public class GameDriver : MonoBehaviour
         LogMgr.InitSet();
 
         GameCtrl GameCtrler = GameCtrl.GameCtrler;
+        GameCtrler.PlayerSample = PlayerSample;
         GameCtrler.Pool = GetComponent<SpawnPool>();
 
         Debug.Log("StartGame");
         DontDestroyOnLoad(this.gameObject);
         SkillManager.Obj = SkillObj.GetComponent<SkillObj>();
         GameWorldTimer.StartGameSet();
-        GameStartScence.StartScence();
 
     }
     private void Start()
@@ -41,5 +41,6 @@ public class GameDriver : MonoBehaviour
     {
         GameWorldTimer.Update();
         LogMgr.Update();
+        GameCtrl.GameCtrler.Update();
     }
 }

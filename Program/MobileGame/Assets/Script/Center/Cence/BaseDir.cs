@@ -8,16 +8,27 @@ struct SenceData
 }
 
 public abstract class BaseDir : MonoBehaviour {
-    protected Transform MainCamera;
+    public CameraControler CameraCtrler;
+
+    public Camera _MainCamera;
+    public Camera MainCamera
+    {
+        get
+        {
+            if( _MainCamera == null )
+            {
+                _MainCamera = Camera.main;
+                if (_MainCamera == null)
+                    Debug.Log( "");
+            }
+            return _MainCamera;
+        }
+    }
     public Transform CameraTrans
     {
         get
         {
-            if( MainCamera == null )
-            {
-                MainCamera = Camera.main.transform;
-            }
-            return MainCamera;
+            return MainCamera.transform;
         }
     }
 
@@ -53,7 +64,12 @@ public abstract class BaseDir : MonoBehaviour {
         BaseActor Player = SendPlayer(InMsg.JumpID);
         _Player = Player as PlayerActor;
     }
-
+    //每帧更新
+    public void Update()
+    {
+        if (CameraCtrler != null)
+            CameraCtrler.Update();
+    }
     //谢幕
     public void End()
     {

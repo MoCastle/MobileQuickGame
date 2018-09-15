@@ -16,7 +16,14 @@ public struct ScenceMsg
 public class BaseCence {
     string CenceName;
     protected CenceCtrl CenceCtrl;
-    BaseDir Director;
+    BaseDir _Director;
+    public BaseDir Director
+    {
+        get
+        {
+            return _Director;
+        }
+    }
     ScenceMsg _Msg;
     public ScenceMsg Msg
     {
@@ -39,22 +46,22 @@ public class BaseCence {
         GameObject DirObj = GameObject.Find("Director");
         if( DirObj !=null )
         {
-            Director = DirObj.GetComponent<BaseDir>();
+            _Director = DirObj.GetComponent<BaseDir>();
         }
-        if( Director == null )
+        if( _Director == null )
         {
             Debug.Log("Director Obj Wrong");
         }else
         {
-            Director.StartGame(Msg);
+            _Director.StartGame(Msg);
         }
     }
 
     //末
     public virtual void End( )
     {
-        if( Director!= null )
-            Director.End();
+        if( _Director!= null )
+            _Director.End();
     }
 
     //更新

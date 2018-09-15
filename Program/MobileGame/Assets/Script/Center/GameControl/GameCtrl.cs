@@ -44,6 +44,18 @@ public class GameCtrl
     //场景功能
     #region
     public CenceCtrl CenceCtroler;
+    BaseDir _CurDir;
+    public BaseDir CurDir
+    {
+        get
+        {
+            return _CurDir;
+        }
+        set
+        {
+            _CurDir = value;
+        }
+    }
     #endregion
     GameCtrl()
     {
@@ -63,19 +75,6 @@ public class GameCtrl
             {
                 _Pool = value;
             }
-        }
-    }
-
-    BaseDir _CurDir;
-    public BaseDir CurDir
-    {
-        get
-        {
-            return _CurDir;
-        }
-        set
-        {
-            _CurDir = value;
         }
     }
 

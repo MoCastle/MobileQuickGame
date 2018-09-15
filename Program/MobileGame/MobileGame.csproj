@@ -106,7 +106,9 @@
     <Compile Include="Assets\Script\Animator\CharactorAnimator.cs" />
     <Compile Include="Assets\Script\Animator\EnemyAnim\EnemyAnimAdaptor.cs" />
     <Compile Include="Assets\Script\Camera\BaseCameraControler.cs" />
+    <Compile Include="Assets\Script\Camera\BaseCameraSetter.cs" />
     <Compile Include="Assets\Script\Camera\CameraControler.cs" />
+    <Compile Include="Assets\Script\Camera\NormCameraSetter.cs" />
     <Compile Include="Assets\Script\Center\AI\AIAction.cs" />
     <Compile Include="Assets\Script\Center\AI\AICtrler.cs" />
     <Compile Include="Assets\Script\Center\AI\EnemyAction.cs" />

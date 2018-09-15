@@ -305,7 +305,7 @@ public abstract class BaseActor : MonoBehaviour {
         Vector2 Position = FootTransCtrl.position;
         Vector2 Size = Vector2.right * (0.4f- 0.01f);
         Size.y = 0.5f;
-        LayerMask Layer = 1 << LayerMask.NameToLayer("Default");
+        LayerMask Layer = 1 << LayerMask.NameToLayer("Ground");
         if(!PlatFoot.isTrigger)
         {
             Layer += 1 << LayerMask.NameToLayer("PlatForm");

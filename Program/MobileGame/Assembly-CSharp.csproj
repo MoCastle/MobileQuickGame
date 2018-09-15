@@ -61,13 +61,12 @@
      <Compile Include="Assets\Script\AI\AICtrler\GuardAiCtrl.cs" />
      <Compile Include="Assets\Script\AI\AICtrler\InBattleAICtrl.cs" />
      <Compile Include="Assets\Script\AI\AICtrler\LittleEnemy\ModEnemInBattleCtrl.cs" />
+     <Compile Include="Assets\Script\Actor\DoorActor.cs" />
      <Compile Include="Assets\Script\Actor\LittleEnemyActor.cs" />
      <Compile Include="Assets\Script\Actor\PlayerActor.cs" />
      <Compile Include="Assets\Script\Animator\AnimAdaptor.cs" />
      <Compile Include="Assets\Script\Animator\CharactorAnimator.cs" />
      <Compile Include="Assets\Script\Animator\EnemyAnim\EnemyAnimAdaptor.cs" />
-     <Compile Include="Assets\Script\Camera\BaseCameraControler.cs" />
-     <Compile Include="Assets\Script\Camera\CameraControler.cs" />
      <Compile Include="Assets\Script\Center\AI\AIAction.cs" />
      <Compile Include="Assets\Script\Center\AI\AICtrler.cs" />
      <Compile Include="Assets\Script\Center\AI\EnemyAction.cs" />
@@ -78,9 +77,7 @@
      <Compile Include="Assets\Script\Center\Cence\BaseCence.cs" />
      <Compile Include="Assets\Script\Center\Cence\BaseDir.cs" />
      <Compile Include="Assets\Script\Center\Cence\CenceCtrl.cs" />
-     <Compile Include="Assets\Script\Center\Cence\NormalDir.cs" />
-     <Compile Include="Assets\Script\Center\Cence\StartCence.cs" />
-     <Compile Include="Assets\Script\Center\Cence\StartDir.cs" />
+     <Compile Include="Assets\Script\Center\Cence\EnterCence.cs" />
      <Compile Include="Assets\Script\Center\Debug\DebugShow.cs" />
      <Compile Include="Assets\Script\Center\Debug\LogMgr.cs" />
      <Compile Include="Assets\Script\Center\Effect\ChongQiBoEffect.cs" />
@@ -95,13 +92,11 @@
      <Compile Include="Assets\Script\Center\GameControl\GameCtrl.cs" />
      <Compile Include="Assets\Script\Center\GameControl\GameDriver.cs" />
      <Compile Include="Assets\Script\Center\GameControl\GameWorldTimer.cs" />
-     <Compile Include="Assets\Script\Center\GameControl\NormalScence.cs" />
      <Compile Include="Assets\Script\Center\GameControl\PlayerCtrl.cs" />
      <Compile Include="Assets\Script\Center\GamePoolManager.cs" />
      <Compile Include="Assets\Script\Center\Player\PlayerDelegate.cs" />
      <Compile Include="Assets\Script\Center\Propty\Propty.cs" />
      <Compile Include="Assets\Script\Center\Spawn\BaseSpawn.cs" />
-     <Compile Include="Assets\Script\Center\Spawn\DoorSpawn.cs" />
      <Compile Include="Assets\Script\Center\Spawn\EnemySpawn.cs" />
      <Compile Include="Assets\Script\Center\Spawn\PlayerSpawn.cs" />
      <Compile Include="Assets\Script\Cfg\SkillInfoReader.cs" />
@@ -109,6 +104,7 @@
      <Compile Include="Assets\Script\ForNow\SkillObj.cs" />
      <Compile Include="Assets\Script\ResourceCtrl\LoadEffect.cs" />
      <Compile Include="Assets\Script\Scence\CenceMgr.cs" />
+     <Compile Include="Assets\Script\Scence\EnterDirector.cs" />
      <Compile Include="Assets\Script\Scence\GameStartScence.cs" />
      <Compile Include="Assets\Script\Scence\StartGame.cs" />
      <Compile Include="Assets\Script\SkillSgtate\AttackState.cs" />

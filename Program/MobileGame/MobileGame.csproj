@@ -108,6 +108,7 @@
     <Compile Include="Assets\Script\Camera\BaseCameraControler.cs" />
     <Compile Include="Assets\Script\Camera\BaseCameraSetter.cs" />
     <Compile Include="Assets\Script\Camera\CameraControler.cs" />
+    <Compile Include="Assets\Script\Camera\CameraOffsetCounter.cs" />
     <Compile Include="Assets\Script\Camera\NormCameraSetter.cs" />
     <Compile Include="Assets\Script\Center\AI\AIAction.cs" />
     <Compile Include="Assets\Script\Center\AI\AICtrler.cs" />

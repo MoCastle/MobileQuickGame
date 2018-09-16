@@ -499,6 +499,19 @@ public abstract class BaseActor : MonoBehaviour {
         AnimCtrl.SetTrigger("DragFly");
         return true;
     }
+    //面向方向
+    public Vector2 FaceDirection
+    {
+        get
+        {
+            Vector2 Direction = Vector2.right;
+            if(TransCtrl.localScale.x* Direction.x < 0)
+            {
+                Direction.x = Direction.x * -1;
+            }
+            return Direction;
+        }
+    }
 
     public virtual void FaceForce( Vector2 InDir)
     {

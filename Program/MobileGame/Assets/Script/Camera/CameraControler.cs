@@ -8,6 +8,19 @@ public class CameraControler {
     float Distance;
     Vector2 ViewSize;
     Vector2 TriggerSize;
+
+    //相机向前偏移相关
+    #region
+    float ShiftNum = 1;
+    float RealShiftNum
+    {
+        get
+        {
+            return Follower.FaceDirection.x * ShiftNum < 0 ? ShiftNum * -1 : ShiftNum;
+        }
+    }
+    float CurShiftNum = 0;
+    #endregion
     public CameraControler( BaseDir ScenceDir, BaseCameraSetter InCameraSetter )
     {
         Dir = ScenceDir;
@@ -73,11 +86,26 @@ public class CameraControler {
         {
             Vector3 NewCameraPs = Follower.TransCtrl.position;
             NewCameraPs.z = CameraTrans.position.z;
-
+            NewCameraPs = OffSet(NewCameraPs);
             NewCameraPs = PositionFix(NewCameraPs);
             CameraTrans.position = NewCameraPs;
         }
 	}
+
+    //进行偏移
+    public Vector3 OffSet( Vector3 InPosition )
+    {
+        if( Mathf.Abs( CurShiftNum - RealShiftNum) <0.1f )
+        {
+            CurShiftNum = RealShiftNum;
+        } else
+        {
+            CurShiftNum += (RealShiftNum - CurShiftNum) * 0.2f;
+        }
+
+        InPosition.x = InPosition.x + CurShiftNum;
+        return InPosition;
+    }
     Vector3 PositionFix( Vector3 InPosition )
     {
         

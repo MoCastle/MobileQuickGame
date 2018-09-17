@@ -8,6 +8,7 @@ public class CameraControler {
     float Distance;
     Vector2 ViewSize;
     Vector2 TriggerSize;
+    Vector2 CameraOffset;
 
     //相机向前偏移相关
     #region
@@ -26,11 +27,17 @@ public class CameraControler {
         Dir = ScenceDir;
         CameraSetter = InCameraSetter;
         //算出左上右下四个边界
-        Vector2 SetterPs = CameraSetter.transform.position;
-        LeftTopPs = SetterPs;
-        RightDownPs = SetterPs;
+        
         BoxCollider2D TheTrigger = CameraSetter.GetComponent<BoxCollider2D>();
         Vector2 TriggerOffset = TheTrigger.offset;
+
+        Vector2 SetterPs = CameraSetter.transform.position;
+        SetterPs += TriggerOffset;
+
+
+        LeftTopPs = SetterPs;
+        RightDownPs = SetterPs;
+
         TriggerSize = TheTrigger.size;
         LeftTopPs.x = LeftTopPs.x - TriggerSize.x/2;
         LeftTopPs.y = LeftTopPs.y + TriggerSize.y/2;
@@ -47,12 +54,29 @@ public class CameraControler {
         else
         {
             float halfFOV = (MainCamera.fieldOfView * 0.5f) * Mathf.Deg2Rad;
-            ViewSize.x = Distance * Mathf.Tan(halfFOV);
+            ViewSize.y = Distance * Mathf.Tan(halfFOV);
         }
-        ViewSize.y = ViewSize.x / MainCamera.aspect;
+        ViewSize.x = ViewSize.y * MainCamera.aspect;
 
-        ViewSize.y = ViewSize.y / 2;
-        ViewSize.x = ViewSize.x / 2;
+        CameraOffset = new Vector2();
+        if (!MainCamera.orthographic)
+        {
+            Vector3 CameraRotate = MainCamera.transform.localRotation.eulerAngles;
+            if ( Mathf.Abs(CameraRotate.x)> 0.001f)
+            {
+                float OffsetY = 0;
+                OffsetY = Distance * Mathf.Abs(Mathf.Tan(CameraRotate.x * Mathf.Deg2Rad)) * (CameraRotate.x < 0 ? 1 : -1);
+                CameraOffset.y += OffsetY;
+            }
+            
+            if(Mathf.Abs(CameraRotate.y) > 0.001f)
+            {
+                float OffsetX = 0;
+                OffsetX = Distance * Mathf.Abs(Mathf.Tan(CameraRotate.y * Mathf.Deg2Rad)) * (CameraRotate.y > 0 ? 1 : -1);
+                CameraOffset.x += OffsetX;
+            }
+        }
+        
     }
 
     public Camera MainCamera
@@ -86,8 +110,11 @@ public class CameraControler {
         {
             Vector3 NewCameraPs = Follower.TransCtrl.position;
             NewCameraPs.z = CameraTrans.position.z;
+
             NewCameraPs = OffSet(NewCameraPs);
             NewCameraPs = PositionFix(NewCameraPs);
+            NewCameraPs.x += CameraOffset.x;
+            NewCameraPs.y += CameraOffset.y;
             CameraTrans.position = NewCameraPs;
         }
 	}

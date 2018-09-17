@@ -127,7 +127,7 @@ public class CameraControler {
             CurShiftNum = RealShiftNum;
         } else
         {
-            CurShiftNum += (RealShiftNum - CurShiftNum) * 0.2f;
+            CurShiftNum += (RealShiftNum - CurShiftNum) * 0.03f;
         }
 
         InPosition.x = InPosition.x + CurShiftNum;

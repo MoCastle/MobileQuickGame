@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DashState:PlayerState {
-    protected float Speed = 20;
+    protected float Speed = 8;
     public override SkillEnum SkillType
     {
         get

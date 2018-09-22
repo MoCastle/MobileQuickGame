@@ -367,9 +367,14 @@ public abstract class BaseState {
         EffectPS = EffectPS * 0.5f;
         GameObject Effect = EffectManager.Manager.GenEffect("Hit");
         Effect.transform.position = EffectPS;
-
         //随机旋转角度
         Effect.transform.rotation *= Quaternion.Euler(0, 0, Random.Range(0, 180));
+        
+        GameObject Blood = EffectManager.Manager.GenEffect("Blood");
+        Blood.transform.position = Effect.transform.position;
+        Vector3 OldScale = Blood.transform.localScale;
+        OldScale.x = _Actor.transform.localScale.x * OldScale.x < 0 ? OldScale.x : OldScale.x * -1;
+        Blood.transform.localScale = OldScale;
     }
     //根据运动方向旋转
     public void RotateToDirection(Vector2 MoveDirection)

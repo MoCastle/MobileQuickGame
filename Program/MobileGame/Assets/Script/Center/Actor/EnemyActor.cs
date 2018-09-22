@@ -8,7 +8,7 @@ public struct AttackRate
     public string Name;
     public float Rate;
 }
-public abstract class EnemyActor : BaseActor
+public class EnemyActor : BaseActor
 {
     public Vector3 BirthPlace;
     public int InitID;
@@ -147,7 +147,12 @@ public abstract class EnemyActor : BaseActor
     //AI相关
     #region
     //进入哨戒状态
-    public abstract void EnterGuarding();
-    public abstract void EnterBattle();
+    public virtual void EnterGuarding()
+    {
+    }
+    public virtual void EnterBattle()
+    {
+
+    }
     #endregion
 }

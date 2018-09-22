@@ -37,7 +37,7 @@ public class ChasingAction : AIAction {
             _Ctrler.GenAction();
             return;
         }
-        Vector2 Dis = _Ctrler.CurTarget.TransCtrl.position - _Actor.TransCtrl.position - RealityShift;
+        Vector2 Dis = DisVector();
         _Actor.FaceTo(Dis);
         //追击条件达成 结束追击
         if (Mathf.Abs(Dis.x) < MisArea)
@@ -55,6 +55,11 @@ public class ChasingAction : AIAction {
         }
         
     }
+    //计算追击目标
+    protected virtual Vector2 DisVector()
+    {
+        return _Ctrler.CurTarget.TransCtrl.position - _Actor.TransCtrl.position - RealityShift;
+    }
     public override void Start()
     {
         if (_Ctrler.CurTarget == null)
@@ -63,7 +68,7 @@ public class ChasingAction : AIAction {
             _Ctrler.GenAction();
             return;
         }
-        Vector2 Dis = _Ctrler.CurTarget.TransCtrl.position - _Actor.TransCtrl.position - RealityShift;
+        Vector2 Dis = DisVector();
         _Actor.FaceTo(Dis);
         //追击条件达成 结束追击
         if (Mathf.Abs(Dis.x) < MisArea)

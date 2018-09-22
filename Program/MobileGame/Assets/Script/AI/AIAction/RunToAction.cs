@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class RunToAction : AIAction
 {
-    Vector2 TargetPs;
-    public RunToAction( EnemyActor InActor, AICtrler InCtrler, Vector2 InTargetPs ):base( InActor, InCtrler )
+    Vector3 TargetPs;
+    public RunToAction( EnemyActor InActor, AICtrler InCtrler, Vector3 InTargetPs ):base( InActor, InCtrler )
     {
         TargetPs = InTargetPs;
     }
     public override void LogicUpdate()
     {
         //throw new System.NotImplementedException();
-        Vector2 CurPs = _Actor.TransCtrl.position;
-        if((TargetPs - CurPs).x > _Actor.MoveSpeed/30)
+        Vector3 CurPs = _Actor.TransCtrl.position;
+        if( Mathf.Abs( (TargetPs - CurPs).x ) > _Actor.MoveSpeed/30)
         {
             _Actor.FaceTo(TargetPs - CurPs);
             _Actor.AnimCtrl.SetBool("Run", true);

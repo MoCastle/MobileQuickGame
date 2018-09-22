@@ -365,8 +365,11 @@ public abstract class BaseState {
         Offset.y = TargetActor.ColliderCtrl.offset.y;
         EffectPS = TargetActor.ColliderCtrl.transform.position + Offset + EffectPS;
         EffectPS = EffectPS * 0.5f;
-        GameObject Effect = EffectManager.Manager.GenEffect("chong_qibo");
+        GameObject Effect = EffectManager.Manager.GenEffect("Hit");
         Effect.transform.position = EffectPS;
+
+        //随机旋转角度
+        Effect.transform.rotation *= Quaternion.Euler(0, 0, Random.Range(0, 180));
     }
     //根据运动方向旋转
     public void RotateToDirection(Vector2 MoveDirection)

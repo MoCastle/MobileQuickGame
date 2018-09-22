@@ -125,7 +125,7 @@
     <Compile Include="Assets\Script\Center\Cence\StartDir.cs" />
     <Compile Include="Assets\Script\Center\Debug\DebugShow.cs" />
     <Compile Include="Assets\Script\Center\Debug\LogMgr.cs" />
-    <Compile Include="Assets\Script\Center\Effect\ChongQiBoEffect.cs" />
+    <Compile Include="Assets\Script\Center\Effect\Effect.cs" />
     <Compile Include="Assets\Script\Center\EnemySkill\EnemyAttackState.cs" />
     <Compile Include="Assets\Script\Center\EnemySkill\EnemyClickFlyState.cs" />
     <Compile Include="Assets\Script\Center\EnemySkill\EnemyCloseAttackState.cs" />

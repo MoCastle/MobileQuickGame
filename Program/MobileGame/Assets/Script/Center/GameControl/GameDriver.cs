@@ -23,6 +23,9 @@ public class GameDriver : MonoBehaviour
 
         LogMgr.InitSet();
 
+        //UI用
+        WindowMgr.UIWindow = transform.FindChild("UICanvas");
+
         GameCtrl GameCtrler = GameCtrl.GameCtrler;
         GameCtrler.PlayerSample = PlayerSample;
         GameCtrler.Pool = GetComponent<SpawnPool>();
@@ -32,6 +35,7 @@ public class GameDriver : MonoBehaviour
         SkillManager.Obj = SkillObj.GetComponent<SkillObj>();
         GameWorldTimer.StartGameSet();
 
+        
     }
     private void Start()
     {

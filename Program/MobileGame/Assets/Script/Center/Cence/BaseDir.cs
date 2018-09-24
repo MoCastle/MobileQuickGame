@@ -54,6 +54,10 @@ public abstract class BaseDir : MonoBehaviour {
         ActorMenue = new Dictionary<int, BaseActor>();
         GM = GameCtrl.GameCtrler;
         GM.CurDir = this;
+
+        //UI相关操作
+        WindowMgr.ResetUI();
+        WindowMgr.ShowMainWindow();
     }
 
     //生命循环相关

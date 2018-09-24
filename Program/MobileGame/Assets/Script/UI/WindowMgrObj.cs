@@ -17,4 +17,8 @@ public class WindowMgrObj : MonoBehaviour {
         }
         NewUI.transform.SetParent(GUILayout.transform);
     }
+    public void ShowMainWindow( )
+    {
+
+    }
 }

@@ -55,6 +55,7 @@ public class BaseCence {
         {
             _Director.StartGame(Msg);
         }
+        
     }
 
     //末

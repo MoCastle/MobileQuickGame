@@ -58,11 +58,14 @@
      <Compile Include="Assets\Script\AI\AIAction\DynaticAction.cs" />
      <Compile Include="Assets\Script\AI\AIAction\LittleEnemy\CruiteAct.cs" />
      <Compile Include="Assets\Script\AI\AIAction\RunToAction.cs" />
+     <Compile Include="Assets\Script\AI\AIAction\WaitingAction.cs" />
      <Compile Include="Assets\Script\AI\AICtrler\GuardAiCtrl.cs" />
      <Compile Include="Assets\Script\AI\AICtrler\InBattleAICtrl.cs" />
      <Compile Include="Assets\Script\AI\AICtrler\LittleEnemy\ModEnemInBattleCtrl.cs" />
+     <Compile Include="Assets\Script\AI\AICtrler\ZombieInBattleCtrl.cs" />
      <Compile Include="Assets\Script\Actor\LittleEnemyActor.cs" />
      <Compile Include="Assets\Script\Actor\PlayerActor.cs" />
+     <Compile Include="Assets\Script\Actor\ZombieActor.cs" />
      <Compile Include="Assets\Script\Animator\AnimAdaptor.cs" />
      <Compile Include="Assets\Script\Animator\CharactorAnimator.cs" />
      <Compile Include="Assets\Script\Animator\EnemyAnim\EnemyAnimAdaptor.cs" />
@@ -82,11 +85,12 @@
      <Compile Include="Assets\Script\Center\Cence\BaseDir.cs" />
      <Compile Include="Assets\Script\Center\Cence\CenceCtrl.cs" />
      <Compile Include="Assets\Script\Center\Cence\NormalDir.cs" />
+     <Compile Include="Assets\Script\Center\Cence\NormalScence.cs" />
      <Compile Include="Assets\Script\Center\Cence\StartCence.cs" />
      <Compile Include="Assets\Script\Center\Cence\StartDir.cs" />
      <Compile Include="Assets\Script\Center\Debug\DebugShow.cs" />
      <Compile Include="Assets\Script\Center\Debug\LogMgr.cs" />
-     <Compile Include="Assets\Script\Center\Effect\ChongQiBoEffect.cs" />
+     <Compile Include="Assets\Script\Center\Effect\Effect.cs" />
      <Compile Include="Assets\Script\Center\EnemySkill\EnemyAttackState.cs" />
      <Compile Include="Assets\Script\Center\EnemySkill\EnemyClickFlyState.cs" />
      <Compile Include="Assets\Script\Center\EnemySkill\EnemyCloseAttackState.cs" />
@@ -98,7 +102,6 @@
      <Compile Include="Assets\Script\Center\GameControl\GameCtrl.cs" />
      <Compile Include="Assets\Script\Center\GameControl\GameDriver.cs" />
      <Compile Include="Assets\Script\Center\GameControl\GameWorldTimer.cs" />
-     <Compile Include="Assets\Script\Center\GameControl\NormalScence.cs" />
      <Compile Include="Assets\Script\Center\GameControl\PlayerCtrl.cs" />
      <Compile Include="Assets\Script\Center\GamePoolManager.cs" />
      <Compile Include="Assets\Script\Center\Player\PlayerDelegate.cs" />
@@ -153,6 +156,7 @@
      <Compile Include="Assets\Script\UI\ShowText.cs" />
      <Compile Include="Assets\Script\UI\UIEffectMgr.cs" />
      <Compile Include="Assets\Script\UI\UIManager.cs" />
+     <Compile Include="Assets\Script\UI\WindowMgr.cs" />
      <Compile Include="Assets\Script\UI\WindowMgrObj.cs" />
      <None Include="Assets\outLog.txt" />
      <None Include="Assets\Plugins\PathologicalGames\readme.txt" />

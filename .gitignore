@@ -1,7 +1,8 @@
 
 *.meta
 *.sln
-
+*.csproj
 Library/
 Program/MobileGame/Assets/outLog.txt
-*.csproj
+Program/MobileGame/.vs
+

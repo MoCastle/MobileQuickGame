@@ -48,7 +48,7 @@ public class CloseAttackState : AttackState {
     public override void Attacking()
     {
         base.Attacking();
-        _Actor.MovePs(Direction * _Actor.CAttackMove);
+        _Actor.MovePs(Direction * 0.3f);//_Actor.CAttackMove);
     }
     /*
     public override void AttackEnd()

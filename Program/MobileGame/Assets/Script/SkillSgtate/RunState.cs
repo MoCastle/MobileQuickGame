@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RunState : PlayerState
 {
-    public float Speed = 5f;
+    public float Speed = 3f;
     public Vector2 Direction
     {
         get

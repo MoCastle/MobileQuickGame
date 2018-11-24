@@ -1,0 +1,7 @@
+Idle 闲置
+Hit 受击
+ClickFly 击飞
+DragFly 拽起击飞
+Falling 下坠
+HitGround 着地
+GetUp 爬起

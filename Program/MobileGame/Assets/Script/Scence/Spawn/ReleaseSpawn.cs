@@ -31,6 +31,8 @@ public class ReleaseSpawn : EnemySpawn {
 
         AICtrler enemyAICtrler = newEnemy.AICtrl;
         enemyAICtrler.PushAction(new RunToAction(newEnemy,enemyAICtrler,Target.transform.position));
+        Debug.Log("Birth");
+        Debug.Log(newActor.transform.position);
         return;
     }
 

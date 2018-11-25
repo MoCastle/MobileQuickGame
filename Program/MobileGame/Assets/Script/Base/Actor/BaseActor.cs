@@ -41,7 +41,7 @@ public abstract class BaseActor : MonoBehaviour {
     #region
     public BoxCollider2D _PlatFoot;
     public BoxCollider2D PlatFoot
-    {
+    {   
         get
         {
             if( !_PlatFoot )
@@ -311,7 +311,9 @@ public abstract class BaseActor : MonoBehaviour {
     }
     public void Update()
     {
-        if(GameCtrler.IsPaused)
+        Debug.Log("Before: " + gameObject.name + "-" + "Update");
+        Debug.Log(transform.position);
+        if (GameCtrler.IsPaused)
         {
             return;
         }
@@ -432,6 +434,13 @@ public abstract class BaseActor : MonoBehaviour {
     public virtual void LogicAwake( )
     {
 
+    }
+    public void Start()
+    {
+        LogicStart();
+    }
+    public virtual void LogicStart()
+    {
     }
     public virtual void Move( Vector2 InDirection )
     {

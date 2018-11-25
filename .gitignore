@@ -3,6 +3,7 @@
 *.sln
 *.csproj
 Library/
+Temp/
 Program/MobileGame/Assets/outLog.txt
 Program/MobileGame/.vs
 

@@ -66,12 +66,23 @@ public class EnemyActor : BaseActor
 
     public override void LogicAwake()
     {
+        base.LogicAwake();
+        Debug.Log(gameObject.name + "-" + "Awake");
+        Debug.Log(transform.position);
+    }
+    public override void LogicStart()
+    {
+        base.LogicStart();
+        Debug.Log(gameObject.name+"-"+"Start");
+        Debug.Log(transform.position);
     }
 
     public override void LogicUpdate()
     {
+       
         AICtrl.Update();
         LifeSlider.value = ActorPropty.PercentLife;
+
     }
 
     public BaseActor CheckGetPlayer( )

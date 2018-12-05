@@ -17,11 +17,12 @@ public class WindowMgr {
     }
     public static void ResetUI()
     {
+        /*
         Transform FirstArray = UIWindow.GetChild(0);
         for( int UICount = FirstArray.childCount; UICount >0; --UICount )
         {
             //GameObject.Destroy(FirstArray.GetChild(UICount - 1).gameObject);
-        }
+        }*/
 
     }
     //显示普通窗口

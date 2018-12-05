@@ -14,7 +14,7 @@ struct ActorSaveInfo
 public struct AnimStruct
 {
     public string AnimName;
-    public string ClassName;
+    public int ActionID;
 }
 public struct CutEffect
 {
@@ -106,7 +106,7 @@ public abstract class BaseActor : MonoBehaviour {
         }
     }
     //生命状态
-    protected bool _Alive;
+    protected bool _Alive = true;
     public bool Alive
     {
         get
@@ -119,9 +119,9 @@ public abstract class BaseActor : MonoBehaviour {
     public Vector2 ForceMoveDirection = Vector2.up;
     [Title("是正否处于无敌状态", "black")]
     public bool IsHoly;
-    [Title("击退速度", "black")]
+    [Title("攻击移动距离 废弃", "black")]
     public float CAttackMove = 1;
-    [Title("无丢失参数", "black")]
+    [Title("攻击时移动速度", "black")]
     public float LAttackSpeed = 3;
     public bool LockFace;
     float _GravityScale;
@@ -380,7 +380,7 @@ public abstract class BaseActor : MonoBehaviour {
             {
                 if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
                 {
-                    NewStateName = Info.ClassName;
+                    NewStateName = "";//Info.ClassName;
                     AnimCtrl.SetFloat("AnimTime", 0);
                     break;
                 }
@@ -393,7 +393,7 @@ public abstract class BaseActor : MonoBehaviour {
             {
                 if (AnimCtrl.GetCurrentAnimatorStateInfo(0).IsName(Info.AnimName))
                 {
-                    NewStateName = Info.ClassName;
+                    NewStateName = "";//Info.ClassName;
                     AnimCtrl.SetFloat("AnimTime", 0);
                     break;
                 }

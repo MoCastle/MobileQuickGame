@@ -1,9 +1,0 @@
-ID,技能名称,技能脚本名,伤害加成百分比,暴击率
-id,Name,ScrName,DamPer,VioPer
-int,string,string,int,int
-1,普一击,CloseAttackState,100,100
-2,普三击,CloseAttackThirdState,120,400
-3,升斩,RocketCutState,120,100
-4,落斩,ImpactCut_Damage,150,300
-5,横斩,FlashCutState,130,200
-6,模板通用近战,EnemyCloseAttackState,100,100

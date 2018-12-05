@@ -21,7 +21,18 @@ public class EnemyActor : BaseActor
     public int InitID;
     public AttackRate[] CloseAttackArray;
     public AttackRate[] FarAttackArray;
-    public Slider LifeSlider;
+    public Slider _LifeSlider;
+    public Slider LifeSlider
+    {
+        get
+        {
+            if(_LifeSlider == null)
+            {
+                _LifeSlider = transform.FindChild("WorldCanvas").FindChild("LifeSlide").GetComponent<Slider>();
+            }
+            return _LifeSlider;
+        }
+    }
 
     BoxCollider2D _GuardingArea;
     BoxCollider2D GuardingArea

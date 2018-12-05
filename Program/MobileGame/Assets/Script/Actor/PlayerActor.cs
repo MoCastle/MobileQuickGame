@@ -15,6 +15,19 @@ public enum PlayerActEnum
 }
 
 public class PlayerActor : BaseActor {
+    
+    Rigidbody2D _RigidBody2D;
+    public Vector2 TheSpeed
+    {
+        get
+        {
+            if(_RigidBody2D == null)
+            {
+                _RigidBody2D = GetComponent<Rigidbody2D>();
+            }
+            return _RigidBody2D.velocity;
+        }
+    }
     public SkillEnum PreState;
     public Vector2 PreInput;
 
@@ -189,7 +202,23 @@ public class PlayerActor : BaseActor {
     }
     public virtual void Input(NormInput Input)
     {
+        
+        if(Input.Gesture == HandGesture.Click && Input.Gesture == HandGesture.Click)
+        {
+            Vector3 scale = transform.localScale;
+
+            Vector2 faceDir = Vector2.right;
+            Vector2 dir = CurInput.InputInfo.EndPs - Input.InputInfo.EndPs;
+
+            if (dir.x * scale .x < 0)
+            {
+                scale.x *= -1;
+                //PhysicCtrl
+            }
+
+        }
         CurInput = Input;
+        
         SetAnimParam(Input);
         PlayerCtrl.CurOrder = Input;
     }
@@ -211,7 +240,7 @@ public class PlayerActor : BaseActor {
     public void OnFingerOut()
     {
         //不再处于跑动状态
-        this.AnimCtrl.SetBool("IsRunning",false);
+        //ActionCtrl.SetBool("IsRunning",false);
     }
 
     //销毁事件

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DashState:PlayerState {
-    protected float Speed = 5.5f;
+    protected float Speed = 5f;
     public override SkillEnum SkillType
     {
         get
@@ -46,6 +46,9 @@ public class DashState:PlayerState {
 
     public override void Update()
     {
-        _Actor.RigidCtrl.velocity = Direction * Speed;
+        Vector2 MoveSpeed = Direction * Speed;
+        //垂直速度缩放值
+        MoveSpeed.x *= 0.5f;
+        _Actor.RigidCtrl.velocity = MoveSpeed;
     }
 }

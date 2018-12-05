@@ -4,6 +4,25 @@ using UnityEngine;
 
 [System.Serializable]
 public class Propty {
+    [Title("属性", "black")]
+    public ActorInfo _ActorInfo;
+
+    public float Heavy
+    {
+        get
+        {
+            return _ActorInfo.Heavy;
+        }
+    }
+
+    public float HeavyRate
+    {
+        get
+        {
+            return _ActorInfo.HeavyRate;
+        }
+    }
+
     //生命
     [System.NonSerialized]
     public int HP;
@@ -14,7 +33,10 @@ public class Propty {
     public int VIT;
     [Title("最大体力值", "black")]
     public int MaxVIT;
-
+    [Title("可击退", "black")]
+    public bool CanHitBack = true;
+    [Title("可击飞", "black")]
+    public bool CanCickFly = true;
     //移动速度
     [Title("移动速度", "black")]
     public float MoveSpeed;
@@ -27,17 +49,12 @@ public class Propty {
 
     public Propty(  )
     {
-        /*
+        
         NpcProptyReader NpcProptyCfg = NpcProptyReader.Cfg;
-        MaxHP = NpcProptyCfg.GetHealthy(ID);
-        MaxVIT = NpcProptyCfg.GetVirtical(ID);
-        MoveSpeed = NpcProptyCfg.GetMoveSpeed(ID);
-        Attack = NpcProptyCfg.GetAttack(ID);
-        HitBackSpeed = NpcProptyCfg.GetHitBackSpeed(ID);
 
         HP = MaxHP;
         VIT = MaxVIT;
-        */
+        
         Init();
     }
     public void Init()

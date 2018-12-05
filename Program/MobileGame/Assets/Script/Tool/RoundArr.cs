@@ -324,10 +324,7 @@ public class StructRoundArrCovered<T>:StructRoundArr<T> where T : struct
     {
         get
         {
-            if(TailCurPoint == _HeadPoint || TArray.Length < 1)
-            {
-                Debug.Log("StructRoundArrCovered: HeadPoint:" + _HeadPoint + " TailPoint:" + _TailPoint + " CurPoint"+ TailCurPoint);
-            }
+            
             return TailCurPoint == _HeadPoint || TArray.Length < 1;
         }
     }
@@ -368,9 +365,8 @@ public class StructRoundArrCovered<T>:StructRoundArr<T> where T : struct
         TailCurPoint = _TailPoint;
         if( TailCurPoint != _HeadPoint )
         {
-            TailCurPoint = TailCurPoint - 1;
+            TailCurPoint = (TailCurPoint + TArray.Length - 1)%TArray.Length;
         }
-        Debug.Log("StructRoundArrCovered: ArrayLength:"+ TArray.Length + "  Headpoint:" + _HeadPoint + "    TailePoint" + _TailPoint +" CurPoint:" + TailCurPoint);
     }
     //反向获取当前元素
     public T GetTailEnumT()

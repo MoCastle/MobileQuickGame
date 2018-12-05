@@ -7,7 +7,9 @@ using UnityEngine.EventSystems;
 public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     float StD = 10;//向饱和距离
-                   //输入间隔设置
+                   //输入间隔设置 屏幕的一半
+    
+
     #region
     //缓存队列的总时间
     public float DragSpaceTime;
@@ -159,14 +161,11 @@ public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoi
                     //判断距离是否达标
                     if (Direction.magnitude > DragDistancePer * StD)
                     {
-                        Debug.Log("InputTouch: CheckOver direction Distance:" + Direction.sqrMagnitude + "    Target Distance:" + Mathf.Pow(DragDistancePer * StD, 2));
                         return Direction.normalized* StD;
                     }
-                    Debug.Log("InputTouch:direction Distance:" + Direction.sqrMagnitude + "    Target Distance:" + Mathf.Pow(DragDistancePer * StD, 2));
                 }
                 else
                 {
-                    Debug.Log("InputTouch:CheckMaxVectorInRound:OutOfRotate:" + Vector2.Angle(CurDir, Direction));
                     //夹角过大 发生转向
                     return Vector2.zero;
                 }

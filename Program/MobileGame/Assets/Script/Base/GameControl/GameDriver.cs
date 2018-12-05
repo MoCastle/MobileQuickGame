@@ -7,8 +7,6 @@ using PathologicalGames;
 public class GameDriver : MonoBehaviour
 {
 
-
-    public GameObject SkillObj;
     public GameObject PlayerSample;
     private void Awake()
     {
@@ -32,19 +30,18 @@ public class GameDriver : MonoBehaviour
 
         Debug.Log("StartGame");
         DontDestroyOnLoad(this.gameObject);
-        SkillManager.Obj = SkillObj.GetComponent<SkillObj>();
-        GameWorldTimer.StartGameSet();
+        //GameWorldTimer.StartGameSet();
 
         
     }
     private void Start()
     {
-
+        Application.LoadLevel("EnterSence");
     }
     private void Update()
     {
-        GameWorldTimer.Update();
+        //GameWorldTimer.Update();
         LogMgr.Update();
-        GameCtrl.GameCtrler.Update();
+        //GameCtrl.GameCtrler.Update();
     }
 }

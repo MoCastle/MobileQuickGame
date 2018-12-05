@@ -54,7 +54,6 @@ public static class GameWorldTimer{
     }
     public static void Continue( )
     {
-        Debug.Log("COntinueGame");
         GameInBattle = true;
     }
 }

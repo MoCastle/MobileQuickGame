@@ -38,7 +38,7 @@ public struct NormInput
             return InputInfo.IsLegal;
         }
     }
-    public NormInput(InputInfo InInfo = new InputInfo( ), float InLifeTime = 0 )
+    public NormInput(InputInfo InInfo = new InputInfo( ), float InLifeTime = 0,HandGesture handGesture = HandGesture.None )
     {
         InputInfo = InInfo;
         LifeTime = InLifeTime;
@@ -103,16 +103,23 @@ public struct NormInput
             }
             Dir = (InputDir)DirNum;
         }
-        if (InputInfo.IsPushing)
+        
+        if(InputInfo.IsPushing)
         {
-            Gesture = HandGesture.None;
-            if ( Dir != InputDir.Middle )
+            if (handGesture == HandGesture.Drag || handGesture == HandGesture.Holding)
             {
-                Gesture = HandGesture.Drag;
-            }
-            else if( LifeTime > 0.30f )
+                Gesture = handGesture;
+            }else
             {
-                Gesture = HandGesture.Holding;
+                Gesture = HandGesture.None;
+                if (Dir != InputDir.Middle)
+                {
+                    Gesture = HandGesture.Drag;
+                }
+                else if (LifeTime > 0.30f)
+                {
+                    Gesture = HandGesture.Holding;
+                }
             }
         }
         else
@@ -144,6 +151,7 @@ public struct NormInput
 
 public static class PlayerCtrl {
 
+    static HandGesture curHandGesture;
     //游戏控制器
     static GameCtrl _GmCtrler;
     public static GameCtrl GmCtrler
@@ -223,8 +231,10 @@ public static class PlayerCtrl {
                 IsInputing = true;
                 
             }
-            NormInput NewInput = new NormInput(Input,Time.time - CountTime);
-            InputEvent(NewInput);
+            NormInput NewInput = new NormInput(Input,Time.time - CountTime, curHandGesture);
+            curHandGesture = NewInput.Gesture;
+            if (InputEvent !=null)
+                InputEvent(NewInput);
             /*
             if (NewInput.Gesture != HandGesture.None)
             {
@@ -236,6 +246,10 @@ public static class PlayerCtrl {
             {
                 IsInputing = false;
             }
+        }
+        else
+        {
+            curHandGesture = HandGesture.None;
         }
     }
     public static void RefreshInputRoundArr()

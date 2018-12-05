@@ -1,0 +1,8 @@
+﻿Id,Name,Effect,CutMeet,CutMeetScale,HardTime
+id,类名,特效名,卡肉值,卡肉系数,造成硬直值
+0,Default,,0,0,0
+1,RunAction,,0,0,0
+2,ChargingAction,,0,0,0
+3,DashAction,,0,0,0
+4,AttackAction,Hit,0.1,0.2,1
+5,HAttackAction,Hit,0.1,0.2,1

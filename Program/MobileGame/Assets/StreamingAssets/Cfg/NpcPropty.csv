@@ -1,4 +1,0 @@
-ID,怪物名字,速度/秒,生命值,攻击力,体力,击退基础速度
-Id,Name,MoveSpeed,Healthy,Attack,Virtical,HitBackSpeed
-int,string,float,int,int,int,float
-1,玩家初始值,10,1000,1,1000,1

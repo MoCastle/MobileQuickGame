@@ -98,6 +98,10 @@
     <Compile Include="Assets\Script\AI\AIAction\LittleEnemy\CruiteAct.cs" />
     <Compile Include="Assets\Script\AI\AIAction\RunToAction.cs" />
     <Compile Include="Assets\Script\AI\AIAction\WaitingAction.cs" />
+    <Compile Include="Assets\Script\AI\AICtrler\AxeAICtrler.cs" />
+    <Compile Include="Assets\Script\AI\AICtrler\BaseAICtrler.cs" />
+    <Compile Include="Assets\Script\AI\AICtrler\Behaviour\BaseBehaviour.cs" />
+    <Compile Include="Assets\Script\AI\AICtrler\Behaviour\CruiseBehaviour.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\GuardAiCtrl.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\InBattleAICtrl.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\LittleEnemy\ModEnemInBattleCtrl.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="Assets\Script\Actor\PlayerActor.cs" />
     <Compile Include="Assets\Script\ActorObj\EnemyObj.cs" />
     <Compile Include="Assets\Script\ActorObj\PlayerObj.cs" />
+    <Compile Include="Assets\Script\Animator\AnimAdapt.cs" />
     <Compile Include="Assets\Script\Animator\AnimAdaptor.cs" />
     <Compile Include="Assets\Script\Animator\AnimCtrler.cs" />
     <Compile Include="Assets\Script\Animator\CharactorAnimator.cs" />

@@ -233,6 +233,39 @@ public abstract class BaseActorObj : MonoBehaviour {
 
     }
 
+    #region 向外提供接口
+    public Vector2 CurFaceDir
+    {
+        get
+        {
+            return Vector2.right * (transform.localScale.x >0?1:-1);
+        }
+    }
+    //朝向 y等0时仅改变左右朝向
+    public void FaceToDir(Vector2 dir)
+    {
+        if( dir.x * transform.localScale.x < 0 )
+        {
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
+        if(dir.y != 0)
+        {
+            dir = dir.normalized;
+            float Rotate = 0;
+            Rotate = Mathf.Atan2(dir.y, Mathf.Abs(dir.x)) * 180 / Mathf.PI;
+            if (dir.x < 0)
+            {
+                Rotate = Rotate * -1;
+            }
+            Vector3 Rotation = Vector3.forward * Rotate;
+            transform.eulerAngles = Rotation;
+        }
+        
+    }
+    #endregion
+
     #region
     public virtual void LogicUpdate()
     {
@@ -313,7 +346,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         transform.position += FaceDir3D * distance;
         
     }
-
+    //转换状态
     public virtual void SwitchAction()
     {
 

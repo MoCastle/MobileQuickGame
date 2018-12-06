@@ -10,4 +10,5 @@ public class EnemyObj : BaseActorObj
         //throw new System.NotImplementedException();
         _IDLayer = 1 << LayerMask.NameToLayer("Player");
     }
+
 }

@@ -40,6 +40,10 @@ public class ActionCtrler {
     BaseActorObj _ActorObj;
     Animator _Animator;
     List<ActionInfo> _ActionList;
+    public void SetTriiger( string name)
+    {
+        _Animator.SetTrigger(name);
+    }
     public void SetBool( string name, bool value )
     {
         _Animator.SetBool(name,value);
@@ -56,6 +60,10 @@ public class ActionCtrler {
         {
             return _CurAction;
         }
+        set
+        {
+            _CurAction = value;
+        }
     }
 
     public void Update()
@@ -64,7 +72,7 @@ public class ActionCtrler {
         if (_CurAnimName != _Animator.GetCurrentAnimatorStateInfo(0).tagHash)
         {
             //zerg
-            SwitchState();
+            //SwitchState();
         }
         if (_CurAction != null)
         {
@@ -76,6 +84,7 @@ public class ActionCtrler {
     #region 动画逻辑
     public void SwitchState()
     {
+        
         if (_CurAction != null)
         {
             //了解之前的动画逻辑
@@ -120,6 +129,7 @@ public class ActionCtrler {
         {
             NewActionName = "BaseAction";
         }
+        Debug.Log("SwitchState" + NewActionName);
         Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
         Type GetState = assembly.GetType(NewActionName);
         BaseAction NewState = (BaseAction)Activator.CreateInstance(GetState, new object[] { _ActorObj,skillInfo }); // 创建类的实例，返回为 object 类型，需要强制类型转换

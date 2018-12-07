@@ -18,12 +18,16 @@ public class AxeAICtrler : BaseAICtrler
         if(_TargetActor !=null)
         {
             float distance = (_ActorObj.transform.position - _TargetActor.transform.position).magnitude;
-            if(distance > 4)
+            if(distance > 1.5)
             {
                 //追击
-                TailAddBehaviour(new ChasingBehaviour(_ActorObj, this, 3,1));
-                TailAddBehaviour(new SpeedUpChasing(_ActorObj, this, 2));
+                TailAddBehaviour(new ChasingBehaviour(_ActorObj, this, 1.5f, 1));
+                TailAddBehaviour(new SpeedUpChasing(_ActorObj, this, 1));
                 TailAddBehaviour(new AttackBehaviour(_ActorObj,this,"Attack"));
+            }else
+            {
+                TailAddBehaviour(new NormalBehaviour(_ActorObj, this, 0.8f));
+                TailAddBehaviour(new AttackBehaviour(_ActorObj, this, "Attack"));
             }
         }
         else

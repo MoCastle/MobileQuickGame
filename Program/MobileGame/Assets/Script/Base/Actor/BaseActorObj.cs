@@ -337,7 +337,7 @@ public abstract class BaseActorObj : MonoBehaviour {
     //设置瞬时水平速度
     public void SetImdHSpeed(float speed)
     {
-        _PhysicCtrl.SetSpeed(new Vector2(speed,_PhysicCtrl.GetSpeed.x ));
+        _PhysicCtrl.SetSpeed(new Vector2(speed,_PhysicCtrl.GetSpeed.y ));
     }
     public void StopMove()
     {

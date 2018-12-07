@@ -103,6 +103,7 @@
     <Compile Include="Assets\Script\AI\AICtrler\Behaviour\NormalBehaviour.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\Behaviour\RunToBehaviour.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\Behaviour\SpeedUpChasing.cs" />
+    <Compile Include="Assets\Script\AI\AICtrler\BossAICtrler.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\FlyNifeAICtrler.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\NormAICtrler.cs" />
     <Compile Include="Assets\Script\Action\HitAction.cs" />

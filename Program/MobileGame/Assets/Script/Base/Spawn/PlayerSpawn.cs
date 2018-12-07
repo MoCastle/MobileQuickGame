@@ -11,18 +11,18 @@ public class PlayerSpawn : BaseSpawn
             return GameCtrl.GameCtrler.PlayerSample;
         }
     }
-    public override BaseActor GenActor()
+    public override BaseActorObj GenActor()
     {
         Vector3 NewPs = this.transform.position;
         NewPs.z = 0;
-        BaseActor NewPlayer = GenActor("Player");
-        PlayerActor Actor = NewPlayer as PlayerActor;
+        BaseActorObj NewPlayer = GenActor("Player");
+        PlayerObj Actor = NewPlayer as PlayerObj;
         if(Actor == null || PlayerDelegate.GetPropty( ) == null )
         {
-            PlayerDelegate.SetPropty(Actor.ActorPropty);
+            PlayerDelegate.SetPropty(Actor._ActorPropty);
         }else
         {
-            Actor.ActorPropty = PlayerDelegate.GetPropty();
+            Actor._ActorPropty = PlayerDelegate.GetPropty();
         }
         Actor.ActorPropty.Init();
         Actor.transform.position = NewPs;

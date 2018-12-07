@@ -91,7 +91,7 @@ public class ActorManager {
     }
 
     string _Road = "Cfg\\";
-
+    string _ActorRoad = "Prefab\\Character\\";
     static ActorManager _Mgr;
     public static ActorManager Mgr
     {
@@ -120,12 +120,12 @@ public class ActorManager {
     }
 
     
-    public BaseActor GenActor( string actorName)
+    public BaseActorObj GenActor( string actorName)
     {
-        BaseActor newActor = null;
-        string totalRaod = _Road + actorName;
+        BaseActorObj newActor = null;
+        string totalRaod = _ActorRoad + actorName;
         GameObject newObj = GamePoolManager.Manager.GenObj(totalRaod);
-        newActor = newObj == null ? null : newObj.GetComponent<BaseActor>();
+        newActor = newObj == null ? null : newObj.GetComponent<BaseActorObj>();
         return newActor;
     }
 

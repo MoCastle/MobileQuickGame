@@ -10,6 +10,7 @@ public class GameDriver : MonoBehaviour
     public GameObject PlayerSample;
     private void Awake()
     {
+        /*
         try
         {
             CfgMgr.InitCfg();
@@ -23,12 +24,11 @@ public class GameDriver : MonoBehaviour
 
         //UI用
         WindowMgr.UIWindow = transform.FindChild("UICanvas");
-
-        GameCtrl GameCtrler = GameCtrl.GameCtrler;
         GameCtrler.PlayerSample = PlayerSample;
+        */
+        GameCtrl GameCtrler = GameCtrl.GameCtrler;
         GameCtrler.Pool = GetComponent<SpawnPool>();
 
-        Debug.Log("StartGame");
         DontDestroyOnLoad(this.gameObject);
         //GameWorldTimer.StartGameSet();
 
@@ -36,7 +36,7 @@ public class GameDriver : MonoBehaviour
     }
     private void Start()
     {
-        Application.LoadLevel("EnterSence");
+        //Application.LoadLevel("EnterSence");
     }
     private void Update()
     {

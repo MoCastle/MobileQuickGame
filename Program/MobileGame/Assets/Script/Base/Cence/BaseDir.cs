@@ -140,14 +140,15 @@ public abstract class BaseDir : MonoBehaviour {
     }
 
     //生成演员
-    public BaseActor GenActor(string name)
+    public BaseActorObj GenActor(string name)
     {
-        BaseActor newActor = ActorManager.Mgr.GenActor(name);
+        BaseActorObj newActor = ActorManager.Mgr.GenActor(name);
+        /*
         ActorMenue.Add(newActor.ActorID, newActor);
         if (newActor.Type == ActorType.Player)
         {
             Player = newActor as PlayerActor;
-        }
+        }*/
         return newActor;
     }
     public BaseActor GenActor(GameObject SampleObj)
@@ -173,8 +174,10 @@ public abstract class BaseDir : MonoBehaviour {
             Spawn = GetPlayerSpawn();
         }
         BaseActor Player = null;
+        /*
         if(Spawn != null)
             Player = Spawn.GenActor();
+            */
         return Player;
     }
     #endregion

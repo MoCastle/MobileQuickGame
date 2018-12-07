@@ -185,7 +185,7 @@ public class EnemyActor : BaseActor
         {
             AICtrlName = AICtrlName == null ? "Null" : "Empty";
             Debug.Log("Erro AICtrlName" + AICtrlName);
-            _AICtrler = new GuardAiCtrl(this);
+            //_AICtrler = new GuardAiCtrl(this);
             return;
         }
         Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
@@ -194,7 +194,7 @@ public class EnemyActor : BaseActor
         _AICtrler = NewCtrler;
         if(_AICtrler == null)
         {
-            _AICtrler = new GuardAiCtrl(this);
+            //_AICtrler = new GuardAiCtrl(this);
         }
     }
     //进入哨戒状态

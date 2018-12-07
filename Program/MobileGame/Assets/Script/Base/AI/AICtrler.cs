@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class AICtrler {
     
     protected LinkedList<AIAction> AIActionList = new LinkedList<AIAction>();
-    protected EnemyActor Actor;
+    protected EnemyObj Actor;
     protected BaseActor Target;
     public BaseActor CurTarget
     {
@@ -18,7 +18,15 @@ public abstract class AICtrler {
             Target = value;
         }
     }
-    public AICtrler(EnemyActor InActor )
+
+    #region 事件
+    public void EnterState()
+    {
+
+    }
+    #endregion
+
+    public AICtrler(EnemyObj InActor )
     {
         Actor = InActor;
     }

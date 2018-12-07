@@ -15,9 +15,10 @@ public class ReleaseSpawn : EnemySpawn {
 	
     public void ReleaseActor(string name)
     {
+        /*
         Vector3 NewPs = this.transform.position;
         NewPs.z = 0;
-        BaseActor newActor = CurDir.GenActor(name);
+        //BaseActor newActor = CurDir.GenActor(name);
 
         EnemyActor newEnemy = newActor as EnemyActor;
         if (newEnemy == null)
@@ -28,11 +29,11 @@ public class ReleaseSpawn : EnemySpawn {
         //NewEnemy.transform.rotation = transform.rotation;
         newEnemy.BirthPlace = NewPs;
         newEnemy.ActorPropty.Init();
-
+        
         AICtrler enemyAICtrler = newEnemy.AICtrl;
         enemyAICtrler.PushAction(new RunToAction(newEnemy,enemyAICtrler,Target.transform.position));
         Debug.Log("Birth");
-        Debug.Log(newActor.transform.position);
+        Debug.Log(newActor.transform.position);*/
         return;
     }
 

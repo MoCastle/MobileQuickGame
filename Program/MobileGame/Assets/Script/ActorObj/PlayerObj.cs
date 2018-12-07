@@ -81,7 +81,6 @@ public class PlayerObj : BaseActorObj {
         if(input.Gesture !=HandGesture.None)
         {
             CurInput = input;
-            Debug.Log("InputInfo" + _InputArr[_CurInputPoint].InputInfo.EndPs + " | " + _InputArr[(_CurInputPoint + 1) % 2].InputInfo.EndPs);
 
             PlayerAction action = ActionCtrl.CurAction as PlayerAction;
             if( action!=null )

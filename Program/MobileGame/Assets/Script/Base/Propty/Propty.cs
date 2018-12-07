@@ -38,8 +38,13 @@ public class Propty {
     [Title("可击飞", "black")]
     public bool CanCickFly = true;
     //移动速度
-    [Title("移动速度", "black")]
-    public float MoveSpeed;
+    public float MoveSpeed
+    {
+        get
+        {
+            return _ActorInfo.Speed;
+        }
+    }
     //攻击力
     [Title("攻击力", "black")]
     public int Attack;

@@ -15,8 +15,8 @@ public class NormalDir : BaseDir {
     public void GenPlayer()
     {
         PlayerSpawn CurSpawn = PlayerSpawnList[CurSpawnID];
-        BaseActor PlayerObj = CurSpawn.GenActor();
-        Player = PlayerObj as PlayerActor;
+        //BaseActor PlayerObj = CurSpawn.GenActor();
+        //Player = PlayerObj as PlayerActor;
     }
 
     

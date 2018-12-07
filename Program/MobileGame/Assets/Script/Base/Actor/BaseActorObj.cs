@@ -46,6 +46,13 @@ public abstract class BaseActorObj : MonoBehaviour {
     [SerializeField]
     [Title("人物属性", "black")]
     public Propty _ActorPropty;
+    public Propty ActorPropty
+    {
+        get
+        {
+            return _ActorPropty;
+        }
+    }
 
     public bool _OnPlat;
     public bool OnPlat
@@ -57,7 +64,7 @@ public abstract class BaseActorObj : MonoBehaviour {
     }
 
     BoxCollider2D _ColliderCtrl;
-    public BoxCollider2D ColliderCtrl
+    public BoxCollider2D BodyCollider
     {
         get
         {
@@ -193,7 +200,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         }*/
 
         //着地状态检测
-        float Width = ColliderCtrl.size.x;
+        float Width = BodyCollider.size.x;
         Vector2 Position = FootTransCtrl.position;
         Vector2 Size = Vector2.right * (0.4f - 0.01f);
         Size.y = 0.5f;
@@ -350,6 +357,14 @@ public abstract class BaseActorObj : MonoBehaviour {
     public virtual void SwitchAction()
     {
 
+    }
+    //召唤
+    public virtual void CallPuppet( string objName )
+    {
+        BaseActorObj Obj = ActorManager.Mgr.GenActor(objName);
+        PuppetNpc puppet = Obj as PuppetNpc;
+        _ActionCtrler.CurAction.CallPuppet(puppet);
+        
     }
     #endregion
 }

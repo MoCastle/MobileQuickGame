@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseAction {
+    SkillInfo _SkillInfo;
+    protected Propty _ActorPropty;
     #region 生命周期
-    
+
     public BaseAction(BaseActorObj baseActorObj, SkillInfo skillInfo)
     {
         /*
@@ -28,8 +30,7 @@ public class BaseAction {
         _ActorObj.PhysicCtrl.ResetData();
         _InputDIr = Vector2.zero;
     }
-    SkillInfo _SkillInfo;
-    protected Propty _ActorPropty;
+    
     // 每帧更新
     public virtual void Update()
     {
@@ -266,6 +267,8 @@ public class BaseAction {
     public void GenEffect( Vector3 position )
     {
         //string effectName = skill
+        if (_SkillInfo.EffectName == null || _SkillInfo.EffectName == "")
+            return;
         GameObject effect = EffectManager.Manager.GenEffect(_SkillInfo.EffectName);
         effect.transform.rotation *= Quaternion.Euler(0, 0, Random.Range(0, 180));
         effect.transform.position = position;
@@ -336,7 +339,7 @@ public class BaseAction {
     {
         Vector2 ImpactDir = TargetActor.FootTransCtrl.position - _ActorObj.FootTransCtrl.position;
         ImpactDir.y = 0;
-        if (Mathf.Abs(ImpactDir.x) < _ActorObj.ColliderCtrl.bounds.size.x / 2)
+        if (Mathf.Abs(ImpactDir.x) < _ActorObj.BodyCollider.bounds.size.x / 2)
         {
             ImpactDir = Direction;
         }
@@ -446,7 +449,16 @@ public class BaseAction {
         _HardTime = Time.time + time;
         _ActionCtrl.AnimSpeed = 0;
     }
-
+    public void CallPuppet( PuppetNpc puppet )
+    {
+        Vector3 newPs = _ActorObj.transform.position;
+        newPs.y += _ActorObj.BodyCollider.offset.y;
+        puppet.transform.position = newPs;
+        puppet.FaceToDir(_ActorObj.FaceDir);
+        puppet.Master = _ActorObj;
+        puppet.SetIDLayer(_ActorObj.IDLayer);
+        
+    }
     #endregion
 
     #region 通用功能

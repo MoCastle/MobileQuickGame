@@ -13,22 +13,24 @@ public class EnemySpawn : BaseSpawn
     }
 
     //生怪
-    public override BaseActor GenActor()
+    public override BaseActorObj GenActor()
     {
+        /*
         Vector3 NewPs = this.transform.position;
         NewPs.z = 0;
-        BaseActor NewActor = CurDir.GenActor(EnemySample);
-        EnemyActor NewEnemy = NewActor as EnemyActor;
+        BaseActorObj NewActor = CurDir.GenActor(EnemySample);
+        EnemyObj NewEnemy = NewActor as EnemyObj;
         if( NewEnemy == null )
         {
             return null;
         }
         NewEnemy.transform.position = NewPs;
         NewEnemy.transform.rotation = transform.rotation;
-        NewEnemy.BirthPlace = NewPs;
-        NewEnemy.AddDeathEvent(Break);
+        //NewEnemy.BirthPlace = NewPs;
+        //NewEnemy.AddDeathEvent(Break);
         NewEnemy.ActorPropty.Init();
-        return NewEnemy;
+        */
+        return null;
     }
     
     public void Break( )

@@ -44,9 +44,9 @@ public class DoorSpawn : PlayerSpawn
             SwitchCence();
         }
     }
-    public override BaseActor GenActor()
+    public override BaseActorObj GenActor()
     {
-        BaseActor Actor = base.GenActor();
+        BaseActorObj Actor = base.GenActor();
         Inited = false;
         return Actor;
     }

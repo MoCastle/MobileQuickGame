@@ -6,7 +6,6 @@ public class AttackAction : PlayerAction {
 
 	public AttackAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
-        Debug.Log("AttackAction");
     }
 
 

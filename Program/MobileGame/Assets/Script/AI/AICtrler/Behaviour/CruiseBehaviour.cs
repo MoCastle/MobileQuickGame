@@ -4,31 +4,67 @@ using UnityEngine;
 
 public class CruiseBehaviour : BaseBehaviour {
     string AnimName = "Run";
-    public CruiseBehaviour(EnemyObj enemy, BaseAICtrler ctrler) :base(enemy, ctrler)
+    Vector2 _Target;
+    //行进方向
+    int _MoveDir;
+    //总距离
+    float _Distance
     {
-        ChangeDir( );
+        get
+        {
+            return _Target.x - _Actor.transform.position.x;
+        }
     }
-    public void Update()
+    #region 生命周期
+    public CruiseBehaviour(EnemyObj enemy, BaseAICtrler ctrler, Vector2 target) : base(enemy, ctrler)
     {
-
-    }
-    //设置参数
-    void SetParam()
-    {
-        _ActionCtrler.SetBool("Run",true);
-    }
-    //转向
-    void ChangeDir()
-    {
-        Vector2 faceDir = _Actor.FaceDir;
-        faceDir.y = 0;
-        faceDir.x *= -1;
-        _Actor.FaceToDir(faceDir);
+        _Target = target;
     }
 
-    protected override void _CompleteBehaviour()
+    public override void Update()
     {
+        base.Update();
+        if (_MoveDir * _Distance < 0)
+        {
+            ComplteteBehaviour();
+        }
+        Collider2D[] enemys = _Actor.FindEnemy(_Actor.IDLayer);
+        if (enemys[0] != null)
+        {
+            _AICtrler.SetTargetActor(enemys[0].GetComponent<BaseActorObj>());
+            _AICtrler.CompleteTarget();
+        }
+    }
+    #endregion
+
+
+    public override void ComplteteBehaviour()
+    {
+        if (!Inited)
+        {
+            return;
+        }
+        base.ComplteteBehaviour();
         _ActionCtrler.SetBool("Run", false);
-        _Ctrler.HeadPutTaile();
+        _AICtrler.HeadPutTaile();
+
     }
+    #region 事件
+    public override void OnStartBehaviour()
+    {
+        base.OnStartBehaviour();
+        _ActionCtrler.SetBool("Run", true);
+        
+    }
+    public override void OnSwitchAnime()
+    {
+        base.OnSwitchAnime();
+    }
+
+    protected override void InitFunc()
+    {
+        _MoveDir = _Distance < 0 ? -1 : 1;
+        _ActionCtrler.CurAction.InputDirect(_MoveDir * Vector2.right);
+    }
+    #endregion
 }

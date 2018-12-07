@@ -29,10 +29,10 @@ public abstract class BaseSpawn:ScenceObj {
     {
 
     }
-    public BaseActor GenActor(string actorName)
+    public BaseActorObj GenActor(string actorName)
     {
-        BaseActor NewActor = CurDir.GenActor(actorName);
+        BaseActorObj NewActor = CurDir.GenActor(actorName);
         return NewActor;
     }
-    public abstract BaseActor GenActor();
+    public abstract BaseActorObj GenActor();
 }

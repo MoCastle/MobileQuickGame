@@ -21,6 +21,14 @@ public class ActionCtrler {
             }
         }
     }
+    public AnimatorControllerParameter[] GetAnimParams
+    {
+        get
+        {
+            AnimatorControllerParameter[] animatorParams = _Animator.parameters;
+            return animatorParams;
+        }
+    }
     //动画进度条
     public float AnimPercent
     {
@@ -46,6 +54,7 @@ public class ActionCtrler {
     }
     public void SetBool( string name, bool value )
     {
+        Debug.Log("BoolName " +name);
         _Animator.SetBool(name,value);
     }
     public void SetFloat(string name, float value)
@@ -58,6 +67,10 @@ public class ActionCtrler {
     {
         get
         {
+            if(_CurAction == null)
+            {
+                _CurAction = new BaseAction(_ActorObj,new SkillInfo());
+            }
             return _CurAction;
         }
         set
@@ -69,17 +82,19 @@ public class ActionCtrler {
     public void Update()
     {
         _Animator.SetFloat("AnimTime", _Animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
-        if (_CurAnimName != _Animator.GetCurrentAnimatorStateInfo(0).tagHash)
-        {
-            //zerg
-            //SwitchState();
-        }
         if (_CurAction != null)
         {
             _CurAction.Update();
         }
     }
 
+    #region 封装接口
+    //判断动画状态
+    public bool IsName(string name)
+    {
+        return _Animator.GetCurrentAnimatorStateInfo(0).IsTag(name);
+    }
+    #endregion
 
     #region 动画逻辑
     public void SwitchState()

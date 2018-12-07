@@ -82,7 +82,7 @@ public class GameCtrl
     #region
     public void Update()
     {
-        CenceCtroler.Update();
+        //CenceCtroler.Update();
     }
     #endregion
 }

@@ -10,11 +10,6 @@ public class BaseAction {
     public BaseAction(BaseActorObj baseActorObj, SkillInfo skillInfo)
     {
         /*
-        AttackedList = new Dictionary<BaseActor, int>();
-        _Actor.AnimCtrl.speed = 1;
-        _Actor.ActorTransCtrl.localEulerAngles = Vector3.zero;
-        _Actor.RigidCtrl.gravityScale = _Actor.GetGravityScale;
-        _Actor.IsHoly = false;
         _SkillEffect = SkillManager.GenEffect();
         CostVIT();*/
         _SkillInfo = skillInfo;
@@ -51,12 +46,14 @@ public class BaseAction {
         {
             if (_HardTime > Time.time)
             {
-                _ActionCtrl.AnimSpeed = 0;
+                
+                
             }
             else
             {
                 _ActionCtrl.AnimSpeed = 1;
                 _HardTime = 0;
+                _ActorObj.PhysicCtrl.ResetData();
             }
         }
         //方向
@@ -259,7 +256,16 @@ public class BaseAction {
                 SetCutMeet(TargetActor);
                 //产生伤害
                 //MakeHurt(TargetActor);
-                TargetActor.BeAttacked(_ActorObj,effectPs);
+                HitEffect hitEffect = new HitEffect();
+                hitEffect.HardValue = _SkillInfo.CutMeet;
+                hitEffect.HitType = _SkillInfo.HitType;
+                hitEffect.MoveVector = _SkillInfo.Dir;
+                if(_ActorObj.FaceDir.x < 0)
+                {
+                    hitEffect.MoveVector.x *= -1;
+                }
+                hitEffect.MoveVector *= _SkillInfo.Speed;
+                TargetActor.BeAttacked(_ActorObj,effectPs,hitEffect);
             }
         }
     }
@@ -308,13 +314,18 @@ public class BaseAction {
         {
             Damage = Damage * 2;
         }
+        HitEffect effect = new HitEffect();
+
+        effect.HardValue = _SkillInfo.CutMeet;
+        //effect.MoveVector = _SkillInfo.;
+        
 
         TargetActor.Hurt((int)Damage);
     }
     //设置卡肉状态
     public virtual void SetCutMeet( BaseActorObj TargetActor )
     {
-        float rangeTime = _SkillInfo.CutMeet + TargetActor._ActorPropty.Heavy*_SkillInfo.CutMeetRate;
+        float rangeTime = _SkillInfo.CutMeet*0.2f + TargetActor._ActorPropty.Heavy*_SkillInfo.CutMeetRate*0.2f;
         _CutTimeClock = Time.time + rangeTime;
         //_ActorObj.AnimCtrl.speed = SpeedRate;
     }
@@ -444,9 +455,11 @@ public class BaseAction {
     float _HardTime = 0;
     ActionCtrler _ActionCtrl;
     //硬直时间
-    public void HardTime(float time)
+    public virtual void HardTime(float time)
     {
         _HardTime = Time.time + time;
+        _ActionCtrl.AnimSpeed = 0;
+        _ActorObj.PhysicCtrl.CopyData();
         _ActionCtrl.AnimSpeed = 0;
     }
     public void CallPuppet( PuppetNpc puppet )

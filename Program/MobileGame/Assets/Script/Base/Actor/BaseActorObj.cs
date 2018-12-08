@@ -300,8 +300,9 @@ public abstract class BaseActorObj : MonoBehaviour {
     public void DebugInfo()
     {
     }
-    public void BeAttacked( BaseActorObj attacker,Vector3 position )
+    public void BeAttacked( BaseActorObj attacker,Vector3 position,HitEffect hitEffect )
     {
+        //受击特效
         if(_ActorPropty._ActorInfo.BloodName!=null&& _ActorPropty._ActorInfo.BloodName!="")
         {
             GameObject blood = EffectManager.Manager.GenEffect(_ActorPropty._ActorInfo.BloodName);
@@ -314,8 +315,21 @@ public abstract class BaseActorObj : MonoBehaviour {
             }
             blood.transform.position = position;
         }
+        //受击效果
+        BeHitEffect = hitEffect;
+        //动画状态处理
+        switch (hitEffect.HitType)
+        {
+            case HitEffectType.HitBack:
+                _ActionCtrler.SetTriiger("HitBack");
+                
+                break;
+            case HitEffectType.ClickFly:
+                _ActionCtrler.SetTriiger("ClickFly");
+                
+                break;
+        }
         
-
     }
     public virtual void EnterState()
     { }

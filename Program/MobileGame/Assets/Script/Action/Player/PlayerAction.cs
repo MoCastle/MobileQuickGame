@@ -10,7 +10,6 @@ public class PlayerAction : BaseAction {
         _PlayerObj = baseActorObj as PlayerObj;
         NormInput preInput = _PlayerObj.PreInput;
         _Input = _PlayerObj.CurInput;
-        Debug.Log(this.ToString() + "PlayerAction" + _Input.InputInfo.EndPs + " | " + preInput.InputInfo.EndPs);
         Vector2 gestureDir = _Input.InputInfo.Shift;
         //方向设置
         switch (_Input.Gesture)

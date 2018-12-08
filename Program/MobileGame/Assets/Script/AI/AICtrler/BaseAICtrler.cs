@@ -94,8 +94,6 @@ public abstract class BaseAICtrler {
     public void SetTargetActor( BaseActorObj targetActor)
     {
         _TargetActor = targetActor;
-        //zerg
-        Debug.Log("FindEnemy "+ targetActor.name);
     }
     
     #endregion

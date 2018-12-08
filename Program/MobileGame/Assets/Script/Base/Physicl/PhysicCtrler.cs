@@ -17,7 +17,10 @@ public class PhysicCtrler {
     {
         get
         {
-           
+           if(_PhysicData.IsCoppying)
+            {
+                return _PhysicData.Velocity;
+            }
             return _Rigid2D.velocity;
         }
     }

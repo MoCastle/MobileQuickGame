@@ -7,9 +7,12 @@ public struct SkillInfo
 {
     public int ID;
     public string Name;
+    public float Speed;
     public string EffectName;
     public float CutMeet;
     public float CutMeetRate;
+    public Vector2 Dir;
+    public HitEffectType HitType;
 }
 
 public struct ActionInfo

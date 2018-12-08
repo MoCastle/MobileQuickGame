@@ -4,22 +4,19 @@ using System;
 using UnityEngine;
 public enum HitEffectType
 {
-    //无效果
-    None,
     //击退
     HitBack,
     //击飞
-    HitFly
+    ClickFly
 }
 
 public struct HitEffect
 {
+    public HitEffectType HitType;
     //运动方向
-    public Vector2 MoveDir;
+    public Vector2 MoveVector;
     //运动时间
     public float ContinueTime;
-    //运动速度
-    public float Speed;
     //硬直值
     public float HardValue;
 
@@ -41,8 +38,8 @@ public class HitAction : BaseAction {
         float hardTime = CurEffect.HardValue - baseActorObj._ActorPropty.Heavy * baseActorObj._ActorPropty.HeavyRate;
         if(CurEffect.HardValue>0)
             HardTime(hardTime);
-        _MoveDir = CurEffect.MoveDir;
-        _Speed = CurEffect.Speed;
+        //_MoveDir = CurEffect.MoveDir;
+        //_Speed = CurEffect.Speed;
         CountTime = Time.time + CurEffect.ContinueTime;
         _ActorObj.ActionCtrl.AnimSpeed = 0;
     }
@@ -72,9 +69,8 @@ public class HitAction : BaseAction {
 
     public override void CompleteFunc()
     {
-        _ActorObj.BeHitEffect.Speed = _ActorObj.PhysicCtrl.GetSpeed.magnitude;
         _ActorObj.BeHitEffect.ContinueTime = CountTime > 0 ? CountTime - Time.time : 0;
-        _ActorObj.BeHitEffect.MoveDir = _ActorObj.PhysicCtrl.GetSpeed.normalized;
+        _ActorObj.BeHitEffect.MoveVector = _ActorObj.PhysicCtrl.GetSpeed;
         _ActorObj.BeHitEffect.HardValue = 0;
         _ActorObj.BeHitEffect.Delegate = null;
         //_ActorObj.BeHitEffect.ContinueTime = 

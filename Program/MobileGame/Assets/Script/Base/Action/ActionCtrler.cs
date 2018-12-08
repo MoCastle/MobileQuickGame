@@ -54,7 +54,6 @@ public class ActionCtrler {
     }
     public void SetBool( string name, bool value )
     {
-        Debug.Log("BoolName " +name);
         _Animator.SetBool(name,value);
     }
     public void SetFloat(string name, float value)
@@ -150,6 +149,12 @@ public class ActionCtrler {
         BaseAction NewState = (BaseAction)Activator.CreateInstance(GetState, new object[] { _ActorObj,skillInfo }); // 创建类的实例，返回为 object 类型，需要强制类型转换
         _CurAction = NewState;
         _ActorObj.SwitchAction();
+    }
+
+    public void PlayerAnim(string stateName)
+    {
+        _Animator.Play(stateName,-1, 0f);
+        _Animator.Update(0);
     }
     #endregion
 }

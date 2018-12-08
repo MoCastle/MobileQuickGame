@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseBehaviour {
+    //防止卡死 这里加个时间限定
+    float LimitTimeCount = 0;
+
     public BaseBehaviour(EnemyObj enemy, BaseAICtrler ctrler)
     {
         _Actor = enemy;
@@ -34,12 +37,17 @@ public abstract class BaseBehaviour {
                 InitFunc();
                 
         }
-        
+        //预防卡死
+        if(LimitTimeCount>0 &&Time.time > LimitTimeCount)
+        {
+            ComplteteBehaviour();
+        }
     }
     //检测是否可进行初始化
     protected virtual void SetInit()
     {
         _Inited = true;
+        LimitTimeCount = Time.time + 20;
     }
     protected abstract void InitFunc();
     public virtual void ComplteteBehaviour()
@@ -47,7 +55,9 @@ public abstract class BaseBehaviour {
         if (_Inited == true)
         {
             _Inited = false;
-        }  
+            LimitTimeCount = 0;
+        }
+        
     }
     #region 事件
     public virtual void OnStartBehaviour()

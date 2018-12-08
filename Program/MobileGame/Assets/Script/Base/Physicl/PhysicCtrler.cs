@@ -10,6 +10,24 @@ struct PhysicStruct
 }
 
 public class PhysicCtrler {
+    float _OrGravity;
+    public float OrGravity
+    {
+        get
+        {
+            return _OrGravity;
+        }
+    }
+    public void SetGravity(float gravity)
+    {
+        _Rigid2D.gravityScale = gravity;
+        _LowGravity = true;
+    }
+    public void ResetGravity()
+    {
+        _Rigid2D.gravityScale = _OrGravity;
+        _LowGravity = false;
+    }
     PhysicStruct _PhysicData;
     Rigidbody2D _Rigid2D;
     BaseActorObj _Actior;
@@ -28,6 +46,7 @@ public class PhysicCtrler {
     {
         _Rigid2D = actor.GetComponent<Rigidbody2D>();
         _Actior = actor;
+        _OrGravity = _Rigid2D.gravityScale;
     }
 
     public void SetSpeed( Vector2 speed )
@@ -51,10 +70,29 @@ public class PhysicCtrler {
             _Rigid2D.gravityScale = value;
         }
     }
-
+    bool _LowGravity;
     public void Update()
     {
-        
+        if(_Actior.IsOnGround)
+        {
+            if(_LowGravity)
+            {
+                ResetGravity();
+            }
+            return;
+        }
+        if(_PhysicData.IsCoppying)
+        {
+            return;
+        }
+        if (!_LowGravity && Mathf.Abs(_Rigid2D.velocity.y) < 10)
+        {
+            SetGravity(OrGravity / 5);
+        }
+        else if (_LowGravity)
+        {
+            ResetGravity();
+        }
     }
     public void CopyData()
     {

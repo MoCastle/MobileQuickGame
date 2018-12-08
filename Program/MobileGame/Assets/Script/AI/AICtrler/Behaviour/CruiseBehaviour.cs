@@ -8,6 +8,7 @@ public class CruiseBehaviour : BaseBehaviour {
     //行进方向
     int _MoveDir;
     //总距离
+    
     float _Distance
     {
         get
@@ -29,7 +30,7 @@ public class CruiseBehaviour : BaseBehaviour {
             ComplteteBehaviour();
         }
         Collider2D[] enemys = _Actor.FindEnemy(_Actor.IDLayer);
-        if (enemys[0] != null)
+        if (enemys!= null&&enemys[0] != null)
         {
             _AICtrler.SetTargetActor(enemys[0].GetComponent<BaseActorObj>());
             _AICtrler.CompleteTarget();

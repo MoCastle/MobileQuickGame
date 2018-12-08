@@ -106,9 +106,11 @@
     <Compile Include="Assets\Script\AI\AICtrler\BossAICtrler.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\FlyNifeAICtrler.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\NormAICtrler.cs" />
+    <Compile Include="Assets\Script\AI\AICtrler\ZoombieAICtrler.cs" />
     <Compile Include="Assets\Script\Action\ClickFlyAction.cs" />
     <Compile Include="Assets\Script\Action\HitAction.cs" />
     <Compile Include="Assets\Script\Action\HurtAction.cs" />
+    <Compile Include="Assets\Script\Action\NPC\NPCFlyItemAction.cs" />
     <Compile Include="Assets\Script\Action\NPC\NPCQuickRunAction.cs" />
     <Compile Include="Assets\Script\Action\NPC\NPCRunAction.cs" />
     <Compile Include="Assets\Script\Action\Player\AttackAction.cs" />
@@ -208,6 +210,8 @@
     <Compile Include="Assets\Script\SkillSgtate\RunState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\SkillManager.cs" />
     <Compile Include="Assets\Script\Test\TestSpeed.cs" />
+    <Compile Include="Assets\Script\TestScence\TestCamera.cs" />
+    <Compile Include="Assets\Script\TestScence\TestUI.cs" />
     <Compile Include="Assets\Script\TitleAttribute.cs" />
     <Compile Include="Assets\Script\Tool\Cfg\BaseCfgReader.cs" />
     <Compile Include="Assets\Script\Tool\Cfg\CfgBase.cs" />

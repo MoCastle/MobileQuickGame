@@ -10,6 +10,7 @@ public class PlayerObj : BaseActorObj {
         _InputArr = new NormInput[2];
         PlayerCtrl.AddFingerOff(OnFingerOut);
         _IDLayer = 1 << LayerMask.NameToLayer("Enemy");
+        IsHoly = true;
     }
 
     //手指挪开触发事件
@@ -189,5 +190,6 @@ public class PlayerObj : BaseActorObj {
     {
         ClearAnimParam();
     }
+    
     #endregion
 }

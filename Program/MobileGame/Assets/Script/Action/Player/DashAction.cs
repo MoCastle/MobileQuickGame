@@ -34,7 +34,7 @@ public class DashAction : PlayerAction {
         {
             //速率
             float speed = _Speed;
-            float rate = Mathf.Abs(MoveDir.y / 0.5f);
+            float rate = Mathf.Abs(MoveDir.y / 0.7f);
             if ( rate > 1)
             {
                 speed *= rate;

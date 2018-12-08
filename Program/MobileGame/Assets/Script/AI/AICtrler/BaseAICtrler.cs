@@ -95,7 +95,10 @@ public abstract class BaseAICtrler {
     {
         _TargetActor = targetActor;
     }
-    
+    public virtual void BeBreak()
+    {
+        GenBehaviour();
+    }
     #endregion
 
 

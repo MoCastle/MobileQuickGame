@@ -24,11 +24,14 @@ public class BaseAction {
         _AttackDict.Clear();
         _ActorObj.PhysicCtrl.ResetData();
         _InputDIr = Vector2.zero;
+        _ActionCtrl.AnimSpeed = 1;
+        _DirLock = false;
     }
     
     // 每帧更新
     public virtual void Update()
     {
+        Debug.Log(_ActorObj.PhysicCtrl.GetSpeed);
         /*
         JugeStateActive();
         */
@@ -466,7 +469,7 @@ public class BaseAction {
     {
         Vector3 newPs = _ActorObj.transform.position;
         newPs.y += _ActorObj.BodyCollider.offset.y;
-        puppet.transform.position = newPs;
+        puppet.AICtrler.SetTargetActor( ((EnemyObj)_ActorObj).AICtrler.TargetActor);
         puppet.FaceToDir(_ActorObj.FaceDir);
         puppet.Master = _ActorObj;
         puppet.SetIDLayer(_ActorObj.IDLayer);

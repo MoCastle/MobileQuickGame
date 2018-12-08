@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,9 +13,13 @@ public class RunToBehaviour:BaseBehaviour {
             return _Target -_Actor.transform.position.x;
         }
     }
-	public RunToBehaviour(EnemyObj enemy, BaseAICtrler ctrler,float distance) :base(enemy, ctrler)
+    string _ParamName;
+    Action _EndFunc;
+	public RunToBehaviour(EnemyObj enemy, BaseAICtrler ctrler,float distance,string paramName="QuickRun", Action endFunc = null) :base(enemy, ctrler)
     {
+        _EndFunc = endFunc;
         _TargetDistance = distance;
+        _ParamName = paramName;
     }
     public override void Update()
     {
@@ -34,7 +39,7 @@ public class RunToBehaviour:BaseBehaviour {
     {
 
         base.OnStartBehaviour();
-        _ActionCtrler.SetTriiger("QuickRun");
+        _ActionCtrler.SetBool(_ParamName, true);
     }
     protected override void InitFunc()
     {
@@ -44,10 +49,14 @@ public class RunToBehaviour:BaseBehaviour {
     }
     public override void ComplteteBehaviour()
     {
+        
         base.ComplteteBehaviour();
-        _ActionCtrler.SetBool("QuickRun", false);
+        _ActionCtrler.SetBool(_ParamName, false);
 
         _AICtrler.RemoveHead();
-        
+        if (_EndFunc != null)
+        {
+            _EndFunc();
+        }
     }
 }

@@ -5,26 +5,37 @@ using UnityEngine;
 public class ClickFlyAction : HurtAction {
 
 	public ClickFlyAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
+    { 
+    }
+
+    public override void EnterPrepare()
     {
-        if (_Effect.MoveVector.y < 0)
-        {
-            _ActorObj.ActionCtrl.PlayerAnim("Falling");
-        }
+        _Effect = _ActorObj.BeHitEffect;
+        _ActorObj.BeHitEffect.HardValue = 0;
+        _ActorObj.BeHitEffect.Delegate = null;
+        _ActorObj.PhysicCtrl.ResetData();
+
+        Vector2 moveSpeed = _Effect.MoveVector;
+        _ActorObj.PhysicCtrl.SetSpeed(moveSpeed);
+        float hardTime = _Effect.HardValue * _ActorObj.ActorPropty.HeavyRate;
+        HardTime(hardTime);
     }
     public override void Update()
     {
         base.Update();
-        if (_ActorObj.PhysicCtrl.GetSpeed.y < 0.5f)
-        {
-            _ActorObj.PhysicCtrl.CopyData();
-            _ActorObj.ActionCtrl.AnimSpeed = 1;
-        }
-        Debug.Log(_ActorObj.PhysicCtrl.GetSpeed);
     }
     public override void CompleteFunc()
     {
-        _ActorObj.PhysicCtrl.ResetData();
         base.CompleteFunc();
-        
     }
+    /*
+    protected override void Move()
+    {
+        if (_CutTimeClock <= 0 && (_Speed * _Speed) > 0)
+        {
+            _ActorObj.PhysicCtrl.SetSpeed(MoveDir.normalized * _Speed);
+            
+        }
+
+    }*/
 }

@@ -65,6 +65,7 @@ public class HitAction : BaseAction {
             }
         }
         base.Update();
+        
     }
 
     public override void CompleteFunc()

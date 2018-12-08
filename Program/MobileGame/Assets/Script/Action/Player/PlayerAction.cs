@@ -26,8 +26,18 @@ public class PlayerAction : BaseAction {
                 break;
             case HandGesture.Click:
                 float dirX = 0;
+                dirX = _Input.InputInfo.EndPs.x - _Input.InputInfo.MaxDst;
+                //如果计算距离够明显
+                //(Mathf.Abs(dirX) > preInput.InputInfo.MaxDst * 0.1)&&
+                if (  (dirX * baseActorObj.transform.localScale.x < 0))
+                {
+                    Vector2 NewScale = baseActorObj.transform.localScale;
+                    NewScale.x = NewScale.x * -1;
+                    baseActorObj.TransCtrl.localScale = NewScale;
+                }
+                /*
                 //只检测之前的点击手势和划屏手势
-                if(preInput.Gesture == HandGesture.Click || preInput.Gesture == HandGesture.Slip)
+                if(preInput.Gesture == HandGesture.Click )//|| preInput.Gesture == HandGesture.Slip)
                 {
                     dirX = _Input.InputInfo.EndPs.x - preInput.InputInfo.EndPs.x;
                     //如果计算距离够明显
@@ -37,8 +47,8 @@ public class PlayerAction : BaseAction {
                         NewScale.x = NewScale.x * -1;
                         baseActorObj.TransCtrl.localScale = NewScale;
                     }
-                }
-                
+                }*/
+
                 break;
         }
         
@@ -51,7 +61,8 @@ public class PlayerAction : BaseAction {
         switch (curInput.Gesture)
         {
             case HandGesture.Click:
-                xValue = curInput.InputInfo.EndPs.x - _Input.InputInfo.EndPs.x;
+                //xValue = curInput.InputInfo.EndPs.x - _Input.InputInfo.EndPs.x;
+                xValue = curInput.InputInfo.EndPs.x - curInput.InputInfo.MaxDst;
                 xValue = Mathf.Abs( xValue) > curInput.InputInfo.MaxDst * 0.1f ? xValue : 0;
                 break;
             case HandGesture.Drag:

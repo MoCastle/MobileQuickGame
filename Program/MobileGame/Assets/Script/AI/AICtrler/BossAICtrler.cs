@@ -17,11 +17,11 @@ public class BossAICtrler : BaseAICtrler
         ClearAIList();
         if(_TargetActor !=null)
         {
-            float distance = (_ActorObj.transform.position - _TargetActor.transform.position).magnitude;
-            if(distance > 4)
+            float distance = Mathf.Abs( _ActorObj.transform.position.x - _TargetActor.transform.position.x);
+            if(distance > 2)
             {
                 //追击
-                TailAddBehaviour(new ChasingBehaviour(_ActorObj, this, 3));
+                TailAddBehaviour(new ChasingBehaviour(_ActorObj, this, 1));
                 if( Random.Range(0f, 1f)> 0.5)
                 {
                     TailAddBehaviour(new AttackBehaviour(_ActorObj, this, "attack_1"));

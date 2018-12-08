@@ -19,7 +19,7 @@ public class ChasingBehaviour : BaseBehaviour {
         BaseActorObj target = _AICtrler.TargetActor;
         if(target != null)
         {
-            if ((target.transform.position - _Actor.transform.position).magnitude< _Distacnce)
+            if (Mathf.Abs(target.transform.position.x - _Actor.transform.position.x)< _Distacnce)
             {
                 ComplteteTarget();
             }

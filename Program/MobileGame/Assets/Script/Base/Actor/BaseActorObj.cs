@@ -237,7 +237,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         */
         LogicUpdate();
         //ActorPropty.ModVIT(1);
-
+        PhysicCtrl.Update();
     }
 
     #region 向外提供接口
@@ -300,8 +300,13 @@ public abstract class BaseActorObj : MonoBehaviour {
     public void DebugInfo()
     {
     }
-    public void BeAttacked( BaseActorObj attacker,Vector3 position,HitEffect hitEffect )
+    public bool IsHoly = false;
+    public virtual void BeAttacked( BaseActorObj attacker,Vector3 position,HitEffect hitEffect )
     {
+        if(IsHoly)
+        {
+            return;
+        }
         //受击特效
         if(_ActorPropty._ActorInfo.BloodName!=null&& _ActorPropty._ActorInfo.BloodName!="")
         {
@@ -379,6 +384,11 @@ public abstract class BaseActorObj : MonoBehaviour {
         PuppetNpc puppet = Obj as PuppetNpc;
         _ActionCtrler.CurAction.CallPuppet(puppet);
         
+    }
+    //被打断
+    public virtual void BeBreak()
+    {
+
     }
     #endregion
 }

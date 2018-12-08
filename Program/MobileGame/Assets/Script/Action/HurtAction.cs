@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class HurtAction : BaseAction {
     protected HitEffect _Effect;
+    //减速速率
+    protected float _DeSpeedRate = 0.02f;
+    float _DeNum;
     public HurtAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
+        baseActorObj.BeBreak();
         SetFaceLock(true);
         EnterPrepare();
     }
-    public void EnterPrepare()
+    public virtual void EnterPrepare()
     {
         
         _Effect = _ActorObj.BeHitEffect;
@@ -22,8 +26,10 @@ public class HurtAction : BaseAction {
         if (_ActorObj.ActionCtrl.IsName("HitBack"))
             _Effect.MoveVector.y = 0;
         Vector2 moveSpeed = _Effect.MoveVector;
-        _ActorObj.PhysicCtrl.SetSpeed(moveSpeed);
-
+        //_ActorObj.PhysicCtrl.SetSpeed(moveSpeed);
+        float numSpeed = moveSpeed.magnitude;
+        SetSpeed(-1* numSpeed);
+        _DeNum = numSpeed*_DeSpeedRate;
         float hardTime = _Effect.HardValue * _ActorObj.ActorPropty.HeavyRate;
         HardTime(hardTime);
     }
@@ -31,11 +37,25 @@ public class HurtAction : BaseAction {
     public override void Update()
     {
         base.Update();
-        
+    }
+    protected override void Move()
+    {
+        if (_CutTimeClock <= 0 && (_Speed * _Speed) > 0)
+        {
+            _ActorObj.PhysicCtrl.SetSpeed(MoveDir.normalized * _Speed);
+            if (_DeNum * _Speed > 0)
+            {
+                _DeNum = 0;
+                _Speed = 0;
+                return;
+            }
+            float speed = _Speed + _DeNum;
+            SetSpeed(speed);
+        }
+            
     }
     public override void CompleteFunc()
     {
-        
         base.CompleteFunc();
         _ActorObj.PhysicCtrl.ResetData();
     }

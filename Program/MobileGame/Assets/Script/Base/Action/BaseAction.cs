@@ -31,6 +31,7 @@ public class BaseAction {
     // 每帧更新
     public virtual void Update()
     {
+        Debug.Log(_ActorObj.PhysicCtrl.GetSpeed);
         /*
         JugeStateActive();
         */
@@ -419,7 +420,7 @@ public class BaseAction {
     }
     protected virtual void Move()
     {
-        if((_HardTime <=0|| _CutTimeClock <= 0) &&(_Speed * _Speed)>0)
+        if(_CutTimeClock <= 0 &&(_Speed * _Speed)>0)
             _ActorObj.PhysicCtrl.SetSpeed(MoveDir.normalized*_Speed);
     }
     //方向锁
@@ -454,7 +455,7 @@ public class BaseAction {
     {
         _DirLock = ifLock;
     }
-    protected float _HardTime = 0;
+    float _HardTime = 0;
     ActionCtrler _ActionCtrl;
     //硬直时间
     public virtual void HardTime(float time)
@@ -468,9 +469,7 @@ public class BaseAction {
     {
         Vector3 newPs = _ActorObj.transform.position;
         newPs.y += _ActorObj.BodyCollider.offset.y;
-        puppet.transform.position = newPs;
         puppet.AICtrler.SetTargetActor( ((EnemyObj)_ActorObj).AICtrler.TargetActor);
-
         puppet.FaceToDir(_ActorObj.FaceDir);
         puppet.Master = _ActorObj;
         puppet.SetIDLayer(_ActorObj.IDLayer);

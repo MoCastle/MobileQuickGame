@@ -17,7 +17,7 @@ public class PlayerAction : BaseAction {
             case HandGesture.Slip:
                 
                 //朝向设置
-                if ((Mathf.Abs(gestureDir.x) > preInput.InputInfo.MaxDst * 0.3) && gestureDir.x * baseActorObj.transform.localScale.x < 0)
+                if (gestureDir.x * baseActorObj.transform.localScale.x < 0)
                 {
                     Vector2 NewScale = baseActorObj.transform.localScale;
                     NewScale.x = NewScale.x * -1;
@@ -29,7 +29,7 @@ public class PlayerAction : BaseAction {
                 dirX = _Input.InputInfo.EndPs.x - _Input.InputInfo.MaxDst;
                 //如果计算距离够明显
                 //(Mathf.Abs(dirX) > preInput.InputInfo.MaxDst * 0.1)&&
-                if ((Mathf.Abs(dirX) > preInput.InputInfo.MaxDst * 0.3)&&(dirX * baseActorObj.transform.localScale.x < 0))
+                if (  (dirX * baseActorObj.transform.localScale.x < 0))
                 {
                     Vector2 NewScale = baseActorObj.transform.localScale;
                     NewScale.x = NewScale.x * -1;

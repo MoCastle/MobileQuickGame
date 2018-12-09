@@ -111,6 +111,7 @@
     <Compile Include="Assets\Script\Action\HitAction.cs" />
     <Compile Include="Assets\Script\Action\HurtAction.cs" />
     <Compile Include="Assets\Script\Action\NPC\NPCFlyItemAction.cs" />
+    <Compile Include="Assets\Script\Action\NPC\NPCFlyItemDeath.cs" />
     <Compile Include="Assets\Script\Action\NPC\NPCQuickRunAction.cs" />
     <Compile Include="Assets\Script\Action\NPC\NPCRunAction.cs" />
     <Compile Include="Assets\Script\Action\Player\AttackAction.cs" />

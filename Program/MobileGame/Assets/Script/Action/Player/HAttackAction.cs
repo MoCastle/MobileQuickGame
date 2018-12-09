@@ -14,6 +14,6 @@ public class HAttackAction : PlayerAction
     // Use this for initialization
     public HAttackAction(BaseActorObj baseActorObj, SkillInfo skillInfo):base(baseActorObj, skillInfo)
     {
-
+        SetFaceLock(true);
     }
 }

@@ -40,7 +40,7 @@ public class HurtAction : BaseAction {
     }
     protected override void Move()
     {
-        if (_CutTimeClock <= 0 && (_Speed * _Speed) > 0)
+        if (_HardTime <= 0&&_CutTimeClock <= 0 && (_Speed * _Speed) > 0)
         {
             _ActorObj.PhysicCtrl.SetSpeed(MoveDir.normalized * _Speed);
             if (_DeNum * _Speed > 0)

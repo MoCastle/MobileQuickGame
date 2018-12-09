@@ -17,7 +17,14 @@ public abstract class BaseActorObj : MonoBehaviour {
             return _IDLayer;
         }
     }
-
+    #region 生命周期函数
+    //回收
+    public void ReCollect()
+    {
+        GamePoolManager.Manager.Despawn(transform);
+    }
+    #endregion
+    
     //生存状态
     //生命状态
     protected bool _Alive = true;
@@ -193,11 +200,6 @@ public abstract class BaseActorObj : MonoBehaviour {
     public void Update()
     {
         _ActionCtrler.Update();
-        /*
-        if (GameCtrler.IsPaused)
-        {
-            return;
-        }*/
 
         //着地状态检测
         float Width = BodyCollider.size.x;

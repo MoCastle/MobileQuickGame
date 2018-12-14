@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCFlyItemAction : BaseAction {
+    float _CountTime = 0;
+    float _Time = 3;
     Vector2 _Dir;
     protected override Vector2 MoveDir
     {
@@ -14,10 +16,16 @@ public class NPCFlyItemAction : BaseAction {
     // Use this for initialization
     public NPCFlyItemAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
-        //Vector3 target = 
-        //_Dir = ((EnemyActor)baseActorObj)
+        _CountTime = Time.time + _Time;
         _Speed = _ActorObj.ActorPropty.MoveSpeed;
     }
-	
-	
+    public override void Update()
+    {
+        base.Update();
+        if(Time.time > _CountTime)
+        {
+            _ActorObj.ActionCtrl.SetTriiger("Death");
+        }
+    }
+
 }

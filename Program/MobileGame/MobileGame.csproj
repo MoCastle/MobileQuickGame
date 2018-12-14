@@ -85,6 +85,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DeathAction.cs" />
     <Compile Include="Assets\PoolManagerExampleFiles\Scripts\CreationExample.cs" />
     <Compile Include="Assets\PoolManagerExampleFiles\Scripts\OnCreatedDelegateExample.cs" />
     <Compile Include="Assets\PoolManagerExampleFiles\Scripts\OnSpawnedExample.cs" />

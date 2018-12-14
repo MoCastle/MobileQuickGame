@@ -67,7 +67,7 @@ public class EnemyObj : BaseActorObj
         Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
         Type GetState = assembly.GetType(AICtrlerName);
         _AICtrler = (BaseAICtrler)Activator.CreateInstance(GetState, new object[] { this,ActionCtrl }); // 创建类的实例，返回为 object 类型，需要强制类型转换
-
+        _IDLayer = 1 << LayerMask.NameToLayer("Player");
     }
     public override void LogicUpdate()
     {

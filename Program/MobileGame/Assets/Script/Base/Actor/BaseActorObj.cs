@@ -321,6 +321,7 @@ public abstract class BaseActorObj : MonoBehaviour {
             blood.transform.position = position;
         }
         Vector2 faceDir = attacker.transform.position - transform.position;
+        faceDir.y = 0;
         FaceToDir(faceDir);
         //受击效果
         BeHitEffect = hitEffect;

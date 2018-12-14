@@ -16,7 +16,7 @@ public class NPCFlyItemAction : BaseAction {
     {
         //Vector3 target = 
         //_Dir = ((EnemyActor)baseActorObj)
-
+        _Speed = _ActorObj.ActorPropty.MoveSpeed;
     }
 	
 	

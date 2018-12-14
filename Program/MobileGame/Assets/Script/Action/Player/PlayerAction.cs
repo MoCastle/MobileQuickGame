@@ -8,7 +8,6 @@ public class PlayerAction : BaseAction {
 	public PlayerAction(BaseActorObj baseActorObj, SkillInfo skillInfo):base(baseActorObj, skillInfo)
     {
         _PlayerObj = baseActorObj as PlayerObj;
-        NormInput preInput = _PlayerObj.PreInput;
         _Input = _PlayerObj.CurInput;
         Vector2 gestureDir = _Input.InputInfo.Shift;
         //方向设置

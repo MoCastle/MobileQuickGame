@@ -17,7 +17,7 @@ public class NPCFlyItemAction : BaseAction {
     public NPCFlyItemAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
         _CountTime = Time.time + _Time;
-        _Speed = _ActorObj.ActorPropty.MoveSpeed;
+        _Speed = skillInfo.Speed;
     }
     public override void Update()
     {

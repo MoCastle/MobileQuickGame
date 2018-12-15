@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCFlyItemAction : BaseAction {
-    float _CountTime = 0;
+    protected float _CountTime = 0;
     float _Time = 3;
     Vector2 _Dir;
     protected override Vector2 MoveDir
@@ -18,6 +18,7 @@ public class NPCFlyItemAction : BaseAction {
     {
         _CountTime = Time.time + _Time;
         _Speed = skillInfo.Speed;
+        
     }
     public override void Update()
     {

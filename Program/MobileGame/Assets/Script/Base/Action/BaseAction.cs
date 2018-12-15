@@ -420,7 +420,7 @@ public class BaseAction {
     protected virtual void Move()
     {
         if(_CutTimeClock <= 0 &&(_Speed * _Speed)>0)
-            _ActorObj.PhysicCtrl.SetSpeed(MoveDir.normalized*_Speed);
+            _ActorObj.PhysicCtrl.SetSpeed(MoveDir*_Speed);
     }
     //方向锁
     public bool _DirLock;

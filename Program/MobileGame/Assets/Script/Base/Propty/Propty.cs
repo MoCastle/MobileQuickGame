@@ -6,6 +6,8 @@ using UnityEngine;
 public class Propty {
     [Title("属性", "black")]
     public ActorInfo _ActorInfo;
+    [Title("当前生命值", "black")]
+    [SerializeField]
     float _Life;
     float _CurLife
     {
@@ -44,10 +46,6 @@ public class Propty {
         {
             return _IsDeath;
         }
-    }
-    public Propty()
-    {
-        ResetPropty();
     }
     #region
     //复活时候用

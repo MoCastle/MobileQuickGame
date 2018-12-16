@@ -8,6 +8,7 @@ public struct ActorInfo
 {
     public int ID;
     public string Name;
+    [Title("最大生命值", "black")]
     public float Life;
     public float Physical;
     public float Speed;

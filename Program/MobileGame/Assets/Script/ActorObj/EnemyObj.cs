@@ -1,11 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Reflection;
 
 public class EnemyObj : BaseActorObj
 {
+    #region 临时功能
+    public Slider _LifeSlider;
+    public Slider LifeSlider
+    {
+        get
+        {
+            if (_LifeSlider == null)
+            {
+                _LifeSlider = transform.FindChild("WorldCanvas").FindChild("LifeSlide").GetComponent<Slider>();
+            }
+            return _LifeSlider;
+        }
+    }
+    #endregion
     #region 属性
     public string AICtrlerName;
     BaseAICtrler _AICtrler;
@@ -77,6 +92,7 @@ public class EnemyObj : BaseActorObj
         {
             _AICtrler.Update();
         }
+        LifeSlider.value = ActorPropty.PercentLife;
     }
 
     void ClearAnimParams()

@@ -39,6 +39,19 @@ public class Propty {
             return _CurLife;
         }
     }
+    public float PercentLife
+    {
+        get
+        {
+            if (_ActorInfo.Life <= 0)
+            {
+                return 0;
+            }
+            float Percent = (float)_CurLife / (float)_ActorInfo.Life;
+            Percent = Percent > 0.001f && Percent < 0.1f ? 0.1f : Percent;
+            return Percent;
+        }
+    }
     bool _IsDeath = false;
     public bool IsDeath
     {
@@ -112,19 +125,7 @@ public class Propty {
         VIT = MaxVIT;
     }
 
-    public float PercentLife
-    {
-        get
-        {
-            if (MaxHP == 0)
-            {
-                return 0;
-            }
-            float Percent = (float)HP / (float)MaxHP;
-            Percent = Percent > 0.001f && Percent < 0.1f ? 0.1f : Percent;
-            return Percent;
-        }
-    }
+    
 
     public int DeDuctLife( int DeHp )
     {

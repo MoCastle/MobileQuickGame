@@ -9,8 +9,12 @@ public struct SkillInfo
     public string Name;
     public float Speed;
     public string EffectName;
+    [Title("重量", "black")]
     public float CutMeet;
+    [Title("硬度", "black")]
     public float CutMeetRate;
+    [Title("伤害", "black")]
+    public float Damage;
     public Vector2 Dir;
     public HitEffectType HitType;
 }

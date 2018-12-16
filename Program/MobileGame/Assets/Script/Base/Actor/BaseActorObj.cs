@@ -176,16 +176,20 @@ public abstract class BaseActorObj : MonoBehaviour {
             return _PhysicCtrl;
         }
     }
-	// Use this for initialization
-	void Start () {
-        
-    }
+    #region 生命周期
     private void Awake()
     {
         ActorInfo info = ActorManager.Mgr.GetActorInfo(0);
         _ActionCtrler = new ActionCtrler(this, GetComponent<Animator>(), info.ActorActionList);
         _PhysicCtrl = new PhysicCtrler(this);
         LogicAwake();
+    }
+    //出生
+    public void Birth()
+    {
+        ActorPropty.ResetPropty();
+        _ActionCtrler.SetTriiger("Birth");
+        
     }
     protected abstract void LogicAwake();
 
@@ -239,6 +243,18 @@ public abstract class BaseActorObj : MonoBehaviour {
         //ActorPropty.ModVIT(1);
         PhysicCtrl.Update();
     }
+    public virtual void LogicUpdate()
+    {
+
+    }
+
+    public virtual void Death()
+    {
+        _ActionCtrler.SetTriiger("Death");
+    }
+    #endregion
+    // Use this for initialization
+
 
     #region 向外提供接口
     public Vector2 CurFaceDir
@@ -271,13 +287,14 @@ public abstract class BaseActorObj : MonoBehaviour {
         }
         
     }
-    #endregion
-
-    #region
-    public virtual void LogicUpdate()
+    #endregion 受击相关
+    //扣血相关
+    void Hurt( float Damage )
     {
-
+        ActorPropty.ModLifeValue(Damage*-1);
     }
+    #region
+    
     #endregion
     //角色面向防线
     public Vector2 FaceDir
@@ -301,7 +318,7 @@ public abstract class BaseActorObj : MonoBehaviour {
     {
     }
     public bool IsHoly = false;
-    public virtual void BeAttacked( BaseActorObj attacker,Vector3 position,HitEffect hitEffect )
+    public virtual void BeAttacked( BaseActorObj attacker,Vector3 position,HitEffect hitEffect,float Damage =0 )
     {
         if(IsHoly)
         {
@@ -323,6 +340,11 @@ public abstract class BaseActorObj : MonoBehaviour {
         Vector2 faceDir = attacker.transform.position - transform.position;
         faceDir.y = 0;
         FaceToDir(faceDir);
+        Hurt(Damage);
+        if(ActorPropty.IsDeath)
+        {
+            _ActionCtrler.SetTriiger("Death");
+        }
         //受击效果
         BeHitEffect = hitEffect;
         //动画状态处理

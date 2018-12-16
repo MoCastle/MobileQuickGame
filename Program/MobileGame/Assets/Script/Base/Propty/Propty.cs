@@ -6,7 +6,62 @@ using UnityEngine;
 public class Propty {
     [Title("属性", "black")]
     public ActorInfo _ActorInfo;
+    float _Life;
+    float _CurLife
+    {
+        get
+        {
+            return _Life;
+        }set
+        {
+            _Life = value;
+            if (_Life < 0)
+            {
+                _Life = 0;
+            }
+            else if (_Life > _ActorInfo.Life)
+            {
+                _Life = _ActorInfo.Life;
+            }
 
+            if (_Life <= 0)
+            {
+                _IsDeath = true;
+            }
+        }
+    }
+    public float CurLife
+    {
+        get
+        {
+            return _CurLife;
+        }
+    }
+    bool _IsDeath = false;
+    public bool IsDeath
+    {
+        get
+        {
+            return _IsDeath;
+        }
+    }
+    public Propty()
+    {
+        ResetPropty();
+    }
+    #region
+    //复活时候用
+    public void ResetPropty()
+    {
+        _CurLife = _ActorInfo.Life;
+        _IsDeath = false;
+    }
+    public void ModLifeValue(float modValue)
+    {
+        _CurLife += modValue;
+        
+    }
+    #endregion
     public float Heavy
     {
         get
@@ -52,16 +107,7 @@ public class Propty {
     [Title("击退基础速度", "black")]
     public float HitBackSpeed;
 
-    public Propty(  )
-    {
-        
-        NpcProptyReader NpcProptyCfg = NpcProptyReader.Cfg;
-
-        HP = MaxHP;
-        VIT = MaxVIT;
-        
-        Init();
-    }
+    
     public void Init()
     {
         HP = MaxHP;
@@ -112,9 +158,5 @@ public class Propty {
         VIT = VIT > InVIT ? (VIT - InVIT) : 0;
         return VIT;
     }
-    public int ModVIT(int InVIT)
-    {
-        VIT = VIT + InVIT > MaxVIT ? MaxVIT:(VIT + InVIT);
-        return VIT;
-    }
+    
 }

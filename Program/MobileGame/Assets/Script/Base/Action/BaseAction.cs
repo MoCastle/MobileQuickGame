@@ -267,7 +267,7 @@ public class BaseAction {
                     hitEffect.MoveVector.x *= -1;
                 }
                 hitEffect.MoveVector *= _SkillInfo.Speed;
-                TargetActor.BeAttacked(_ActorObj,effectPs,hitEffect);
+                TargetActor.BeAttacked(_ActorObj,effectPs,hitEffect,_SkillInfo.Damage);
             }
         }
     }

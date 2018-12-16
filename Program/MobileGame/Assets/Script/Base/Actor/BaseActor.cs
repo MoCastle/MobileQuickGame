@@ -361,7 +361,7 @@ public abstract class BaseActor : MonoBehaviour {
         }
 
         LogicUpdate();
-        ActorPropty.ModVIT(1);
+        
 
     }
     public virtual void SwitchState( )

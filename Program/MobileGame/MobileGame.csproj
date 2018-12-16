@@ -175,6 +175,7 @@
     <Compile Include="Assets\Script\Base\Spawn\DoorSpawn.cs" />
     <Compile Include="Assets\Script\Base\Spawn\EnemySpawn.cs" />
     <Compile Include="Assets\Script\Base\Spawn\PlayerSpawn.cs" />
+    <Compile Include="Assets\Script\Base\Test\Test.cs" />
     <Compile Include="Assets\Script\Behaviou\BehaviourCtrler.cs" />
     <Compile Include="Assets\Script\Camera\BaseCameraControler.cs" />
     <Compile Include="Assets\Script\Camera\BaseCameraSetter.cs" />

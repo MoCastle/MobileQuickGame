@@ -126,6 +126,7 @@ public class ActorManager {
         string totalRaod = _ActorRoad + actorName;
         GameObject newObj = GamePoolManager.Manager.GenObj(totalRaod);
         newActor = newObj == null ? null : newObj.GetComponent<BaseActorObj>();
+        newActor.Birth();
         return newActor;
     }
 

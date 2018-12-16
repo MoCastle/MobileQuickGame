@@ -85,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\PathologicalGames\readme.txt" />
-    <None Include="Assets\Resources\Cfg\ActorInfo.txt" />
     <None Include="Assets\Resources\Cfg\ActorModelInfo.txt" />
     <None Include="Assets\Resources\Cfg\SkillInfo.txt" />
     <None Include="Assets\Resources\Cfg\UsualInfo.txt" />

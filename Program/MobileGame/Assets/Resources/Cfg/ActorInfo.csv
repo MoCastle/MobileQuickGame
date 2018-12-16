@@ -1,0 +1,3 @@
+﻿Id,Name,Life,Physical,Speed,Power,ModelInfoID,Heavy,HeavyRate
+id,名字,生命值,体力(浮点数),速度(浮点数),伤害(浮点数),模版信息ID,肉厚,肉质
+0,玩家,1000,1000,8,100,0,1,1

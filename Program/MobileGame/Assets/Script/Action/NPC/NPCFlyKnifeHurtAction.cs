@@ -19,8 +19,11 @@ public class NPCFlyKnifeHurtAction : NPCFlyItemAction
         _Dir = _ActorObj.PhysicCtrl.GetSpeed;
         _Dir.x *= -1;
         Vector2 moveVector = _ActorObj.BeHitEffect.MoveVector;
-        moveVector.x *= -1;
         _Dir = (_Dir + moveVector.normalized).normalized;
+        if(_Dir.x<0.01&&_Dir.y<0.01)
+        {
+            Debug.Log("ErrorDir");
+        }
         _Speed = baseActorObj.ActorPropty.MoveSpeed;
     }
     public override void Update()

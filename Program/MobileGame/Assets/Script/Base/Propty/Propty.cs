@@ -75,6 +75,11 @@ public class Propty {
     }
     public void ModLifeValue(float modValue)
     {
+        //小于等于0就是没有血量
+        if(_ActorInfo.Life<=0)
+        {
+            return;
+        }
         _CurLife += modValue;
         
     }

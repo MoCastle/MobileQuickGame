@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BaseBehaviour {
     //防止卡死 这里加个时间限定
-    float LimitTimeCount = 0;
+    float LimitTimeCount;
 
     public BaseBehaviour(EnemyObj enemy, BaseAICtrler ctrler)
     {
@@ -47,7 +47,7 @@ public abstract class BaseBehaviour {
     protected virtual void SetInit()
     {
         _Inited = true;
-        LimitTimeCount = Time.time + 20;
+        LimitTimeCount = Time.time + 2;
     }
     protected abstract void InitFunc();
     public virtual void ComplteteBehaviour()

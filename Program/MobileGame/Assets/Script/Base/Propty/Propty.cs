@@ -16,6 +16,11 @@ public class Propty {
             return _Life;
         }set
         {
+            //最大生命值小于等于0则不会有血量变化
+            if(_ActorInfo.Life<=0)
+            {
+                return;
+            }
             _Life = value;
             if (_Life < 0)
             {
@@ -43,9 +48,10 @@ public class Propty {
     {
         get
         {
+            //最大血量小于0是不扣血的
             if (_ActorInfo.Life <= 0)
             {
-                return 0;
+                return 1;
             }
             float Percent = (float)_CurLife / (float)_ActorInfo.Life;
             Percent = Percent > 0.001f && Percent < 0.1f ? 0.1f : Percent;

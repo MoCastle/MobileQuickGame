@@ -116,6 +116,8 @@
     <Compile Include="Assets\Script\Action\NPC\NPCFlyKnifeHurtAction.cs" />
     <Compile Include="Assets\Script\Action\NPC\NPCQuickRunAction.cs" />
     <Compile Include="Assets\Script\Action\NPC\NPCRunAction.cs" />
+    <Compile Include="Assets\Script\Action\NPC\NPCThrowItem.cs" />
+    <Compile Include="Assets\Script\Action\NPC\NpcBaseAction.cs" />
     <Compile Include="Assets\Script\Action\Player\AttackAction.cs" />
     <Compile Include="Assets\Script\Action\Player\ChargingAction.cs" />
     <Compile Include="Assets\Script\Action\Player\DashAction.cs" />

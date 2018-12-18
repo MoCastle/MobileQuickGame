@@ -450,7 +450,7 @@ public class BaseAction {
     #region 动画事件
 
     //朝向锁
-    public void SetFaceLock( bool ifLock )
+    public virtual void SetFaceLock( bool ifLock )
     {
         _DirLock = ifLock;
     }
@@ -464,7 +464,7 @@ public class BaseAction {
         _ActorObj.PhysicCtrl.CopyData();
         _ActionCtrl.AnimSpeed = 0;
     }
-    public void CallPuppet( PuppetNpc puppet )
+    public virtual void CallPuppet( PuppetNpc puppet )
     {
         Vector3 newPs = _ActorObj.transform.position;
         newPs.y += _ActorObj.BodyCollider.offset.y;

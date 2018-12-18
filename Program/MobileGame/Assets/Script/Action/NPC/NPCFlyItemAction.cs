@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class NPCFlyItemAction : BaseAction {
     protected float _CountTime = 0;
-    float _Time = 3;
+    float _Time = 5;
     Vector2 _Dir;
     protected override Vector2 MoveDir
     {
         get
         {
-            return base.MoveDir;
+            return _Dir;
         }
     }
     // Use this for initialization
@@ -18,7 +18,7 @@ public class NPCFlyItemAction : BaseAction {
     {
         _CountTime = Time.time + _Time;
         _Speed = skillInfo.Speed;
-        
+        _Dir = baseActorObj.transform.rotation * Vector3.right;
     }
     public override void Update()
     {

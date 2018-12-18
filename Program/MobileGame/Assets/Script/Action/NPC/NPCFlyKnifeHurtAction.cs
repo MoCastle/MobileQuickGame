@@ -18,12 +18,12 @@ public class NPCFlyKnifeHurtAction : NPCFlyItemAction
         _CountTime = Time.time + _Time;
         _Dir = _ActorObj.PhysicCtrl.GetSpeed;
         _Dir.x *= -1;
+        _Dir = _Dir.normalized;
         Vector2 moveVector = _ActorObj.BeHitEffect.MoveVector;
-        _Dir = (_Dir + moveVector.normalized).normalized;
-        if(_Dir.x<0.01&&_Dir.y<0.01)
-        {
-            Debug.Log("ErrorDir");
-        }
+        moveVector = moveVector.normalized;
+        _Dir.x = Mathf.Abs(moveVector.x) > 0 ? moveVector.x : _Dir.x;
+        _Dir.y = Mathf.Abs(moveVector.y) > 0 ? moveVector.y : _Dir.y;
+        _Dir = _Dir.normalized;
         _Speed = baseActorObj.ActorPropty.MoveSpeed;
     }
     public override void Update()

@@ -20,7 +20,7 @@ public class StartGame : MonoBehaviour {
         LogMgr.InitSet();
 
         GameCtrl GameCtrler = GameCtrl.GameCtrler;
-        GameCtrler.Pool = GetComponent<SpawnPool>();
+        //GameCtrler.Pool = GetComponent<SpawnPool>();
 
         Debug.Log("StartGame");
         DontDestroyOnLoad(this.gameObject);

@@ -79,7 +79,7 @@ public abstract class BaseDir : MonoBehaviour {
         //UI相关操作
         WindowMgr.ResetUI();
         WindowMgr.ShowMainWindow();
-        GameCtrl.GameCtrler.CenceCtroler.CurCence.Director = this;
+        //GameCtrl.GameCtrler.CenceCtroler.CurCence.Director = this;
     }
 
     //生命循环相关

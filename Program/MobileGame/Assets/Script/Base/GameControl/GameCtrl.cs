@@ -5,6 +5,17 @@ using PathologicalGames;
 
 public class GameCtrl
 {
+    #region 部件
+    GameDriver _GameDriver;
+    SpawnPool _Pool;
+    public SpawnPool Pool
+    {
+        get
+        {
+            return _Pool;
+        }
+    }
+    #endregion
     //暂停功能
     #region
     public bool _IsPaused = false;
@@ -59,24 +70,17 @@ public class GameCtrl
     #endregion
     GameCtrl()
     {
-        CenceCtroler = new CenceCtrl();
+        //CenceCtroler = new CenceCtrl();
+        GameObject modelCtrler = Resources.Load("Prefab\\Base\\GameControler") as GameObject;
+        if(modelCtrler!=null)
+        {
+            GameObject driverObj = GameObject.Instantiate(modelCtrler);
+            _GameDriver = driverObj.GetComponent<GameDriver>();
+            _Pool = driverObj.GetComponent<SpawnPool>();
+        }
     }
 
-    SpawnPool _Pool;
-    public SpawnPool Pool
-    {
-        get
-        {
-            return _Pool;
-        }
-        set
-        {
-            if (_Pool == null)
-            {
-                _Pool = value;
-            }
-        }
-    }
+    
 
     //生命周期
     #region

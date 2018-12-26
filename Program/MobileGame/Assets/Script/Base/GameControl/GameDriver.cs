@@ -9,9 +9,6 @@ public class GameDriver : MonoBehaviour
     private void Awake()
     {
 
-        GameCtrl GameCtrler = GameCtrl.GameCtrler;
-        GameCtrler.Pool = GetComponent<SpawnPool>();
-
         DontDestroyOnLoad(this.gameObject);
     }
     private void Start()

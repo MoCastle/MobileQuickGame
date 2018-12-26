@@ -178,6 +178,8 @@
     <Compile Include="Assets\Script\Base\Spawn\EnemySpawn.cs" />
     <Compile Include="Assets\Script\Base\Spawn\PlayerSpawn.cs" />
     <Compile Include="Assets\Script\Base\Test\Test.cs" />
+    <Compile Include="Assets\Script\Base\UI\BaseUI.cs" />
+    <Compile Include="Assets\Script\Base\UI\UIManager.cs" />
     <Compile Include="Assets\Script\Behaviou\BehaviourCtrler.cs" />
     <Compile Include="Assets\Script\Camera\BaseCameraControler.cs" />
     <Compile Include="Assets\Script\Camera\BaseCameraSetter.cs" />
@@ -235,7 +237,6 @@
     <Compile Include="Assets\Script\UI\ShowText.cs" />
     <Compile Include="Assets\Script\UI\TestCenceCtrler.cs" />
     <Compile Include="Assets\Script\UI\UIEffectMgr.cs" />
-    <Compile Include="Assets\Script\UI\UIManager.cs" />
     <Compile Include="Assets\Script\UI\WindowMgr.cs" />
     <Compile Include="Assets\Script\UI\WindowMgrObj.cs" />
   </ItemGroup>

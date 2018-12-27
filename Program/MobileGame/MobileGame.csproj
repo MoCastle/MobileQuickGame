@@ -172,6 +172,7 @@
     <Compile Include="Assets\Script\Base\Player\PlayerDelegate.cs" />
     <Compile Include="Assets\Script\Base\Propty\Propty.cs" />
     <Compile Include="Assets\Script\Base\Scence\ScenceObj.cs" />
+    <Compile Include="Assets\Script\Base\Scene\SceneMgr.cs" />
     <Compile Include="Assets\Script\Base\Skill\BaseState.cs" />
     <Compile Include="Assets\Script\Base\Spawn\BaseSpawn.cs" />
     <Compile Include="Assets\Script\Base\Spawn\DoorSpawn.cs" />

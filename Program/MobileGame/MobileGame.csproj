@@ -191,6 +191,7 @@
     <Compile Include="Assets\Script\ForNow\SkillObj.cs" />
     <Compile Include="Assets\Script\ResourceCtrl\LoadEffect.cs" />
     <Compile Include="Assets\Script\Scence\CenceMgr.cs" />
+    <Compile Include="Assets\Script\Scence\Director\TestSceneDir.cs" />
     <Compile Include="Assets\Script\Scence\GameStartScence.cs" />
     <Compile Include="Assets\Script\Scence\Spawn\ReleaseSpawn.cs" />
     <Compile Include="Assets\Script\Scence\StartGame.cs" />

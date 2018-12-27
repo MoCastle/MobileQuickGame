@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InputTouch : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
+public class InputTouch : BaseUI, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     float StD = 10;//向饱和距离
                    //输入间隔设置 屏幕的一半

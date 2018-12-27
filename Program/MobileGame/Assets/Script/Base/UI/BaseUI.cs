@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum UIType
 {
+    Low,//底层
     Normal,//普通
     Mutex,//互斥
     Pop//弹窗

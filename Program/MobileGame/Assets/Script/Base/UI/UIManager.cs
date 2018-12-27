@@ -76,7 +76,7 @@ public class UIManager {
         _LowQue = _UICanvas.transform.FindChild("LowUI");
         _NormQue = _UICanvas.transform.FindChild("NormUI");
 
-        _BG = _NormQue.FindChild("BG");
+        _BG = _UICanvas.FindChild("BG");
         _BG.gameObject.SetActive(false);
         if (_NormQue == null)
         {
@@ -116,8 +116,18 @@ public class UIManager {
         }
         HideCurMutex();
 
-        uiGameObj.transform.SetParent(_NormQue,false);
-        ShowOPForUI(UIScr);
+        switch(UIScr.Type)
+        {
+            case UIType.Low:
+                uiGameObj.transform.SetParent(_LowQue, false);
+                break;
+            case UIType.Normal:
+                uiGameObj.transform.SetParent(_NormQue, false);
+                _BG.gameObject.active = true;
+                break;
+        }
+        
+        //ShowOPForUI(UIScr);
         _CurShowUI.Add( UIName ,uiGameObj.transform);
         _GCUIDict.Remove(UIName);
 
@@ -128,8 +138,21 @@ public class UIManager {
     public void CloseWnd( BaseUI baseUI )
     {
         _GCUIDict.Add(baseUI.UIName,Time.time);
-        ReShowUI();
-        CloseOPForUI();
+        switch(baseUI.Type)
+        {
+            case UIType.Mutex:
+                ReShowUI();
+                break;
+            case UIType.Low:
+                return;
+                break;
+        }
+        
+        if(GetCurUI()!=null)
+        {
+            _BG.gameObject.SetActive(false);
+        }
+        //CloseOPForUI();
     }
 
     //获取UI

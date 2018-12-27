@@ -6,9 +6,11 @@ using System.IO;
 using System.Text;
 
 public class TestScript : MonoBehaviour {
+
     // Use this for initialization
-	void Start () {
+    void Start () {
         UIManager mgr = UIManager.Mgr;
+        mgr.ShowUI("ScrollArea");
     }
 	
 	// Update is called once per frame

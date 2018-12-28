@@ -6,9 +6,9 @@ using PathologicalGames;
 //游戏总控制器 负责游戏核心逻辑
 public class GameDriver : MonoBehaviour
 {
+    GameCtrl _GM;
     private void Awake()
     {
-
         DontDestroyOnLoad(this.gameObject);
     }
     private void Start()

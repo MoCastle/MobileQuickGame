@@ -37,9 +37,10 @@ public class EnemySpawn : BaseSpawn
     {
         GenActor();
     }
-
+    /*
     protected override void Action()
     {
         throw new System.NotImplementedException();
     }
+    */
 }

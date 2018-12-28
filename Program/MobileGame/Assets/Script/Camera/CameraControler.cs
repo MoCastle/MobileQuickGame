@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControler {
+    /*
     Vector2 LeftTopPs;
     Vector2 RightDownPs;
     float Distance;
@@ -171,4 +172,5 @@ public class CameraControler {
 
         return InPosition;
     }
+    */
 }

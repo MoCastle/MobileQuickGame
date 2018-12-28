@@ -145,13 +145,6 @@
     <Compile Include="Assets\Script\Base\Actor\BaseActor.cs" />
     <Compile Include="Assets\Script\Base\Actor\BaseActorObj.cs" />
     <Compile Include="Assets\Script\Base\Actor\EnemyActor.cs" />
-    <Compile Include="Assets\Script\Base\Cence\BaseCence.cs" />
-    <Compile Include="Assets\Script\Base\Cence\BaseDir.cs" />
-    <Compile Include="Assets\Script\Base\Cence\CenceCtrl.cs" />
-    <Compile Include="Assets\Script\Base\Cence\NormalDir.cs" />
-    <Compile Include="Assets\Script\Base\Cence\NormalScence.cs" />
-    <Compile Include="Assets\Script\Base\Cence\StartCence.cs" />
-    <Compile Include="Assets\Script\Base\Cence\StartDir.cs" />
     <Compile Include="Assets\Script\Base\Debug\DebugShow.cs" />
     <Compile Include="Assets\Script\Base\Debug\LogMgr.cs" />
     <Compile Include="Assets\Script\Base\Effect\Effect.cs" />
@@ -171,7 +164,8 @@
     <Compile Include="Assets\Script\Base\Physicl\PhysicCtrler.cs" />
     <Compile Include="Assets\Script\Base\Player\PlayerDelegate.cs" />
     <Compile Include="Assets\Script\Base\Propty\Propty.cs" />
-    <Compile Include="Assets\Script\Base\Scence\ScenceObj.cs" />
+    <Compile Include="Assets\Script\Base\Scene\BaseDir.cs" />
+    <Compile Include="Assets\Script\Base\Scene\BaseScene.cs" />
     <Compile Include="Assets\Script\Base\Scene\SceneMgr.cs" />
     <Compile Include="Assets\Script\Base\Skill\BaseState.cs" />
     <Compile Include="Assets\Script\Base\Spawn\BaseSpawn.cs" />
@@ -194,6 +188,7 @@
     <Compile Include="Assets\Script\Scence\CenceMgr.cs" />
     <Compile Include="Assets\Script\Scence\Director\TestSceneDir.cs" />
     <Compile Include="Assets\Script\Scence\GameStartScence.cs" />
+    <Compile Include="Assets\Script\Scence\Scene\BattleScene.cs" />
     <Compile Include="Assets\Script\Scence\Spawn\ReleaseSpawn.cs" />
     <Compile Include="Assets\Script\Scence\StartGame.cs" />
     <Compile Include="Assets\Script\SkillSgtate\AttackState.cs" />
@@ -234,7 +229,6 @@
     <Compile Include="Assets\Script\UI\DebugInfoUI.cs" />
     <Compile Include="Assets\Script\UI\InputTouch.cs" />
     <Compile Include="Assets\Script\UI\MainWindow.cs" />
-    <Compile Include="Assets\Script\UI\MenueUI.cs" />
     <Compile Include="Assets\Script\UI\OptionMenue.cs" />
     <Compile Include="Assets\Script\UI\ShowText.cs" />
     <Compile Include="Assets\Script\UI\TestCenceCtrler.cs" />

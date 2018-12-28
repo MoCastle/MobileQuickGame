@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseSpawn:ScenceObj {
+public abstract class BaseSpawn {
     protected GameCtrl GM;
     //玩家出生逻辑
     #region
     public BaseActor Create( GameObject Sample )
     {
+        /*
         BaseActor NewActor = CurDir.GenActor(Sample);
         NewActor.ActorPropty.Init();
         return NewActor;
+        */
+        return null;
     }
     
     #endregion
     public void Awake()
     {
         GM = GameCtrl.GameCtrler;
-        CurDir = GM.CurDir;
+        //CurDir = GM.CurDir;
         LogicStart();
     }
 
@@ -31,8 +34,9 @@ public abstract class BaseSpawn:ScenceObj {
     }
     public BaseActorObj GenActor(string actorName)
     {
-        BaseActorObj NewActor = CurDir.GenActor(actorName);
-        return NewActor;
+        //BaseActorObj NewActor = CurDir.GenActor(actorName);
+        //return NewActor;
+        return null;
     }
     public abstract BaseActorObj GenActor();
 }

@@ -15,6 +15,7 @@ public class GameCtrl
             return _Pool;
         }
     }
+    SceneMgr _SceneMgr;
     #endregion
     //暂停功能
     #region
@@ -49,44 +50,23 @@ public class GameCtrl
         }
     }
 
-    //玩家信息
-    public GameObject PlayerSample;
-
     //场景功能
     #region
-    public CenceCtrl CenceCtroler;
-    BaseDir _CurDir;
-    public BaseDir CurDir
-    {
-        get
-        {
-            return _CurDir;
-        }
-        set
-        {
-            _CurDir = value;
-        }
-    }
+
     #endregion
     GameCtrl()
     {
         //CenceCtroler = new CenceCtrl();
         GameObject modelCtrler = Resources.Load("Prefab\\Base\\GameControler") as GameObject;
-        if(modelCtrler!=null)
+        if (modelCtrler != null)
         {
             GameObject driverObj = GameObject.Instantiate(modelCtrler);
             _GameDriver = driverObj.GetComponent<GameDriver>();
             _Pool = driverObj.GetComponent<SpawnPool>();
         }
+        _SceneMgr = SceneMgr.Mgr;
     }
-
-    
-
-    //生命周期
-    #region
     public void Update()
     {
-        //CenceCtroler.Update();
     }
-    #endregion
 }

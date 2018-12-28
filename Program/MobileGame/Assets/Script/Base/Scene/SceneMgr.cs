@@ -2,15 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneMgr : MonoBehaviour {
+public class SceneMgr {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    static SceneMgr _Mgr;
+    public static SceneMgr Mgr
+    {
+        get
+        {
+            if(_Mgr==null)
+            {
+                _Mgr = new SceneMgr();
+            }
+            return _Mgr;
+        }
+    }
+
+
+    SceneMgr()
+    {
+
+    }
+
+    public void JumpScene(string sceneName)
+    {
+
+    }
+    /*
+    BaseDir _CurDir;
+    BaseDir CurDir
+    {
+        get
+        {
+            return _CurDir;
+        }
+    }*/
+    BaseScene _CurScene;
+    BaseScene CurScene
+    {
+        get
+        {
+            return _CurScene;
+        }
+    }
+    public void EnterScene(BaseScene scene)
+    {
+        _CurScene = scene;
+        CurScene.EnterScene();
+    }
 }

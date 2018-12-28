@@ -18,7 +18,7 @@ public class DoorSpawn : PlayerSpawn
     {
         if (CenceName != "" || DoorID > 0)
         {
-            GameCtrl.GameCtrler.CenceCtroler.EnterCence(new NormalScence(GameCtrl.GameCtrler.CenceCtroler, new ScenceMsg(CenceName, DoorID)));
+            //GameCtrl.GameCtrler.CenceCtroler.EnterCence(new NormalScence(GameCtrl.GameCtrler.CenceCtroler, new ScenceMsg(CenceName, DoorID)));
         }
     }
 

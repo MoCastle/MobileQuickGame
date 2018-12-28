@@ -36,9 +36,10 @@ public class ReleaseSpawn : EnemySpawn {
         Debug.Log(newActor.transform.position);*/
         return;
     }
-
+    /*
     protected override void Action()
     {
         _Spawn = this;
     }
+    */
 }

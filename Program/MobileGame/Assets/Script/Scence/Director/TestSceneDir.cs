@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestSceneDir : MonoBehaviour {
-    GameCtrl _GM;
-    UIManager _UIMgr;
-    private void Awake()
+public class TestSceneDir : BaseDir {
+
+    public override void EnterScene()
     {
-        _GM = GameCtrl.GameCtrler;
-        _UIMgr = UIManager.Mgr;
+        
+    }
+    private void Start()
+    {
         _UIMgr.ShowUI("ScrollArea");
+        _SceneMgr.EnterScene(new BattleScene(this));
     }
 }

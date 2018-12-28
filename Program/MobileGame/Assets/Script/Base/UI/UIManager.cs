@@ -64,13 +64,14 @@ public class UIManager {
 
         //Object uiCanvas = Resources.Load("Prefab\\Base\\UI\\UIFrame");
         Object uiCanvas = Resources.Load("Prefab\\Base\\UIFrame");
+        
         if (uiCanvas == null)
         {
             Debug.Log("Canvas Prefab Missed");
             return;
         }
-        
         GameObject uiGameObj = GameObject.Instantiate(uiCanvas) as GameObject;
+        GameObject.DontDestroyOnLoad(uiGameObj);
         _UICanvas = uiGameObj.transform;
 
         _LowQue = _UICanvas.transform.FindChild("LowUI");

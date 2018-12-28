@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PlayerSpawn : BaseSpawn
 {
+    /*
     public GameObject Player
     {
         get
         {
             return GameCtrl.GameCtrler.PlayerSample;
         }
-    }
+    }*/
     public override BaseActorObj GenActor()
     {
+        /*
         Vector3 NewPs = this.transform.position;
         NewPs.z = 0;
         BaseActorObj NewPlayer = GenActor("Player");
@@ -26,11 +28,12 @@ public class PlayerSpawn : BaseSpawn
         }
         Actor.ActorPropty.Init();
         Actor.transform.position = NewPs;
-        return Actor;
+        return Actor;*/
+        return null;
     }
-
+    /*
     protected override void Action()
     {
         GenActor();
-    }
+    }*/
 }

@@ -11,6 +11,10 @@ public class BattleScene : BaseScene
 
     public override void LeaveScene()
     {
-        throw new System.NotImplementedException();
+    }
+    //重生
+    public void ReBirth()
+    {
+
     }
 }

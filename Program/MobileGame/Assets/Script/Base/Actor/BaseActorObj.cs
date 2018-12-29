@@ -52,6 +52,10 @@ public abstract class BaseActorObj : MonoBehaviour {
         {
             return _ActorPropty;
         }
+        set
+        {
+            _ActorPropty = value;
+        }
     }
 
     public bool _OnPlat;

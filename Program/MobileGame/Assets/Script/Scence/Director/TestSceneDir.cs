@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestSceneDir : BaseDir {
+public class TestSceneDir : BattleDir {
+    //生成玩家
+    protected override void GenPlayer()
+    {
+        BaseActorObj player = ActorManager.Mgr.GenActor("Player");
+        PlayerActor = player as PlayerObj;
+    }
 
-    public override void EnterScene()
-    {
-        
-    }
-    private void Start()
-    {
-        _UIMgr.ShowUI("ScrollArea");
-        _SceneMgr.EnterScene(new BattleScene(this));
-    }
 }

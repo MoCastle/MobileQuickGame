@@ -6,7 +6,13 @@ public abstract class BaseScene {
     protected bool Inited;
     SceneMgr _SceneMgr;
     BaseDir _CurDir;
-
+    public BaseDir CurDIr
+    {
+        get
+        {
+            return _CurDir;
+        }
+    }
     public BaseScene( BaseDir dir)
     {
         _CurDir = dir;

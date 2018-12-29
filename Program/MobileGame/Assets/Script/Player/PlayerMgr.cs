@@ -9,11 +9,11 @@ public class PlayerMgr {
     {
         get
         {
-            if(_PlayerPropty == null)
-            {
-                _PlayerPropty = new Propty();
-            }
             return _PlayerPropty;
+        }
+        set
+        {
+            _PlayerPropty = value;
         }
     }
     public string GetPlayerInfo()

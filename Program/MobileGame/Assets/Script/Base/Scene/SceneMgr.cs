@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SceneMgr {
-
+    #region 对外接口
     static SceneMgr _Mgr;
     public static SceneMgr Mgr
     {
@@ -16,6 +16,18 @@ public class SceneMgr {
             return _Mgr;
         }
     }
+    
+    public BaseDir CurDir
+    {
+        get
+        {
+            if (_CurScene != null)
+                return _CurScene.CurDIr;
+            else
+                return null;
+        }
+    }
+    #endregion
 
 
     SceneMgr()
@@ -37,7 +49,7 @@ public class SceneMgr {
         }
     }*/
     BaseScene _CurScene;
-    BaseScene CurScene
+    public BaseScene CurScene
     {
         get
         {

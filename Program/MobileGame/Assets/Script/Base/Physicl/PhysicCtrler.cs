@@ -87,7 +87,7 @@ public class PhysicCtrler {
         }
         if (!_LowGravity && Mathf.Abs(_Rigid2D.velocity.y) < 10)
         {
-            SetGravity(OrGravity / 5);
+            SetGravity(OrGravity / 4);
         }
         else if (_LowGravity&& Mathf.Abs(_Rigid2D.velocity.y) > 10)
         {

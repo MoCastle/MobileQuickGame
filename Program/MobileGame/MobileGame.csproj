@@ -184,6 +184,7 @@
     <Compile Include="Assets\Script\Cfg\SkillInfoReader.cs" />
     <Compile Include="Assets\Script\EnumLabelAttribute.cs" />
     <Compile Include="Assets\Script\ForNow\SkillObj.cs" />
+    <Compile Include="Assets\Script\Player\PlayerMgr.cs" />
     <Compile Include="Assets\Script\ResourceCtrl\LoadEffect.cs" />
     <Compile Include="Assets\Script\Scence\CenceMgr.cs" />
     <Compile Include="Assets\Script\Scence\Director\TestSceneDir.cs" />

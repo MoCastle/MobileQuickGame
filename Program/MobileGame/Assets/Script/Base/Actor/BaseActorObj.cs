@@ -383,9 +383,33 @@ public abstract class BaseActorObj : MonoBehaviour {
     {
         _PhysicCtrl.SetSpeed(new Vector2(speed,_PhysicCtrl.GetSpeed.y ));
     }
-    public void StopMove()
+
+    //设置空中瞬时垂直速度
+    public void SetInAirImdVSpeed(float speed)
     {
-        _ActionCtrler.CurAction.SetSpeed(0);
+        if(this.IsOnGround)
+        {
+            return;
+        }
+        _PhysicCtrl.SetSpeed(new Vector2(_PhysicCtrl.GetSpeed.x, speed));
+    }
+    //设置空中瞬时水平速度
+    public void SetInAirImdHSpeed(float speed)
+    {
+        if (this.IsOnGround)
+        {
+            return;
+        }
+        _PhysicCtrl.SetSpeed(new Vector2(speed, _PhysicCtrl.GetSpeed.y));
+    }
+
+    public void StopMove(float speed)
+    {
+        if (-0.01f < speed && speed < 0.01f)
+            _ActionCtrler.CurAction.SetSpeed(0);
+        else
+            _ActionCtrler.CurAction.SetFinalSpeed(speed);
+
     }
     public void SetFaceLock( int ifLock)
     {

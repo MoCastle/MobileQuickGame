@@ -417,6 +417,12 @@ public class BaseAction {
     {
         _Speed = speed;
     }
+    //设置最终速度
+    public void SetFinalSpeed( float speed )
+    {
+        _Speed = 0;
+        _ActorObj.PhysicCtrl.SetSpeed(MoveDir * speed);
+    }
     protected virtual void Move()
     {
         if(_CutTimeClock <= 0 &&(_Speed * _Speed)>0)

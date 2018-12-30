@@ -9,7 +9,7 @@ public class PlayerAction : BaseAction {
     {
         _PlayerObj = baseActorObj as PlayerObj;
         SetStartDirection();
-
+        _PlayerObj.ClearAnimParam();
     }
     public virtual void SetStartDirection()
     {

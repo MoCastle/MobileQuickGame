@@ -74,7 +74,7 @@ public class PlayerObj : BaseActorObj {
     Dictionary<HandGesture, NormInput> LegalnputDict = new Dictionary<HandGesture, NormInput>();
     public override void EnterState()
     {
-        ClearAnimParam();
+        //ClearAnimParam();
     }
     public virtual void Input(NormInput input)
     {
@@ -89,7 +89,9 @@ public class PlayerObj : BaseActorObj {
             }
             SetAnimParam(input);
             PlayerCtrl.CurOrder = input;
-        }
+        }else
+            ClearAnimParam();
+
     }
     public void SetAnimParam(NormInput handInput)
     {
@@ -175,9 +177,10 @@ public class PlayerObj : BaseActorObj {
             {
                 Input(HandInput);
             }
+            
             else
             {
-                ClearAnimParam();
+                //ClearAnimParam();
             }
 
         }
@@ -187,7 +190,7 @@ public class PlayerObj : BaseActorObj {
     #region 事件
     public override void SwitchAction()
     {
-        ClearAnimParam();
+        //ClearAnimParam();
     }
     
     #endregion

@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerMgr {
     #region 对外接口
-    Propty _PlayerPropty;
-    public Propty PlayerPropty
+    BaseCharacter _PlayerCharactor;
+    public BaseCharacter PlayerCharactor
     {
         get
         {
-            return _PlayerPropty;
+            return _PlayerCharactor;
         }
         set
         {
-            _PlayerPropty = value;
+            _PlayerCharactor = value;
         }
     }
     public string GetPlayerInfo()

@@ -42,6 +42,24 @@ public abstract class BaseActorObj : MonoBehaviour {
             return _SkillHurtBox;
         }
     }
+    BaseCharacter _Character;
+    public BaseCharacter Character
+    {
+        get
+        {
+            if(_Character==null)
+            {
+                _Character = new BaseCharacter(this);
+                _Character.Propty = this._ActorPropty;
+            }
+            return _Character;
+        }
+        set
+        {
+            Character = value;
+            _ActorPropty = Character.Propty;
+        }
+    }
 
     [SerializeField]
     [Title("人物属性", "black")]

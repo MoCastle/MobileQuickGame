@@ -49,7 +49,8 @@ public class InputTouch : BaseUI, IDragHandler, IPointerDownHandler, IPointerUpH
     {
         PlayerCtrl.RefreshInputRoundArr();
         //StD = GetComponent<RectTransform>().sizeDelta.x / 2;
-        StD = Screen.width / 2;
+        //StD = Screen.width / 2;
+        StD = 40;
     }
     void ClearAllPs( )
     {

@@ -34,7 +34,7 @@ public class PlayerAction : BaseAction {
                 break;
             case HandGesture.Click:
                 float dirX = 0;
-                dirX = _Input.InputInfo.EndPs.x - _Input.InputInfo.MaxDst;
+                dirX = _Input.InputInfo.EndPs.x - Screen.width / 2;
                 //如果计算距离够明显
                 //(Mathf.Abs(dirX) > preInput.InputInfo.MaxDst * 0.1)&&
                 if ((dirX * _PlayerObj.transform.localScale.x < 0))

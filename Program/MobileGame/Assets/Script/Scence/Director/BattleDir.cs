@@ -27,13 +27,13 @@ public class BattleDir : BaseDir
         BaseActorObj player = ActorManager.Mgr.GenActor("Player");
         PlayerActor = player as PlayerObj;
 
-        Propty playerPropty = PlayerMgr.Mgr.PlayerPropty;
-        if(playerPropty!=null)
+        BaseCharacter playerCharacter = PlayerMgr.Mgr.PlayerCharactor;
+        if(playerCharacter != null)
         {
-            player.ActorPropty = playerPropty;
+            player.Character = playerCharacter;
         }else
         {
-            PlayerMgr.Mgr.PlayerPropty = playerPropty;
+            PlayerMgr.Mgr.PlayerCharactor = player.Character;
         }
     }
 

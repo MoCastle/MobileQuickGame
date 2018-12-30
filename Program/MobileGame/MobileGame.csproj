@@ -182,6 +182,7 @@
     <Compile Include="Assets\Script\Camera\CameraObj.cs" />
     <Compile Include="Assets\Script\Camera\TraceCameraControler.cs" />
     <Compile Include="Assets\Script\Cfg\SkillInfoReader.cs" />
+    <Compile Include="Assets\Script\Character\BaseCharacter.cs" />
     <Compile Include="Assets\Script\EnumLabelAttribute.cs" />
     <Compile Include="Assets\Script\ForNow\SkillObj.cs" />
     <Compile Include="Assets\Script\Player\PlayerMgr.cs" />

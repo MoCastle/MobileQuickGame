@@ -6,7 +6,7 @@ using UnityEngine;
 public class BaseCharacter {
     #region 属性以及对外接口
     //public Event 
-    //public Event Action Death;
+    public event Action DeathEvent;
     Propty _Propty;
     public Propty Propty
     {
@@ -38,6 +38,6 @@ public class BaseCharacter {
     }
     public void OnDeath()
     {
-
+        DeathEvent();
     }
 }

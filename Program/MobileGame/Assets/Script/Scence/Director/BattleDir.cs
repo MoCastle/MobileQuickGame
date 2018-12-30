@@ -8,6 +8,7 @@ public class BattleDir : BaseDir
 
     public override void EnterScene()
     {
+        _UIMgr.ClearAll();
         _UIMgr.ShowUI("ScrollArea");
         if(PlayerActor== null)
             GenPlayer();
@@ -40,6 +41,6 @@ public class BattleDir : BaseDir
     //重生玩家
     public virtual void ReBirth()
     {
-
+        PlayerActor.Birth();
     }
 }

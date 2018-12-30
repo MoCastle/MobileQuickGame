@@ -9,5 +9,12 @@ public class TestSceneDir : BattleDir {
         BaseActorObj player = ActorManager.Mgr.GenActor("Player");
         PlayerActor = player as PlayerObj;
     }
+    public override void EnterScene()
+    {
+        base.EnterScene();
+        BaseCharacter character = PlayerActor.Character;
+        character.DeathEvent += () => { UIManager.Mgr.ShowUI("PlayerDeathUI"); };
 
+    }
+    
 }

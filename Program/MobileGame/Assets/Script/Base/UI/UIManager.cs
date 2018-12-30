@@ -17,15 +17,22 @@ public class UIManager {
         }
     }
     //清理整个UI
-    public void ClearAllCanvas()
+    public void ClearAll()
     {
-        
+        ClearUIQue(_NormQue);
+        ClearUIQue(_LowQue);
     }
     #endregion
     #region 内部功能
-
+    void ClearUIQue(Transform uiQue)
+    {
+        for( int StartIdx = uiQue.childCount-1; StartIdx>0;--StartIdx )
+        {
+            BaseUI ui = uiQue.GetChild(StartIdx).GetComponent<BaseUI>();
+            ui.Close();
+        }
+    }
     #endregion
-
 
     #region 画布属性、层级属性
     Transform _UICanvas;
@@ -100,6 +107,7 @@ public class UIManager {
             outUIWnd.SetAsLastSibling();
             return outUIWnd.GetComponent<BaseUI>();
         }
+        BaseUI UIScr = null;
 
         //没有打开 重新加载
         GameObject uiGameObj = LoadUI( UIName );
@@ -109,7 +117,7 @@ public class UIManager {
         }
 
         //检查脚本有没有加
-        BaseUI UIScr = uiGameObj.GetComponent<BaseUI>();
+        UIScr = uiGameObj.GetComponent<BaseUI>();
         if(UIScr == null)
         {
             Debug.Log("UI NotAddScript");
@@ -138,7 +146,7 @@ public class UIManager {
     //关闭窗口操作
     public void CloseWnd( BaseUI baseUI )
     {
-        _GCUIDict.Add(baseUI.UIName,Time.time);
+        //_GCUIDict.Add(baseUI.UIName,Time.time);
         switch(baseUI.Type)
         {
             case UIType.Mutex:

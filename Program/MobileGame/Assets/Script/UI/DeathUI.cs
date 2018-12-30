@@ -7,5 +7,6 @@ public class DeathUI : BaseUI {
     {
         BattleDir battleScene = SceneMgr.Mgr.CurDir as BattleDir;
         battleScene.ReBirth();
+        this.Close();
     }
 }

@@ -211,7 +211,6 @@ public abstract class BaseActorObj : MonoBehaviour {
     {
         ActorPropty.ResetPropty();
         _ActionCtrler.SetTriiger("Birth");
-        
     }
     protected abstract void LogicAwake();
 
@@ -366,6 +365,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         if(ActorPropty.IsDeath)
         {
             _ActionCtrler.SetTriiger("Death");
+            Character.OnDeath();
         }
         //受击效果
         BeHitEffect = hitEffect;

@@ -9,6 +9,7 @@ public class BaseAction {
 
     public BaseAction(BaseActorObj baseActorObj, SkillInfo skillInfo)
     {
+        Debug.Log("zerg BaseAction");
         /*
         _SkillEffect = SkillManager.GenEffect();
         CostVIT();*/

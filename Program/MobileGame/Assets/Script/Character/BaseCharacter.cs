@@ -38,6 +38,7 @@ public class BaseCharacter {
     }
     public void OnDeath()
     {
-        DeathEvent();
+        if(DeathEvent!=null)
+            DeathEvent();
     }
 }

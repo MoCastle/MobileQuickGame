@@ -22,7 +22,7 @@ public class AnimAdapt : StateMachineBehaviour
         NoticeObject.ActionCtrl.CurAction = NewState;
         NoticeObject.SwitchAction();
     }
-
+    
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         BaseActorObj NoticeObject = animator.gameObject.GetComponent<BaseActorObj>();

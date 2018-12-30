@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleDir : BaseDir
 {
+
     public PlayerObj PlayerActor;
 
     public override void EnterScene()

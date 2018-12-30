@@ -217,6 +217,11 @@ public abstract class BaseActorObj : MonoBehaviour {
     // Update is called once per frame
     public void Update()
     {
+        //触地检测
+        if (IsJustOnGround )
+        {
+            IsJustOnGround = false;
+        }
         _ActionCtrler.Update();
         /*
         if (GameCtrler.IsPaused)
@@ -252,12 +257,12 @@ public abstract class BaseActorObj : MonoBehaviour {
             IsOnGround = false;
             _OnPlat = false;
         }
+        /*
         //触地检测
         if (IsJustOnGround && _TimeJustOnGround + 0.2 < Time.time)
         {
             IsJustOnGround = false;
         }
-        /*
         
         */
         LogicUpdate();
@@ -384,13 +389,14 @@ public abstract class BaseActorObj : MonoBehaviour {
         
     }
     public virtual void EnterState()
-    { }
+    {
+    }
     //通知硬直事件
     public void HardTime( float hardTime )
     {
         _ActionCtrler.CurAction.HardTime(hardTime);
     }
-    //设置运动速度
+    //设置运动速度 匀速运动
     public void SetSpeed(float speed)
     {
         _ActionCtrler.CurAction.SetSpeed(speed);
@@ -446,7 +452,6 @@ public abstract class BaseActorObj : MonoBehaviour {
     //转换状态
     public virtual void SwitchAction()
     {
-
     }
     //召唤
     public virtual void CallPuppet( string objName )

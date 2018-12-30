@@ -68,9 +68,9 @@ public class PlayerAction : BaseAction {
         switch (curInput.Gesture)
         {
             case HandGesture.Click:
+                float dirX = 0;
                 //xValue = curInput.InputInfo.EndPs.x - _Input.InputInfo.EndPs.x;
-                xValue = curInput.InputInfo.EndPs.x - curInput.InputInfo.MaxDst;
-                xValue = Mathf.Abs( xValue) > curInput.InputInfo.MaxDst * 0.1f ? xValue : 0;
+                xValue = _Input.InputInfo.EndPs.x - Screen.width / 2;
                 break;
             case HandGesture.Drag:
             case HandGesture.Slip:

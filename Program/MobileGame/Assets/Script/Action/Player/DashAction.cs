@@ -18,6 +18,10 @@ public class DashAction : PlayerAction {
     {
         
         Vector2 gestureDir = _Input.InputInfo.Shift;
+        if(this._ActorObj.IsOnGround && Mathf.Abs(  gestureDir.y/gestureDir.x)<0.6)
+        {
+            gestureDir.y = 0;
+        }
         RotateToDirection(gestureDir);
         _MoveDir = gestureDir.normalized;
     }

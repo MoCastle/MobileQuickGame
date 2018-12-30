@@ -8,19 +8,28 @@ public class PlayerAction : BaseAction {
 	public PlayerAction(BaseActorObj baseActorObj, SkillInfo skillInfo):base(baseActorObj, skillInfo)
     {
         _PlayerObj = baseActorObj as PlayerObj;
+        SetStartDirection();
+
+    }
+    public virtual void SetStartDirection()
+    {
+        if(_DirLock)
+        {
+            return;
+        }
         _Input = _PlayerObj.CurInput;
         Vector2 gestureDir = _Input.InputInfo.Shift;
         //方向设置
         switch (_Input.Gesture)
         {
             case HandGesture.Slip:
-                
+
                 //朝向设置
-                if (gestureDir.x * baseActorObj.transform.localScale.x < 0)
+                if (gestureDir.x * _PlayerObj.transform.localScale.x < 0)
                 {
-                    Vector2 NewScale = baseActorObj.transform.localScale;
+                    Vector2 NewScale = _PlayerObj.transform.localScale;
                     NewScale.x = NewScale.x * -1;
-                    baseActorObj.TransCtrl.localScale = NewScale;
+                    _PlayerObj.TransCtrl.localScale = NewScale;
                 }
                 break;
             case HandGesture.Click:
@@ -28,11 +37,11 @@ public class PlayerAction : BaseAction {
                 dirX = _Input.InputInfo.EndPs.x - _Input.InputInfo.MaxDst;
                 //如果计算距离够明显
                 //(Mathf.Abs(dirX) > preInput.InputInfo.MaxDst * 0.1)&&
-                if (  (dirX * baseActorObj.transform.localScale.x < 0))
+                if ((dirX * _PlayerObj.transform.localScale.x < 0))
                 {
-                    Vector2 NewScale = baseActorObj.transform.localScale;
+                    Vector2 NewScale = _PlayerObj.transform.localScale;
                     NewScale.x = NewScale.x * -1;
-                    baseActorObj.TransCtrl.localScale = NewScale;
+                    _PlayerObj.TransCtrl.localScale = NewScale;
                 }
                 /*
                 //只检测之前的点击手势和划屏手势
@@ -48,12 +57,11 @@ public class PlayerAction : BaseAction {
                     }
                 }*/
 
-                break;
+        break;
         }
-        
     }
 
-    public void InputNormInput(NormInput curInput )
+    public virtual void InputNormInput(NormInput curInput )
     {
         float xValue = 0;
         

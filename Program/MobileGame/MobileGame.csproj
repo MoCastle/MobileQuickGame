@@ -123,6 +123,7 @@
     <Compile Include="Assets\Script\Action\Player\DashAction.cs" />
     <Compile Include="Assets\Script\Action\Player\HAttackAction.cs" />
     <Compile Include="Assets\Script\Action\Player\PlayerAction.cs" />
+    <Compile Include="Assets\Script\Action\Player\RocketAction.cs" />
     <Compile Include="Assets\Script\Action\Player\RunAction.cs" />
     <Compile Include="Assets\Script\Actor\PlayerActor.cs" />
     <Compile Include="Assets\Script\ActorObj\EnemyObj.cs" />
@@ -200,7 +201,6 @@
     <Compile Include="Assets\Script\SkillSgtate\CloseAttackThirdState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\CloseFirstAttackState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\CloseSkillState.cs" />
-    <Compile Include="Assets\Script\SkillSgtate\DashState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\DefaultState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\DragFlyState.cs" />
     <Compile Include="Assets\Script\SkillSgtate\FallingEndState.cs" />

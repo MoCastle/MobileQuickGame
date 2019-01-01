@@ -18,6 +18,10 @@ public class CameraObj : MonoBehaviour {
             }
             return _TraceTarget;
         }
+        set
+        {
+            _TraceTarget = value;
+        }
     }
 
     [Title("相机控制器", "black")]

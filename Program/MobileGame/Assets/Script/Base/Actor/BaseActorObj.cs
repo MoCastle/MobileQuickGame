@@ -52,6 +52,11 @@ public abstract class BaseActorObj : MonoBehaviour {
                 _Character = new BaseCharacter(this);
                 _Character.Propty = this._ActorPropty;
             }
+            if(_Character.Propty.ActorInfo.Name == "")
+            {
+                _Character.Propty.ActorInfo.Name = gameObject.name;
+            }
+
             return _Character;
         }
         set
@@ -351,9 +356,9 @@ public abstract class BaseActorObj : MonoBehaviour {
             return;
         }
         //受击特效
-        if(_ActorPropty._ActorInfo.BloodName!=null&& _ActorPropty._ActorInfo.BloodName!="")
+        if(_ActorPropty.ActorInfo.BloodName!=null&& _ActorPropty.ActorInfo.BloodName!="")
         {
-            GameObject blood = EffectManager.Manager.GenEffect(_ActorPropty._ActorInfo.BloodName);
+            GameObject blood = EffectManager.Manager.GenEffect(_ActorPropty.ActorInfo.BloodName);
             float dir = attacker.transform.position.x - this.transform.position.x;
             Vector3 scale = blood.transform.localScale;
             if(scale.x * dir < 0)

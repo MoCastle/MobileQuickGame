@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Propty {
     [Title("属性", "black")]
-    public ActorInfo _ActorInfo;
+    public ActorInfo ActorInfo;
     [Title("当前生命值", "black")]
     [SerializeField]
     float _Life;
@@ -17,7 +17,7 @@ public class Propty {
         }set
         {
             //最大生命值小于等于0则不会有血量变化
-            if(_ActorInfo.Life<=0)
+            if(ActorInfo.Life<=0)
             {
                 return;
             }
@@ -26,9 +26,9 @@ public class Propty {
             {
                 _Life = 0;
             }
-            else if (_Life > _ActorInfo.Life)
+            else if (_Life > ActorInfo.Life)
             {
-                _Life = _ActorInfo.Life;
+                _Life = ActorInfo.Life;
             }
 
             if (_Life <= 0)
@@ -49,11 +49,11 @@ public class Propty {
         get
         {
             //最大血量小于0是不扣血的
-            if (_ActorInfo.Life <= 0)
+            if (ActorInfo.Life <= 0)
             {
                 return 1;
             }
-            float Percent = (float)_CurLife / (float)_ActorInfo.Life;
+            float Percent = (float)_CurLife / (float)ActorInfo.Life;
             Percent = Percent > 0.001f && Percent < 0.1f ? 0.1f : Percent;
             return Percent;
         }
@@ -70,13 +70,13 @@ public class Propty {
     //复活时候用
     public void ResetPropty()
     {
-        _CurLife = _ActorInfo.Life;
+        _CurLife = ActorInfo.Life;
         _IsDeath = false;
     }
     public void ModLifeValue(float modValue)
     {
         //小于等于0就是没有血量
-        if(_ActorInfo.Life<=0)
+        if(ActorInfo.Life<=0)
         {
             return;
         }
@@ -88,7 +88,7 @@ public class Propty {
     {
         get
         {
-            return _ActorInfo.Heavy;
+            return ActorInfo.Heavy;
         }
     }
 
@@ -96,7 +96,7 @@ public class Propty {
     {
         get
         {
-            return _ActorInfo.HeavyRate;
+            return ActorInfo.HeavyRate;
         }
     }
 
@@ -119,7 +119,7 @@ public class Propty {
     {
         get
         {
-            return _ActorInfo.Speed;
+            return ActorInfo.Speed;
         }
     }
     //攻击力

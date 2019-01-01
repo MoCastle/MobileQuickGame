@@ -15,6 +15,9 @@ public class TraceCameraControler :BaseCameraControler {
         SmoothTime = smoothTime;
         _TraceTarget = traceTarget;
         _Tracer = tracer;
+        Vector3 tracerPS = _TraceTarget.position;
+        tracerPS.z = _Tracer.position.z;
+        _Tracer.position = tracerPS;
     }
     public override void Update()
     {

@@ -170,9 +170,7 @@
     <Compile Include="Assets\Script\Base\Scene\SceneMgr.cs" />
     <Compile Include="Assets\Script\Base\Skill\BaseState.cs" />
     <Compile Include="Assets\Script\Base\Spawn\BaseSpawn.cs" />
-    <Compile Include="Assets\Script\Base\Spawn\DoorSpawn.cs" />
     <Compile Include="Assets\Script\Base\Spawn\EnemySpawn.cs" />
-    <Compile Include="Assets\Script\Base\Spawn\PlayerSpawn.cs" />
     <Compile Include="Assets\Script\Base\Test\Test.cs" />
     <Compile Include="Assets\Script\Base\UI\BaseUI.cs" />
     <Compile Include="Assets\Script\Base\UI\UIManager.cs" />
@@ -189,9 +187,12 @@
     <Compile Include="Assets\Script\ResourceCtrl\LoadEffect.cs" />
     <Compile Include="Assets\Script\Scence\CenceMgr.cs" />
     <Compile Include="Assets\Script\Scence\Director\BattleDir.cs" />
+    <Compile Include="Assets\Script\Scence\Director\MainMenueDir.cs" />
     <Compile Include="Assets\Script\Scence\Director\TestSceneDir.cs" />
     <Compile Include="Assets\Script\Scence\GameStartScence.cs" />
+    <Compile Include="Assets\Script\Scence\Scene\BattleMgr.cs" />
     <Compile Include="Assets\Script\Scence\Scene\BattleScene.cs" />
+    <Compile Include="Assets\Script\Scence\Scene\SceneDoor.cs" />
     <Compile Include="Assets\Script\Scence\Spawn\ReleaseSpawn.cs" />
     <Compile Include="Assets\Script\Scence\StartGame.cs" />
     <Compile Include="Assets\Script\SkillSgtate\AttackState.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Assets\Script\UI\DeathUI.cs" />
     <Compile Include="Assets\Script\UI\DebugInfoUI.cs" />
     <Compile Include="Assets\Script\UI\InputTouch.cs" />
+    <Compile Include="Assets\Script\UI\MainMenueUI.cs" />
     <Compile Include="Assets\Script\UI\MainWindow.cs" />
     <Compile Include="Assets\Script\UI\OptionMenue.cs" />
     <Compile Include="Assets\Script\UI\ShowText.cs" />

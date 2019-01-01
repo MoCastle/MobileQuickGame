@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneMgr {
     #region 对外接口
@@ -29,25 +30,11 @@ public class SceneMgr {
     }
     #endregion
 
-
     SceneMgr()
     {
 
     }
-
-    public void JumpScene(string sceneName)
-    {
-
-    }
-    /*
-    BaseDir _CurDir;
-    BaseDir CurDir
-    {
-        get
-        {
-            return _CurDir;
-        }
-    }*/
+    
     BaseScene _CurScene;
     public BaseScene CurScene
     {
@@ -60,5 +47,13 @@ public class SceneMgr {
     {
         _CurScene = scene;
         CurScene.EnterScene();
+    }
+    public void JumpScene(string Name)
+    {
+        if(_CurScene != null)
+        {
+            _CurScene.LeaveScene();
+        }
+        SceneManager.LoadScene(Name);
     }
 }

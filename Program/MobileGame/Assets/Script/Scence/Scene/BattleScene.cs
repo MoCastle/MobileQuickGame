@@ -1,20 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleScene : BaseScene
 {
-    public BattleScene(BaseDir dir):base(dir)
+    #region 对外属性
+    public BattleDir BattleDir
     {
-
+        get
+        {
+            return _BattleDir;
+        }
     }
+    #endregion
+    #region 对外方法
+    #endregion
+    BattleDir _BattleDir;
 
-    public override void LeaveScene()
+    public BattleScene(BattleDir dir):base(dir)
     {
-    }
-    //重生
-    public void ReBirth()
-    {
-
+        _BattleDir = dir as BattleDir;
+        BattleMgr.Mgr.CurDir = dir;
     }
 }

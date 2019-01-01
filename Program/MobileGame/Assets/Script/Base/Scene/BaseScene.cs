@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseScene {
-    protected bool Inited;
+public class BaseScene {
     SceneMgr _SceneMgr;
     BaseDir _CurDir;
     public BaseDir CurDIr
@@ -20,9 +19,12 @@ public abstract class BaseScene {
     }
     public bool IsSceneReady=true;
     //离开场景
-    public abstract void LeaveScene();
+    public virtual void LeaveScene()
+    {
+        _CurDir.Leave();
+    }
     //进入场景
-    public void EnterScene()
+    public virtual void EnterScene()
     {
         _CurDir.EnterScene();
     }

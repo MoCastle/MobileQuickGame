@@ -16,7 +16,6 @@ public class DashAction : PlayerAction {
 
     public DashAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
-        Debug.Log("zerg Dash");
         Vector2 gestureDir = _Input.InputInfo.Shift;
         if(gestureDir.x!=0&&this._ActorObj.IsOnGround && Mathf.Abs(  gestureDir.y/gestureDir.x)<0.6)
         {

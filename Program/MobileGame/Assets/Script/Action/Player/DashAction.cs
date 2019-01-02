@@ -21,6 +21,7 @@ public class DashAction : PlayerAction {
         {
             gestureDir.y = 0;
         }
+
         RotateToDirection(gestureDir);
         _MoveDir = gestureDir.normalized;
     }

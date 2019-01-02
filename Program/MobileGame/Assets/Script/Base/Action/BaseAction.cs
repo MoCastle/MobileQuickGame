@@ -489,7 +489,7 @@ public class BaseAction {
         faceDir = faceDir.normalized;
         float Rotate = 0;
         Rotate = Mathf.Atan2(faceDir.y, Mathf.Abs(faceDir.x)) * 180 / Mathf.PI;
-        if (faceDir.x < 0)
+        if (_ActorObj.FaceDir.x<0|| faceDir.x < 0) //faceDir.x < 0)
         {
             Rotate = Rotate * -1;
         }

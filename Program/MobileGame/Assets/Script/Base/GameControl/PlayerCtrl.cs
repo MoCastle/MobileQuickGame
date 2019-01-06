@@ -1,6 +1,55 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public struct InputInfo
+{
+    public Vector2 Shift;
+    public bool IsLegal;
+    public bool IsPushing;
+    public float MaxDst;
+    public Vector2 EndPs;
+    public InputInfo(bool InIsLegal = false)
+    {
+        Shift = Vector2.zero;
+        IsLegal = InIsLegal;
+        IsPushing = false;
+        MaxDst = 0;
+        EndPs = Vector2.zero;
+    }
+    public float Percent
+    {
+        get
+        {
+            if (MaxDst > 0)
+            {
+                return Shift.magnitude / MaxDst;
+            }
+            return 0;
+        }
+    }
+    public float XPercent
+    {
+        get
+        {
+            if (MaxDst > 0)
+            {
+                return Mathf.Abs(Shift.x / MaxDst);
+            }
+            return 0;
+        }
+    }
+    public float YPercent
+    {
+        get
+        {
+            if (MaxDst > 0)
+            {
+                return Mathf.Abs(Shift.y / MaxDst);
+            }
+            return 0;
+        }
+    }
+}
 public enum InputDir
 {
     Middle = 0,

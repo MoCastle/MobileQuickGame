@@ -31,10 +31,6 @@ public class AnimCtrler {
         }
     }
 
-    public AnimCtrler(BaseActor actor)
-    {
-        _Anim = actor.AnimCtrl;
-    }
 
     public void Update()
     {

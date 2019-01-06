@@ -24,7 +24,6 @@ public class StartGame : MonoBehaviour {
 
         Debug.Log("StartGame");
         DontDestroyOnLoad(this.gameObject);
-        SkillManager.Obj = SkillObj.GetComponent<SkillObj>();
         GameWorldTimer.StartGameSet();
         GameStartScence.StartScence();
         

@@ -42,7 +42,6 @@ public class MainWindow : MonoBehaviour {
             return PlayerDelegate.GetPropty();
         }
     }
-    public EnemyActor Enemy;
 
     HeadInRoundArr<NormInput> InputRemember = new HeadInRoundArr<NormInput>(10);
     private void Start()

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class BaseAction {
     SkillInfo _SkillInfo;
     protected Propty _ActorPropty;
@@ -10,7 +9,6 @@ public class BaseAction {
     public BaseAction(BaseActorObj baseActorObj, SkillInfo skillInfo)
     {
         /*
-        _SkillEffect = SkillManager.GenEffect();
         CostVIT();*/
         _SkillInfo = skillInfo;
         _ActionCtrl = baseActorObj.ActionCtrl;
@@ -72,23 +70,8 @@ public class BaseAction {
     #endregion
 
     int _ID;
-    protected SkillEffect _SkillEffect;
     protected float _CutTimeClock;
-    public float CutTime
-    {
-        get
-        {
-            return _SkillEffect.CutTime;
-        }
-    }
 
-    protected virtual float HitBackValue
-    {
-        get
-        {
-            return _SkillEffect.HitBackValue;
-        }
-    }
 
     public virtual Vector2 ClickFly
     {
@@ -166,21 +149,6 @@ public class BaseAction {
             return ReturnVect;
         }
     }
-    public virtual SkillEnum SkillType
-    {
-        get
-        {
-            return SkillEnum.Default;
-        }
-    }
-    public virtual HurtTypeEnum HurtType
-    {
-        get
-        {
-            return HurtTypeEnum.Normal;
-        }
-    }
-   
     
     //攻击状态抉择
     public virtual void JugeStateActive()
@@ -254,10 +222,8 @@ public class BaseAction {
                 _AttackDict.Add(TargetActor, 1);
                 Vector3 effectPs = CountHurtPs(_ActorObj.SkillHurtBox, TargetCollider);
                 GenEffect(effectPs);
-                //SkillEffect(TargetActor);
                 SetCutMeet(TargetActor);
                 //产生伤害
-                //MakeHurt(TargetActor);
                 HitEffect hitEffect = new HitEffect();
                 hitEffect.HardValue = _SkillInfo.CutMeet;
                 hitEffect.HitType = _SkillInfo.HitType;
@@ -306,24 +272,7 @@ public class BaseAction {
         */
         return EffectPS;
     }
-    public virtual void MakeHurt(BaseActor TargetActor)
-    {
-        float Damage = SkillManager.GetAttPercent(this.ToString()) / 100;// * _ActorObj.ActorPropty.Attack;
-        float CrtPercent = SkillManager.GetCritPercent(this.ToString()) / 1000;
-        float RandResult = Random.Range(0, 1f);
-        //算暴击伤害
-        if (RandResult < CrtPercent)
-        {
-            Damage = Damage * 2;
-        }
-        HitEffect effect = new HitEffect();
-
-        effect.HardValue = _SkillInfo.CutMeet;
-        //effect.MoveVector = _SkillInfo.;
-        
-
-        TargetActor.Hurt((int)Damage);
-    }
+   
     //设置卡肉状态
     public virtual void SetCutMeet( BaseActorObj TargetActor )
     {
@@ -347,57 +296,7 @@ public class BaseAction {
         _ActorObj.SkillHurtBox.OverlapCollider(ContactFilter, ColliderList);
         return ColliderList;
     }
-
-    public virtual void SkillEffect(BaseActor TargetActor)
-    {
-        Vector2 ImpactDir = TargetActor.FootTransCtrl.position - _ActorObj.FootTransCtrl.position;
-        ImpactDir.y = 0;
-        if (Mathf.Abs(ImpactDir.x) < _ActorObj.BodyCollider.bounds.size.x / 2)
-        {
-            ImpactDir = Direction;
-        }
-
-        ImpactDir = ImpactDir.normalized;
-        Vector2 FaceToVect = ImpactDir;
-        FaceToVect.x = FaceToVect.x * -1;
-        TargetActor.FaceForce(FaceToVect);
-        TargetActor.HitMoveDir = ImpactDir;
-
-        AttackEffect(TargetActor);
-        ReleaseEffect(TargetActor);
-    }
-
-    //攻击效果
-    public virtual void AttackEffect(BaseActor TargetActor)
-    {
-        CutEffect Cut = new CutEffect();
-        Cut.RangeTime = RangeTime;
-        Cut.SpeedRate = SpeedRate;
-        TargetActor.HitBack(Cut, ClickFly);
-    }
-    //释放特效
-    public virtual void ReleaseEffect(BaseActor TargetActor)
-    {
-        Vector3 Offset = Vector3.zero;
-        //Offset.x = _ActorObj.SkillHurtBox.offset.x;
-        //Offset.y = _ActorObj.SkillHurtBox.offset.y;
-        // Vector3 EffectPS = _ActorObj.SkillHurtBox.transform.position + Offset;
-        Offset = Vector3.zero;
-        Offset.x = TargetActor.ColliderCtrl.offset.x;
-        Offset.y = TargetActor.ColliderCtrl.offset.y;
-        //EffectPS = TargetActor.ColliderCtrl.transform.position + Offset + EffectPS;
-        // EffectPS = EffectPS * 0.5f;
-        GameObject Effect = EffectManager.Manager.GenEffect("Hit");
-        // Effect.transform.position = EffectPS;
-        //随机旋转角度
-        Effect.transform.rotation *= Quaternion.Euler(0, 0, Random.Range(0, 180));
-
-        GameObject Blood = EffectManager.Manager.GenEffect("Blood");
-        Blood.transform.position = Effect.transform.position;
-        Vector3 OldScale = Blood.transform.localScale;
-        OldScale.x = _ActorObj.transform.localScale.x * OldScale.x < 0 ? OldScale.x : OldScale.x * -1;
-        Blood.transform.localScale = OldScale;
-    }
+    
     #endregion
 
     #region 向量输入

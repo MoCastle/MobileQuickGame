@@ -105,9 +105,6 @@ public class SkillManager {
         return _SkillInfoList[id];
     }
 
-
-    public static SkillObj Obj;
-    
 	// Use this for initialization
     //获取伤害百分比
 	public static float GetAttPercent(string Name)
@@ -118,28 +115,5 @@ public class SkillManager {
     public static float GetCritPercent(string Name)
     {
         return SkillInfoReader.Cfg.GetVioPerByKey(Name);
-    }
-
-    public static SkillEffect GenEffect()
-    {
-        SkillEffect newEffect = new SkillEffect();
-        //击退值
-        newEffect.HitBackValue = 1;
-        //攻击效果类型
-        newEffect.HitType = HitTypeEnum.None;
-        //伤害值
-        newEffect.Damage = 0;
-        //效果方向
-        newEffect.Dir = Vector2.zero;
-        //卡肉时间
-        newEffect.CutTime = 0;
-        return newEffect;
-    }
-
-    public static void AttackActor( BaseActor attacker, BaseActor beAttacked,SkillEffect skillEffect )
-    {
-        //伤害计算
-        //效果施加
-        
     }
 }

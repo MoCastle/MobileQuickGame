@@ -30,6 +30,7 @@ public class DashAction : PlayerAction {
     {
         RotateToDirection(base.MoveDir);
         base.CompleteFunc();
+        _ActorObj.ReOpenPlatFoot();
     }
 
     protected override void Move()

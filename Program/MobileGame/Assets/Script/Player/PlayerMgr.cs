@@ -75,7 +75,9 @@ public class PlayerMgr {
     //获取场景
     public SceneData GetSceneData(string sceneName)
     {
-        return GameMemory.SceneData[sceneName];
+        SceneData returnData;
+        GameMemory.SceneData.TryGetValue(sceneName,out returnData);
+        return returnData;
     }
     public void SetSceneData( SceneData data )
     {

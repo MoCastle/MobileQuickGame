@@ -61,7 +61,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         }
         set
         {
-            Character = value;
+            _Character = value;
             _ActorPropty = Character.Propty;
         }
     }

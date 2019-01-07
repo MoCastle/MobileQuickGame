@@ -68,6 +68,7 @@ public class BattleDir : BaseDir
             CameraObj cameraObj= MainCamera.GetComponent<CameraObj>();
             cameraObj.TraceTarget = PlayerActor.transform.FindChild("CameraPoint");
         }
+        LoadSceneData();
     }
 
     //读档
@@ -95,7 +96,7 @@ public class BattleDir : BaseDir
                     ActorList.AddFirst(newActor);
                 }
             }
-        }else
+        }else if(NPCCollision!=null)
         {
             foreach( Transform NPC in NPCCollision )
             {
@@ -170,7 +171,20 @@ public class BattleDir : BaseDir
             string SceneName = SceneManager.GetActiveScene().name;
             _PlayerMgr.CurSceneName = SceneName;
             _PlayerMgr.CurLocation = PlayerActor.transform.position;
-            
+            SceneData saveData = new SceneData();
+            saveData.SceneName = SceneName;
+            if (NPCList.Count>0)
+            {
+                BaseCharacter[] chractsData = new BaseCharacter[NPCList.Count];
+                int idx = 0;
+                foreach ( EnemyObj Obj in NPCList )
+                {
+                    chractsData[idx] = Obj.Character;
+                    ++idx;
+                }
+                saveData.EnemyArr = chractsData;
+            }
+            PlayerMgr.Mgr.GameMemory.SceneData[SceneName] = saveData;
         }
         base.Leave();
 

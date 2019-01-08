@@ -81,19 +81,21 @@ public class BattleDir : BaseDir
         {
             if (NPCCollision != null)
                 NPCCollision.gameObject.active = false;
-            foreach( BaseCharacter character in data.EnemyArr )
+            foreach( CharacterData character in data.EnemyArr )
             {
-                BaseActorObj newActor = ActorManager.Mgr.GenActor(character.Propty.ActorInfo.Name);
                 if (!character.Propty.IsDeath)
                 {
-                    if(newActor == null)
+                    BaseActorObj newActor = ActorManager.Mgr.GenActor(character.Propty.ActorInfo.Name);
+
+                    if (newActor == null)
                     {
                         Debug.Log("error:BattleDir.LoadSceneData Cant BuildActor");
                         continue;
                     }
                     NPCList.AddLast(newActor as EnemyObj);
-                    newActor.Character = character;
+                    newActor.ActorPropty = character.Propty;
                     ActorList.AddFirst(newActor);
+                    newActor.transform.position = character.Position;
                 }
             }
         }else if(NPCCollision!=null)
@@ -116,12 +118,13 @@ public class BattleDir : BaseDir
             data.SceneName = sceneName;
             if(NPCList!=null)
             {
-                data.EnemyArr = new BaseCharacter[NPCList.Count];
+                data.EnemyArr = new CharacterData[NPCList.Count];
                 LinkedListNode<EnemyObj> actorNode = null;
                 for(int idx = 0;idx<NPCList.Count;++idx)
                 {
                     actorNode = idx == 0 ? NPCList.First : actorNode.Next;
-                    data.EnemyArr[idx] = actorNode.Value.Character;
+                    data.EnemyArr[idx].Propty = actorNode.Value.Character.Propty;
+                    data.EnemyArr[idx].Position = actorNode.Value.transform.position;
                 }
             }
             PlayerMgr.Mgr.SetSceneData(data);
@@ -166,7 +169,9 @@ public class BattleDir : BaseDir
     }
     public override void Leave()
     {
-        if(IfSaveData)
+        SaveSceneData();
+        /*
+        if (IfSaveData)
         {
             string SceneName = SceneManager.GetActiveScene().name;
             _PlayerMgr.CurSceneName = SceneName;
@@ -175,17 +180,18 @@ public class BattleDir : BaseDir
             saveData.SceneName = SceneName;
             if (NPCList.Count>0)
             {
-                BaseCharacter[] chractsData = new BaseCharacter[NPCList.Count];
+                CharacterData[] chractsData = new CharacterData[NPCList.Count];
                 int idx = 0;
                 foreach ( EnemyObj Obj in NPCList )
                 {
-                    chractsData[idx] = Obj.Character;
+                    chractsData[idx].Propty = Obj.Character.Propty;
+                    chractsData[idx].Position = Obj.transform.position;
                     ++idx;
                 }
                 saveData.EnemyArr = chractsData;
             }
             PlayerMgr.Mgr.GameMemory.SceneData[SceneName] = saveData;
-        }
+        }*/
         base.Leave();
 
     }

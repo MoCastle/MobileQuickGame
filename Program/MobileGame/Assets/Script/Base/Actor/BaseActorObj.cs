@@ -47,22 +47,18 @@ public abstract class BaseActorObj : MonoBehaviour {
     {
         get
         {
-            if(_Character==null)
+
+            if (_Character==null)
             {
                 _Character = new BaseCharacter(this);
-                _Character.Propty = this._ActorPropty;
+                _Character.Propty = this.ActorPropty;
             }
-            if(_Character.Propty.ActorInfo.Name == "")
-            {
-                _Character.Propty.ActorInfo.Name = gameObject.name;
-            }
-
             return _Character;
         }
         set
         {
             _Character = value;
-            _ActorPropty = Character.Propty;
+            ActorPropty = Character.Propty;
         }
     }
 
@@ -73,6 +69,10 @@ public abstract class BaseActorObj : MonoBehaviour {
     {
         get
         {
+            if(_ActorPropty.ActorInfo.Name =="")
+            {
+                _ActorPropty.ActorInfo.Name = gameObject.name;
+            }
             return _ActorPropty;
         }
         set
@@ -322,7 +322,7 @@ public abstract class BaseActorObj : MonoBehaviour {
     //扣血相关
     void Hurt( float Damage )
     {
-        ActorPropty.ModLifeValue(Damage*-1);
+        _ActorPropty.ModLifeValue(Damage*-1);
     }
     #region
     
@@ -372,7 +372,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         faceDir.y = 0;
         FaceToDir(faceDir);
         Hurt(Damage);
-        if(ActorPropty.IsDeath)
+        if(_ActorPropty.IsDeath)
         {
             _ActionCtrler.SetTriiger("Death");
             Character.OnDeath();

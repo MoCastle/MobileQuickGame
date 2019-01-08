@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public struct SceneData
 {
     //场景名字
     public string SceneName;
-    public BaseCharacter[] EnemyArr;
+    public CharacterData[] EnemyArr;
 }
 
 public struct SaveData

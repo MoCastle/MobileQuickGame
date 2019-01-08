@@ -2,6 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public struct CharacterData
+{
+    public Propty Propty;
+    public Vector3 Position;
+}
 
 public class BaseCharacter {
     #region 属性以及对外接口

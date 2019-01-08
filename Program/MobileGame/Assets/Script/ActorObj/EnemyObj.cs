@@ -92,7 +92,7 @@ public class EnemyObj : BaseActorObj
         {
             _AICtrler.Update();
         }
-        LifeSlider.value = ActorPropty.PercentLife;
+        LifeSlider.value = _ActorPropty.PercentLife;
     }
 
     void ClearAnimParams()

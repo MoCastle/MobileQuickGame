@@ -50,13 +50,8 @@ public class MainWindow : MonoBehaviour {
     }
     private void Update()
     {
-        if( PlayerPropty!= null )
-        {
-            PlayerHP.value = PlayerPropty.PercentLife;
-            PlayerVIT.value = PlayerPropty.PercentVIT;
-            PrintDebugInfo();
-        }
-        
+        PlayerHP.value = PlayerPropty.PercentLife;
+        PrintDebugInfo();
     }
 
     private void PrintDebugInfo()

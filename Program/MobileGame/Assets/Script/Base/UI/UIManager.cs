@@ -26,7 +26,7 @@ public class UIManager {
     #region 内部功能
     void ClearUIQue(Transform uiQue)
     {
-        for( int StartIdx = uiQue.childCount-1; StartIdx>0;--StartIdx )
+        for( int StartIdx = uiQue.childCount-1; StartIdx>=0;--StartIdx )
         {
             BaseUI ui = uiQue.GetChild(StartIdx).GetComponent<BaseUI>();
             ui.Close();
@@ -132,7 +132,7 @@ public class UIManager {
                 break;
             case UIType.Normal:
                 uiGameObj.transform.SetParent(_NormQue, false);
-                _BG.gameObject.active = true;
+                //_BG.gameObject.active = true;
                 break;
         }
         

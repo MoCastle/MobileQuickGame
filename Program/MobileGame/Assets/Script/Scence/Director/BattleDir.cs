@@ -52,6 +52,7 @@ public class BattleDir : BaseDir
     {
         base.EnterScene();
         _UIMgr.ShowUI("ScrollArea");
+        _UIMgr.ShowUI("MainWindow");
         BattleSceneInfo info = BattleMgr.Mgr.CurSceneInfo;
         if(PlayerActor== null)
             GenPlayer(info.PS);

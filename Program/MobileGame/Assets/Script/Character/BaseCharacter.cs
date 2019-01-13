@@ -2,10 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[Serializable]
 public struct CharacterData
 {
     public Propty Propty;
     public Vector3 Position;
+    public Vector3 Scale;
+
+    public void WriteCharacter( BaseCharacter character )
+    {
+        Propty = character.Propty;
+        Position = character.Actor.transform.position;
+        Scale = character.Actor.transform.localScale;
+    }
+    public void SetCharacter( BaseCharacter character )
+    {
+        character.Actor.transform.position = Position;
+        character.Actor.transform.localScale = Scale;
+        character.Propty = Propty;
+    }
 }
 
 public class BaseCharacter {

@@ -87,12 +87,6 @@ public class BattleDir : BaseDir
                 if (!character.Propty.IsDeath)
                 {
                     BaseActorObj newActor = ActorManager.Mgr.GenActor(character.Propty.ActorInfo.Name);
-
-                    if (newActor == null)
-                    {
-                        Debug.Log("error:BattleDir.LoadSceneData Cant BuildActor");
-                        continue;
-                    }
                     NPCList.AddLast(newActor as EnemyObj);
                     newActor.ActorPropty = character.Propty;
                     ActorList.AddFirst(newActor);
@@ -171,28 +165,6 @@ public class BattleDir : BaseDir
     public override void Leave()
     {
         SaveSceneData();
-        /*
-        if (IfSaveData)
-        {
-            string SceneName = SceneManager.GetActiveScene().name;
-            _PlayerMgr.CurSceneName = SceneName;
-            _PlayerMgr.CurLocation = PlayerActor.transform.position;
-            SceneData saveData = new SceneData();
-            saveData.SceneName = SceneName;
-            if (NPCList.Count>0)
-            {
-                CharacterData[] chractsData = new CharacterData[NPCList.Count];
-                int idx = 0;
-                foreach ( EnemyObj Obj in NPCList )
-                {
-                    chractsData[idx].Propty = Obj.Character.Propty;
-                    chractsData[idx].Position = Obj.transform.position;
-                    ++idx;
-                }
-                saveData.EnemyArr = chractsData;
-            }
-            PlayerMgr.Mgr.GameMemory.SceneData[SceneName] = saveData;
-        }*/
         base.Leave();
 
     }

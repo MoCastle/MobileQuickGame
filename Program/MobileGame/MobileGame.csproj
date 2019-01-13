@@ -93,6 +93,7 @@
     <Compile Include="Assets\PoolManagerExampleFiles\Scripts\ReallySimpleAudioSpawner.cs" />
     <Compile Include="Assets\PoolManagerExampleFiles\Scripts\ReallySimpleParticleSpawner.cs" />
     <Compile Include="Assets\PoolManagerExampleFiles\Scripts\SimpleSpawner.cs" />
+    <Compile Include="Assets\RoadMgr.cs" />
     <Compile Include="Assets\Scence\TestScript.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\AxeAICtrler.cs" />
     <Compile Include="Assets\Script\AI\AICtrler\BaseAICtrler.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Assets\Script\Animator\CharactorAnimator.cs" />
     <Compile Include="Assets\Script\Animator\EnemyAnim\EnemyAnimAdaptor.cs" />
     <Compile Include="Assets\Script\Animator\NPCCharactorAnimator.cs" />
+    <Compile Include="Assets\Script\Base\APP.cs" />
     <Compile Include="Assets\Script\Base\Action\ActionCtrler.cs" />
     <Compile Include="Assets\Script\Base\Action\BaseAction.cs" />
     <Compile Include="Assets\Script\Base\Actor\ActorManager.cs" />
@@ -141,6 +143,15 @@
     <Compile Include="Assets\Script\Base\Debug\DebugShow.cs" />
     <Compile Include="Assets\Script\Base\Debug\LogMgr.cs" />
     <Compile Include="Assets\Script\Base\Effect\Effect.cs" />
+    <Compile Include="Assets\Script\Base\File\Cfg\BaseCfgReader.cs" />
+    <Compile Include="Assets\Script\Base\File\Cfg\CfgBase.cs" />
+    <Compile Include="Assets\Script\Base\File\Cfg\CfgMgr.cs" />
+    <Compile Include="Assets\Script\Base\File\Cfg\CfgReader.cs" />
+    <Compile Include="Assets\Script\Base\File\Cfg\NpcProptyReader.cs" />
+    <Compile Include="Assets\Script\Base\File\Cfg\SkillMgr.cs" />
+    <Compile Include="Assets\Script\Base\File\JSon\JSLoader.cs" />
+    <Compile Include="Assets\Script\Base\File\JSon\LoadText.cs" />
+    <Compile Include="Assets\Script\Base\File\PathManager.cs" />
     <Compile Include="Assets\Script\Base\GameControl\EffectManager.cs" />
     <Compile Include="Assets\Script\Base\GameControl\GameCtrl.cs" />
     <Compile Include="Assets\Script\Base\GameControl\GameDriver.cs" />
@@ -153,6 +164,7 @@
     <Compile Include="Assets\Script\Base\Scene\BaseDir.cs" />
     <Compile Include="Assets\Script\Base\Scene\BaseScene.cs" />
     <Compile Include="Assets\Script\Base\Scene\SceneMgr.cs" />
+    <Compile Include="Assets\Script\Base\SlzDictionary.cs" />
     <Compile Include="Assets\Script\Base\Test\Test.cs" />
     <Compile Include="Assets\Script\Base\UI\BaseUI.cs" />
     <Compile Include="Assets\Script\Base\UI\UIManager.cs" />
@@ -163,6 +175,7 @@
     <Compile Include="Assets\Script\Cfg\SkillInfoReader.cs" />
     <Compile Include="Assets\Script\Character\BaseCharacter.cs" />
     <Compile Include="Assets\Script\EnumLabelAttribute.cs" />
+    <Compile Include="Assets\Script\File\SceneDataManager.cs" />
     <Compile Include="Assets\Script\Player\PlayerMgr.cs" />
     <Compile Include="Assets\Script\ResourceCtrl\LoadEffect.cs" />
     <Compile Include="Assets\Script\Scence\CenceMgr.cs" />
@@ -175,16 +188,10 @@
     <Compile Include="Assets\Script\Scence\Scene\SceneDoor.cs" />
     <Compile Include="Assets\Script\Scence\StartGame.cs" />
     <Compile Include="Assets\Script\SkillSgtate\SkillManager.cs" />
-    <Compile Include="Assets\Script\Test\TestSpeed.cs" />
+    <Compile Include="Assets\Script\Test\TestLoadJS.cs" />
     <Compile Include="Assets\Script\TestScence\TestCamera.cs" />
     <Compile Include="Assets\Script\TestScence\TestUI.cs" />
     <Compile Include="Assets\Script\TitleAttribute.cs" />
-    <Compile Include="Assets\Script\Tool\Cfg\BaseCfgReader.cs" />
-    <Compile Include="Assets\Script\Tool\Cfg\CfgBase.cs" />
-    <Compile Include="Assets\Script\Tool\Cfg\CfgMgr.cs" />
-    <Compile Include="Assets\Script\Tool\Cfg\CfgReader.cs" />
-    <Compile Include="Assets\Script\Tool\Cfg\NpcProptyReader.cs" />
-    <Compile Include="Assets\Script\Tool\Cfg\SkillMgr.cs" />
     <Compile Include="Assets\Script\Tool\RoundArr.cs" />
     <Compile Include="Assets\Script\Tool\UsuallyInfoMgr.cs" />
     <Compile Include="Assets\Script\UI\DeathUI.cs" />
@@ -203,6 +210,7 @@
     <None Include="Assets\Resources\Cfg\ActorModelInfo.txt" />
     <None Include="Assets\Resources\Cfg\SkillInfo.txt" />
     <None Include="Assets\Resources\Cfg\UsualInfo.txt" />
+    <None Include="Assets\StreamingAssets\JSon\SceneData.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

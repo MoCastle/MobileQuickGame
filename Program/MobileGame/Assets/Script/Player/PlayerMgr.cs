@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct SceneData
-{
-    //场景名字
-    public string SceneName;
-    public CharacterData[] EnemyArr;
-}
+
 
 public struct SaveData
 {

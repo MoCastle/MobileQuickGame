@@ -68,13 +68,18 @@ public class PlayerMgr {
             GameMemory.PS = value;
         }
     }
+
     //获取场景
     public SceneData GetSceneData(string sceneName)
     {
         SceneData returnData;
-        GameMemory.SceneData.TryGetValue(sceneName,out returnData);
+        if(! GameMemory.SceneData.TryGetValue(sceneName,out returnData))
+        {
+            returnData = APP.SceneDataManager.GetSceneData(sceneName);
+        }
         return returnData;
     }
+
     public void SetSceneData( SceneData data )
     {
         GameMemory.SceneData[data.SceneName] = data;

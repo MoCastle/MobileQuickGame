@@ -8,8 +8,8 @@ using UnityEngine;
 public struct DoorData
 {
     public Vector3 Position;
-    string SceneName;
-    int Idx;
+    public string SceneName;
+    public int Idx;
     public void SetData(SceneDoor door)
     {
         door.transform.position = Position;
@@ -46,23 +46,11 @@ public class SceneDataManager {
             return _Mgr;
         }
     }
-    //该功能只能在编辑模式下执行
-    public void Save()
+    public SceneData GetSceneData( string sceneName)
     {
-        string saveInfo = JsonUtility.ToJson(_SceneData);
-        File.WriteAllText(PathManager.SceneData, saveInfo, Encoding.UTF8);
-    }
-    public SceneData Load(string name)
-    {
-        SceneData newData = new SceneData();
-        newData.SceneName = name;
-        _SceneData.TryGetValue(name,out newData);
-        return newData;
-    }
-
-    public void SetSceneData( SceneData data )
-    {
-        this._SceneData[data.SceneName] = data;
+        SceneData returnData;
+        _SceneData.TryGetValue(sceneName, out returnData);
+        return returnData;
     }
     
     SceneDataManager()
@@ -75,12 +63,8 @@ public class SceneDataManager {
     {
         byte[] bytes = LoaderFile.LoadBytes(PathManager.SceneData, Application.platform == RuntimePlatform.Android);
         string jsStr = Encoding.UTF8.GetString(bytes);
-        try
-        {
-            _SceneData = JsonUtility.FromJson<Dictionary<string,SceneData>>(jsStr);
-        }
-        catch
-        { }
+        SlzDictionary<string, SceneData> slzDictionary = JsonUtility.FromJson<SlzDictionary<string, SceneData>>(jsStr);
+        _SceneData = slzDictionary.ToDictionary();
     }
 
     

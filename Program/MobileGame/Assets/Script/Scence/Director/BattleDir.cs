@@ -12,16 +12,16 @@ public class BattleDir : BaseDir
     [Title("该关卡是否需要存档", "black")]
     public bool IfSaveData = true;
     SceneDoor[] _Doors;
-    Transform _NPCCollision;
-    Transform NPCCollision
+    Transform _DoorCollision;
+    Transform DoorCollision
     {
         get
         {
-            if(_NPCCollision==null)
+            if(_DoorCollision == null)
             {
-                _NPCCollision = transform.FindChild("NPCCollision");
+                _DoorCollision = (new GameObject("DoorCollision")).transform;
             }
-            return _NPCCollision;
+            return _DoorCollision;
         }
     }
     LinkedList<EnemyObj> NPCList; 
@@ -30,15 +30,7 @@ public class BattleDir : BaseDir
     {
         get
         {
-            Transform doors = transform.FindChild("Doors");
-            if (doors != null)
-            {
-                _Doors = new SceneDoor[doors.transform.childCount];
-                for (int doorIdx = 0; doorIdx < doors.transform.childCount; ++doorIdx)
-                {
-                    _Doors[doorIdx] = doors.GetChild(doorIdx).GetComponent<SceneDoor>();
-                }
-            }else
+            if (_Doors == null)
             {
                 _Doors = new SceneDoor[0];
             }
@@ -50,6 +42,7 @@ public class BattleDir : BaseDir
     //进入
     public override void EnterScene()
     {
+        LoadSceneData();
         base.EnterScene();
         _UIMgr.ShowUI("ScrollArea");
         _UIMgr.ShowUI("MainWindow");
@@ -69,20 +62,17 @@ public class BattleDir : BaseDir
             CameraObj cameraObj= MainCamera.GetComponent<CameraObj>();
             cameraObj.TraceTarget = PlayerActor.transform.FindChild("CameraPoint");
         }
-        LoadSceneData();
     }
 
     //读档
     protected void LoadSceneData()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-        SceneData data = PlayerMgr.Mgr.GetSceneData(sceneName);
+        SceneData sceneData = PlayerMgr.Mgr.GetSceneData(sceneName);
         NPCList = new LinkedList<EnemyObj>();
-        if (data.EnemyArr!=null)
+        if (sceneData.EnemyArr!=null)
         {
-            if (NPCCollision != null)
-                NPCCollision.gameObject.active = false;
-            foreach( CharacterData character in data.EnemyArr )
+            foreach( CharacterData character in sceneData.EnemyArr )
             {
                 if (!character.Propty.IsDeath)
                 {
@@ -93,12 +83,19 @@ public class BattleDir : BaseDir
                     newActor.transform.position = character.Position;
                 }
             }
-        }else if(NPCCollision!=null)
+        }
+        if(sceneData.DoorArr!=null)
         {
-            foreach( Transform NPC in NPCCollision )
+            _Doors = new SceneDoor[sceneData.DoorArr.Length];
+            for(int doorIdx =0;doorIdx< sceneData.DoorArr.Length;++doorIdx)
             {
-                EnemyObj actor = NPC.GetComponent<EnemyObj>();
-                NPCList.AddFirst(actor);
+                DoorData doorData = sceneData.DoorArr[doorIdx];
+                GameObject loadObj = Resources.Load<GameObject>("Prefab\\Scene\\Door");
+                GameObject instntiateObj = GameObject.Instantiate(loadObj);
+                SceneDoor door = instntiateObj.GetComponent<SceneDoor>();
+                _Doors[doorIdx] = door;
+                doorData.SetData(door);
+                door.transform.SetParent(DoorCollision.transform);
             }
         }
     }
@@ -109,20 +106,27 @@ public class BattleDir : BaseDir
         if(IfSaveData)
         {
             string sceneName = SceneManager.GetActiveScene().name;
-            SceneData data = PlayerMgr.Mgr.GetSceneData(sceneName);
-            data.SceneName = sceneName;
+            SceneData sceneData = PlayerMgr.Mgr.GetSceneData(sceneName);
+            sceneData.SceneName = sceneName;
             if(NPCList!=null)
             {
-                data.EnemyArr = new CharacterData[NPCList.Count];
+                sceneData.EnemyArr = new CharacterData[NPCList.Count];
                 LinkedListNode<EnemyObj> actorNode = null;
                 for(int idx = 0;idx<NPCList.Count;++idx)
                 {
                     actorNode = idx == 0 ? NPCList.First : actorNode.Next;
-                    data.EnemyArr[idx].Propty = actorNode.Value.Character.Propty;
-                    data.EnemyArr[idx].Position = actorNode.Value.transform.position;
+                    sceneData.EnemyArr[idx].Propty = actorNode.Value.Character.Propty;
+                    sceneData.EnemyArr[idx].Position = actorNode.Value.transform.position;
                 }
             }
-            PlayerMgr.Mgr.SetSceneData(data);
+            sceneData.DoorArr = new DoorData[DoorCollision.transform.childCount];
+            for (int idx = 0; idx < DoorCollision.transform.childCount; ++idx)
+            {
+                Transform doorTrans = DoorCollision.transform.GetChild(idx);
+                SceneDoor door = doorTrans.GetComponent<SceneDoor>();
+                sceneData.DoorArr[idx].WriteData(door);
+            }
+            PlayerMgr.Mgr.SetSceneData(sceneData);
         }
     }
 

@@ -50,6 +50,7 @@ public class SceneEditMgr {
                 {
                     GameObject loadObj = Resources.Load<GameObject>("Prefab\\Character\\" + characterData.Propty.ActorInfo.Name);
                     GameObject instntiateObj = GameObject.Instantiate(loadObj);
+                    instntiateObj.name = characterData.Propty.ActorInfo.Name;
                     BaseActorObj newActor = instntiateObj.GetComponent<BaseActorObj>();
                     characterData.SetCharacter(newActor.Character);
                     newActor.transform.SetParent(_NPCListOBJ.transform);

@@ -14,7 +14,4 @@ public class MainMenueDir : BaseDir
         base.Awake();
         _SceneMgr.EnterScene(new BaseScene(this));
     }
-    public override void Leave()
-    {
-    }
 }

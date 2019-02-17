@@ -1,8 +1,11 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseActorObj : MonoBehaviour {
+    
+
     #region 玩家角色信息提取接口 以后可能会挪到非对象脚本里
 
     public HitEffect BeHitEffect;
@@ -279,10 +282,6 @@ public abstract class BaseActorObj : MonoBehaviour {
 
     }
 
-    public virtual void Death()
-    {
-        _ActionCtrler.SetTriiger("Death");
-    }
     #endregion
     // Use this for initialization
 
@@ -470,6 +469,15 @@ public abstract class BaseActorObj : MonoBehaviour {
     public virtual void BeBreak()
     {
 
+    }
+    //离开完成 执行离开事件
+    public virtual void LeaveComplete()
+    {
+
+    }
+    public void Leave()
+    {
+        
     }
     #endregion
 }

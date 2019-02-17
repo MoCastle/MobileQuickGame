@@ -24,8 +24,9 @@ public class BattleDir : BaseDir
             return _DoorCollision;
         }
     }
-    LinkedList<EnemyObj> NPCList; 
-    
+    LinkedList<EnemyObj> NPCList;
+    //装内存池取出来的角色
+    protected LinkedList<BaseActorObj> ActorList;
     public SceneDoor[] Doors
     {
         get
@@ -39,30 +40,6 @@ public class BattleDir : BaseDir
     }
 
     public PlayerObj PlayerActor;
-    //进入
-    public override void EnterScene()
-    {
-        LoadSceneData();
-        base.EnterScene();
-        _UIMgr.ShowUI("ScrollArea");
-        _UIMgr.ShowUI("MainWindow");
-        BattleSceneInfo info = BattleMgr.Mgr.CurSceneInfo;
-        if(PlayerActor== null)
-            GenPlayer(info.PS);
-        if (PlayerActor != null && Doors.Length > 0 && info.Idx >= 0 && Doors[info.Idx] != null)
-            Doors[info.Idx].GenPlayer(PlayerActor.transform);
-
-        if (MainCamera == null&&PlayerActor!=null)
-        {
-            MainCamera = Camera.main;
-            if(MainCamera == null)
-            {
-                MainCamera = Resources.Load("Prefab\\Camera\\Main Camera") as Camera;
-            }
-            CameraObj cameraObj= MainCamera.GetComponent<CameraObj>();
-            cameraObj.TraceTarget = PlayerActor.transform.FindChild("CameraPoint");
-        }
-    }
 
     //读档
     protected void LoadSceneData()
@@ -136,12 +113,12 @@ public class BattleDir : BaseDir
         BaseActorObj player = ActorManager.Mgr.GenActor("Player");
         PlayerActor = player as PlayerObj;
         PlayerActor.transform.position = BirthPS;
-        SynChracterInfo();
+        SynCharacterInfo();
         ActorList.AddFirst(player);
     }
 
     //同步玩家数据
-    protected virtual void SynChracterInfo()
+    protected virtual void SynCharacterInfo()
     {
         BaseCharacter playerCharacter = PlayerMgr.Mgr.PlayerCharactor;
         if (playerCharacter != null)
@@ -159,17 +136,71 @@ public class BattleDir : BaseDir
     {
         PlayerActor.Birth();
     }
+    #region 生命周期
     protected override void Awake()
     {
         _PlayerMgr = PlayerMgr.Mgr;
         base.Awake();
+        ActorList = new LinkedList<BaseActorObj>();
+
         _SceneMgr.EnterScene(new BattleScene(this));
-
     }
-    public override void Leave()
+    protected override void StartPrepare()
     {
+        LoadSceneData();
+        BattleSceneInfo info = BattleMgr.Mgr.CurSceneInfo;
+        if (PlayerActor == null)
+            GenPlayer(info.PS);
+        if (PlayerActor != null && Doors.Length > 0 && info.Idx >= 0 && Doors[info.Idx] != null)
+            Doors[info.Idx].GenPlayer(PlayerActor.transform);
+
+        if (MainCamera == null && PlayerActor != null)
+        {
+            MainCamera = Camera.main;
+            if (MainCamera == null)
+            {
+                MainCamera = Resources.Load("Prefab\\Camera\\Main Camera") as Camera;
+            }
+            CameraObj cameraObj = MainCamera.GetComponent<CameraObj>();
+            cameraObj.TraceTarget = PlayerActor.transform.FindChild("CameraPoint");
+        }
+        base.StartPrepare();
+    }
+    protected override void StartComplete()
+    {
+        base.StartComplete();
+        _UIMgr.ShowUI("ScrollArea");
+        _UIMgr.ShowUI("MainWindow");
+        
+    }
+    public override bool IsLeaved
+    {
+        get
+        {
+            return this.PlayerActor == null && this.ActorList.Count <= 0;
+        }
+    }
+    public void Leave()
+    {
+        this.PlayerActor.Leave();
         SaveSceneData();
-        base.Leave();
+        while (ActorList.Count > 0)
+        {
+            BaseActorObj Actor = ActorList.First.Value;
+            ActorList.RemoveFirst();
+            GamePoolManager.Manager.Despawn(Actor.transform);
+            base.Leave();
+        }
+    }
+    #endregion
+
+
+    //角色退场
+    public void CharacterLeave(BaseActorObj baseActorObj)
+    {
+        ActorList.Remove(baseActorObj);
+        GamePoolManager.Manager.Despawn(baseActorObj.transform);
 
     }
+
 }

@@ -1,9 +1,10 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerObj : BaseActorObj {
-    
+
 
     protected override void LogicAwake()
     {

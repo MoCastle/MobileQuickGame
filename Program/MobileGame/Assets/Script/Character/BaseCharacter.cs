@@ -24,6 +24,14 @@ public struct CharacterData
 }
 
 public class BaseCharacter {
+    #region 注册事件
+    Dictionary<string, Action> _Event;
+    public void RegistDeath(string name, Action action)
+    {
+        _Event[name] += action;
+    }
+    #endregion
+
     #region 属性以及对外接口
     //public Event 
     public event Action DeathEvent;

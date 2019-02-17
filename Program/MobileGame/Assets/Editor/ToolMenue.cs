@@ -14,4 +14,10 @@ public class ToolMenue : MonoBehaviour {
     {
         EditAPP.SceneEditMgr.SaveSceneData();
     }
+    [MenuItem("编辑道具/道具编辑窗")]
+    static void ShowEditWindow()
+    {
+        ItemEditor myWindow = (ItemEditor)EditorWindow.GetWindow(typeof(ItemEditor), false, "", true);//创建窗口
+        myWindow.Show();//展示
+    }
 }

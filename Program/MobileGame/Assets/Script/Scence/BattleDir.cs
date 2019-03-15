@@ -180,9 +180,10 @@ public class BattleDir : BaseDir
             return this.PlayerActor == null && this.ActorList.Count <= 0;
         }
     }
-    public void Leave()
+    public override void Leave()
     {
-        this.PlayerActor.Leave();
+        //this.PlayerActor.Leave();
+        //GamePoolManager.Manager.Despawn(this.PlayerActor.transform);
         SaveSceneData();
         while (ActorList.Count > 0)
         {

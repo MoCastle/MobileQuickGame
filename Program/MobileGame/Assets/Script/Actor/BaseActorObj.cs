@@ -40,7 +40,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         {
             if (_SkillHurtBox == null)
             {
-                _SkillHurtBox = TransCtrl.FindChild("SkillCheck").GetComponent<BoxCollider2D>();
+                _SkillHurtBox = TransCtrl.Find("SkillCheck").GetComponent<BoxCollider2D>();
             }
             return _SkillHurtBox;
         }
@@ -121,7 +121,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         {
             if (!_PlatFoot)
             {
-                _PlatFoot = TransCtrl.FindChild("PlaneFoot").GetComponent<BoxCollider2D>();
+                _PlatFoot = TransCtrl.Find("PlaneFoot").GetComponent<BoxCollider2D>();
             }
             return _PlatFoot;
         }
@@ -134,7 +134,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         {
             if (_FootTransCtrl == null)
             {
-                _FootTransCtrl = TransCtrl.FindChild("FootCheck");
+                _FootTransCtrl = TransCtrl.Find("FootCheck");
             }
             return _FootTransCtrl;
         }

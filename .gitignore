@@ -2,6 +2,7 @@
 *.csproj
 Library/
 Temp/
+LJ_MS/
 Program/MobileGame/Assets/outLog.txt
 Program/MobileGame/.vs
 

@@ -81,10 +81,10 @@ public class UIManager {
         GameObject.DontDestroyOnLoad(uiGameObj);
         _UICanvas = uiGameObj.transform;
 
-        _LowQue = _UICanvas.transform.FindChild("LowUI");
-        _NormQue = _UICanvas.transform.FindChild("NormUI");
+        _LowQue = _UICanvas.transform.Find("LowUI");
+        _NormQue = _UICanvas.transform.Find("NormUI");
 
-        _BG = _UICanvas.FindChild("BG");
+        _BG = _UICanvas.Find("BG");
         _BG.gameObject.SetActive(false);
         if (_NormQue == null)
         {

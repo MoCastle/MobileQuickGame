@@ -162,7 +162,7 @@ public class BattleDir : BaseDir
                 MainCamera = Resources.Load("Prefab\\Camera\\Main Camera") as Camera;
             }
             CameraObj cameraObj = MainCamera.GetComponent<CameraObj>();
-            cameraObj.TraceTarget = PlayerActor.transform.FindChild("CameraPoint");
+            cameraObj.TraceTarget = PlayerActor.transform.Find("CameraPoint");
         }
         base.StartPrepare();
     }

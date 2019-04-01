@@ -15,7 +15,7 @@ public class EnemyObj : BaseActorObj
         {
             if (_LifeSlider == null)
             {
-                _LifeSlider = transform.FindChild("WorldCanvas").FindChild("LifeSlide").GetComponent<Slider>();
+                _LifeSlider = transform.Find("WorldCanvas").Find("LifeSlide").GetComponent<Slider>();
             }
             return _LifeSlider;
         }
@@ -45,7 +45,7 @@ public class EnemyObj : BaseActorObj
         {
             if(_GuardBox == null)
             {
-                _GuardBox = transform.FindChild("GuardingArea").GetComponent<BoxCollider2D>();
+                _GuardBox = transform.Find("GuardingArea").GetComponent<BoxCollider2D>();
             }
            return _GuardBox;
         }

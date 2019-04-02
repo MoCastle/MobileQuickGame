@@ -15,8 +15,8 @@ public class ChargingAction : PlayerAction {
 	public ChargingAction(BaseActorObj actionCtrler, SkillInfo skillInfo):base(actionCtrler,skillInfo) 
     {
         _CountFallingTime = Time.time + _FallingTime;
-        _GravityScale = actionCtrler.PhysicCtrl.Gravity;
-        actionCtrler.PhysicCtrl.Gravity = _FallingGravity;
+        _GravityScale = actionCtrler.Physic.GravityScale;
+        actionCtrler.Physic.GravityScale = _FallingGravity;
     }
 
     // Update is called once per frame
@@ -24,13 +24,13 @@ public class ChargingAction : PlayerAction {
     {
         if (_CountFallingTime != 0 && _CountFallingTime > Time.time)
         {
-            _ActorObj.PhysicCtrl.SetSpeed(0);
+            _ActorObj.Physic.SetSpeed(0);
         }
     }
     public override void CompleteFunc()
     {
         base.CompleteFunc();
-        _ActorObj.PhysicCtrl.Gravity = _GravityScale;
+        _ActorObj.Physic.GravityScale = _GravityScale;
     }
     public override void InputNormInput(NormInput curInput)
     {

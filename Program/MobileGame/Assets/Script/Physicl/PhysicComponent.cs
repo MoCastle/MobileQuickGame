@@ -1,38 +1,51 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GamePhysic;
 
 namespace GamePhysic
 {
-
     public class PhysicComponent : MonoBehaviour
     {
         #region 填写数据
         [SerializeField]
+        [Header("物理碰撞数据")]
         ActorPhysicData m_PhysicData;
         #endregion
         #region 内部成员
         Rigidbody2D m_RigidBody;
         [SerializeField]
-        [Header("头部碰撞盒")]
+        [Header("身体碰撞盒")]
         BoxCollider2D m_Collider2D;
         [SerializeField]
-        [Header("脚步碰撞盒")]
+        [Header("平台碰撞盒")]
         BoxCollider2D m_FootCollider2D;
-        BoxCollider2D m_CurPlatFloor;
+        //暂停事件补偿
+        float m_PauseTime;
+        //当前脚下
+        Collider2D m_StepStone;
+        bool m_IsPausing;
 
         //物理
         const int g_RayNum = 3;
         float m_EvgGraphic;
+        [SerializeField]
+        [Header("平台碰撞盒")]
         bool m_IsOnGround;
+        bool m_IsJustOnGround;
+        float m_JustOnGroundTime;
         LayerMask m_GroundMask;
-        LayerMask m_PlaneMask;
+        LayerMask m_PlatFormMask;
         Quaternion m_NormalTrans;
+        Vector2 m_BackUpSpeed;
+        float m_GravityScale = 1;
 
         //速度
         Vector2 m_MoveSpeed;
         float m_LastFallingTime;
+        [SerializeField]
+        [Header("当前运动速度 角色先后左右上下")]
         Vector2 m_RealSpeed;
         #endregion
         #region 内部接口
@@ -40,7 +53,7 @@ namespace GamePhysic
         {
             get
             {
-                return m_GroundMask + m_PlaneMask;
+                return m_GroundMask + m_PlatFormMask;
             }
         }
         //重力加速度
@@ -60,15 +73,19 @@ namespace GamePhysic
         {
             get
             {
-                return m_Collider2D.offset + (Vector2)this.transform.position;
+                Vector2 offset = m_Collider2D.offset;
+                Vector2 size = m_Collider2D.transform.lossyScale;
+                offset.x *= size.x;
+                offset.y *= size.y;
+                return offset + (Vector2)m_Collider2D.transform.position;
             }
         }
         Vector2 ColliderSize
         {
             get
             {
-                Vector2 size = this.transform.localScale;
-                size.x = m_Collider2D.size.x * size.x + 0.1f;
+                Vector2 size = m_Collider2D.transform.lossyScale;
+                size.x = m_Collider2D.size.x * size.x;
                 size.y = m_Collider2D.size.y * size.y;
                 return size;
             }
@@ -77,27 +94,41 @@ namespace GamePhysic
         {
             get
             {
-                return ColliderPosition + Vector2.left * ColliderSize.x / 2 + Vector2.down * ColliderSize.y / 2 + Vector2.up * 0.1f;
+                return ColliderPosition + Vector2.left * ColliderSize.x / 2 * 0.9f + Vector2.down * ColliderSize.y / 2 * 0.9f;// + Vector2.up * 0.1f * ColliderSize.y;
             }
         }
         Vector2 GroundRayRP
         {
             get
             {
-                return ColliderPosition + Vector2.right * ColliderSize.x / 2 + Vector2.down * ColliderSize.y / 2 + Vector2.up * 0.1f;
+                return ColliderPosition + Vector2.right * ColliderSize.x / 2 * 0.9f + Vector2.down * ColliderSize.y / 2 * 0.9f;// + Vector2.up * 0.1f* ColliderSize.y;
             }
         }
         float RayGraphicLength
         {
             get
             {
-                float length = 0.4f;
-                length = IsOnGround && (m_RigidBody.velocity.y  > length) ? m_RigidBody.velocity.y : length;
+                float length = m_Collider2D.size.y * m_Collider2D.transform.lossyScale.y * 0.4f;
+                //length = IsOnGround && (m_RigidBody.velocity.y > length) ? m_RigidBody.velocity.y : length;
                 return -length;
             }
         }
+        bool IsJustOnGround
+        {
+            get
+            {
+                return m_IsJustOnGround;
+            }
+            set
+            {
+                if (m_IsJustOnGround == value)
+                    return;
+                m_IsJustOnGround = value;
+                OnJustOnGroundChange(m_IsJustOnGround);
+            }
+        }
 
-        //运动
+        //运动 ToDo
         Vector2 RealSpeed
         {
             get
@@ -114,7 +145,7 @@ namespace GamePhysic
                         m_LastFallingTime = 0;
                     }
                 }
-                else if (m_LastFallingTime <= 0 && value.y < 0)
+                else if (m_LastFallingTime <= 0 && value.y <= 0)
                 {
                     //ToDo
                     m_LastFallingTime = Time.time;
@@ -126,7 +157,7 @@ namespace GamePhysic
         {
             get
             {
-                return this.transform.localScale.x > 0 ? 1 : -1;
+                return this.RealSpeed.x > 0 ? 1 : -1;
             }
         }
         //下坠时间比例
@@ -136,11 +167,26 @@ namespace GamePhysic
             {
                 //ToDo
                 float time = Time.time - m_LastFallingTime;
+                if (m_PauseTime > 0 && !m_IsPausing)
+                {
+                    m_LastFallingTime += m_PauseTime;
+                }
                 return time < m_PhysicData.FallingTime ? (time / m_PhysicData.FallingTime) : 1;
             }
         }
         #endregion
         #region 对外接口
+        public float GravityScale
+        {
+            get
+            {
+                return m_GravityScale;
+            }
+            set
+            {
+                m_GravityScale = value;
+            }
+        }
         //判断是否在地面
         public bool IsOnGround
         {
@@ -150,9 +196,16 @@ namespace GamePhysic
             }
             set
             {
-                if(m_IsOnGround && !value )
+                if (m_IsOnGround && !value)
                 {
                     onLeaveGround();
+                }
+                if (m_IsOnGround != value)
+                {
+                    if (value == true)
+                        onTouchGround();
+                    else
+                        onLeaveGround();
                 }
                 m_IsOnGround = value;
             }
@@ -176,28 +229,69 @@ namespace GamePhysic
         //判断是否在地上
         void SetGoroundInfo()
         {
+            CheckOnGround();
+        }
+
+        void CheckOnGround()
+        {
+            if (!IsOnGround && m_RealSpeed.y > 0)
+            {
+                return;
+            }
             Vector2 startPS = (Direction < 0 ? GroundRayLP : GroundRayRP);
             Vector2 endPS = (Direction < 0 ? GroundRayRP : GroundRayLP);
             bool onGround = false;
-            for( int loopTime =0; loopTime < g_RayNum; ++loopTime)
+            for (int loopTime = 0; loopTime < g_RayNum; ++loopTime)
             {
-                Vector2 rayPS = Vector2.Lerp( startPS, endPS, ( float )loopTime / ( g_RayNum - 1 ));
+                Vector2 rayPS = Vector2.Lerp(startPS, endPS, (float)loopTime / (g_RayNum - 1));
 #if UNITY_EDITOR
-                Debug.DrawRay( rayPS, Vector2.up * RayGraphicLength, new Color(0.9f,0.5f,0,3f ));
+                Debug.DrawRay(rayPS, Vector2.up * RayGraphicLength, new Color(0.9f, 0.5f, 0, 3f));
 #endif
-                RaycastHit2D hitPlane = Physics2D.Raycast( rayPS, Vector2.up, RayGraphicLength, GroundLayer);
-                if ( hitPlane.collider )
+                RaycastHit2D hitPlane = Physics2D.Raycast(rayPS, Vector2.up, RayGraphicLength, GroundLayer);
+                if (hitPlane.collider)
                 {
-                    onGround = true;
+                    if (m_FootCollider2D.isTrigger)
+                    {
+                        if (m_StepStone == hitPlane.collider)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            m_FootCollider2D.isTrigger = false;
+                        }
+                    }
                     m_NormalTrans = Quaternion.FromToRotation(Vector2.up, hitPlane.normal);
+                    m_StepStone = hitPlane.collider;
+                    onGround = true;
                     break;
                 }
             }
             IsOnGround = onGround;
+            if (!IsOnGround)
+            {
+                m_NormalTrans = Quaternion.FromToRotation(Vector2.up, Vector2.up);
+            }
 #if UNITY_EDITOR
             Debug.DrawRay(this.transform.position, m_NormalTrans * (Vector2.up * 5), new Color(0.3f, 0.9f, 0, 1));
 #endif
         }
+
+        /// <summary>
+        /// 让角色离开平台
+        /// </summary>
+        public void LeavePlatform()
+        {
+            if (m_StepStone == null)
+            {
+                return;
+            }
+            if (Math.Pow(2, m_StepStone.gameObject.layer) == m_PlatFormMask)
+            {
+                m_FootCollider2D.isTrigger = true;
+            }
+        }
+
         #endregion
         #region 流程
         private void Awake()
@@ -205,7 +299,7 @@ namespace GamePhysic
             Reset();
             m_RigidBody = GetComponent<Rigidbody2D>();
             m_GroundMask = 1 << LayerMask.NameToLayer("Ground");
-            m_PlaneMask = 1 << LayerMask.NameToLayer("PlatForm");
+            m_PlatFormMask = 1 << LayerMask.NameToLayer("Platform");
             if (m_Collider2D == null || m_FootCollider2D == null)
             {
                 string errorInfo = m_Collider2D == null ? "BodyCollider" : "FootCollider";
@@ -222,28 +316,40 @@ namespace GamePhysic
 
         void FramePrepare()
         {
-            ReduceSpeed();
+            if (IsOnGround)
+                ReduceSpeed();
         }
 
         void CountLastFrame()
         {
+            if (m_IsJustOnGround)
+            {
+                if (m_JustOnGroundTime < Time.time)
+                {
+                    m_IsJustOnGround = false;
+                }
+            }
             SetGoroundInfo();
         }
 
-        private void Start()
-        {
-            m_MoveSpeed = new Vector2(0, 40);
-        }
-
-        private void Update()
+        /// <summary>
+        /// 每帧更新物理逻辑
+        /// </summary>
+        public void PhysicUpdate()
         {
             FramePrepare();
             CountLastFrame();
             CountSpeed();
-            //m_MoveSpeed = new Vector2(20, 0);
-            Debug.Log(m_RigidBody.velocity);
+            EndFrame();
         }
 
+        public void EndFrame()
+        {
+            if (m_PauseTime > 0 && !m_IsPausing)
+            {
+                m_PauseTime = 0;
+            }
+        }
         #endregion
         #region 速度计算
         //衰减速度
@@ -257,13 +363,22 @@ namespace GamePhysic
         {
             float fallSpeed = 0; ;
             if (RealSpeed.y <= 0)
-                fallSpeed = -m_PhysicData.FallingGravityCurve.Evaluate(FallingTimeScale) * m_PhysicData.MaxFallingSpeed;
+            {
+                float speed = m_PhysicData.FallingGravityCurve.Evaluate(FallingTimeScale) * m_GravityScale;
+                speed = speed < 0.01f ? 0 : speed;
+                fallSpeed = -speed * m_PhysicData.MaxFallingSpeed;
+            }
             else
             {
                 float minuSpeed = EvgGraphic * Time.deltaTime;
                 fallSpeed = RealSpeed.y > minuSpeed ? RealSpeed.y - minuSpeed : 0;
             }
-            return (IsOnGround && fallSpeed< (EvgGraphic / 10))? - EvgGraphic / 10 : fallSpeed;
+            float resalFallspeed = (IsOnGround && fallSpeed < (-EvgGraphic / 10)) ? -EvgGraphic / 10 : fallSpeed;
+            if (resalFallspeed == -20)
+            {
+                Debug.Log("speed");
+            }
+            return resalFallspeed;
         }
 
         //计算实际速度
@@ -283,12 +398,66 @@ namespace GamePhysic
             m_RigidBody.velocity = m_NormalTrans * RealSpeed;
         }
         #endregion
+        #region 设置速度
+        public void SetSpeed(Vector2 speed)
+        {
+            MoveSpeed = speed;
+        }
+
+        public void SetSpeed(float speed)
+        {
+            Vector2 dir = Vector2.right * transform.localScale.x;
+            MoveSpeed = dir * speed;
+        }
+
+        /// <summary>
+        /// 暂停物理
+        /// </summary>
+        public void PausePhysic()
+        {
+            m_IsPausing = true;
+            m_BackUpSpeed = RealSpeed;
+            m_PauseTime = Time.time;
+        }
+
+        /// <summary>
+        /// 继续物理
+        /// </summary>
+        public void CountinuePhysic()
+        {
+            m_IsPausing = false;
+            m_RealSpeed = m_BackUpSpeed;
+            m_PauseTime = Time.time - m_PauseTime;
+        }
+        #endregion
         #region 事件
+        /// <summary>
+        /// 触底事件
+        /// </summary>
+        public event Action OnGrond;
+        /// <summary>
+        /// 离地事件
+        /// </summary>
+        public event Action OnLeaveGround;
+        public event Action<bool> OnJustOnGroundChange;
+        void onTouchGround()
+        {
+            m_IsJustOnGround = true;
+            m_JustOnGroundTime = Time.time + 0.1f;
+            if (OnGrond != null)
+            {
+                OnGrond();
+            }
+        }
         void onLeaveGround()
         {
             m_LastFallingTime = 0;
-            Debug.Log("LeaveGround");
+            if (OnLeaveGround != null)
+            {
+                OnLeaveGround();
+            }
         }
+
         #endregion
     }
 }

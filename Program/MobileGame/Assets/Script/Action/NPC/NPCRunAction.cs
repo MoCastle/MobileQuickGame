@@ -17,6 +17,6 @@ public class NPCRunAction : BaseAction
     }
     public override void LogicUpdate()
     {
-        _ActorObj.PhysicCtrl.SetSpeed(speed);
+        _ActorObj.Physic.SetSpeed(speed);
     }
 }

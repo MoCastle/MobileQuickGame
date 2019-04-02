@@ -44,7 +44,7 @@ public class HurtAction : BaseAction {
     {
         if (_CutTimeClock <= 0 && (_Speed * _Speed) > 0)
         {
-            _ActorObj.PhysicCtrl.SetSpeed(MoveDir.normalized * _Speed);
+            _ActorObj.Physic.SetSpeed(MoveDir.normalized * _Speed);
             if (_DeNum * _Speed > 0)
             {
                 _DeNum = 0;
@@ -59,6 +59,6 @@ public class HurtAction : BaseAction {
     public override void CompleteFunc()
     {
         base.CompleteFunc();
-        _ActorObj.PhysicCtrl.ResetData();
+        _ActorObj.Physic.CountinuePhysic();
     }
 }

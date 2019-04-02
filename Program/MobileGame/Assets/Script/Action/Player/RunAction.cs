@@ -16,6 +16,6 @@ public class RunAction : PlayerAction {
     }
     public override void LogicUpdate()
     {
-        _ActorObj.PhysicCtrl.SetSpeed(speed);
+        _ActorObj.Physic.SetSpeed(speed);
     }
 }

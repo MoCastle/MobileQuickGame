@@ -71,7 +71,7 @@ public class HitAction : BaseAction {
     public override void CompleteFunc()
     {
         _ActorObj.BeHitEffect.ContinueTime = CountTime > 0 ? CountTime - Time.time : 0;
-        _ActorObj.BeHitEffect.MoveVector = _ActorObj.PhysicCtrl.GetSpeed;
+        _ActorObj.BeHitEffect.MoveVector = _ActorObj.Physic.MoveSpeed;
         _ActorObj.BeHitEffect.HardValue = 0;
         _ActorObj.BeHitEffect.Delegate = null;
         //_ActorObj.BeHitEffect.ContinueTime = 

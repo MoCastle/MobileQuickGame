@@ -16,7 +16,7 @@ public class NPCFlyKnifeHurtAction : NPCFlyItemAction
     // Use this for initialization
     public NPCFlyKnifeHurtAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo) {
         _CountTime = Time.time + _Time;
-        _Dir = _ActorObj.PhysicCtrl.GetSpeed;
+        _Dir = _ActorObj.Physic.MoveSpeed.normalized;
         _Dir.x *= -1;
         _Dir = _Dir.normalized;
         Vector2 moveVector = _ActorObj.BeHitEffect.MoveVector;

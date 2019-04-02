@@ -293,6 +293,8 @@
     <Compile Include="Assets\Script\Animator\AnimAdapt.cs" />
     <Compile Include="Assets\Script\Animator\AnimAdaptor.cs" />
     <Compile Include="Assets\Script\Animator\AnimCtrler.cs" />
+    <Compile Include="Assets\Script\Animator\CharactorAnim\CharacterAnimEvent.cs" />
+    <Compile Include="Assets\Script\Animator\CharactorAnim\PlayerAnimEvent.cs" />
     <Compile Include="Assets\Script\Animator\CharactorAnimator.cs" />
     <Compile Include="Assets\Script\Animator\EnemyAnim\EnemyAnimAdaptor.cs" />
     <Compile Include="Assets\Script\Animator\NPCCharactorAnimator.cs" />
@@ -331,7 +333,6 @@
     <Compile Include="Assets\Script\GamePoolManager.cs" />
     <Compile Include="Assets\Script\Physicl\ActorPhysicData.cs" />
     <Compile Include="Assets\Script\Physicl\PhysicComponent.cs" />
-    <Compile Include="Assets\Script\Physicl\PhysicCtrler.cs" />
     <Compile Include="Assets\Script\Player\PlayerMgr.cs" />
     <Compile Include="Assets\Script\PlayerDelegate.cs" />
     <Compile Include="Assets\Script\Propty\Propty.cs" />
@@ -346,6 +347,7 @@
     <Compile Include="Assets\Script\Scence\Scene\SceneDoor.cs" />
     <Compile Include="Assets\Script\SkillSgtate\SkillManager.cs" />
     <Compile Include="Assets\Script\Test\TestLoadJS.cs" />
+    <Compile Include="Assets\Script\TestInput.cs" />
     <Compile Include="Assets\Script\TestScence\TestCamera.cs" />
     <Compile Include="Assets\Script\TestScence\TestUI.cs" />
     <Compile Include="Assets\Script\Tool\RoundArr.cs" />

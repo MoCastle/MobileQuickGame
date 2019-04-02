@@ -48,13 +48,11 @@ public class ChasingBehaviour : BaseBehaviour {
     protected virtual void ComplteteTarget()
     {
         ComplteteBehaviour();
-        _AICtrler.CompleteTarget();
     }
     //丢失目标
     protected virtual void LostTarget()
     {
         ComplteteBehaviour();
-        _AICtrler.CompleteTarget();
     }
     #endregion
 

@@ -20,7 +20,7 @@ public class BaseAction {
     public virtual void CompleteFunc()
     {
         _AttackDict.Clear();
-        _ActorObj.PhysicCtrl.ResetData();
+        _ActorObj.Physic.PausePhysic();
         _InputDIr = Vector2.zero;
         _ActionCtrl.AnimSpeed = 1;
         _DirLock = false;
@@ -53,7 +53,7 @@ public class BaseAction {
             {
                 _ActionCtrl.AnimSpeed = 1;
                 _HardTime = 0;
-                _ActorObj.PhysicCtrl.ResetData();
+                _ActorObj.Physic.CountinuePhysic();
             }
         }
         //方向
@@ -178,13 +178,13 @@ public class BaseAction {
             if (_CutTimeClock < Time.time)
             {
                 _ActionCtrl.AnimSpeed = 1;
-                _ActorObj.PhysicCtrl.ResetData();
+                _ActorObj.Physic.CountinuePhysic();
                 _CutTimeClock = 0;
             }
             else
             {
                 _ActionCtrl.AnimSpeed = 0;
-                _ActorObj.PhysicCtrl.CopyData();
+                _ActorObj.Physic.PausePhysic();
                 //_ActorObj.RigidCtrl.velocity = _ActorObj.RigidCtrl.velocity * SpeedRate;
             }
         }
@@ -320,12 +320,12 @@ public class BaseAction {
     public void SetFinalSpeed( float speed )
     {
         _Speed = 0;
-        _ActorObj.PhysicCtrl.SetSpeed(MoveDir * speed);
+        _ActorObj.Physic.SetSpeed(MoveDir * speed);
     }
     protected virtual void Move()
     {
         if(_CutTimeClock <= 0 &&(_Speed * _Speed)>0)
-            _ActorObj.PhysicCtrl.SetSpeed(MoveDir*_Speed);
+            _ActorObj.Physic.SetSpeed(MoveDir*_Speed);
     }
     //方向锁
     public bool _DirLock;
@@ -366,7 +366,7 @@ public class BaseAction {
     {
         _HardTime = Time.time + time;
         _ActionCtrl.AnimSpeed = 0;
-        _ActorObj.PhysicCtrl.CopyData();
+        _ActorObj.Physic.PausePhysic();
         _ActionCtrl.AnimSpeed = 0;
     }
     public virtual void CallPuppet( PuppetNpc puppet )

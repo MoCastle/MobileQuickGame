@@ -30,7 +30,8 @@ public class DashAction : PlayerAction {
     {
         RotateToDirection(base.MoveDir);
         base.CompleteFunc();
-        _ActorObj.ReOpenPlatFoot();
+        //ToDo
+        //_ActorObj.ReOpenPlatFoot();
     }
 
     protected override void Move()
@@ -44,7 +45,7 @@ public class DashAction : PlayerAction {
             {
                 speed *= rate;
             }
-            _ActorObj.PhysicCtrl.SetSpeed(MoveDir * speed);
+            _ActorObj.Physic.SetSpeed(MoveDir * speed);
         }
            
     }

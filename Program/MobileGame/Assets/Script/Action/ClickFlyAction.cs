@@ -13,10 +13,10 @@ public class ClickFlyAction : HurtAction {
         _Effect = _ActorObj.BeHitEffect;
         _ActorObj.BeHitEffect.HardValue = 0;
         _ActorObj.BeHitEffect.Delegate = null;
-        _ActorObj.PhysicCtrl.ResetData();
+        _ActorObj.Physic.PausePhysic();
 
         Vector2 moveSpeed = _Effect.MoveVector;
-        _ActorObj.PhysicCtrl.SetSpeed(moveSpeed);
+        _ActorObj.Physic.SetSpeed(moveSpeed);
         float hardTime = _Effect.HardValue * _ActorObj.ActorPropty.HeavyRate;
         HardTime(hardTime);
     }

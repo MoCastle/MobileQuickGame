@@ -2,15 +2,80 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using GamePhysic;
 
-public abstract class BaseActorObj : MonoBehaviour {
+public abstract class BaseActorObj : MonoBehaviour
+{
+    #region 内部变量
+    [SerializeField]
+    [Header("角色物理")]
+    PhysicComponent m_Physic;
+    [SerializeField]
+    [Header("动画控制器")]
+    Animator m_Animator;
+    [SerializeField]
+    [Header("动画事件")]
+    protected CharacterAnimEvent m_AnimEvent;
+    #endregion
+    #region 对外接口
+    public PhysicComponent Physic
+    {
+        get
+        {
+            return m_Physic;
+        }
+    }
+    #endregion
+    #region 流程
+    private void Awake()
+    {
+        ActorInfo info = ActorManager.Mgr.GetActorInfo(0);
+        _ActionCtrler = new ActionCtrler(this, GetComponent<Animator>(), info.ActorActionList);
+        LogicAwake();
+    }
+    private void Start()
+    {
+        m_Physic = GetComponent<PhysicComponent>();
+        RegistPhysicEvent();
+    }
     
 
+    //出生
+    public void Birth()
+    {
+        ActorPropty.ResetPropty();
+        _ActionCtrler.SetTriiger("Birth");
+    }
+    protected abstract void LogicAwake();
+
+    // Update is called once per frame
+    public void Update()
+    {
+        m_Physic.PhysicUpdate();
+
+        _ActionCtrler.Update();
+        LogicUpdate();
+        //ActorPropty.ModVIT(1);
+    }
+    public virtual void LogicUpdate()
+    {
+
+    }
+    #endregion
     #region 玩家角色信息提取接口 以后可能会挪到非对象脚本里
 
     public HitEffect BeHitEffect;
 
     #endregion
+    #region 物理
+    private void RegistPhysicEvent()
+    {
+        m_Physic.OnGrond += OnGround;
+        m_Physic.OnLeaveGround += OnLeaveGround;
+        m_Physic.OnJustOnGroundChange += OnJustOnGroundChange;
+    }
+    #endregion
+
     //敌人识别层级
     protected int _IDLayer;
     public int IDLayer
@@ -51,7 +116,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         get
         {
 
-            if (_Character==null)
+            if (_Character == null)
             {
                 _Character = new BaseCharacter(this);
                 _Character.Propty = this.ActorPropty;
@@ -72,7 +137,7 @@ public abstract class BaseActorObj : MonoBehaviour {
     {
         get
         {
-            if(_ActorPropty.ActorInfo.Name =="")
+            if (_ActorPropty.ActorInfo.Name == "")
             {
                 _ActorPropty.ActorInfo.Name = gameObject.name;
             }
@@ -81,15 +146,6 @@ public abstract class BaseActorObj : MonoBehaviour {
         set
         {
             _ActorPropty = value;
-        }
-    }
-
-    public bool _OnPlat;
-    public bool OnPlat
-    {
-        get
-        {
-            return _OnPlat;
         }
     }
 
@@ -191,7 +247,6 @@ public abstract class BaseActorObj : MonoBehaviour {
     }
 
     ActionCtrler _ActionCtrler;
-    PhysicCtrler _PhysicCtrl;
     public ActionCtrler ActionCtrl
     {
         get
@@ -199,90 +254,7 @@ public abstract class BaseActorObj : MonoBehaviour {
             return _ActionCtrler;
         }
     }
-    public PhysicCtrler PhysicCtrl
-    {
-        get
-        {
-            return _PhysicCtrl;
-        }
-    }
-    #region 生命周期
-    private void Awake()
-    {
-        ActorInfo info = ActorManager.Mgr.GetActorInfo(0);
-        _ActionCtrler = new ActionCtrler(this, GetComponent<Animator>(), info.ActorActionList);
-        _PhysicCtrl = new PhysicCtrler(this);
-        LogicAwake();
-    }
-    //出生
-    public void Birth()
-    {
-        ActorPropty.ResetPropty();
-        _ActionCtrler.SetTriiger("Birth");
-    }
-    protected abstract void LogicAwake();
 
-    // Update is called once per frame
-    public void Update()
-    {
-        //触地检测
-        if (IsJustOnGround )
-        {
-            IsJustOnGround = false;
-        }
-        _ActionCtrler.Update();
-        /*
-        if (GameCtrler.IsPaused)
-        {
-            return;
-        }*/
-
-        //着地状态检测
-        float Width = BodyCollider.size.x;
-        Vector2 Position = FootTransCtrl.position;
-        Vector2 Size = Vector2.right * (0.4f - 0.01f);
-        Size.y = 0.5f;
-        LayerMask Layer = 1 << LayerMask.NameToLayer("Ground");
-        if (!PlatFoot.isTrigger)
-        {
-            Layer += 1 << LayerMask.NameToLayer("PlatForm");
-        }
-
-        Collider2D Collider = Physics2D.OverlapBox(Position, Size, 0, Layer);
-        if (Collider && FootTransCtrl.position.y > Collider.transform.position.y)
-        {
-            //判断角色是否有可以站在平台上的脚
-            IsOnGround = true;
-
-            //检查脚下的是不是平台
-            if (Collider.gameObject.layer == 1 << LayerMask.NameToLayer("PlatForm"))
-            {
-                _OnPlat = true;
-            }
-        }
-        else
-        {
-            IsOnGround = false;
-            _OnPlat = false;
-        }
-        /*
-        //触地检测
-        if (IsJustOnGround && _TimeJustOnGround + 0.2 < Time.time)
-        {
-            IsJustOnGround = false;
-        }
-        
-        */
-        LogicUpdate();
-        //ActorPropty.ModVIT(1);
-        PhysicCtrl.Update();
-    }
-    public virtual void LogicUpdate()
-    {
-
-    }
-
-    #endregion
     // Use this for initialization
 
 
@@ -291,19 +263,19 @@ public abstract class BaseActorObj : MonoBehaviour {
     {
         get
         {
-            return Vector2.right * (transform.localScale.x >0?1:-1);
+            return Vector2.right * (transform.localScale.x > 0 ? 1 : -1);
         }
     }
     //朝向 y等0时仅改变左右朝向
     public void FaceToDir(Vector2 dir)
     {
-        if( dir.x * transform.localScale.x < 0 )
+        if (dir.x * transform.localScale.x < 0)
         {
             Vector3 scale = transform.localScale;
             scale.x *= -1;
             transform.localScale = scale;
         }
-        if(dir.y != 0)
+        if (dir.y != 0)
         {
             dir = dir.normalized;
             float Rotate = 0;
@@ -315,16 +287,16 @@ public abstract class BaseActorObj : MonoBehaviour {
             Vector3 Rotation = Vector3.forward * Rotate;
             transform.eulerAngles = Rotation;
         }
-        
+
     }
     #endregion 受击相关
     //扣血相关
-    void Hurt( float Damage )
+    void Hurt(float Damage)
     {
-        _ActorPropty.ModLifeValue(Damage*-1);
+        _ActorPropty.ModLifeValue(Damage * -1);
     }
     #region
-    
+
     #endregion
     //角色面向防线
     public Vector2 FaceDir
@@ -343,24 +315,38 @@ public abstract class BaseActorObj : MonoBehaviour {
             return dir;
         }
     }
+    #region 事件
+    public void OnGround()
+    {
+        m_Animator.SetBool("IsOnGround", true);
+    }
+    public void OnLeaveGround()
+    {
+        m_Animator.SetBool("IsOnGround", false);
+    }
+    public void OnJustOnGroundChange(bool justOnGround)
+    {
+        m_Animator.SetBool("IsJustOnGround", _IsJustOnGround);
+    }
+    #endregion
     #region 动画事件
     public void DebugInfo()
     {
     }
     public bool IsHoly = false;
-    public virtual void BeAttacked( BaseActorObj attacker,Vector3 position,HitEffect hitEffect,float Damage =0 )
+    public virtual void BeAttacked(BaseActorObj attacker, Vector3 position, HitEffect hitEffect, float Damage = 0)
     {
-        if(IsHoly)
+        if (IsHoly)
         {
             return;
         }
         //受击特效
-        if(_ActorPropty.ActorInfo.BloodName!=null&& _ActorPropty.ActorInfo.BloodName!="")
+        if (_ActorPropty.ActorInfo.BloodName != null && _ActorPropty.ActorInfo.BloodName != "")
         {
             GameObject blood = EffectManager.Manager.GenEffect(_ActorPropty.ActorInfo.BloodName);
             float dir = attacker.transform.position.x - this.transform.position.x;
             Vector3 scale = blood.transform.localScale;
-            if(scale.x * dir < 0)
+            if (scale.x * dir < 0)
             {
                 scale.x *= -1;
                 blood.transform.localScale = scale;
@@ -371,7 +357,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         faceDir.y = 0;
         FaceToDir(faceDir);
         Hurt(Damage);
-        if(_ActorPropty.IsDeath)
+        if (_ActorPropty.IsDeath)
         {
             _ActionCtrler.SetTriiger("Death");
             Character.OnDeath();
@@ -383,47 +369,51 @@ public abstract class BaseActorObj : MonoBehaviour {
         {
             case HitEffectType.HitBack:
                 _ActionCtrler.SetTriiger("HitBack");
-                
+
                 break;
             case HitEffectType.ClickFly:
                 _ActionCtrler.SetTriiger("ClickFly");
-                
+
                 break;
         }
-        
+
     }
     public virtual void EnterState()
     {
     }
+
     //通知硬直事件
-    public void HardTime( float hardTime )
+    public void HardTime(float hardTime)
     {
         _ActionCtrler.CurAction.HardTime(hardTime);
     }
+
     //设置运动速度 匀速运动
     public void SetSpeed(float speed)
     {
         _ActionCtrler.CurAction.SetSpeed(speed);
     }
+
     //设置瞬时垂直速度
     public void SetImdVSpeed(float speed)
     {
-        _PhysicCtrl.SetSpeed(new Vector2(_PhysicCtrl.GetSpeed.x, speed));
+        m_Physic.SetSpeed(new Vector2(m_Physic.MoveSpeed.x, speed));
     }
+
     //设置瞬时水平速度
     public void SetImdHSpeed(float speed)
     {
-        _PhysicCtrl.SetSpeed(new Vector2(speed,_PhysicCtrl.GetSpeed.y ));
+        m_Physic.SetSpeed(new Vector2(speed, m_Physic.MoveSpeed.y));
     }
 
     //设置空中瞬时垂直速度
     public void SetInAirImdVSpeed(float speed)
     {
-        if(this.IsOnGround)
+        if (this.IsOnGround)
         {
             return;
         }
-        _PhysicCtrl.SetSpeed(new Vector2(_PhysicCtrl.GetSpeed.x, speed));
+        m_Physic.SetSpeed(new Vector2(m_Physic.MoveSpeed.x, speed));
     }
     //设置空中瞬时水平速度
     public void SetInAirImdHSpeed(float speed)
@@ -432,7 +422,7 @@ public abstract class BaseActorObj : MonoBehaviour {
         {
             return;
         }
-        _PhysicCtrl.SetSpeed(new Vector2(speed, _PhysicCtrl.GetSpeed.y));
+        m_Physic.SetSpeed(new Vector2(speed, m_Physic.MoveSpeed.y));
     }
 
     public void StopMove(float speed)
@@ -443,7 +433,7 @@ public abstract class BaseActorObj : MonoBehaviour {
             _ActionCtrler.CurAction.SetFinalSpeed(speed);
 
     }
-    public void SetFaceLock( int ifLock)
+    public void SetFaceLock(int ifLock)
     {
         _ActionCtrler.CurAction.SetFaceLock(ifLock == 1);
     }
@@ -451,19 +441,19 @@ public abstract class BaseActorObj : MonoBehaviour {
     public void MoveActor(float distance)
     {
         transform.position += FaceDir3D * distance;
-        
+
     }
     //转换状态
     public virtual void SwitchAction()
     {
     }
     //召唤
-    public virtual void CallPuppet( string objName )
+    public virtual void CallPuppet(string objName)
     {
         BaseActorObj Obj = ActorManager.Mgr.GenActor(objName);
         PuppetNpc puppet = Obj as PuppetNpc;
         _ActionCtrler.CurAction.CallPuppet(puppet);
-        
+
     }
     //被打断
     public virtual void BeBreak()
@@ -477,7 +467,7 @@ public abstract class BaseActorObj : MonoBehaviour {
     }
     public void Leave()
     {
-        
+
     }
     #endregion
 }

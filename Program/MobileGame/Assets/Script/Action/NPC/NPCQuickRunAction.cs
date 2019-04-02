@@ -18,6 +18,6 @@ public class NPCQuickRunAction : NPCRunAction
     }
     public override void LogicUpdate()
     {
-        _ActorObj.PhysicCtrl.SetSpeed(speed);
+        _ActorObj.Physic.SetSpeed(speed);
     }
 }

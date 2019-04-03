@@ -293,8 +293,8 @@
     <Compile Include="Assets\Script\Animator\AnimAdapt.cs" />
     <Compile Include="Assets\Script\Animator\AnimAdaptor.cs" />
     <Compile Include="Assets\Script\Animator\AnimCtrler.cs" />
-    <Compile Include="Assets\Script\Animator\CharactorAnim\CharacterAnimEvent.cs" />
-    <Compile Include="Assets\Script\Animator\CharactorAnim\PlayerAnimEvent.cs" />
+    <Compile Include="Assets\Script\Animator\CharactorAnim\CharacterAnim.cs" />
+    <Compile Include="Assets\Script\Animator\CharactorAnim\PlayerAnim.cs" />
     <Compile Include="Assets\Script\Animator\CharactorAnimator.cs" />
     <Compile Include="Assets\Script\Animator\EnemyAnim\EnemyAnimAdaptor.cs" />
     <Compile Include="Assets\Script\Animator\NPCCharactorAnimator.cs" />

@@ -163,7 +163,6 @@ public class PlayerObj : BaseActorObj {
         ActionCtrl.SetBool("Dir_Right", false);
         ActionCtrl.SetBool("Dir_Down", false);
         ActionCtrl.SetBool("Dir_Up", false);
-        ActionCtrl.SetFloat("InputPercent", 0f);
         ActionCtrl.SetFloat("XInputPercent", 0f);
         ActionCtrl.SetFloat("YInputPercent", 0f);
     }

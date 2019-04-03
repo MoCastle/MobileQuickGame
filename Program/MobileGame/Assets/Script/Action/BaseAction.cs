@@ -11,6 +11,8 @@ public class BaseAction {
         /*
         CostVIT();*/
         _SkillInfo = skillInfo;
+        if (baseActorObj == null || baseActorObj == null)
+            Debug.Log("nu");
         _ActionCtrl = baseActorObj.ActionCtrl;
         _ActorObj = baseActorObj;
         _ActorPropty = _ActorObj._ActorPropty;

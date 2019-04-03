@@ -40,6 +40,8 @@ public class ActionCtrler {
 
     public ActionCtrler(BaseActorObj actor, Animator animator, List<ActionInfo> actionList)
     {
+        if(animator == null)
+        { Debug.Log("ActionCtrler Error Animator == null"); }
         _ActorObj = actor;
         _Animator = animator;
         _ActionList = actionList;

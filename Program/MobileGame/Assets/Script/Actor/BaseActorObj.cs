@@ -7,15 +7,10 @@ using GamePhysic;
 public abstract class BaseActorObj : MonoBehaviour
 {
     #region 内部变量
-    [SerializeField]
-    [Header("角色物理")]
     PhysicComponent m_Physic;
     [SerializeField]
-    [Header("动画控制器")]
-    Animator m_Animator;
-    [SerializeField]
     [Header("动画事件")]
-    protected CharacterAnimEvent m_AnimEvent;
+    protected CharacterAnim m_CharacterAnim;
     #endregion
     #region 对外接口
     public PhysicComponent Physic
@@ -30,7 +25,7 @@ public abstract class BaseActorObj : MonoBehaviour
     private void Awake()
     {
         ActorInfo info = ActorManager.Mgr.GetActorInfo(0);
-        _ActionCtrler = new ActionCtrler(this, GetComponent<Animator>(), info.ActorActionList);
+        _ActionCtrler = new ActionCtrler(this, m_CharacterAnim.Animator, info.ActorActionList);
         LogicAwake();
     }
     private void Start()
@@ -75,7 +70,25 @@ public abstract class BaseActorObj : MonoBehaviour
         m_Physic.OnJustOnGroundChange += OnJustOnGroundChange;
     }
     #endregion
-
+    #region 动画
+    protected virtual void RegistAnimEvent()
+    {
+        CharacterAnim character = m_CharacterAnim;
+        character.OnEnterHardTime += this.HardTime;
+        character.OnSetImdVSpeed += this.SetImdVSpeed;
+        character.OnSetSpeed += this.SetSpeed;
+        character.OnSetImdVSpeed += this.SetImdVSpeed;
+        character.OnSetImdHSpeed += this.SetImdHSpeed;
+        character.OnStopMove += this.StopMove;
+        character.OnSetFaceLock += this.SetFaceLock;
+        character.OnMoveActor += this.MoveActor;
+        character.OnSwitchAction += this.SwitchAction;
+        character.OnCallPuppet += this.CallPuppet;
+        character.OnBeBreak += this.BeBreak;
+        character.OnLeaveComplete += this.LeaveComplete;
+        character.OnLeave += this.Leave;
+    }
+    #endregion
     //敌人识别层级
     protected int _IDLayer;
     public int IDLayer
@@ -318,15 +331,15 @@ public abstract class BaseActorObj : MonoBehaviour
     #region 事件
     public void OnGround()
     {
-        m_Animator.SetBool("IsOnGround", true);
+        m_CharacterAnim.SetBool("IsOnGround", true);
     }
     public void OnLeaveGround()
     {
-        m_Animator.SetBool("IsOnGround", false);
+        m_CharacterAnim.SetBool("IsOnGround", false);
     }
     public void OnJustOnGroundChange(bool justOnGround)
     {
-        m_Animator.SetBool("IsJustOnGround", _IsJustOnGround);
+        m_CharacterAnim.SetBool("IsJustOnGround", _IsJustOnGround);
     }
     #endregion
     #region 动画事件

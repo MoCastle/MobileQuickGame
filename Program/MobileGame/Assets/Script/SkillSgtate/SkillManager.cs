@@ -3,26 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct SkillInfo
+public class SkillInfo
 {
     public int ID;
-    public string Name;
-    public float Speed;
-    public string EffectName;
-    [Title("重量", "black")]
-    public float CutMeet;
-    [Title("硬度", "black")]
-    public float CutMeetRate;
-    [Title("伤害", "black")]
+    [Header("受击硬直")]
+    public float BeAttackHardTime;
+    [Header("击退值")]
+    public float HitFlyValue;
+    [Header("伤害")]
     public float Damage;
-    public Vector2 Dir;
+    [Header("击飞方向")]
+    public Vector2 HitFlyDirection;
+    [Header("受击效果")]
     public HitEffectType HitType;
-}
-
-public struct ActionInfo
-{
-    public int SkillID;
-    public string ActionName;
+    [Header("击打特效")]
+    public string EffectName;
 }
 
 public class SkillManager {
@@ -40,7 +35,7 @@ public class SkillManager {
     }
     //技能列表信息
     List<SkillInfo> _SkillInfoList;
-
+    /*
     //通用技能列表
     List<ActionInfo> _UsualActionList;
     public List<ActionInfo> UsualActionList
@@ -74,7 +69,7 @@ public class SkillManager {
             return _UsualActionList;
         }
     }
-
+    */
     SkillManager()
     {
         InitSkillInfo();
@@ -92,10 +87,10 @@ public class SkillManager {
             }
             SkillInfo skillInfo = new SkillInfo();
             skillInfo.ID = int.Parse(skillInfoArr[0]);
-            skillInfo.Name = skillInfoArr[1];
-            skillInfo.EffectName = skillInfoArr[2];
-            skillInfo.CutMeet = float.Parse( skillInfoArr[3] == ""?"0": skillInfoArr[3]);
-            skillInfo.CutMeetRate = float.Parse(skillInfoArr[3] == "" ? "0" : skillInfoArr[4]);
+            //skillInfo.Name = skillInfoArr[1];
+            //.EffectName = skillInfoArr[2];
+            //skillInfo.CutMeet = float.Parse( skillInfoArr[3] == ""?"0": skillInfoArr[3]);
+            //skillInfo.CutMeetRate = float.Parse(skillInfoArr[3] == "" ? "0" : skillInfoArr[4]);
             _SkillInfoList.Add(skillInfo);
         }
     }

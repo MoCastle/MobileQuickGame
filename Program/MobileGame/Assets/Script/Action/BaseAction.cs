@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class BaseAction {
+public class BaseAction
+{
     SkillInfo _SkillInfo;
     protected Propty _ActorPropty;
     #region 生命周期
@@ -27,7 +28,7 @@ public class BaseAction {
         _ActionCtrl.AnimSpeed = 1;
         _DirLock = false;
     }
-    
+
     // 每帧更新
     public virtual void Update()
     {
@@ -48,8 +49,8 @@ public class BaseAction {
         {
             if (_HardTime > Time.time)
             {
-                
-                
+
+
             }
             else
             {
@@ -151,7 +152,7 @@ public class BaseAction {
             return ReturnVect;
         }
     }
-    
+
     //攻击状态抉择
     public virtual void JugeStateActive()
     {
@@ -171,7 +172,7 @@ public class BaseAction {
                 break;
         }
     }
-    
+
     //卡肉效果
     public virtual void CutMeat()
     {
@@ -198,7 +199,7 @@ public class BaseAction {
     public virtual void IsAttackting()
     {
         //_Actor.RigidCtrl.velocity = Vector2.zero;
-       // _ActorObj.RigidCtrl.gravityScale = 0;
+        // _ActorObj.RigidCtrl.gravityScale = 0;
     }
     public virtual void IsAttackEnding()
     {
@@ -227,20 +228,20 @@ public class BaseAction {
                 SetCutMeet(TargetActor);
                 //产生伤害
                 HitEffect hitEffect = new HitEffect();
-                hitEffect.HardValue = _SkillInfo.CutMeet;
+                hitEffect.HardValue = _SkillInfo.BeAttackHardTime;
                 hitEffect.HitType = _SkillInfo.HitType;
-                hitEffect.MoveVector = _SkillInfo.Dir;
-                if(_ActorObj.FaceDir.x < 0)
+                hitEffect.MoveVector = _SkillInfo.HitFlyDirection;
+                hitEffect.HitFlyValue = _SkillInfo.HitFlyValue;
+                if (_ActorObj.FaceDir.x < 0)
                 {
                     hitEffect.MoveVector.x *= -1;
                 }
-                hitEffect.MoveVector *= _SkillInfo.Speed;
-                TargetActor.BeAttacked(_ActorObj,effectPs,hitEffect,_SkillInfo.Damage);
+                TargetActor.BeAttacked(_ActorObj, effectPs, hitEffect, _SkillInfo.Damage);
             }
         }
     }
     //生成特效
-    public void GenEffect( Vector3 position )
+    public void GenEffect(Vector3 position)
     {
         //string effectName = skill
         if (_SkillInfo.EffectName == null || _SkillInfo.EffectName == "")
@@ -251,7 +252,7 @@ public class BaseAction {
     }
 
     //计算伤害位置
-    public Vector3 CountHurtPs( Collider2D attacker, Collider2D attacked )
+    public Vector3 CountHurtPs(Collider2D attacker, Collider2D attacked)
     {
         Vector3 Offset = Vector3.zero;
         Offset.x = _ActorObj.SkillHurtBox.offset.x;
@@ -264,7 +265,7 @@ public class BaseAction {
         EffectPS += attacked.transform.position + Offset;
         EffectPS *= 0.5f;
         GameObject Effect = EffectManager.Manager.GenEffect("Hit");
-        
+
         /*
         GameObject Blood = EffectManager.Manager.GenEffect("Blood");
         Blood.transform.position = Effect.transform.position;
@@ -274,20 +275,20 @@ public class BaseAction {
         */
         return EffectPS;
     }
-   
+
     //设置卡肉状态
-    public virtual void SetCutMeet( BaseActorObj TargetActor )
+    public virtual void SetCutMeet(BaseActorObj TargetActor)
     {
-        float rangeTime = _SkillInfo.CutMeet*0.2f + TargetActor._ActorPropty.Heavy*_SkillInfo.CutMeetRate*0.2f;
+        float rangeTime = _SkillInfo.BeAttackHardTime;
         _CutTimeClock = Time.time + rangeTime;
         //_ActorObj.AnimCtrl.speed = SpeedRate;
     }
-   
-    
+
+
     //消耗体力
     protected virtual void CostVIT()
     {
-       // _ActorObj.CostVIT(CostVITNum);
+        // _ActorObj.CostVIT(CostVITNum);
     }
     #region 攻击效果
     public virtual Collider2D[] AttackList()
@@ -298,7 +299,7 @@ public class BaseAction {
         _ActorObj.SkillHurtBox.OverlapCollider(ContactFilter, ColliderList);
         return ColliderList;
     }
-    
+
     #endregion
 
     #region 向量输入
@@ -312,22 +313,22 @@ public class BaseAction {
     }
 
     //速度
-    protected float _Speed =0;
+    protected float _Speed = 0;
     //向某一方向移动
-    public void SetSpeed( float speed )
+    public void SetSpeed(float speed)
     {
         _Speed = speed;
     }
     //设置最终速度
-    public void SetFinalSpeed( float speed )
+    public void SetFinalSpeed(float speed)
     {
         _Speed = 0;
         _ActorObj.Physic.SetSpeed(MoveDir * speed);
     }
     protected virtual void Move()
     {
-        if(_CutTimeClock <= 0 &&(_Speed * _Speed)>0)
-            _ActorObj.Physic.SetSpeed(MoveDir*_Speed);
+        if (_CutTimeClock <= 0 && (_Speed * _Speed) > 0)
+            _ActorObj.Physic.SetSpeed(MoveDir * _Speed);
     }
     //方向锁
     public bool _DirLock;
@@ -352,12 +353,12 @@ public class BaseAction {
     }
     #endregion
 
-    
+
 
     #region 动画事件
 
     //朝向锁
-    public virtual void SetFaceLock( bool ifLock )
+    public virtual void SetFaceLock(bool ifLock)
     {
         _DirLock = ifLock;
     }
@@ -371,15 +372,15 @@ public class BaseAction {
         _ActorObj.Physic.PausePhysic();
         _ActionCtrl.AnimSpeed = 0;
     }
-    public virtual void CallPuppet( PuppetNpc puppet )
+    public virtual void CallPuppet(PuppetNpc puppet)
     {
         Vector3 newPs = _ActorObj.transform.position;
         newPs.y += _ActorObj.BodyCollider.offset.y;
         puppet.transform.position = newPs;
-        puppet.AICtrler.SetTargetActor( ((EnemyObj)_ActorObj).AICtrler.TargetActor);
+        puppet.AICtrler.SetTargetActor(((EnemyObj)_ActorObj).AICtrler.TargetActor);
         puppet.Master = _ActorObj;
         puppet.SetIDLayer(_ActorObj.IDLayer);
-        
+
     }
     #endregion
 
@@ -390,7 +391,7 @@ public class BaseAction {
         faceDir = faceDir.normalized;
         float Rotate = 0;
         Rotate = Mathf.Atan2(faceDir.y, Mathf.Abs(faceDir.x)) * 180 / Mathf.PI;
-        if (_ActorObj.FaceDir.x<0|| faceDir.x < 0) //faceDir.x < 0)
+        if (_ActorObj.FaceDir.x < 0 || faceDir.x < 0) //faceDir.x < 0)
         {
             Rotate = Rotate * -1;
         }

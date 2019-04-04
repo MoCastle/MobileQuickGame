@@ -299,7 +299,7 @@ namespace GamePhysic
             Reset();
             m_RigidBody = GetComponent<Rigidbody2D>();
             m_GroundMask = 1 << LayerMask.NameToLayer("Ground");
-            m_PlatFormMask = 1 << LayerMask.NameToLayer("Platform");
+            m_PlatFormMask = 1 << LayerMask.NameToLayer("PlatForm");
             if (m_Collider2D == null || m_FootCollider2D == null)
             {
                 string errorInfo = m_Collider2D == null ? "BodyCollider" : "FootCollider";

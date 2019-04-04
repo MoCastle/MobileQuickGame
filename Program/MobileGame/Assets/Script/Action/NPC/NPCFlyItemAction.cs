@@ -17,7 +17,6 @@ public class NPCFlyItemAction : BaseAction {
     public NPCFlyItemAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
         _CountTime = Time.time + _Time;
-        _Speed = skillInfo.Speed;
         _Dir = baseActorObj.transform.rotation * Vector3.right;
     }
     public override void Update()

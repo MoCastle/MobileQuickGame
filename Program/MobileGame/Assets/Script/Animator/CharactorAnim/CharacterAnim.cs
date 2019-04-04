@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public abstract class CharacterAnim : MonoBehaviour
+public class CharacterAnim : MonoBehaviour
 {
     private Animator m_Animator;
     public Animator Animator
@@ -45,7 +45,7 @@ public abstract class CharacterAnim : MonoBehaviour
             OnEnterHardTime(hardTime);
     }
 
-    //设置运动速度 匀速运动
+    //设置面朝方向的速度 匀速运动
     public void SetSpeed(float speed)
     {
         if (OnSetSpeed != null)
@@ -117,4 +117,6 @@ public abstract class CharacterAnim : MonoBehaviour
         if (OnSwitchAction != null)
             OnSwitchAction();
     }
+    public void TestEvent( string str )
+    { }
 }

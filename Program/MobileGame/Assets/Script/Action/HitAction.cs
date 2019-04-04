@@ -4,6 +4,8 @@ using System;
 using UnityEngine;
 public enum HitEffectType
 {
+    //无
+    None,
     //击退
     HitBack,
     //击飞
@@ -15,6 +17,8 @@ public struct HitEffect
     public HitEffectType HitType;
     //运动方向
     public Vector2 MoveVector;
+    //击退值
+    public float HitFlyValue;
     //运动时间
     public float ContinueTime;
     //硬直值

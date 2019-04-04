@@ -11,6 +11,12 @@ public abstract class BaseActorObj : MonoBehaviour
     [SerializeField]
     [Header("动画事件")]
     protected CharacterAnim m_CharacterAnim;
+    //技能判定盒
+    [SerializeField]
+    [Header("技能判定")]
+    BoxCollider2D m_SkillHurtBox;
+
+    
     #endregion
     #region 对外接口
     public PhysicComponent Physic
@@ -20,18 +26,32 @@ public abstract class BaseActorObj : MonoBehaviour
             return m_Physic;
         }
     }
+    public bool IsOnGround
+    {
+        get
+        {
+            return m_Physic.IsOnGround;
+        }
+    }
+    public BoxCollider2D SkillHurtBox
+    {
+        get
+        {
+            return m_SkillHurtBox;
+        }
+    }
     #endregion
     #region 流程
     private void Awake()
     {
-        ActorInfo info = ActorManager.Mgr.GetActorInfo(0);
-        _ActionCtrler = new ActionCtrler(this, m_CharacterAnim.Animator, info.ActorActionList);
+        _ActionCtrler = new ActionCtrler(this, m_CharacterAnim.Animator);//, info.ActorActionList);
         LogicAwake();
     }
     private void Start()
     {
         m_Physic = GetComponent<PhysicComponent>();
         RegistPhysicEvent();
+        RegistAnimEvent();
     }
     
 
@@ -110,19 +130,8 @@ public abstract class BaseActorObj : MonoBehaviour
         }
     }
 
-    //技能判定盒
-    BoxCollider2D _SkillHurtBox;
-    public BoxCollider2D SkillHurtBox
-    {
-        get
-        {
-            if (_SkillHurtBox == null)
-            {
-                _SkillHurtBox = TransCtrl.Find("SkillCheck").GetComponent<BoxCollider2D>();
-            }
-            return _SkillHurtBox;
-        }
-    }
+    
+    
     BaseCharacter _Character;
     public BaseCharacter Character
     {
@@ -206,45 +215,6 @@ public abstract class BaseActorObj : MonoBehaviour
                 _FootTransCtrl = TransCtrl.Find("FootCheck");
             }
             return _FootTransCtrl;
-        }
-    }
-
-    public bool _IsOnGround = false;
-    public bool IsOnGround
-    {
-        get
-        {
-            return _IsOnGround;
-        }
-        set
-        {
-            if (_IsOnGround != value)
-            {
-                _IsOnGround = value;
-                _ActionCtrler.SetBool("IsOnGround", _IsOnGround);
-                IsJustOnGround = value;
-            }
-        }
-    }
-    bool _IsJustOnGround;
-    float _TimeJustOnGround;
-    public bool IsJustOnGround
-    {
-        get
-        {
-            return _IsJustOnGround;
-        }
-        set
-        {
-            if (_IsJustOnGround != value)
-            {
-                _IsJustOnGround = value;
-                _ActionCtrler.SetBool("IsJustOnGround", _IsJustOnGround);
-                if (_IsJustOnGround)
-                {
-                    _TimeJustOnGround = Time.time;
-                }
-            }
         }
     }
 
@@ -339,7 +309,7 @@ public abstract class BaseActorObj : MonoBehaviour
     }
     public void OnJustOnGroundChange(bool justOnGround)
     {
-        m_CharacterAnim.SetBool("IsJustOnGround", _IsJustOnGround);
+        m_CharacterAnim.SetBool("IsJustOnGround", justOnGround);
     }
     #endregion
     #region 动画事件

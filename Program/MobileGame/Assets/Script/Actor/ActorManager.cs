@@ -21,24 +21,24 @@ public struct ActorInfo
     [Title("受击特效", "black")]
     public string BloodName;
 
-    public List<ActionInfo> ActorActionList;
+    //public List<ActionInfo> ActorActionList;
 }
 
 public class ActorManager {
-    List<List<ActionInfo>> _ActionList;
+    //List<List<ActionInfo>> _ActionList;
     Dictionary<int, ActorInfo> _ActorsInfoDict;
 
     ActorManager()
     {
-        InitActorModelInfo();
-        InitActorInfo();
+        //InitActorModelInfo();
+        //InitActorInfo();
     }
 
     public ActorInfo GetActorInfo(int ID)
     {
         return _ActorsInfoDict[ID];
     }
-
+    /*
     public void InitActorModelInfo( )
     {
         _ActionList = new List<List<ActionInfo>>();
@@ -69,6 +69,7 @@ public class ActorManager {
             } 
         }
     }
+    
     public void InitActorInfo()
     {
         _ActorsInfoDict = new Dictionary<int, ActorInfo>();
@@ -91,7 +92,7 @@ public class ActorManager {
             _ActorsInfoDict.Add(readActorInfo.ID, readActorInfo);
         }
     }
-
+    */
     string _Road = "Cfg\\";
     string _ActorRoad = "Prefab\\Character\\";
     static ActorManager _Mgr;

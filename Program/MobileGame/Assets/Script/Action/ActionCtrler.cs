@@ -38,18 +38,18 @@ public class ActionCtrler {
         }
     }
 
-    public ActionCtrler(BaseActorObj actor, Animator animator, List<ActionInfo> actionList)
+    public ActionCtrler(BaseActorObj actor, Animator animator)//, List<ActionInfo> actionList)
     {
         if(animator == null)
         { Debug.Log("ActionCtrler Error Animator == null"); }
         _ActorObj = actor;
         _Animator = animator;
-        _ActionList = actionList;
+        //_ActionList = actionList;
     }
 
     BaseActorObj _ActorObj;
     Animator _Animator;
-    List<ActionInfo> _ActionList;
+    //List<ActionInfo> _ActionList;
     public void SetTriiger( string name)
     {
         _Animator.SetTrigger(name);
@@ -98,6 +98,7 @@ public class ActionCtrler {
     #endregion
 
     #region 动画逻辑
+    /*
     public void SwitchState()
     {
         
@@ -152,7 +153,7 @@ public class ActionCtrler {
         _CurAction = NewState;
         _ActorObj.SwitchAction();
     }
-
+    */
     public void PlayerAnim(string stateName)
     {
         _Animator.Play(stateName,-1, 0f);

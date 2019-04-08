@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class HurtAction : BaseAction {
     protected HitEffect _Effect;
@@ -23,16 +24,16 @@ public class HurtAction : BaseAction {
         _ActorObj.PhysicCtrl.ResetData();
         */
 
-        if (_ActorObj.ActionCtrl.IsName("HitBack"))
+        if (m_ActorObj.ActionCtrl.IsName("HitBack"))
         {
-            _ActorObj.BeHitEffect.MoveVector.y = 0;
+            m_ActorObj.BeHitEffect.MoveVector.y = 0;
         }
-        _Effect = _ActorObj.BeHitEffect;
+        _Effect = m_ActorObj.BeHitEffect;
         Vector2 moveSpeed = _Effect.MoveVector;
         //_ActorObj.PhysicCtrl.SetSpeed(moveSpeed);
         float numSpeed = moveSpeed.magnitude;
         SetSpeed(-1* numSpeed);
-        float hardTime = _Effect.HardValue * _ActorObj.ActorPropty.HeavyRate;
+        float hardTime = _Effect.HardValue * m_ActorObj.ActorPropty.HeavyRate;
         HardTime(hardTime);
     }
 
@@ -42,16 +43,16 @@ public class HurtAction : BaseAction {
     }
     protected override void Move()
     {
-        if (_CutTimeClock <= 0 && (_Speed * _Speed) > 0)
+        if (m_CutTimeClock <= 0 && (m_Speed * m_Speed) > 0)
         {
-            _ActorObj.Physic.SetSpeed(MoveDir.normalized * _Speed);
-            if (_DeNum * _Speed > 0)
+            m_ActorObj.Physic.SetSpeed(MoveDir.normalized * m_Speed);
+            if (_DeNum * m_Speed > 0)
             {
                 _DeNum = 0;
-                _Speed = 0;
+                m_Speed = 0;
                 return;
             }
-            float speed = _Speed + _DeNum;
+            float speed = m_Speed + _DeNum;
             SetSpeed(speed);
         }
             
@@ -59,6 +60,6 @@ public class HurtAction : BaseAction {
     public override void CompleteFunc()
     {
         base.CompleteFunc();
-        _ActorObj.Physic.CountinuePhysic();
+        m_ActorObj.Physic.CountinuePhysic();
     }
 }

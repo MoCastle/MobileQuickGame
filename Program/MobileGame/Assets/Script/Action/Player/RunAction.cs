@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class RunAction : PlayerAction {
     float speed
     {
         get
         {
-            return _ActorPropty.MoveSpeed;
+            return m_ActorPropty.MoveSpeed;
         }
     }
     public RunAction(BaseActorObj actionCtrler,SkillInfo skillInfo) : base(actionCtrler, skillInfo)
@@ -16,6 +17,6 @@ public class RunAction : PlayerAction {
     }
     public override void LogicUpdate()
     {
-        _ActorObj.Physic.SetSpeed(speed);
+        m_ActorObj.Physic.SetSpeed(speed);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class PuppetNpc : EnemyObj {
     public BaseActorObj Master;
@@ -13,7 +14,7 @@ public class PuppetNpc : EnemyObj {
     //改敌人识别
     public void SetIDLayer(int id)
     {
-        _IDLayer = id;
+        m_IDLayer = id;
     }
     //该属性
     public void SetProppty( Propty propty )

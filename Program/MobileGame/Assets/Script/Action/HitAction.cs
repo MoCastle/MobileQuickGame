@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using GameScene;
 public enum HitEffectType
 {
     //无
@@ -45,7 +46,7 @@ public class HitAction : BaseAction {
         //_MoveDir = CurEffect.MoveDir;
         //_Speed = CurEffect.Speed;
         CountTime = Time.time + CurEffect.ContinueTime;
-        _ActorObj.ActionCtrl.AnimSpeed = 0;
+        m_ActorObj.ActionCtrl.AnimSpeed = 0;
     }
     Vector2 _MoveDir;
     protected override Vector2 MoveDir
@@ -64,8 +65,8 @@ public class HitAction : BaseAction {
             if(CountTime < Time.time)
             {
                 CountTime = -1;
-                _Speed = 0;
-                _ActorObj.ActionCtrl.AnimSpeed = 1;
+                m_Speed = 0;
+                m_ActorObj.ActionCtrl.AnimSpeed = 1;
             }
         }
         base.Update();
@@ -74,10 +75,10 @@ public class HitAction : BaseAction {
 
     public override void CompleteFunc()
     {
-        _ActorObj.BeHitEffect.ContinueTime = CountTime > 0 ? CountTime - Time.time : 0;
-        _ActorObj.BeHitEffect.MoveVector = _ActorObj.Physic.MoveSpeed;
-        _ActorObj.BeHitEffect.HardValue = 0;
-        _ActorObj.BeHitEffect.Delegate = null;
+        m_ActorObj.BeHitEffect.ContinueTime = CountTime > 0 ? CountTime - Time.time : 0;
+        m_ActorObj.BeHitEffect.MoveVector = m_ActorObj.Physic.MoveSpeed;
+        m_ActorObj.BeHitEffect.HardValue = 0;
+        m_ActorObj.BeHitEffect.Delegate = null;
         //_ActorObj.BeHitEffect.ContinueTime = 
         base.CompleteFunc();
     }

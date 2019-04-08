@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class NPCQuickRunAction : NPCRunAction
 {
@@ -18,6 +19,6 @@ public class NPCQuickRunAction : NPCRunAction
     }
     public override void LogicUpdate()
     {
-        _ActorObj.Physic.SetSpeed(speed);
+        m_ActorObj.Physic.SetSpeed(speed);
     }
 }

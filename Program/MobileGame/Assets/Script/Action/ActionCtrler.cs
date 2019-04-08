@@ -3,29 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Reflection;
+using GameScene;
+using BaseFunc;
 
-public class ActionCtrler {
-    float _AnimSpeed = 1;
+public class ActionCtrler:BaseFSM {
+    #region 私有属性
+    float m_AnimSpeed = 1;
+    BaseActorObj m_ActorObj;
+    Animator m_Animator;
+    int m_CurAnimName;
+    BaseAction m_CurAction;
+    #endregion
+    #region 对外接口
     public float AnimSpeed
     {
         get
         {
-            return _AnimSpeed;
+            return m_AnimSpeed;
         }
         set
         {
-            if(_AnimSpeed != value)
+            if (m_AnimSpeed != value)
             {
-                _AnimSpeed = value;
-                _Animator.speed = _AnimSpeed;
+                m_AnimSpeed = value;
+                m_Animator.speed = m_AnimSpeed;
             }
+        }
+    }
+    public BaseAction CurAction
+    {
+        get
+        {
+            if (m_CurAction == null)
+            {
+                m_CurAction = new BaseAction(m_ActorObj, new SkillInfo());
+            }
+            return m_CurAction;
+        }
+        set
+        {
+            m_CurAction = value;
         }
     }
     public AnimatorControllerParameter[] GetAnimParams
     {
         get
         {
-            AnimatorControllerParameter[] animatorParams = _Animator.parameters;
+            AnimatorControllerParameter[] animatorParams = m_Animator.parameters;
             return animatorParams;
         }
     }
@@ -34,130 +58,61 @@ public class ActionCtrler {
     {
         get
         {
-            return _Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            return m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
         }
     }
-
+    #endregion
+    #region 流程
     public ActionCtrler(BaseActorObj actor, Animator animator)//, List<ActionInfo> actionList)
     {
-        if(animator == null)
+        if (animator == null)
         { Debug.Log("ActionCtrler Error Animator == null"); }
-        _ActorObj = actor;
-        _Animator = animator;
+        m_ActorObj = actor;
+        m_Animator = animator;
         //_ActionList = actionList;
-    }
-
-    BaseActorObj _ActorObj;
-    Animator _Animator;
-    //List<ActionInfo> _ActionList;
-    public void SetTriiger( string name)
-    {
-        _Animator.SetTrigger(name);
-    }
-    public void SetBool( string name, bool value )
-    {
-        _Animator.SetBool(name,value);
-    }
-    public void SetFloat(string name, float value)
-    {
-        _Animator.SetFloat(name, value);
-    }
-    int _CurAnimName;
-    BaseAction _CurAction;
-    public BaseAction CurAction
-    {
-        get
-        {
-            if(_CurAction == null)
-            {
-                _CurAction = new BaseAction(_ActorObj,new SkillInfo());
-            }
-            return _CurAction;
-        }
-        set
-        {
-            _CurAction = value;
-        }
     }
 
     public void Update()
     {
-        _Animator.SetFloat("AnimTime", _Animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
-        if (_CurAction != null)
+        m_Animator.SetFloat("AnimTime", m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        if (m_CurAction != null)
         {
-            _CurAction.Update();
+            m_CurAction.Update();
         }
     }
+    public override void Switch(BaseState state)
+    {
+        base.Switch(state);
+        m_CurAction = state as BaseAction;
+    }
+    #endregion
+    #region 动画
+    //List<ActionInfo> _ActionList;
+    public void SetTriiger(string name)
+    {
+        m_Animator.SetTrigger(name);
+    }
 
-    #region 封装接口
+    public void SetBool(string name, bool value)
+    {
+        m_Animator.SetBool(name, value);
+    }
+
+    public void SetFloat(string name, float value)
+    {
+        m_Animator.SetFloat(name, value);
+    }
+
     //判断动画状态
     public bool IsName(string name)
     {
-        return _Animator.GetCurrentAnimatorStateInfo(0).IsTag(name);
+        return m_Animator.GetCurrentAnimatorStateInfo(0).IsTag(name);
     }
-    #endregion
 
-    #region 动画逻辑
-    /*
-    public void SwitchState()
-    {
-        
-        if (_CurAction != null)
-        {
-            //了解之前的动画逻辑
-            //_CurAction.CompleteFunc();
-        }
-
-        string NewActionName = "";
-        _CurAnimName = _Animator.GetCurrentAnimatorStateInfo(0).tagHash;
-        SkillInfo skillInfo = new SkillInfo();
-
-        
-        //先检查是否符合自己的设定
-        if (_ActionList.Count > 0)
-        {
-            foreach (ActionInfo AnimInfo in _ActionList)
-            {
-                if (_Animator.GetCurrentAnimatorStateInfo(0).IsTag(AnimInfo.ActionName))
-                {
-                    skillInfo = SkillManager.Mgr.GetSkillInfo(AnimInfo.SkillID);
-                    NewActionName = skillInfo.Name;
-                    _Animator.SetFloat("AnimTime", 0);
-                    break;
-                }
-            }
-        }
-        
-        //再检查是否符合通用技能设定
-        if (NewActionName == "" && SkillManager.Mgr.UsualActionList.Count > 0)
-        {
-            foreach (ActionInfo AnimInfo in SkillManager.Mgr.UsualActionList)
-            {
-                if (_Animator.GetCurrentAnimatorStateInfo(0).IsTag(AnimInfo.ActionName))
-                {
-                    skillInfo = SkillManager.Mgr.GetSkillInfo(AnimInfo.SkillID);
-                    NewActionName = skillInfo.Name;
-                    _Animator.SetFloat("AnimTime", 0);
-                    break;
-                }
-            }
-        }
-        if (NewActionName == "")
-        {
-            NewActionName = "BaseAction";
-        }
-        Debug.Log("SwitchState" + NewActionName);
-        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-        Type GetState = assembly.GetType(NewActionName);
-        BaseAction NewState = (BaseAction)Activator.CreateInstance(GetState, new object[] { _ActorObj,skillInfo }); // 创建类的实例，返回为 object 类型，需要强制类型转换
-        _CurAction = NewState;
-        _ActorObj.SwitchAction();
-    }
-    */
     public void PlayerAnim(string stateName)
     {
-        _Animator.Play(stateName,-1, 0f);
-        _Animator.Update(0);
+        m_Animator.Play(stateName, -1, 0f);
+        m_Animator.Update(0);
     }
     #endregion
 }

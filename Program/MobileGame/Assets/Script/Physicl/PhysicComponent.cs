@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using GamePhysic;
 
-namespace GamePhysic
+namespace GameScene
 {
+    
     public class PhysicComponent : MonoBehaviour
     {
         #region 填写数据
@@ -224,6 +225,29 @@ namespace GamePhysic
             }
         }
 
+        //左右朝向
+        public FaceDirection HDirection
+        {
+            get
+            {
+                return this.transform.localScale.x > 0 ? FaceDirection.Right : FaceDirection.Left;
+            }
+            set
+            {
+                if (value == this.HDirection)
+                    return;
+                Vector3 scale = this.transform.localScale;
+                switch (value)
+                {
+                    case FaceDirection.Right:
+                        scale.x = 1;
+                        break;
+                    default:
+                        scale.x = -1;
+                        break;
+                }
+            }
+        }
         #endregion
         #region 物理
         //判断是否在地上

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class ChargingAction : PlayerAction {
     //重力系数缩减
@@ -24,13 +25,13 @@ public class ChargingAction : PlayerAction {
     {
         if (_CountFallingTime != 0 && _CountFallingTime > Time.time)
         {
-            _ActorObj.Physic.SetSpeed(0);
+            m_ActorObj.Physic.SetSpeed(0);
         }
     }
     public override void CompleteFunc()
     {
         base.CompleteFunc();
-        _ActorObj.Physic.GravityScale = _GravityScale;
+        m_ActorObj.Physic.GravityScale = _GravityScale;
     }
     public override void InputNormInput(NormInput curInput)
     {

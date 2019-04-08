@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class ClickFlyAction : HurtAction {
 
@@ -10,14 +11,14 @@ public class ClickFlyAction : HurtAction {
 
     public override void EnterPrepare()
     {
-        _Effect = _ActorObj.BeHitEffect;
-        _ActorObj.BeHitEffect.HardValue = 0;
-        _ActorObj.BeHitEffect.Delegate = null;
-        _ActorObj.Physic.PausePhysic();
+        _Effect = m_ActorObj.BeHitEffect;
+        m_ActorObj.BeHitEffect.HardValue = 0;
+        m_ActorObj.BeHitEffect.Delegate = null;
+        m_ActorObj.Physic.PausePhysic();
 
         Vector2 moveSpeed = _Effect.MoveVector;
-        _ActorObj.Physic.SetSpeed(moveSpeed);
-        float hardTime = _Effect.HardValue * _ActorObj.ActorPropty.HeavyRate;
+        m_ActorObj.Physic.SetSpeed(moveSpeed);
+        float hardTime = _Effect.HardValue * m_ActorObj.ActorPropty.HeavyRate;
         HardTime(hardTime);
     }
     public override void Update()

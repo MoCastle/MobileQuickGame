@@ -37,8 +37,9 @@ public class CharacterAnim : MonoBehaviour
     public event Action OnBeBreak;
     public event Action OnLeaveComplete;
     public event Action OnLeave;
+    public event Action<Vector2> OnSetMoveSpeed;
 
-    //通知硬直事件
+    //进入硬直
     public void HardTime(float hardTime)
     {
         if (OnEnterHardTime != null)
@@ -102,8 +103,6 @@ public class CharacterAnim : MonoBehaviour
             OnMoveActor(distance);
     }
     
-    
-    
     //召唤
     public virtual void CallPuppet(string objName)
     {
@@ -117,6 +116,27 @@ public class CharacterAnim : MonoBehaviour
         if (OnSwitchAction != null)
             OnSwitchAction();
     }
+
+    /// <summary>
+    /// 向某个方向移动
+    /// </summary>
+    /// <param name="vectorStr">< x方向#y方向 例"123.1#321.3" /param>
+    public virtual void SetMoveSpeed(string vectorStr)
+    {
+        if(vectorStr == "" || vectorStr == null)
+        {
+            return;
+        }
+        string[] speed = vectorStr.Split('#');
+        Vector2 vector = new Vector2(Convert.ToSingle(speed[1]), Convert.ToSingle(speed[2]));
+        if (OnSetMoveSpeed != null)
+            OnSetMoveSpeed(vector);
+    }
+
     public void TestEvent( string str )
     { }
+    public void specified()
+    {
+        Debug.Log("specified");
+    }
 }

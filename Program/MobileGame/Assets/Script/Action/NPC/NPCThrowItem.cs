@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class NPCThrowItem : NpcBaseAction
 {
@@ -27,7 +28,7 @@ public class NPCThrowItem : NpcBaseAction
     public override void CallPuppet(PuppetNpc puppet)
     {
         
-        if(!_DirLock )
+        if(!m_DirLock )
         {
             GetMoveDir();
         }

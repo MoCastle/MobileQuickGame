@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GamePhysic;
+using GameScene;
 
 public class TestInput : MonoBehaviour {
     public PhysicComponent Physic;

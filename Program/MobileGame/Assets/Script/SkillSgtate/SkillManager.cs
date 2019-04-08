@@ -18,6 +18,8 @@ public class SkillInfo
     public HitEffectType HitType;
     [Header("击打特效")]
     public string EffectName;
+    [Header("消耗体力")]
+    public float CostVIT;
 }
 
 public class SkillManager {

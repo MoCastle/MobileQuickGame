@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 using System;
+using GameScene;
+using GameScene;
+
 public class AnimAdapt : StateMachineBehaviour
 {
     [Title("对应逻辑名字", "black")]

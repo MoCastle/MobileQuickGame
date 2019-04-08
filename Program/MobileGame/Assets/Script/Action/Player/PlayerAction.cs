@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class PlayerAction : BaseAction {
     protected NormInput _Input;
@@ -13,7 +14,7 @@ public class PlayerAction : BaseAction {
     }
     public virtual void SetStartDirection()
     {
-        if(_DirLock)
+        if(m_DirLock)
         {
             return;
         }

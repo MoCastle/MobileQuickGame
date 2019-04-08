@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class CruiseBehaviour : BaseBehaviour {
     string AnimName = "Run";

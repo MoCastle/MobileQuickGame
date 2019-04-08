@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class DashAction : PlayerAction {
     float _HNum = 2.5f;
@@ -17,7 +18,7 @@ public class DashAction : PlayerAction {
     public DashAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
         Vector2 gestureDir = _Input.InputInfo.Shift;
-        if(gestureDir.x!=0&&this._ActorObj.IsOnGround && Mathf.Abs(  gestureDir.y/gestureDir.x)<0.6)
+        if(gestureDir.x!=0&&this.m_ActorObj.IsOnGround && Mathf.Abs(  gestureDir.y/gestureDir.x)<0.6)
         {
             gestureDir.y = 0;
         }
@@ -36,16 +37,16 @@ public class DashAction : PlayerAction {
 
     protected override void Move()
     {
-        if ((_Speed * _Speed) > 0)
+        if ((m_Speed * m_Speed) > 0)
         {
             //速率
-            float speed = _Speed;
+            float speed = m_Speed;
             float rate = Mathf.Abs(MoveDir.y / 0.7f);
             if ( rate > 1)
             {
                 speed *= rate;
             }
-            _ActorObj.Physic.SetSpeed(MoveDir * speed);
+            m_ActorObj.Physic.SetSpeed(MoveDir * speed);
         }
            
     }

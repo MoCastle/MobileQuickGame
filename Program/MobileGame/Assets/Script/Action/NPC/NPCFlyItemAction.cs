@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class NPCFlyItemAction : BaseAction {
     protected float _CountTime = 0;
@@ -24,7 +25,7 @@ public class NPCFlyItemAction : BaseAction {
         base.Update();
         if(Time.time > _CountTime)
         {
-            _ActorObj.ActionCtrl.SetTriiger("Death");
+            m_ActorObj.ActionCtrl.SetTriiger("Death");
         }
     }
 

@@ -2,15 +2,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
 public class PlayerObj : BaseActorObj {
-
-
     protected override void LogicAwake()
     {
         _InputArr = new NormInput[2];
         PlayerCtrl.AddFingerOff(OnFingerOut);
-        _IDLayer = 1 << LayerMask.NameToLayer("Enemy");
+        m_IDLayer = 1 << LayerMask.NameToLayer("Enemy");
     }
 
     //手指挪开触发事件

@@ -189,7 +189,7 @@ public class PlayerObj : BaseActorObj {
     #region 事件
     public override void SwitchAction()
     {
-        //ClearAnimParam();
+        ClearAnimParam();
     }
     
     #endregion

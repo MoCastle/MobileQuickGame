@@ -65,7 +65,7 @@ public class HitAction : BaseAction {
             if(CountTime < Time.time)
             {
                 CountTime = -1;
-                m_Speed = 0;
+                m_HSpeed = 0;
                 m_ActorObj.ActionCtrl.AnimSpeed = 1;
             }
         }

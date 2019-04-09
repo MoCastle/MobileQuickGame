@@ -19,7 +19,9 @@ public class BaseAction : BaseState
     protected float m_GravityScale;
     protected BaseActorObj m_ActorObj;
     //速度
-    protected float m_Speed = 0;
+    protected float m_HSpeed;
+    protected float m_VSpeed;
+    protected Vector2 m_MoveSpeed;
     //移动
     //方向锁
     public bool m_DirLock;
@@ -144,7 +146,7 @@ public class BaseAction : BaseState
     #endregion
     #region 技能
     //进入硬直状态
-    public void EnterHardTime( float hardTime )
+    public void EnterHardTime(float hardTime)
     {
         m_HardTime = hardTime;
         m_ActionCtrl.AnimSpeed = 0;
@@ -169,7 +171,7 @@ public class BaseAction : BaseState
             }
         }
     }
-    
+
     // 攻击判定
     public virtual void SkillAttack()
     {
@@ -258,12 +260,19 @@ public class BaseAction : BaseState
     //向某一方向移动
     public void SetSpeed(float speed)
     {
-        m_Speed = speed;
+        //speed *= m_ActorObj.FaceDir.x > 0 ? 1 : -1;
+        m_HSpeed = speed;
+    }
+    public void SetMoveSpeed(Vector2 speed)
+    {
+        m_HSpeed = speed.x;
+        m_VSpeed = speed.y;
     }
     //设置最终速度
     public void SetFinalSpeed(float speed)
     {
-        m_Speed = 0;
+        m_HSpeed = 0;
+        m_VSpeed = 0;
         m_ActorObj.Physic.SetSpeed(MoveDir * speed);
     }
 
@@ -290,7 +299,7 @@ public class BaseAction : BaseState
     {
         m_DirLock = ifLock;
     }
-    
+
     //硬直时间
     public virtual void HardTime(float time)
     {
@@ -323,22 +332,28 @@ public class BaseAction : BaseState
     #region 移动
     protected virtual void Move()
     {
-        if (m_CutTimeClock <= 0 && (m_Speed * m_Speed) > 0)
-            m_ActorObj.Move(MoveDir * m_Speed);
+        if (m_CutTimeClock <= 0)
+        {
+            if (m_HSpeed * m_HSpeed > 0 || m_VSpeed * m_VSpeed > 0)
+            {
+                if (m_VSpeed * m_VSpeed > 0)
+                {
+                    Vector2 moveSpeed = new Vector2(m_HSpeed, m_VSpeed);
+                    moveSpeed.x *= m_ActorObj.FaceDir.x > 0 ? 1 : -1;
+                    m_ActorObj.Move(moveSpeed);
+                }
+                else
+                {
+                    m_ActorObj.Move(MoveDir * m_HSpeed);
+                }
+            }
+        }
     }
 
     //根据运动方向旋转
     public void RotateToDirection(Vector2 faceDir)
     {
-        faceDir = faceDir.normalized;
-        float Rotate = 0;
-        Rotate = Mathf.Atan2(faceDir.y, Mathf.Abs(faceDir.x)) * 180 / Mathf.PI;
-        if (m_ActorObj.FaceDir.x < 0 || faceDir.x < 0) //faceDir.x < 0)
-        {
-            Rotate = Rotate * -1;
-        }
-        Vector3 Rotation = Vector3.forward * Rotate;
-        m_ActorObj.transform.eulerAngles = Rotation;
+        m_ActorObj.FaceToDir(faceDir);
     }
     #endregion
 }

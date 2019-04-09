@@ -43,16 +43,16 @@ public class HurtAction : BaseAction {
     }
     protected override void Move()
     {
-        if (m_CutTimeClock <= 0 && (m_Speed * m_Speed) > 0)
+        if (m_CutTimeClock <= 0 && (m_HSpeed * m_HSpeed) > 0)
         {
-            m_ActorObj.Physic.SetSpeed(MoveDir.normalized * m_Speed);
-            if (_DeNum * m_Speed > 0)
+            m_ActorObj.Physic.SetSpeed(MoveDir.normalized * m_HSpeed);
+            if (_DeNum * m_HSpeed > 0)
             {
                 _DeNum = 0;
-                m_Speed = 0;
+                m_HSpeed = 0;
                 return;
             }
-            float speed = m_Speed + _DeNum;
+            float speed = m_HSpeed + _DeNum;
             SetSpeed(speed);
         }
             

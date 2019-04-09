@@ -34,20 +34,4 @@ public class DashAction : PlayerAction {
         //ToDo
         //_ActorObj.ReOpenPlatFoot();
     }
-
-    protected override void Move()
-    {
-        if ((m_Speed * m_Speed) > 0)
-        {
-            //速率
-            float speed = m_Speed;
-            float rate = Mathf.Abs(MoveDir.y / 0.7f);
-            if ( rate > 1)
-            {
-                speed *= rate;
-            }
-            m_ActorObj.Physic.SetSpeed(MoveDir * speed);
-        }
-           
-    }
 }

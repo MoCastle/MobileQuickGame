@@ -69,7 +69,7 @@ namespace GameScene
         {
             get
             {
-                Vector2 faceDir = transform.rotation * Vector2.up;
+                Vector2 faceDir = this.m_CharacterAnim.transform.rotation * Vector2.up;
                 faceDir.x *= HDirection == FaceDirection.Right ? 1 : -1;
                 return faceDir;
             }
@@ -100,20 +100,18 @@ namespace GameScene
         //朝向 y等0时仅改变左右朝向
         public void FaceToDir(Vector2 dir)
         {
+            Vector3 scale = transform.localScale;
 
             if (dir.x * transform.localScale.x < 0)
             {
-                Vector3 scale = transform.localScale;
                 scale.x *= -1;
                 this.HDirection = dir.x > 0 ? FaceDirection.Right : FaceDirection.Left;
                 transform.localScale = scale;
             }
-            if (dir.y != 0)
-            {
-                Vector2 faceDir = dir.normalized;
-                Quaternion rotation = Quaternion.FromToRotation(Vector2.right,faceDir);
-                this.transform.rotation = rotation;
-            }
+            Vector2 faceDir = dir.normalized;
+            //faceDir.x = Math.Abs(faceDir.x);
+            Quaternion rotation = Quaternion.FromToRotation(FaceDir, faceDir);
+            this.m_CharacterAnim.transform.rotation = rotation;
 
         }
         #endregion
@@ -173,21 +171,21 @@ namespace GameScene
         {
             CharacterAnim character = m_CharacterAnim;
             character.OnEnterHardTime += this.HardTime;
-            character.OnSetImdVSpeed += this.SetImdVSpeed;
-            character.OnSetSpeed += this.SetSpeed;
-            character.OnSetImdVSpeed += this.SetImdVSpeed;
-            character.OnSetImdHSpeed += this.SetImdHSpeed;
-            character.OnStopMove += this.StopMove;
             character.OnSetFaceLock += this.SetFaceLock;
             character.OnMoveActor += this.MoveActor;
-            character.OnSwitchAction += this.SwitchAction;
             character.OnCallPuppet += this.CallPuppet;
-            character.OnBeBreak += this.BeBreak;
-            character.OnLeaveComplete += this.LeaveComplete;
-            character.OnLeave += this.Leave;
+
+            character.OnSetSpeed += this.SetSpeed;
+            character.OnStopMove += this.StopMove;
+            character.OnSetDirMoveSpeed += this.SetMoveSpeed;
+
+            character.OnSetImdVSpeed += this.SetImdVSpeed;
+            character.OnSetImdHSpeed += this.SetImdHSpeed;
+            character.OnSetImdVSpeed += this.SetImdVSpeed;
+            character.OnSetImdMoveSpeed += this.SetImdSpeed;
         }
         #endregion
-        
+
         public int IDLayer
         {
             get
@@ -398,12 +396,18 @@ namespace GameScene
             m_ActionCtrler.CurAction.SetSpeed(speed);
         }
 
+        //设置瞬时速度
+        public void SetImdSpeed(Vector2 speed)
+        {
+            m_Physic.SetSpeed(speed);
+        }
+
         //设置移动速度
         public void SetMoveSpeed(Vector2 moveSpeed)
         {
-
+            m_ActionCtrler.CurAction.SetMoveSpeed(moveSpeed);
         }
-
+        //瞬时速度 一定要加在设置移动速度前 不然会被覆盖掉
         //设置瞬时垂直速度
         public void SetImdVSpeed(float speed)
         {

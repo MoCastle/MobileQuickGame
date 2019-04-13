@@ -30,56 +30,31 @@ public struct HitEffect
 }
 
 public class HitAction : BaseAction {
-    HitEffect CurEffect;
-    float CountTime = -1;
+    HitBuff m_HitBuff;
+    Vector2 m_MoveDir;
+
     public HitAction(BaseActorObj baseActorObj, SkillInfo skillInfo):base(baseActorObj, skillInfo)
     {
         SetFaceLock(true);
-        CurEffect = baseActorObj.BeHitEffect;
-        if(CurEffect.Delegate!=null)
-        {
-            CurEffect.Delegate(this);
-        }
-        float hardTime = CurEffect.HardValue - baseActorObj._ActorPropty.Heavy * baseActorObj._ActorPropty.HeavyRate;
-        if(CurEffect.HardValue>0)
-            HardTime(hardTime);
-        //_MoveDir = CurEffect.MoveDir;
-        //_Speed = CurEffect.Speed;
-        CountTime = Time.time + CurEffect.ContinueTime;
+        BaseBuff baseBuff = baseActorObj.GetBuff(BuffType.Hit);
+        m_HitBuff = baseBuff == null? new HitBuff(): baseBuff as HitBuff;
+        float hardTime = m_HitBuff.hardTime;
+        SetHardTime(hardTime);
+        
+        m_ActorObj.Physic.SetSpeed( Vector2.right* m_HitBuff.addSpeed);
         m_ActorObj.ActionCtrl.AnimSpeed = 0;
     }
-    Vector2 _MoveDir;
     protected override Vector2 MoveDir
     {
         get
         {
-            return _MoveDir;
+            return m_MoveDir;
         }
-    }
-
-    //帧事件
-    public override void Update()
-    {
-        if(CountTime > 0)
-        {
-            if(CountTime < Time.time)
-            {
-                CountTime = -1;
-                m_HSpeed = 0;
-                m_ActorObj.ActionCtrl.AnimSpeed = 1;
-            }
-        }
-        base.Update();
-        
     }
 
     public override void CompleteFunc()
     {
-        m_ActorObj.BeHitEffect.ContinueTime = CountTime > 0 ? CountTime - Time.time : 0;
-        m_ActorObj.BeHitEffect.MoveVector = m_ActorObj.Physic.MoveSpeed;
-        m_ActorObj.BeHitEffect.HardValue = 0;
-        m_ActorObj.BeHitEffect.Delegate = null;
-        //_ActorObj.BeHitEffect.ContinueTime = 
+        m_HitBuff.RemoveSelf();
         base.CompleteFunc();
     }
 }

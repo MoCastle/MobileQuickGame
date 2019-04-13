@@ -13,6 +13,10 @@ namespace GameScene
     public abstract class BaseActorObj : MonoBehaviour
     {
         #region 内部变量
+        [SerializeField]
+        [Title("人物属性", "black")]
+        public Propty _ActorPropty;
+        Transform _FootTransCtrl;
         PhysicComponent m_Physic;
         [SerializeField]
         [Header("动画事件")]
@@ -79,6 +83,72 @@ namespace GameScene
             get
             {
                 return m_SkillHurtBox;
+            }
+        }
+        #endregion
+        #region 接口
+        public CharacterAnim Anim
+        {
+            get
+            {
+                return m_CharacterAnim;
+            }
+        }
+        public int IDLayer
+        {
+            get
+            {
+                return m_IDLayer;
+            }
+        }
+        public Propty ActorPropty
+        {
+            get
+            {
+                if (_ActorPropty.ActorInfo.Name == "")
+                {
+                    _ActorPropty.ActorInfo.Name = gameObject.name;
+                }
+                return _ActorPropty;
+            }
+            set
+            {
+                _ActorPropty = value;
+            }
+        }
+        
+
+
+        BoxCollider2D _ColliderCtrl;
+        public BoxCollider2D BodyCollider
+        {
+            get
+            {
+                if (_ColliderCtrl == null)
+                {
+                    _ColliderCtrl = GetComponent<BoxCollider2D>();
+                }
+                return _ColliderCtrl;
+            }
+        }
+
+        public Transform TransCtrl
+        {
+            get
+            {
+                return transform;
+            }
+        }
+
+        public Transform FootTransCtrl
+        {
+            get
+            {
+                if (_FootTransCtrl == null)
+                {
+                    _FootTransCtrl = TransCtrl.Find("FootCheck");
+                }
+                return _FootTransCtrl;
             }
         }
         #endregion
@@ -185,14 +255,17 @@ namespace GameScene
             character.OnSetImdMoveSpeed += this.SetImdSpeed;
         }
         #endregion
-
-        public int IDLayer
+        #region BUFF
+        public void AddBuff( BaseBuff buff )
         {
-            get
-            {
-                return m_IDLayer;
-            }
+            character.AddBuff(buff);
         }
+        public BaseBuff GetBuff(BuffType type)
+        {
+            return character.GetBuffByType(type);
+        }
+        #endregion
+
 
         //生存状态
         //生命状态
@@ -206,7 +279,7 @@ namespace GameScene
         }
 
         BaseCharacter _Character;
-        public BaseCharacter Character
+        public BaseCharacter character
         {
             get
             {
@@ -221,60 +294,7 @@ namespace GameScene
             set
             {
                 _Character = value;
-                ActorPropty = Character.Propty;
-            }
-        }
-
-        [SerializeField]
-        [Title("人物属性", "black")]
-        public Propty _ActorPropty;
-        public Propty ActorPropty
-        {
-            get
-            {
-                if (_ActorPropty.ActorInfo.Name == "")
-                {
-                    _ActorPropty.ActorInfo.Name = gameObject.name;
-                }
-                return _ActorPropty;
-            }
-            set
-            {
-                _ActorPropty = value;
-            }
-        }
-
-        BoxCollider2D _ColliderCtrl;
-        public BoxCollider2D BodyCollider
-        {
-            get
-            {
-                if (_ColliderCtrl == null)
-                {
-                    _ColliderCtrl = GetComponent<BoxCollider2D>();
-                }
-                return _ColliderCtrl;
-            }
-        }
-
-        public Transform TransCtrl
-        {
-            get
-            {
-                return transform;
-            }
-        }
-
-        Transform _FootTransCtrl;
-        public Transform FootTransCtrl
-        {
-            get
-            {
-                if (_FootTransCtrl == null)
-                {
-                    _FootTransCtrl = TransCtrl.Find("FootCheck");
-                }
-                return _FootTransCtrl;
+                ActorPropty = character.Propty;
             }
         }
 
@@ -362,7 +382,7 @@ namespace GameScene
             if (_ActorPropty.IsDeath)
             {
                 m_ActionCtrler.SetTriiger("Death");
-                Character.OnDeath();
+                character.OnDeath();
             }
             //受击效果
             BeHitEffect = hitEffect;
@@ -387,7 +407,7 @@ namespace GameScene
         //通知硬直事件
         public void HardTime(float hardTime)
         {
-            m_ActionCtrler.CurAction.HardTime(hardTime);
+            m_ActionCtrler.CurAction.SetHardTime(hardTime);
         }
 
         //设置运动速度 匀速运动
@@ -399,6 +419,7 @@ namespace GameScene
         //设置瞬时速度
         public void SetImdSpeed(Vector2 speed)
         {
+            speed.x *= FaceDir.x;
             m_Physic.SetSpeed(speed);
         }
 
@@ -411,12 +432,14 @@ namespace GameScene
         //设置瞬时垂直速度
         public void SetImdVSpeed(float speed)
         {
+            speed *= FaceDir.x;
             m_Physic.SetSpeed(new Vector2(m_Physic.MoveSpeed.x, speed));
         }
 
         //设置瞬时水平速度
         public void SetImdHSpeed(float speed)
         {
+            speed *= FaceDir.x;
             m_Physic.SetSpeed(new Vector2(speed, m_Physic.MoveSpeed.y));
         }
 
@@ -427,6 +450,7 @@ namespace GameScene
             {
                 return;
             }
+            speed *= FaceDir.x;
             m_Physic.SetSpeed(new Vector2(m_Physic.MoveSpeed.x, speed));
         }
         //设置空中瞬时水平速度
@@ -436,6 +460,7 @@ namespace GameScene
             {
                 return;
             }
+            speed *= FaceDir.x;
             m_Physic.SetSpeed(new Vector2(speed, m_Physic.MoveSpeed.y));
         }
 

@@ -7,7 +7,7 @@ public class TestSceneDir : BattleDir {
     public override void EnterScene()
     {
         base.EnterScene();
-        BaseCharacter character = PlayerActor.Character;
+        BaseCharacter character = PlayerActor.character;
         character.DeathEvent += () => { UIManager.Mgr.ShowUI("PlayerDeathUI"); };
 
     }

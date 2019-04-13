@@ -16,14 +16,6 @@ public class HurtAction : BaseAction {
     }
     public virtual void EnterPrepare()
     {
-        
-        
-        /*
-        _ActorObj.BeHitEffect.HardValue = 0;
-        _ActorObj.BeHitEffect.Delegate = null;
-        _ActorObj.PhysicCtrl.ResetData();
-        */
-
         if (m_ActorObj.ActionCtrl.IsName("HitBack"))
         {
             m_ActorObj.BeHitEffect.MoveVector.y = 0;
@@ -34,7 +26,7 @@ public class HurtAction : BaseAction {
         float numSpeed = moveSpeed.magnitude;
         SetSpeed(-1* numSpeed);
         float hardTime = _Effect.HardValue * m_ActorObj.ActorPropty.HeavyRate;
-        HardTime(hardTime);
+        SetHardTime(hardTime);
     }
 
     public override void Update()

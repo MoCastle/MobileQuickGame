@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.IO;
 using System.Text;
+using GameScene;
 
 public class SceneEditMgr {
     static SceneEditMgr _Mgr;
@@ -52,7 +53,7 @@ public class SceneEditMgr {
                     GameObject instntiateObj = GameObject.Instantiate(loadObj);
                     instntiateObj.name = characterData.Propty.ActorInfo.Name;
                     BaseActorObj newActor = instntiateObj.GetComponent<BaseActorObj>();
-                    characterData.SetCharacter(newActor.Character);
+                    characterData.SetCharacter(newActor.character);
                     newActor.transform.SetParent(_NPCListOBJ.transform);
                 }
             }
@@ -80,7 +81,7 @@ public class SceneEditMgr {
             {
                 Transform actorTrans = _NPCListOBJ.transform.GetChild(idx);
                 BaseActorObj actor = actorTrans.GetComponent<BaseActorObj>();
-                sceneData.EnemyArr[idx].WriteCharacter(actor.Character);
+                sceneData.EnemyArr[idx].WriteCharacter(actor.character);
             }
 
             sceneData.DoorArr = new DoorData[_TranslateDoor.transform.childCount];

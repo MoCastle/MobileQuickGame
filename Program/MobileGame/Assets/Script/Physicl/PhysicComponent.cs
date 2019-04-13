@@ -6,7 +6,7 @@ using GamePhysic;
 
 namespace GameScene
 {
-    
+
     public class PhysicComponent : MonoBehaviour
     {
         #region 填写数据
@@ -362,8 +362,8 @@ namespace GameScene
         public void PhysicUpdate()
         {
             FramePrepare();
-            CountLastFrame();
             CountSpeed();
+            CountLastFrame();
             EndFrame();
         }
 
@@ -425,13 +425,19 @@ namespace GameScene
         #region 设置速度
         public void SetSpeed(Vector2 speed)
         {
-            MoveSpeed = speed;
+            if (m_IsPausing)
+                m_BackUpSpeed = speed;
+            else
+                MoveSpeed = speed;
         }
 
         public void SetSpeed(float speed)
         {
             Vector2 dir = Vector2.right * transform.localScale.x;
-            MoveSpeed = dir * speed;
+            if (m_IsPausing)
+                m_BackUpSpeed = dir * speed;
+            else
+                MoveSpeed = dir * speed;
         }
 
         /// <summary>
@@ -439,6 +445,8 @@ namespace GameScene
         /// </summary>
         public void PausePhysic()
         {
+            if (m_IsPausing)
+                return;
             m_IsPausing = true;
             m_BackUpSpeed = RealSpeed;
             m_PauseTime = Time.time;
@@ -449,8 +457,10 @@ namespace GameScene
         /// </summary>
         public void CountinuePhysic()
         {
+            if (!m_IsPausing)
+                return;
             m_IsPausing = false;
-            m_RealSpeed = m_BackUpSpeed;
+            m_MoveSpeed = m_BackUpSpeed;
             m_PauseTime = Time.time - m_PauseTime;
         }
         #endregion

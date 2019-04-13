@@ -19,7 +19,7 @@ public class ClickFlyAction : HurtAction {
         Vector2 moveSpeed = _Effect.MoveVector;
         m_ActorObj.Physic.SetSpeed(moveSpeed);
         float hardTime = _Effect.HardValue * m_ActorObj.ActorPropty.HeavyRate;
-        HardTime(hardTime);
+        SetHardTime(hardTime);
     }
     public override void Update()
     {

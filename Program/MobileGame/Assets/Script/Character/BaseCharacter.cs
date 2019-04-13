@@ -25,6 +25,39 @@ public struct CharacterData
 }
 
 public class BaseCharacter {
+    #region 内部属性
+    private LinkedList<BaseBuff> m_BuffList;
+    #endregion
+    #region 流程
+    public BaseCharacter(BaseActorObj actor = null)
+    {
+        _Actor = actor;
+        m_BuffList = new LinkedList<BaseBuff>();
+    }
+    #endregion
+    #region Buff
+    public void AddBuff(BaseBuff buff)
+    {
+        m_BuffList.AddFirst(buff);
+        buff.Start();
+    }
+    public void RemoveBuff(BaseBuff buff)
+    {
+        m_BuffList.Remove(buff);
+        buff.End();
+    }
+    public BaseBuff GetBuffByType(BuffType type)
+    {
+        foreach( BaseBuff buff in m_BuffList )
+        {
+            if( buff.type == type )
+            {
+                return buff;
+            }
+        }
+        return null;
+    }
+    #endregion
     #region 注册事件
     Dictionary<string, Action> _Event;
     public void RegistDeath(string name, Action action)
@@ -61,10 +94,7 @@ public class BaseCharacter {
         }
     }
     #endregion
-    public BaseCharacter(BaseActorObj actor =null)
-    {
-        _Actor = actor;
-    }
+    
     public void OnDeath()
     {
         if(DeathEvent!=null)

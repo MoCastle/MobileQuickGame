@@ -93,7 +93,7 @@ public class BattleDir : BaseDir
                 for(int idx = 0;idx<NPCList.Count;++idx)
                 {
                     actorNode = idx == 0 ? NPCList.First : actorNode.Next;
-                    sceneData.EnemyArr[idx].Propty = actorNode.Value.Character.Propty;
+                    sceneData.EnemyArr[idx].Propty = actorNode.Value.character.Propty;
                     sceneData.EnemyArr[idx].Position = actorNode.Value.transform.position;
                 }
             }
@@ -124,7 +124,7 @@ public class BattleDir : BaseDir
         BaseCharacter playerCharacter = PlayerMgr.Mgr.PlayerCharactor;
         if (playerCharacter != null)
         {
-            PlayerActor.Character = playerCharacter;
+            PlayerActor.character = playerCharacter;
         }
         else
         {

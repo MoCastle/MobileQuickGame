@@ -42,6 +42,11 @@ public class CharacterAnim : MonoBehaviour
     {
         Animator.SetBool(name, value);
     }
+
+    public void SetTrigger(string name)
+    {
+        Animator.SetTrigger(name);
+    }
     #endregion
     #region 运动
     //瞬移

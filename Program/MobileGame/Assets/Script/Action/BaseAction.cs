@@ -112,7 +112,7 @@ public class BaseAction : BaseState
     public virtual void CompleteFunc()
     {
         m_AttackDict.Clear();
-        m_ActorObj.Physic.PausePhysic();
+        m_ActorObj.Physic.CountinuePhysic();
         m_InputDIr = Vector2.zero;
         m_ActionCtrl.AnimSpeed = 1;
         m_DirLock = false;
@@ -186,7 +186,7 @@ public class BaseAction : BaseState
             {
                 return;
             }
-            BaseActorObj TargetActor = TargetCollider.GetComponent<BaseActorObj>();
+            BaseActorObj TargetActor = TargetCollider.transform.parent.GetComponent<BaseActorObj>();
             if (TargetActor != null && TargetActor.Alive && !m_AttackDict.ContainsKey(TargetActor))
             {
                 m_AttackDict.Add(TargetActor, 1);
@@ -194,16 +194,14 @@ public class BaseAction : BaseState
                 GenEffect(effectPs);
                 SetCutMeet(TargetActor);
                 //产生伤害
-                HitEffect hitEffect = new HitEffect();
-                hitEffect.HardValue = m_SkillInfo.BeAttackHardTime;
-                hitEffect.HitType = m_SkillInfo.HitType;
-                hitEffect.MoveVector = m_SkillInfo.HitFlyDirection;
-                hitEffect.HitFlyValue = m_SkillInfo.HitFlyValue;
-                if (m_ActorObj.FaceDir.x < 0)
+                float moveDir = 1;
+                if ((TargetActor.transform.position.x - m_ActorObj.transform.position.x) < 0)
                 {
-                    hitEffect.MoveVector.x *= -1;
+                    moveDir *= -1;
                 }
-                TargetActor.BeAttacked(m_ActorObj, effectPs, hitEffect, m_SkillInfo.Damage);
+                BuffType buffType = BuffType.Hit;
+                new HitBuff(this.m_SkillInfo, moveDir,this.m_ActorObj).AddToCharacter(TargetActor.character);
+                this.SetHardTime(this.m_SkillInfo.AttackHardTime);
             }
         }
     }
@@ -301,7 +299,7 @@ public class BaseAction : BaseState
     }
 
     //硬直时间
-    public virtual void HardTime(float time)
+    public virtual void SetHardTime(float time)
     {
         m_HardTime = Time.time + time;
         m_ActionCtrl.AnimSpeed = 0;

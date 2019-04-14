@@ -112,7 +112,6 @@ public class BaseAction : BaseState
     public virtual void CompleteFunc()
     {
         m_AttackDict.Clear();
-        m_ActorObj.Physic.CountinuePhysic();
         m_InputDIr = Vector2.zero;
         m_ActionCtrl.AnimSpeed = 1;
         m_DirLock = false;
@@ -186,24 +185,39 @@ public class BaseAction : BaseState
             {
                 return;
             }
-            BaseActorObj TargetActor = TargetCollider.transform.parent.GetComponent<BaseActorObj>();
-            if (TargetActor != null && TargetActor.Alive && !m_AttackDict.ContainsKey(TargetActor))
+            BaseActorObj targetActor = TargetCollider.transform.parent.GetComponent<BaseActorObj>();
+           
+            if (targetActor != null && targetActor.Alive && !m_AttackDict.ContainsKey(targetActor))
             {
-                m_AttackDict.Add(TargetActor, 1);
-                Vector3 effectPs = CountHurtPs(m_ActorObj.SkillHurtBox, TargetCollider);
-                GenEffect(effectPs);
-                SetCutMeet(TargetActor);
-                //产生伤害
-                float moveDir = 1;
-                if ((TargetActor.transform.position.x - m_ActorObj.transform.position.x) < 0)
-                {
-                    moveDir *= -1;
-                }
-                BuffType buffType = BuffType.Hit;
-                new HitBuff(this.m_SkillInfo, moveDir,this.m_ActorObj).AddToCharacter(TargetActor.character);
-                this.SetHardTime(this.m_SkillInfo.AttackHardTime);
+                EffectOnActor(targetActor, TargetCollider);
             }
         }
+    }
+
+    public virtual void EffectOnActor(BaseActorObj targetActor, Collider2D TargetCollider)
+    {
+        m_AttackDict.Add(targetActor, 1);
+        Vector3 effectPs = CountHurtPs(m_ActorObj.SkillHurtBox, TargetCollider);
+        GenEffect(effectPs);
+        SetCutMeet(targetActor);
+        //产生伤害
+        float moveDir = 1;
+        if ((targetActor.transform.position.x - m_ActorObj.transform.position.x) < 0)
+        {
+            moveDir *= -1;
+        }
+        BaseBuff buff = null;
+        switch(m_SkillInfo.HitType)
+        {
+            case HitEffectType.ClickFly:
+                buff = new HitFlyBuff(this.m_SkillInfo, moveDir, this.m_ActorObj);
+                break;
+            default:
+                buff = new HitBuff(this.m_SkillInfo, moveDir, this.m_ActorObj);
+                break;
+        }
+        buff.AddToCharacter(targetActor.character);
+        this.SetHardTime(this.m_SkillInfo.AttackHardTime);
     }
     //生成特效
     public void GenEffect(Vector3 position)

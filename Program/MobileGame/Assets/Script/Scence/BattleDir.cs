@@ -54,7 +54,7 @@ public class BattleDir : BaseDir
             {
                 if (!character.Propty.IsDeath)
                 {
-                    BaseActorObj newActor = ActorManager.Mgr.GenActor(character.Propty.ActorInfo.Name);
+                    BaseActorObj newActor = ActorManager.Mgr.GenActor(character.Propty.name);
                     NPCList.AddLast(newActor as EnemyObj);
                     newActor.ActorPropty = character.Propty;
                     ActorList.AddFirst(newActor);

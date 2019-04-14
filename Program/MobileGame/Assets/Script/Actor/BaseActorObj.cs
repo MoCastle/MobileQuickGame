@@ -13,6 +13,9 @@ namespace GameScene
     public abstract class BaseActorObj : MonoBehaviour
     {
         #region 内部变量
+        //生存状态
+        //生命状态
+        protected bool _Alive = true;
         [SerializeField]
         [Title("人物属性", "black")]
         public Propty _ActorPropty;
@@ -30,6 +33,13 @@ namespace GameScene
         protected int m_IDLayer;
         #endregion
         #region 对外接口
+        public bool Alive
+        {
+            get
+            {
+                return _Alive;
+            }
+        }
         //物理
         public PhysicComponent Physic
         {
@@ -105,9 +115,9 @@ namespace GameScene
         {
             get
             {
-                if (_ActorPropty.ActorInfo.Name == "")
+                if (_ActorPropty.name == "")
                 {
-                    _ActorPropty.ActorInfo.Name = gameObject.name;
+                    _ActorPropty.name = gameObject.name;
                 }
                 return _ActorPropty;
             }
@@ -265,19 +275,6 @@ namespace GameScene
             return character.GetBuffByType(type);
         }
         #endregion
-
-
-        //生存状态
-        //生命状态
-        protected bool _Alive = true;
-        public bool Alive
-        {
-            get
-            {
-                return _Alive;
-            }
-        }
-
         BaseCharacter _Character;
         public BaseCharacter character
         {
@@ -362,8 +359,9 @@ namespace GameScene
             {
                 return;
             }
+            /*
             //受击特效
-            if (_ActorPropty.ActorInfo.BloodName != null && _ActorPropty.ActorInfo.BloodName != "")
+            if (_ActorPropty. != null && _ActorPropty.ActorInfo.BloodName != "")
             {
                 GameObject blood = EffectManager.Manager.GenEffect(_ActorPropty.ActorInfo.BloodName);
                 float dir = attacker.transform.position.x - this.transform.position.x;
@@ -374,7 +372,7 @@ namespace GameScene
                     blood.transform.localScale = scale;
                 }
                 blood.transform.position = position;
-            }
+            }*/
             Vector2 faceDir = attacker.transform.position - transform.position;
             faceDir.y = 0;
             FaceToDir(faceDir);

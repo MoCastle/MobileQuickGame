@@ -346,15 +346,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PhysicData:
-    MaxFallingSpeed: 0
-    FallingTime: 0
+    MaxFallingSpeed: 20
+    FallingTime: 2
     FallingGravityCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 2
+        time: 0.001851852
+        value: 0.006251633
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.27807233
+        value: 0.28501493
+        inSlope: 3.0175312
+        outSlope: 11.272428
+        tangentMode: 65
+      - serializedVersion: 2
+        time: 0.31006303
+        value: 0.64562786
+        inSlope: 2.0968914
+        outSlope: 0.51362973
+        tangentMode: 65
+      - serializedVersion: 2
+        time: 1
+        value: 1
+        inSlope: 0.51362973
+        outSlope: 0
+        tangentMode: 5
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
-    ReduceRate: 0
+      m_RotationOrder: 0
+    ReduceRate: 0.4
   m_Collider2D: {fileID: 61459396608792886}
   m_FootCollider2D: {fileID: 61835526490923744}
   m_IsOnGround: 0
@@ -370,18 +394,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4829c66d4ce484a9f11d774873897c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ActorPropty:
-    ActorInfo:
-      ID: 0
-      Name: 
-      Life: 0
-      Physical: 0
-      Speed: 0
-      Power: 0
-      Heavy: 0
-      HeavyRate: 0
-      BloodName: 
-    _Life: 0
+  m_Propty:
+    m_Name: Player
+    m_Speed: 10
+    MaxLife: 100
+    m_Life: 0
+    m_BloodName: Blood
   m_CharacterAnim: {fileID: 114574097459277214}
   m_SkillHurtBox: {fileID: 61645582682456768}
   IsHoly: 0

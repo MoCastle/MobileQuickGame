@@ -4,30 +4,8 @@ using UnityEngine;
 using System;
 using System.Linq;
 using GameScene;
-
-[System.Serializable]
-public struct ActorInfo
-{
-    public int ID;
-    public string Name;
-    [Title("最大生命值", "black")]
-    public float Life;
-    public float Physical;
-    public float Speed;
-    public float Power;
-    [Title("肉量", "black")]
-    public float Heavy;
-    [Title("肉质", "black")]
-    public float HeavyRate;
-    [Title("受击特效", "black")]
-    public string BloodName;
-
-    //public List<ActionInfo> ActorActionList;
-}
-
 public class ActorManager {
-    //List<List<ActionInfo>> _ActionList;
-    Dictionary<int, ActorInfo> _ActorsInfoDict;
+    Dictionary<int, Propty> _ActorsInfoDict;
 
     ActorManager()
     {
@@ -35,7 +13,7 @@ public class ActorManager {
         //InitActorInfo();
     }
 
-    public ActorInfo GetActorInfo(int ID)
+    public Propty GetActorInfo(int ID)
     {
         return _ActorsInfoDict[ID];
     }

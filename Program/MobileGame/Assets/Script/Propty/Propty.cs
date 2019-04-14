@@ -3,108 +3,106 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct Propty {
-    [Title("属性", "black")]
-    public ActorInfo ActorInfo;
+public struct Propty
+{
+    #region 属性
+    [Title("资源名")]
+    public string m_Name;
+    [Header("移动速度")]
+    public float m_Speed;
+    [Header("最大生命值")]
+    public int MaxLife;
     [Title("当前生命值", "black")]
     [SerializeField]
-    float _Life;
-    float _CurLife
-    {
-        get
-        {
-            return _Life;
-        }set
-        {
-            //最大生命值小于等于0则不会有血量变化
-            if(ActorInfo.Life<=0)
-            {
-                return;
-            }
-            _Life = value;
-            if (_Life < 0)
-            {
-                _Life = 0;
-            }
-            else if (_Life > ActorInfo.Life)
-            {
-                _Life = ActorInfo.Life;
-            }
+    int m_Life;
+    #endregion
 
-            if (_Life <= 0)
-            {
-                _IsDeath = true;
-            }
-        }
-    }
-    public float CurLife
+    #region 接口
+    int CurLife
     {
         get
         {
-            return _CurLife;
+            return m_Life;
+        }
+        set
+        {
+            m_Life = value;
+            if (m_Life < 0)
+            {
+                m_Life = 0;
+            }
+            if (m_Life > MaxLife)
+            {
+                m_Life = MaxLife;
+            }
         }
     }
-    public float PercentLife
+    bool isDead
+    {
+        get
+        {
+            return CurLife <= 0.0001;
+        }
+    }
+    public float percentLife
     {
         get
         {
             //最大血量小于0是不扣血的
-            if (ActorInfo.Life <= 0)
+            if (MaxLife <= 0)
             {
                 return 1;
             }
-            float Percent = (float)_CurLife / (float)ActorInfo.Life;
+            float Percent = (float)CurLife / (float)MaxLife;
             Percent = Percent > 0.001f && Percent < 0.1f ? 0.1f : Percent;
             return Percent;
         }
     }
-    bool _IsDeath;
     public bool IsDeath
     {
         get
         {
-            return _IsDeath;
+            return CurLife <= 0;
         }
     }
+    public string name
+    {
+        get
+        {
+            return m_Name;
+        }
+        set
+        {
+            m_Name = value;
+        }
+    }
+    #endregion
+
     #region
     //复活时候用
     public void ResetPropty()
     {
-        _CurLife = ActorInfo.Life;
-        _IsDeath = false;
+        CurLife = MaxLife;
     }
+
     public void ModLifeValue(float modValue)
     {
         //小于等于0就是没有血量
-        if(ActorInfo.Life<=0)
+        if (isDead)
         {
             return;
         }
-        _CurLife += modValue;
-        
+        modValue = Mathf.Ceil(modValue);
+        CurLife += (int)modValue;
     }
     #endregion
-    public float Heavy
-    {
-        get
-        {
-            return ActorInfo.Heavy;
-        }
-    }
-    public float HeavyRate
-    {
-        get
-        {
-            return ActorInfo.HeavyRate;
-        }
-    }
 
     //移动速度
-    public float MoveSpeed
+    public float moveSpeed
     {
         get
         {
-            return ActorInfo.Speed;
+            return m_Speed;
         }
     }
 }

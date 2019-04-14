@@ -25,7 +25,7 @@ public class NPCFlyKnifeHurtAction : NPCFlyItemAction
         _Dir.x = Mathf.Abs(moveVector.x) > 0 ? moveVector.x : _Dir.x;
         _Dir.y = Mathf.Abs(moveVector.y) > 0 ? moveVector.y : _Dir.y;
         _Dir = _Dir.normalized;
-        m_HSpeed = baseActorObj.ActorPropty.MoveSpeed;
+        m_HSpeed = baseActorObj.ActorPropty.moveSpeed;
     }
     public override void Update()
     {

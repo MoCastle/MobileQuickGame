@@ -49,9 +49,9 @@ public class SceneEditMgr {
             {
                 if (!characterData.Propty.IsDeath)
                 {
-                    GameObject loadObj = Resources.Load<GameObject>("Prefab\\Character\\" + characterData.Propty.ActorInfo.Name);
+                    GameObject loadObj = Resources.Load<GameObject>("Prefab\\Character\\" + characterData.Propty.name);
                     GameObject instntiateObj = GameObject.Instantiate(loadObj);
-                    instntiateObj.name = characterData.Propty.ActorInfo.Name;
+                    instntiateObj.name = characterData.Propty.m_Name;
                     BaseActorObj newActor = instntiateObj.GetComponent<BaseActorObj>();
                     characterData.SetCharacter(newActor.character);
                     newActor.transform.SetParent(_NPCListOBJ.transform);

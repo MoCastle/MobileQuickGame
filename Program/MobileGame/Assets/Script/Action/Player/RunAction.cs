@@ -8,7 +8,7 @@ public class RunAction : PlayerAction {
     {
         get
         {
-            return m_ActorPropty.MoveSpeed;
+            return m_ActorPropty.moveSpeed;
         }
     }
     public RunAction(BaseActorObj actionCtrler,SkillInfo skillInfo) : base(actionCtrler, skillInfo)

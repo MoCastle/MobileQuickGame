@@ -41,7 +41,6 @@ namespace GameScene
         Quaternion m_NormalTrans;
         Vector2 m_BackUpSpeed;
         float m_GravityScale = 1;
-
         //速度
         Vector2 m_MoveSpeed;
         float m_LastFallingTime;
@@ -181,7 +180,7 @@ namespace GameScene
         {
             get
             {
-                return m_GravityScale;
+                return m_IsPausing ? 0 : m_GravityScale;
             }
             set
             {
@@ -450,6 +449,7 @@ namespace GameScene
             m_IsPausing = true;
             m_BackUpSpeed = RealSpeed;
             m_PauseTime = Time.time;
+            m_RealSpeed = Vector2.zero;
         }
 
         /// <summary>

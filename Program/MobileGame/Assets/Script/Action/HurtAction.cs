@@ -25,7 +25,7 @@ public class HurtAction : BaseAction {
         //_ActorObj.PhysicCtrl.SetSpeed(moveSpeed);
         float numSpeed = moveSpeed.magnitude;
         SetSpeed(-1* numSpeed);
-        float hardTime = _Effect.HardValue * m_ActorObj.ActorPropty.HeavyRate;
+        float hardTime = 0;// _Effect.HardValue * m_ActorObj.ActorPropty.HeavyRate;
         SetHardTime(hardTime);
     }
 

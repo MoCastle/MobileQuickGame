@@ -34,37 +34,37 @@ public struct SceneData
 }
 
 public class SceneDataManager {
-    static SceneDataManager _Mgr;
+    static SceneDataManager m_Mgr;
     public static SceneDataManager Mgr
     {
         get
         {
-            if(_Mgr == null)
+            if(m_Mgr == null)
             {
-                _Mgr = new SceneDataManager();
+                m_Mgr = new SceneDataManager();
             }
-            return _Mgr;
+            return m_Mgr;
         }
     }
     public SceneData GetSceneData( string sceneName)
     {
         SceneData returnData;
-        _SceneData.TryGetValue(sceneName, out returnData);
+        m_SceneData.TryGetValue(sceneName, out returnData);
         return returnData;
     }
     
     SceneDataManager()
     {
-        _SceneData = new Dictionary<string, SceneData>();
-        _Load();
+        m_SceneData = new Dictionary<string, SceneData>();
+        Load();
     }
-    Dictionary<string, SceneData> _SceneData;
-    private void _Load()
+    Dictionary<string, SceneData> m_SceneData;
+    private void Load()
     {
         byte[] bytes = LoaderFile.LoadBytes(PathManager.SceneData, Application.platform == RuntimePlatform.Android);
         string jsStr = Encoding.UTF8.GetString(bytes);
         SlzDictionary<string, SceneData> slzDictionary = JsonUtility.FromJson<SlzDictionary<string, SceneData>>(jsStr);
-        _SceneData = slzDictionary.ToDictionary();
+        m_SceneData = slzDictionary.ToDictionary();
     }
 
     

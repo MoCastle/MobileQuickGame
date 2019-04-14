@@ -133,10 +133,10 @@ MonoBehaviour:
     ID: 0
     BeAttackHardTime: 0
     AttackHardTime: 0
-    HitFlyValue: 0
+    HitFlyValue: 20
     Damage: 0
-    HitFlyDirection: {x: 0, y: 0}
-    HitType: 1
+    HitFlyDirection: {x: 0, y: 1}
+    HitType: 2
     EffectName: Hit
     CostVIT: 0
 --- !u!114 &114029595453894510
@@ -175,9 +175,9 @@ MonoBehaviour:
   ActionName: AttackAction
   SkillInfo:
     ID: 0
-    BeAttackHardTime: 1
-    AttackHardTime: 1
-    HitFlyValue: 10
+    BeAttackHardTime: 2
+    AttackHardTime: 0
+    HitFlyValue: 20
     Damage: 50
     HitFlyDirection: {x: 0, y: 0}
     HitType: 0
@@ -197,8 +197,8 @@ MonoBehaviour:
   ActionName: AttackAction
   SkillInfo:
     ID: 0
-    BeAttackHardTime: 1
-    AttackHardTime: 1
+    BeAttackHardTime: 2
+    AttackHardTime: 0
     HitFlyValue: 10
     Damage: 80
     HitFlyDirection: {x: 0, y: 0}
@@ -219,9 +219,9 @@ MonoBehaviour:
   ActionName: AttackAction
   SkillInfo:
     ID: 0
-    BeAttackHardTime: 0.5
-    AttackHardTime: 0.3
-    HitFlyValue: 10
+    BeAttackHardTime: 2
+    AttackHardTime: 0
+    HitFlyValue: 20
     Damage: 50
     HitFlyDirection: {x: 0, y: 0}
     HitType: 1
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6e2116479f34d4fb9bdf904056f7e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionName: HurtAction
+  ActionName: HitAction
   SkillInfo:
     ID: 0
     BeAttackHardTime: 0
@@ -3049,7 +3049,7 @@ AnimatorStateMachine:
     m_Position: {x: -12, y: -420, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102181087892315382}
-    m_Position: {x: 156, y: -1068, z: 0}
+    m_Position: {x: 156, y: -1080, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102250420514524152}
     m_Position: {x: 456, y: -1068, z: 0}

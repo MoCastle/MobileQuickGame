@@ -8,7 +8,7 @@ public class NPCRunAction : BaseAction
     {
         get
         {
-            return m_ActorPropty.MoveSpeed;
+            return m_ActorPropty.moveSpeed;
         }
     }
     public NPCRunAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)

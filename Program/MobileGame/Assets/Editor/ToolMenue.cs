@@ -9,6 +9,7 @@ public class ToolMenue : MonoBehaviour {
     {
         EditAPP.SceneEditMgr.LoadSceneData();
     }
+    
     [MenuItem("编辑工具/将场景数据保存为配置表")]
     public static void SaveSceneData()
     {

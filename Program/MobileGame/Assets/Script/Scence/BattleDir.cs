@@ -1,6 +1,5 @@
 ﻿/*作者:Mo
  * 用于战斗场景控制
- */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,13 +51,13 @@ public class BattleDir : BaseDir
         {
             foreach( CharacterData character in sceneData.EnemyArr )
             {
-                if (!character.Propty.IsDeath)
+                if (!character.propty.IsDeath)
                 {
-                    BaseActorObj newActor = ActorManager.Mgr.GenActor(character.Propty.name);
+                    BaseActorObj newActor = ActorManager.Mgr.GenActor(character.propty.name);
                     NPCList.AddLast(newActor as EnemyObj);
-                    newActor.ActorPropty = character.Propty;
+                    newActor.propty = character.propty;
                     ActorList.AddFirst(newActor);
-                    newActor.transform.position = character.Position;
+                    newActor.transform.position = character.position;
                 }
             }
         }
@@ -93,8 +92,8 @@ public class BattleDir : BaseDir
                 for(int idx = 0;idx<NPCList.Count;++idx)
                 {
                     actorNode = idx == 0 ? NPCList.First : actorNode.Next;
-                    sceneData.EnemyArr[idx].Propty = actorNode.Value.character.Propty;
-                    sceneData.EnemyArr[idx].Position = actorNode.Value.transform.position;
+                    sceneData.EnemyArr[idx].propty = actorNode.Value.propty;
+                    sceneData.EnemyArr[idx].position = actorNode.Value.transform.position;
                 }
             }
             sceneData.DoorArr = new DoorData[DoorCollision.transform.childCount];
@@ -114,22 +113,7 @@ public class BattleDir : BaseDir
         BaseActorObj player = ActorManager.Mgr.GenActor("Player");
         PlayerActor = player as PlayerObj;
         PlayerActor.transform.position = BirthPS;
-        SynCharacterInfo();
         ActorList.AddFirst(player);
-    }
-
-    //同步玩家数据
-    protected virtual void SynCharacterInfo()
-    {
-        BaseCharacter playerCharacter = PlayerMgr.Mgr.PlayerCharactor;
-        if (playerCharacter != null)
-        {
-            PlayerActor.character = playerCharacter;
-        }
-        else
-        {
-            PlayerMgr.Mgr.PlayerCharactor = playerCharacter;
-        }
     }
 
     //重生玩家
@@ -146,6 +130,7 @@ public class BattleDir : BaseDir
 
         _SceneMgr.EnterScene(new BattleScene(this));
     }
+
     protected override void StartPrepare()
     {
         LoadSceneData();
@@ -206,3 +191,5 @@ public class BattleDir : BaseDir
     }
 
 }
+ */
+

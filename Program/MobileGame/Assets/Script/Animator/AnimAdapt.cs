@@ -4,7 +4,6 @@ using UnityEngine;
 using System.Reflection;
 using System;
 using GameScene;
-using GameScene;
 
 public class AnimAdapt : StateMachineBehaviour
 {

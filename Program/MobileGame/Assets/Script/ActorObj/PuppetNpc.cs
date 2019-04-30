@@ -19,7 +19,7 @@ public class PuppetNpc : EnemyObj {
     //该属性
     public void SetProppty( Propty propty )
     {
-        _ActorPropty = propty;
+        m_ActorPropty = propty;
     }
     #endregion
 

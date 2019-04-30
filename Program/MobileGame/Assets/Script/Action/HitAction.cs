@@ -36,7 +36,7 @@ public class HitAction : BaseAction {
     public HitAction(BaseActorObj baseActorObj, SkillInfo skillInfo):base(baseActorObj, skillInfo)
     {
         SetFaceLock(true);
-        BaseBuff baseBuff = baseActorObj.GetBuff(BuffType.Hit);
+        BaseBuff baseBuff = baseActorObj.GetBuffByType(BuffType.Hit);
         m_HitBuff = baseBuff == null? new HitBuff(): baseBuff as HitBuff;
         float hardTime = m_HitBuff.hardTime;
         SetHardTime(hardTime);

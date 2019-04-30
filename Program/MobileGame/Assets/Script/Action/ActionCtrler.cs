@@ -80,7 +80,7 @@ public class ActionCtrler:BaseFSM {
             m_CurAction.Update();
         }
     }
-    public override void Switch(BaseState state)
+    public void SwitchState(BaseState state)
     {
         base.Switch(state);
         m_CurAction = state as BaseAction;

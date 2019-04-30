@@ -1,6 +1,7 @@
 ﻿/*作者:Mo
  *基础导演类 控制进入场景流程
 */
+/*
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -90,3 +91,4 @@ public abstract class BaseDir : MonoBehaviour {
 
 
 }
+*/

@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Text;
 using GameScene;
-
+using LitJson;
 public class SceneEditMgr {
     static SceneEditMgr _Mgr;
     public static SceneEditMgr Mgr
@@ -47,13 +47,13 @@ public class SceneEditMgr {
         {
             foreach (CharacterData characterData in data.EnemyArr)
             {
-                if (!characterData.Propty.IsDeath)
+                if (!characterData.propty.IsDeath)
                 {
-                    GameObject loadObj = Resources.Load<GameObject>("Prefab\\Character\\" + characterData.Propty.name);
+                    GameObject loadObj = Resources.Load<GameObject>("Prefab\\Character\\" + characterData.propty.name);
                     GameObject instntiateObj = GameObject.Instantiate(loadObj);
-                    instntiateObj.name = characterData.Propty.m_Name;
+                    instntiateObj.name = characterData.propty.m_Name;
                     BaseActorObj newActor = instntiateObj.GetComponent<BaseActorObj>();
-                    characterData.SetCharacter(newActor.character);
+                    characterData.ReadActor(newActor);
                     newActor.transform.SetParent(_NPCListOBJ.transform);
                 }
             }
@@ -72,6 +72,10 @@ public class SceneEditMgr {
     }
     public void SaveSceneData()
     {
+        if(_SceneObj == null)
+        {
+            _SceneObj = GameObject.Find("场景配置对象");
+        }
         if (_SceneObj != null)
         {
             SceneData sceneData = new SceneData();
@@ -81,7 +85,7 @@ public class SceneEditMgr {
             {
                 Transform actorTrans = _NPCListOBJ.transform.GetChild(idx);
                 BaseActorObj actor = actorTrans.GetComponent<BaseActorObj>();
-                sceneData.EnemyArr[idx].WriteCharacter(actor.character);
+                sceneData.EnemyArr[idx].WriteActor(actor);
             }
 
             sceneData.DoorArr = new DoorData[_TranslateDoor.transform.childCount];
@@ -94,7 +98,7 @@ public class SceneEditMgr {
 
             _SceneData[sceneData.SceneName] = sceneData;
             SlzDictionary<string, SceneData> slzDictionary = new SlzDictionary<string, SceneData>(_SceneData);
-            string saveInfo = JsonUtility.ToJson(slzDictionary);
+            string saveInfo = JsonMapper.ToJson(slzDictionary);
             byte[] bytes = Encoding.UTF8.GetBytes(saveInfo);
             File.WriteAllBytes(PathManager.SceneData, bytes);
             GameObject.DestroyImmediate(_SceneObj);
@@ -112,7 +116,7 @@ public class SceneEditMgr {
     {
         byte[] bytes = LoaderFile.LoadBytes(PathManager.SceneData, Application.platform == RuntimePlatform.Android);
         string jsStr = Encoding.UTF8.GetString(bytes);
-        SlzDictionary<string, SceneData> slzDictionary = JsonUtility.FromJson<SlzDictionary<string, SceneData>>(jsStr);
+        SlzDictionary<string, SceneData> slzDictionary = JsonUtility.FromJson<SlzDictionary<string, SceneData>>(jsStr);//JsonMapper.ToObject<SlzDictionary<string, SceneData>>(jsStr);// 
         _SceneData = slzDictionary.ToDictionary();
     }
 }

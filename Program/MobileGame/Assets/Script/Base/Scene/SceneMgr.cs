@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneMgr {
+    /*
     #region 对外接口
     static SceneMgr _Mgr;
     public static SceneMgr Mgr
@@ -55,5 +56,5 @@ public class SceneMgr {
             _CurScene.LeaveScene();
         }
         SceneManager.LoadScene(Name);
-    }
+    }*/
 }

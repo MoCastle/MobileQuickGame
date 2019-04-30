@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+using GameScene;
 
 public struct SaveData
 {
@@ -72,11 +72,12 @@ public class PlayerMgr {
     //获取场景
     public SceneData GetSceneData(string sceneName)
     {
-        SceneData returnData;
-        if(! GameMemory.SceneData.TryGetValue(sceneName,out returnData))
-        {
-            returnData = APP.SceneDataManager.GetSceneData(sceneName);
-        }
+       
+        SceneData returnData = new SceneData();
+        /*if(! GameMemory.SceneData.TryGetValue(sceneName,out returnData))
+       {
+           returnData = APP.SceneDataManager.GetSceneData(sceneName);
+       }*/
         return returnData;
     }
 

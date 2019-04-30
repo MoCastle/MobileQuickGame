@@ -29,11 +29,12 @@ public struct BattleSceneInfo
     */
 }
 public class BattleMgr {
+    /*
     #region 外部功能
     public void EnterBattle(BattleSceneInfo inSceneInfo)
     {
         _CurSceneInfo = inSceneInfo;
-        SceneMgr.Mgr.JumpScene(inSceneInfo.Name);
+        //SceneMgr.Mgr.JumpScene(inSceneInfo.Name);
     }
     #endregion
 
@@ -65,21 +66,22 @@ public class BattleMgr {
     /// <summary>
     /// 当前战斗场景导演
     /// </summary>
-    BattleDir _CurDir;
-    public BattleDir CurDir
-    {
-        get
-        {
-            return _CurBattleScene.BattleDir;
-        }
-        set
+    /*BattleDir _CurDir;
+     public BattleDir CurDir
+     {
+
+         get
+         {
+             return _CurBattleScene.BattleDir;
+         }
+    set
         {
             _CurDir = value;
         }
-    }
-    #endregion
-    #region 内部功能
-    static BattleMgr _Mgr;
+}
+#endregion
+#region 内部功能
+static BattleMgr _Mgr;
     public static BattleMgr Mgr
     {
         get
@@ -97,5 +99,5 @@ public class BattleMgr {
 
     }
     #endregion
-
+*/
 }

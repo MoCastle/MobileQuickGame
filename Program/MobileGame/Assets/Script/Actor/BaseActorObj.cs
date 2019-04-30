@@ -13,13 +13,14 @@ namespace GameScene
     public abstract class BaseActorObj : MonoBehaviour
     {
         #region 内部变量
+        private LinkedList<BaseBuff> m_BuffList;
         //生存状态
         //生命状态
         protected bool _Alive = true;
         [SerializeField]
         [Title("人物属性", "black")]
-        public Propty _ActorPropty;
-        Transform _FootTransCtrl;
+        public Propty m_ActorPropty;
+        Transform m_FootTransCtrl;
         PhysicComponent m_Physic;
         [SerializeField]
         [Header("动画事件")]
@@ -31,6 +32,8 @@ namespace GameScene
         private FaceDirection m_HDirection;
         //敌人识别层级
         protected int m_IDLayer;
+        BoxCollider2D m_ColliderCtrl;
+        ActionCtrler m_ActionCtrler;
         #endregion
         #region 对外接口
         public bool Alive
@@ -111,37 +114,32 @@ namespace GameScene
                 return m_IDLayer;
             }
         }
-        public Propty ActorPropty
+        public Propty propty
         {
             get
             {
-                if (_ActorPropty.name == "")
+                if (m_ActorPropty.name == "")
                 {
-                    _ActorPropty.name = gameObject.name;
+                    m_ActorPropty.name = gameObject.name;
                 }
-                return _ActorPropty;
+                return m_ActorPropty;
             }
             set
             {
-                _ActorPropty = value;
+                m_ActorPropty = value;
             }
         }
-        
-
-
-        BoxCollider2D _ColliderCtrl;
         public BoxCollider2D BodyCollider
         {
             get
             {
-                if (_ColliderCtrl == null)
+                if (m_ColliderCtrl == null)
                 {
-                    _ColliderCtrl = GetComponent<BoxCollider2D>();
+                    m_ColliderCtrl = GetComponent<BoxCollider2D>();
                 }
-                return _ColliderCtrl;
+                return m_ColliderCtrl;
             }
         }
-
         public Transform TransCtrl
         {
             get
@@ -149,16 +147,39 @@ namespace GameScene
                 return transform;
             }
         }
-
         public Transform FootTransCtrl
         {
             get
             {
-                if (_FootTransCtrl == null)
+                if (m_FootTransCtrl == null)
                 {
-                    _FootTransCtrl = TransCtrl.Find("FootCheck");
+                    m_FootTransCtrl = TransCtrl.Find("FootCheck");
                 }
-                return _FootTransCtrl;
+                return m_FootTransCtrl;
+            }
+        }
+        public ActionCtrler ActionCtrl
+        {
+            get
+            {
+                return m_ActionCtrler;
+            }
+        }
+        //角色面向防线
+        public Vector2 FaceDir
+        {
+            get
+            {
+                Vector2 dir = Vector2.right * (transform.localScale.x > 0 ? 1 : -1);
+                return dir;
+            }
+        }
+        public Vector3 FaceDir3D
+        {
+            get
+            {
+                Vector3 dir = Vector3.right * (transform.localScale.x > 0 ? 1 : -1);
+                return dir;
             }
         }
         #endregion
@@ -198,6 +219,7 @@ namespace GameScene
         #region 流程
         private void Awake()
         {
+            m_BuffList = new LinkedList<BaseBuff>();
             m_ActionCtrler = new ActionCtrler(this, m_CharacterAnim.Animator);//, info.ActorActionList);
             LogicAwake();
         }
@@ -213,7 +235,7 @@ namespace GameScene
         //出生
         public void Birth()
         {
-            ActorPropty.ResetPropty();
+            propty.ResetPropty();
             m_ActionCtrler.SetTriiger("Birth");
         }
 
@@ -268,42 +290,25 @@ namespace GameScene
         #region BUFF
         public void AddBuff( BaseBuff buff )
         {
-            character.AddBuff(buff);
+            m_BuffList.AddFirst(buff);
+            buff.Start();
         }
-        public BaseBuff GetBuff(BuffType type)
+        public BaseBuff GetBuffByType(BuffType buffType)
         {
-            return character.GetBuffByType(type);
+            foreach( BaseBuff buff in m_BuffList )
+            {
+                if(buff.type == buffType)
+                {
+                    return buff;
+                }
+            }
+            return null;
+        }
+        public void RemoveBuff( BaseBuff buff)
+        {
+            m_BuffList.Remove(buff);
         }
         #endregion
-        BaseCharacter _Character;
-        public BaseCharacter character
-        {
-            get
-            {
-
-                if (_Character == null)
-                {
-                    _Character = new BaseCharacter(this);
-                    _Character.Propty = this.ActorPropty;
-                }
-                return _Character;
-            }
-            set
-            {
-                _Character = value;
-                ActorPropty = character.Propty;
-            }
-        }
-
-        ActionCtrler m_ActionCtrler;
-        public ActionCtrler ActionCtrl
-        {
-            get
-            {
-                return m_ActionCtrler;
-            }
-        }
-
         // Use this for initialization
         #region 向外提供接口
 
@@ -312,28 +317,12 @@ namespace GameScene
         //扣血相关
         void Hurt(float Damage)
         {
-            _ActorPropty.ModLifeValue(Damage * -1);
+            m_ActorPropty.ModLifeValue(Damage * -1);
         }
         #region
 
         #endregion
-        //角色面向防线
-        public Vector2 FaceDir
-        {
-            get
-            {
-                Vector2 dir = Vector2.right * (transform.localScale.x > 0 ? 1 : -1);
-                return dir;
-            }
-        }
-        public Vector3 FaceDir3D
-        {
-            get
-            {
-                Vector3 dir = Vector3.right * (transform.localScale.x > 0 ? 1 : -1);
-                return dir;
-            }
-        }
+        
         #region 事件
         public void OnGround()
         {
@@ -377,10 +366,9 @@ namespace GameScene
             faceDir.y = 0;
             FaceToDir(faceDir);
             Hurt(Damage);
-            if (_ActorPropty.IsDeath)
+            if (m_ActorPropty.IsDeath)
             {
                 m_ActionCtrler.SetTriiger("Death");
-                character.OnDeath();
             }
             //受击效果
             BeHitEffect = hitEffect;

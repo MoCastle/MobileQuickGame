@@ -7,13 +7,13 @@ public class MainMenueUI : BaseUI {
     {
         BattleSceneInfo info = new BattleSceneInfo();
         info.Name = "EnterSence_1";
-        BattleMgr.Mgr.EnterBattle(info);
+    
     }
     public void OnEnterTestBtn()
     {
         BattleSceneInfo info = new BattleSceneInfo();
         info.Name = "TestSence";
-        BattleMgr.Mgr.EnterBattle(info);
+        //BattleMgr.Mgr.EnterBattle(info);
     }
 
 }

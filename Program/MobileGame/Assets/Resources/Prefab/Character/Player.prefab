@@ -394,12 +394,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4829c66d4ce484a9f11d774873897c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Propty:
+  m_ActorPropty:
     m_Name: Player
-    m_Speed: 10
+    m_Speed: 5
     MaxLife: 100
     m_Life: 0
-    m_BloodName: Blood
   m_CharacterAnim: {fileID: 114574097459277214}
   m_SkillHurtBox: {fileID: 61645582682456768}
   IsHoly: 0

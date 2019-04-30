@@ -8,7 +8,7 @@ public class ClickFlyAction : HurtAction {
 	public ClickFlyAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
         SetFaceLock(true);
-        BaseBuff baseBuff = baseActorObj.GetBuff(BuffType.HitFly);
+        BaseBuff baseBuff = baseActorObj.GetBuffByType(BuffType.HitFly);
         m_HitFlyBuff = baseBuff == null ? new HitFlyBuff() : baseBuff as HitFlyBuff;
         float hardTime = m_HitFlyBuff.hardTime;
         SetHardTime(hardTime);

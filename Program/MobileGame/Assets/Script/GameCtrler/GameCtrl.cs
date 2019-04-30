@@ -64,7 +64,7 @@ public class GameCtrl
             _GameDriver = driverObj.GetComponent<GameDriver>();
             _Pool = driverObj.GetComponent<SpawnPool>();
         }
-        _SceneMgr = SceneMgr.Mgr;
+        //_SceneMgr = SceneMgr.Mgr;
     }
     public void Update()
     {

@@ -105,7 +105,7 @@ public class BaseAction : BaseState
         m_SkillInfo = skillInfo;
         m_ActionCtrl = baseActorObj.ActionCtrl;
         m_ActorObj = baseActorObj;
-        m_ActorPropty = m_ActorObj._ActorPropty;
+        m_ActorPropty = m_ActorObj.m_ActorPropty;
         m_AttackDict = new Dictionary<BaseActorObj, int>();
     }
     //状态完结
@@ -216,7 +216,7 @@ public class BaseAction : BaseState
                 buff = new HitBuff(this.m_SkillInfo, moveDir, this.m_ActorObj);
                 break;
         }
-        buff.AddToCharacter(targetActor.character);
+        buff.AddToActor(targetActor);
         this.SetHardTime(this.m_SkillInfo.AttackHardTime);
     }
     //生成特效

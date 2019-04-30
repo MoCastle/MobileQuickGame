@@ -397,10 +397,6 @@ namespace GameScene
                 fallSpeed = RealSpeed.y > minuSpeed ? RealSpeed.y - minuSpeed : 0;
             }
             float resalFallspeed = (IsOnGround && fallSpeed < (-EvgGraphic / 10)) ? -EvgGraphic / 10 : fallSpeed;
-            if (resalFallspeed == -20)
-            {
-                Debug.Log("speed");
-            }
             return resalFallspeed;
         }
 

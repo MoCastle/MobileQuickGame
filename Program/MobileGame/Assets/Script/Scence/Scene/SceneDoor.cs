@@ -3,79 +3,87 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneDoor : MonoBehaviour {
-    #region 对外接口
-    [Title("跳转到场景的第几个门", "black")]
-    public int Idx;
-    [Title("场景名", "black")]
-    public string SceneName;
-    #endregion
-    #region 内部属性
-    float CountLeaveTime = -1;
-    #endregion
-    BoxCollider2D _Collider;
-    BoxCollider2D Colloder
+namespace GameScene
+{
+    public class SceneDoor : MonoBehaviour
     {
-        get
+        
+        #region 内部属性
+        [Title("跳转到场景的第几个门", "black")]
+        public int m_Idx;
+        [Title("场景名", "black")]
+        public string m_SceneName;
+        [SerializeField]
+        [Header("关闭传送")]
+        private bool m_CloseSend;
+        float CountLeaveTime = -1;
+        BoxCollider2D m_Collider;
+        #endregion
+        #region 对外接口
+        BoxCollider2D Colloder
         {
-            if(_Collider == null)
+            get
             {
-                _Collider = GetComponent<BoxCollider2D>();
+                if (m_Collider == null)
+                {
+                    m_Collider = GetComponent<BoxCollider2D>();
+                }
+                return m_Collider;
             }
-            return _Collider;
         }
-    }
+        #endregion
 
-    public Action CollisionEnter;
 
-    Transform playerTrans;
-	public void GenPlayer(Transform inPlayerTrans)
-    {
-        playerTrans = inPlayerTrans;
-        playerTrans.transform.position = this.transform.position;
-    }
-    private void Start()
-    {
-        if(Idx>=0&& SceneName!="")
+        public Action CollisionEnter;
+
+        Transform playerTrans;
+        public void GenPlayer(Transform inPlayerTrans)
         {
-            Colloder.enabled = true;
-            CollisionEnter = JumpScene;
+            playerTrans = inPlayerTrans;
+            playerTrans.transform.position = this.transform.position;
         }
-        else
+        private void Start()
         {
-            Colloder.enabled = false;
-        }
-    }
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            Transform saveTrans = playerTrans;
-            if (saveTrans != null)
+            if (!m_CloseSend)
             {
-                return;
+                Colloder.enabled = true;
+                CollisionEnter = JumpScene;
             }
-            this.playerTrans = collision.transform;
-            if (CollisionEnter != null&& CountLeaveTime <Time.time)
-                CollisionEnter();
-            CountLeaveTime = -1;
+            else
+            {
+                Colloder.enabled = false;
+            }
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
+        public void OnTriggerEnter2D(Collider2D collision)
         {
-            CountLeaveTime = Time.time + 0.2f;
-            playerTrans = null;
+            if (collision.gameObject.tag == "Player")
+            {
+                Transform saveTrans = playerTrans;
+                if (saveTrans != null)
+                {
+                    return;
+                }
+                this.playerTrans = collision.transform;
+                if (CollisionEnter != null && CountLeaveTime < Time.time)
+                    CollisionEnter();
+                CountLeaveTime = -1;
+            }
         }
-    }
 
-    void JumpScene()
-    {
-        BattleSceneInfo info = new BattleSceneInfo();
-        info.Name = SceneName;
-        info.Idx = Idx;
-        BattleMgr.Mgr.EnterBattle(info);
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                CountLeaveTime = Time.time + 0.2f;
+                playerTrans = null;
+            }
+        }
+
+        void JumpScene()
+        {
+            BattleSceneInfo info = new BattleSceneInfo();
+            BattleSceneMap.Singleton.GoTo(m_SceneName,m_Idx);
+        }
     }
 }
+

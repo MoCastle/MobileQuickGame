@@ -6,7 +6,7 @@ namespace BaseFunc
     public class BaseFSM
     {
         #region 内部属性
-        BaseState m_CurState;
+        protected BaseState m_CurState;
         #endregion
         #region 流程
         public BaseFSM()
@@ -14,7 +14,7 @@ namespace BaseFunc
 
         }
 
-        public virtual void Switch( BaseState state )
+        protected void Switch( BaseState state )
         {
             if(m_CurState!=null)
             {
@@ -22,6 +22,13 @@ namespace BaseFunc
             }
             state.SetOwner(this);
             m_CurState = state;
+            m_CurState.Start();
+        }
+
+        protected virtual void ShutDown()
+        {
+            m_CurState.End();
+            m_CurState = null;
         }
         #endregion
     }
@@ -29,7 +36,7 @@ namespace BaseFunc
     public abstract class BaseState
     {
         #region 内部属性
-        BaseFSM m_Owner;
+        protected BaseFSM m_Owner;
         #endregion
         #region 流程
         public BaseState()

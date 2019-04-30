@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class MainMenueDir : BaseDir
 {
     public override void EnterScene()
@@ -14,4 +14,4 @@ public class MainMenueDir : BaseDir
         base.Awake();
         _SceneMgr.EnterScene(new BaseScene(this));
     }
-}
+}*/

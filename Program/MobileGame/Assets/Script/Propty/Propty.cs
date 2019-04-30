@@ -85,6 +85,13 @@ public struct Propty
         CurLife = MaxLife;
     }
 
+    /// <summary>
+    /// 将配置初始化为设置状态
+    /// </summary>
+    public void InitPropty()
+    {
+        CurLife = CurLife > 0 ? CurLife : MaxLife;
+    }
     public void ModLifeValue(float modValue)
     {
         //小于等于0就是没有血量

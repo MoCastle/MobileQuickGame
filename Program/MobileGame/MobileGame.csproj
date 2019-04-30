@@ -224,6 +224,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.23f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="LitJson">
+      <HintPath>Assets/Script/Libarary/LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/Administrator/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll</HintPath>
     </Reference>
@@ -250,10 +253,10 @@
     <Compile Include="Assets\PoolManagerExampleFiles\Scripts\ReallySimpleParticleSpawner.cs" />
     <Compile Include="Assets\PoolManagerExampleFiles\Scripts\SimpleSpawner.cs" />
     <Compile Include="Assets\RoadMgr.cs" />
-    <Compile Include="Assets\Scence\TestScript.cs" />
     <Compile Include="Assets\Script\Action\ActionCtrler.cs" />
     <Compile Include="Assets\Script\Action\BaseAction.cs" />
     <Compile Include="Assets\Script\Action\Buff\HitBuff.cs" />
+    <Compile Include="Assets\Script\Action\Buff\HitFlyBuff.cs" />
     <Compile Include="Assets\Script\Action\ClickFlyAction.cs" />
     <Compile Include="Assets\Script\Action\HitAction.cs" />
     <Compile Include="Assets\Script\Action\HurtAction.cs" />
@@ -298,18 +301,16 @@
     <Compile Include="Assets\Script\Animator\CharactorAnimator.cs" />
     <Compile Include="Assets\Script\Animator\FlySkillAnimAdapt.cs" />
     <Compile Include="Assets\Script\Animator\NPCCharactorAnimator.cs" />
-    <Compile Include="Assets\Script\APP.cs" />
     <Compile Include="Assets\Script\Base\File\JSon\JSLoader.cs" />
     <Compile Include="Assets\Script\Base\File\JSon\LoadText.cs" />
     <Compile Include="Assets\Script\Base\File\PathManager.cs" />
     <Compile Include="Assets\Script\Base\FSM\FSM.cs" />
     <Compile Include="Assets\Script\Base\Json\SlzDictionary.cs" />
     <Compile Include="Assets\Script\Base\Scene\BaseDir.cs" />
-    <Compile Include="Assets\Script\Base\Scene\BaseScene.cs" />
     <Compile Include="Assets\Script\Base\Scene\SceneMgr.cs" />
+    <Compile Include="Assets\Script\Base\Single\BaseSingleton.cs" />
     <Compile Include="Assets\Script\Base\TitleAttribute.cs" />
     <Compile Include="Assets\Script\Base\UI\BaseUI.cs" />
-    <Compile Include="Assets\Script\Base\UI\UIManager.cs" />
     <Compile Include="Assets\Script\Camera\BaseCameraControler.cs" />
     <Compile Include="Assets\Script\Camera\CameraControler.cs" />
     <Compile Include="Assets\Script\Camera\CameraObj.cs" />
@@ -329,13 +330,41 @@
     <Compile Include="Assets\Script\Effect\EffectManager.cs" />
     <Compile Include="Assets\Script\EnumLabelAttribute.cs" />
     <Compile Include="Assets\Script\File\SceneDataManager.cs" />
+    <Compile Include="Assets\Script\FrameWork\BaseFrameManager.cs" />
+    <Compile Include="Assets\Script\FrameWork\EditorResourceManager.cs" />
+    <Compile Include="Assets\Script\FrameWork\FrameWorkEntry.cs" />
+    <Compile Include="Assets\Script\FrameWork\Resource\IResourceLoaderManager.cs" />
+    <Compile Include="Assets\Script\FrameWork\Resource\LoadSceneCallbacks.cs" />
+    <Compile Include="Assets\Script\FrameWork\Resource\LoadSceneDelegate.cs" />
+    <Compile Include="Assets\Script\FrameWork\Resource\LoadSceneInfo.cs" />
+    <Compile Include="Assets\Script\FrameWork\Resource\ResourceManager.cs" />
+    <Compile Include="Assets\Script\FrameWork\Scene\BaseSceneManager.cs" />
+    <Compile Include="Assets\Script\FrameWork\Scene\EditorSceneManager.cs" />
+    <Compile Include="Assets\Script\FrameWork\Scene\ISceneManager.cs" />
+    <Compile Include="Assets\Script\FrameWork\Scene\SceneManager.cs" />
+    <Compile Include="Assets\Script\FrameWork\UIManager.cs" />
+    <Compile Include="Assets\Script\Game\ActorManager.cs" />
+    <Compile Include="Assets\Script\Game\BaseGameManager.cs" />
+    <Compile Include="Assets\Script\Game\Director\BaseSceneDirector.cs" />
+    <Compile Include="Assets\Script\Game\Director\BaseScenePlay.cs" />
+    <Compile Include="Assets\Script\Game\Director\BattleSceneDirector.cs" />
+    <Compile Include="Assets\Script\Game\Director\BattleSceneDirectorEntity.cs" />
+    <Compile Include="Assets\Script\Game\Director\ScenePlay\LeaveBattleScenePlay.cs" />
+    <Compile Include="Assets\Script\Game\Director\ScenePlay\StartBattlePlay.cs" />
+    <Compile Include="Assets\Script\Game\GameDriver.cs" />
+    <Compile Include="Assets\Script\Game\GameEntry.cs" />
+    <Compile Include="Assets\Script\Game\GameResourceManager.cs" />
+    <Compile Include="Assets\Script\Game\GameScene\GameMap.cs" />
+    <Compile Include="Assets\Script\Game\GameSceneManager.cs" />
+    <Compile Include="Assets\Script\Game\GameUIManager.cs" />
     <Compile Include="Assets\Script\GameControl\PlayerCtrl.cs" />
     <Compile Include="Assets\Script\GameCtrler\GameCtrl.cs" />
-    <Compile Include="Assets\Script\GameCtrler\GameDriver.cs" />
     <Compile Include="Assets\Script\GamePoolManager.cs" />
     <Compile Include="Assets\Script\Physicl\ActorPhysicData.cs" />
     <Compile Include="Assets\Script\Physicl\PhysicComponent.cs" />
+    <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Player\PlayerMgr.cs" />
+    <Compile Include="Assets\Script\Player\SceneAgent.cs" />
     <Compile Include="Assets\Script\PlayerDelegate.cs" />
     <Compile Include="Assets\Script\Propty\Propty.cs" />
     <Compile Include="Assets\Script\ResourceCtrl\LoadEffect.cs" />
@@ -343,20 +372,21 @@
     <Compile Include="Assets\Script\Scence\BattleMgr.cs" />
     <Compile Include="Assets\Script\Scence\CenceMgr.cs" />
     <Compile Include="Assets\Script\Scence\Director\MainMenueDir.cs" />
-    <Compile Include="Assets\Script\Scence\Director\TestSceneDir.cs" />
     <Compile Include="Assets\Script\Scence\GameStartScence.cs" />
+    <Compile Include="Assets\Script\Scence\Scene\B.cs" />
     <Compile Include="Assets\Script\Scence\Scene\BattleScene.cs" />
     <Compile Include="Assets\Script\Scence\Scene\SceneDoor.cs" />
+    <Compile Include="Assets\Script\Scence\Scene\SceneFSM.cs" />
     <Compile Include="Assets\Script\SkillSgtate\SkillManager.cs" />
-    <Compile Include="Assets\Script\Test\TestLoadJS.cs" />
+    <Compile Include="Assets\Script\Test\test.cs" />
     <Compile Include="Assets\Script\TestInput.cs" />
-    <Compile Include="Assets\Script\TestScence\TestCamera.cs" />
-    <Compile Include="Assets\Script\TestScence\TestUI.cs" />
+    <Compile Include="Assets\Script\Tool\Path.cs" />
     <Compile Include="Assets\Script\Tool\RoundArr.cs" />
     <Compile Include="Assets\Script\Tool\UsuallyInfoMgr.cs" />
     <Compile Include="Assets\Script\UI\DeathUI.cs" />
     <Compile Include="Assets\Script\UI\DebugInfoUI.cs" />
-    <Compile Include="Assets\Script\UI\InputTouch.cs" />
+    <Compile Include="Assets\Script\UI\Input\InputTouch.cs" />
+    <Compile Include="Assets\Script\UI\Input\InputTouchAnimatorBehaviour.cs" />
     <Compile Include="Assets\Script\UI\MainMenueUI.cs" />
     <Compile Include="Assets\Script\UI\MainWindow.cs" />
     <Compile Include="Assets\Script\UI\OptionMenue.cs" />

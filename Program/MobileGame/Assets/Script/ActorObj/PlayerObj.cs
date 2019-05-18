@@ -6,26 +6,33 @@ namespace GameScene
 {
     public class PlayerObj : BaseActorObj
     {
+        #region 内部属性
+        InputInfo m_CurOrder;
+        #endregion
+
+        #region 对外接口
+        public InputInfo CurOrder
+        {
+            get
+            {
+                return m_CurOrder;
+            }
+        }
+        #endregion
         protected override void LogicAwake()
         {
-            _InputArr = new NormInput[2];
-            PlayerCtrl.AddFingerOff(OnFingerOut);
             m_IDLayer = 1 << LayerMask.NameToLayer("Enemy");
         }
 
-        //手指挪开触发事件
-        public void OnFingerOut()
-        {
-        }
-
         #region 手势获取
+        /*
         //缓存对应动画的输入
-        NormInput[] _InputArr;
+        InputInfo[] _InputArr;
         //当前输入指针
         int _CurInputPoint = 0;
 
         //前一个手势输入
-        public NormInput PreInput
+        public InputInfo PreInput
         {
             get
             {
@@ -39,7 +46,7 @@ namespace GameScene
         }
 
         //当前手势输入
-        public NormInput CurInput
+        public InputInfo CurInput
         {
             get
             {
@@ -49,7 +56,7 @@ namespace GameScene
             set
             {
                 //点击手势要单独处理 因为动作初始化时该手势的输入效果依赖于之前的点击效果
-                if (value.Gesture == HandGesture.Click && CurInput.Gesture == HandGesture.Click)
+                if (value.gesture == HandGesture.Click && CurInput.gesture == HandGesture.Click)
                 {
                     if (Mathf.Abs(value.InputInfo.EndPs.x - CurInput.InputInfo.EndPs.x) > value.InputInfo.MaxDst * 0.15)
                     {
@@ -67,23 +74,23 @@ namespace GameScene
                 }
 
             }
-        }
+        }*/
+
         //通过手势获取输入
-        public NormInput GetInputByGesture(HandGesture gesture)
+        public InputInfo GetInputByGesture(HandGesture gesture)
         {
             return LegalnputDict[gesture];
         }
-        Dictionary<HandGesture, NormInput> LegalnputDict = new Dictionary<HandGesture, NormInput>();
+        Dictionary<HandGesture, InputInfo> LegalnputDict = new Dictionary<HandGesture, InputInfo>();
         public override void EnterState()
         {
             //ClearAnimParam();
         }
-        public virtual void Input(NormInput input)
+        public virtual void Input(InputInfo input)
         {
-            if (input.Gesture != HandGesture.None)
+            if (input.gesture != HandGesture.None)
             {
-                CurInput = input;
-
+                m_CurOrder = input;
                 PlayerAction action = ActionCtrl.CurAction as PlayerAction;
                 if (action != null)
                 {
@@ -96,14 +103,13 @@ namespace GameScene
                 ClearAnimParam();
 
         }
-        public void SetAnimParam(NormInput handInput)
+
+        public void SetAnimParam(InputInfo handInput)
         {
             ClearAnimParam();
-            ActionCtrl.SetFloat("XInputPercent", handInput.InputInfo.XPercent);
-            ActionCtrl.SetFloat("XInputPercent", handInput.InputInfo.YPercent);
-            if (handInput.Dir != InputDir.Middle)
+            if (handInput.directionEnum != InputDir.Middle)
             {
-                int InputNum = (int)handInput.Dir;
+                int InputNum = (int)handInput.directionEnum;
                 //将逻辑枚举拆分成
                 switch (handInput.GetHoriEnum())
                 {
@@ -132,7 +138,7 @@ namespace GameScene
                         break;
                 }
             }
-            switch (handInput.Gesture)
+            switch (handInput.gesture)
             {
                 case HandGesture.Click:
                     ActionCtrl.SetBool("Hand_Click", true);
@@ -146,6 +152,9 @@ namespace GameScene
                 case HandGesture.Holding:
                     ActionCtrl.SetBool("Hand_Holding", true);
                     break;
+                case HandGesture.Realease:
+                    ActionCtrl.SetBool("Hand_Release", true);
+                    break;
                 default:
                     ActionCtrl.SetBool("Hand_Drag", false);
                     ActionCtrl.SetBool("Hand_Click", false);
@@ -153,6 +162,7 @@ namespace GameScene
                     ActionCtrl.SetBool("Hand_Holding", false);
                     break;
             }
+            ActionCtrl.SetFloat("sqrDragDistance", handInput.vector.sqrMagnitude);
         }
 
         public void ClearAnimParam()
@@ -165,8 +175,9 @@ namespace GameScene
             ActionCtrl.SetBool("Dir_Right", false);
             ActionCtrl.SetBool("Dir_Down", false);
             ActionCtrl.SetBool("Dir_Up", false);
-            ActionCtrl.SetFloat("XInputPercent", 0f);
-            ActionCtrl.SetFloat("YInputPercent", 0f);
+            ActionCtrl.SetBool("Hand_Release", false);
+
+            ActionCtrl.SetFloat("sqrDragDistance", 0f);
         }
 
         public override void LogicUpdate()
@@ -174,17 +185,11 @@ namespace GameScene
 
             if (Alive)
             {
-                NormInput HandInput = PlayerCtrl.InputRoundArr.Pop();
-                if (HandInput.IsLegal)
+                InputInfo HandInput = PlayerCtrl.InputRoundArr.Pop();
+                if (HandInput.isLegal)
                 {
                     Input(HandInput);
                 }
-
-                else
-                {
-                    //ClearAnimParam();
-                }
-
             }
         }
         #endregion

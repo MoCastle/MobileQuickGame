@@ -17,7 +17,7 @@ public class DashAction : PlayerAction {
 
     public DashAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
-        Vector2 gestureDir = _Input.InputInfo.Shift;
+        Vector2 gestureDir = m_Input.vector;
         if(gestureDir.x!=0&&this.m_ActorObj.IsOnGround && Mathf.Abs(  gestureDir.y/gestureDir.x)<0.6)
         {
             gestureDir.y = 0;

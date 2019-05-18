@@ -43,7 +43,7 @@ public class MainWindow : BaseUI {
         }
     }
 
-    HeadInRoundArr<NormInput> InputRemember = new HeadInRoundArr<NormInput>(10);
+    HeadInRoundArr<InputInfo> InputRemember = new HeadInRoundArr<InputInfo>(10);
     private void Start()
     {
         PlayerCtrl.AddInputEvent(CountInputInfo);
@@ -53,7 +53,7 @@ public class MainWindow : BaseUI {
         //PlayerHP.value = PlayerPropty.PercentLife;
     }
 
-    private void CountInputInfo( NormInput InputInfo )
+    private void CountInputInfo( InputInfo InputInfo )
     {
         InputRemember.AddInfo(InputInfo);
     }

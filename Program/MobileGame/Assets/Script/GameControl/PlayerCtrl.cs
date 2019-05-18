@@ -1,55 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public struct InputInfo
-{
-    public Vector2 Shift;
-    public bool IsLegal;
-    public bool IsPushing;
-    public float MaxDst;
-    public Vector2 EndPs;
-    public InputInfo(bool InIsLegal = false)
-    {
-        Shift = Vector2.zero;
-        IsLegal = InIsLegal;
-        IsPushing = false;
-        MaxDst = 0;
-        EndPs = Vector2.zero;
-    }
-    public float Percent
-    {
-        get
-        {
-            if (MaxDst > 0)
-            {
-                return Shift.magnitude / MaxDst;
-            }
-            return 0;
-        }
-    }
-    public float XPercent
-    {
-        get
-        {
-            if (MaxDst > 0)
-            {
-                return Mathf.Abs(Shift.x / MaxDst);
-            }
-            return 0;
-        }
-    }
-    public float YPercent
-    {
-        get
-        {
-            if (MaxDst > 0)
-            {
-                return Mathf.Abs(Shift.y / MaxDst);
-            }
-            return 0;
-        }
-    }
-}
+
 public enum InputDir
 {
     Middle = 0,
@@ -69,136 +21,97 @@ public enum HandGesture
     Drag,
     Slip,
     Click,
+    Realease,
+    Touching
 }
 
-public struct NormInput
+public struct InputInfo
 {
 
-    public InputInfo InputInfo;
-    public InputDir Dir;
-    public HandGesture Gesture;
-    public Vector2 Direction;
-    public float LifeTime;
+    public HandGesture gesture;
 
-    public bool IsLegal
+    public Vector2 vector;
+    public bool isLegal;
+    public Vector2 startPS;
+    public Vector2 endPS;
+
+
+    public InputDir directionEnum
     {
         get
         {
-            return InputInfo.IsLegal;
-        }
-    }
-    public NormInput(InputInfo InInfo = new InputInfo( ), float InLifeTime = 0,HandGesture handGesture = HandGesture.None )
-    {
-        InputInfo = InInfo;
-        LifeTime = InLifeTime;
-        
-        if (InInfo.IsLegal == false )
-        {
-            Dir = InputDir.Middle;
-            Direction = Vector2.zero;
-            Gesture = HandGesture.None;
-            Dir = InputDir.Middle;
-            return;
-        }
-
-        if (InInfo.Percent < 0.1)
-        {
-            Dir = InputDir.Middle;
-            Direction = Vector2.zero;
-        }
-        else
-        {
-            Direction = InInfo.Shift;
-            float Rate = Mathf.Abs(InInfo.Shift.y / InInfo.Shift.x);
-            if (Rate < (4f / 3f) && Rate > (3f / 4f))
+            InputDir dir;
+            if (isLegal == false)
             {
-                Direction.x = 0.5f;
-                Direction.y = 0.5f;
-            }
-            else if (Rate > (4f / 3f))
-            {
-                Direction.y = 1;
-                Direction.x = 0;
+                dir = InputDir.Middle;
             }
             else
             {
-                Direction.x = 1;
-                Direction.y = 0;
-            }
-
-            if (InInfo.Shift.y < 0)
-            {
-                Direction.y = Direction.y * -1;
-            }
-            if (InInfo.Shift.x < 0)
-            {
-                Direction.x = Direction.x * -1;
-            }
-
-            int DirNum = (int)InputDir.Middle;
-            if ( Direction.x> 0.1)
-            {
-                DirNum = DirNum + (int)InputDir.Right;
-            }else if(Direction.x < -0.1)
-            {
-                DirNum = DirNum + (int)InputDir.Left;
-            }
-            if( Direction.y > 0.1 )
-            {
-                DirNum = DirNum + (int)InputDir.Up;
-            }else if (Direction.y < -0.1)
-            {
-                DirNum = DirNum + (int)InputDir.Down;
-            }
-            Dir = (InputDir)DirNum;
-        }
-        
-        if(InputInfo.IsPushing)
-        {
-            if (handGesture == HandGesture.Drag || handGesture == HandGesture.Holding)
-            {
-                Gesture = handGesture;
-            }else
-            {
-                Gesture = HandGesture.None;
-                if (Dir != InputDir.Middle)
+                Vector2 direction = Vector2.zero;
+                float Rate = Mathf.Abs(Mathf.Abs(vector.y) / (Mathf.Abs(vector.x) > 0.001f ? Mathf.Abs(vector.x) : 0.001f));
+                if (Rate < (4f / 3f) && Rate > (3f / 4f))
                 {
-                    Gesture = HandGesture.Drag;
+                    direction.x = 0.5f;
+                    direction.y = 0.5f;
                 }
-                else if (LifeTime > 0.30f)
+                else if (Rate > (4f / 3f))
                 {
-                    Gesture = HandGesture.Holding;
+                    direction.y = 1;
+                    direction.x = 0;
                 }
+                else
+                {
+                    direction.x = 1;
+                    direction.y = 0;
+                }
+                if (vector.y < 0)
+                {
+                    direction.y = direction.y * -1;
+                }
+                if (vector.x < 0)
+                {
+                    direction.x = direction.x * -1;
+                }
+                int dirNum = (int)InputDir.Middle;
+                if (direction.x > 0.1)
+                {
+                    dirNum = dirNum + (int)InputDir.Right;
+                }
+                else if (direction.x < -0.1)
+                {
+                    dirNum = dirNum + (int)InputDir.Left;
+                }
+                if (direction.y > 0.1)
+                {
+                    dirNum = dirNum + (int)InputDir.Up;
+                }
+                else if (direction.y < -0.1)
+                {
+                    dirNum = dirNum + (int)InputDir.Down;
+                }
+                dir = (InputDir)dirNum;
             }
-        }
-        else
-        {
-            Gesture = HandGesture.None;
-            if( Dir!= InputDir.Middle && InputInfo.Percent > 0.4 )
-            {
-                Gesture = HandGesture.Slip;
-            }else if(LifeTime < 0.3)
-            {
-                Gesture = HandGesture.Click;
-            }
+            return dir;
+
         }
     }
-    public InputDir GetHoriEnum( )
+    public InputDir GetHoriEnum()
     {
-        
-        int NumDir = (int)Dir;
-        NumDir = NumDir / 10 * 10;
-        return (InputDir)NumDir;
+
+        int numDir = (int)directionEnum;
+        numDir = numDir / 10 * 10;
+        return (InputDir)numDir;
     }
-    public InputDir GetVertEnum( )
+    public InputDir GetVertEnum()
     {
-        int NumDir = (int)Dir;
-        NumDir = NumDir % 10;
-        return (InputDir)NumDir;
+        int numDir = (int)directionEnum;
+        numDir = numDir % 10;
+        return (InputDir)numDir;
     }
 }
 
-public static class PlayerCtrl {
+public static class PlayerCtrl
+{
 
     static HandGesture curHandGesture;
     //游戏控制器
@@ -216,13 +129,13 @@ public static class PlayerCtrl {
     }
 
     public static event Input InputEvent;
-    public delegate void Input(NormInput Input);
+    public delegate void Input(InputInfo Input);
     public static void AddInputEvent(Input InFunction)
     {
         InputEvent += InFunction;
     }
 
-    public static NormInput CurOrder;
+    public static InputInfo CurOrder;
     //手指放入事件
     public static event InputFunc FingerOn;
     //手指挪开事件
@@ -237,73 +150,25 @@ public static class PlayerCtrl {
     }
 
     public delegate void InputFunc();
-    static private bool _IsInputing;
-    static public bool IsInputing
-    {
-        get
-        {
-            return _IsInputing;
-        }
-        set
-        {
-            if( value != _IsInputing)
-            {
-                if(value)
-                {
-                    CountTime = Time.time;
-                    if(FingerOn!=null)
-                    {
-                        FingerOn();
-                    }
-                }
-                else
-                {
-                    CountTime = 0;
-                    if (_FingerOff != null)
-                    {
-                        _FingerOff();
-                    }
-                }
-                _IsInputing = value;
-            }
-        }
-    }
-    static float CountTime = 0;
-    public static StructRoundArr<NormInput> InputRoundArr = new StructRoundArr<NormInput>(2);
 
-    public static void InputHandTouch( InputInfo Input )
+    static float CountTime = 0;
+    public static StructRoundArr<InputInfo> InputRoundArr = new StructRoundArr<InputInfo>(2);
+
+    public static void InputHandTouch(InputInfo Input)
     {
-        if( Input.IsLegal && !GmCtrler.IsPaused)
+        if (Input.isLegal && !GmCtrler.IsPaused)
         {
-            if( Input.IsPushing )
-            {
-                IsInputing = true;
-                
-            }
-            NormInput NewInput = new NormInput(Input,Time.time - CountTime, curHandGesture);
-            curHandGesture = NewInput.Gesture;
-            if (InputEvent !=null)
+            InputInfo NewInput = Input;
+            if (InputEvent != null)
                 InputEvent(NewInput);
-            /*
-            if (NewInput.Gesture != HandGesture.None)
-            {
-                InputRoundArr.Push(NewInput);
-            }*/
             //松手的指令也需要缓存
             InputRoundArr.Push(NewInput);
-            if ( !Input.IsPushing )
-            {
-                IsInputing = false;
-            }
         }
-        else
-        {
-            curHandGesture = HandGesture.None;
-        }
+
     }
     public static void RefreshInputRoundArr()
     {
-        InputRoundArr = new StructRoundArr<NormInput>( 2 );
+        InputRoundArr = new StructRoundArr<InputInfo>(2);
     }
 
 }

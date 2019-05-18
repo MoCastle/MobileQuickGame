@@ -33,16 +33,4 @@ public class ChargingAction : PlayerAction {
         base.CompleteFunc();
         m_ActorObj.Physic.GravityScale = _GravityScale;
     }
-    public override void InputNormInput(NormInput curInput)
-    {
-        InputInfo info = curInput.InputInfo;
-        Vector2 inputDir = info.Shift;
-        if( Mathf.Abs(inputDir.x)>0&& Mathf.Abs(inputDir.y/ inputDir.x) < 1)
-        {
-            info.Shift.y = 0;
-            curInput = new NormInput(info, curInput.LifeTime, curInput.Gesture);
-        }
-        base.InputNormInput(curInput);
-
-    }
 }

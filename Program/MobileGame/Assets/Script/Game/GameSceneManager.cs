@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using FrameWork.Scene;
 using FrameWork;
-using Base;
-using UnityEngine;
+using GameTool;
 namespace Game
 {
     public class GameSceneManager : BaseGameManager<GameSceneManager, ISceneManager>

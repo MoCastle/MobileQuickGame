@@ -195,10 +195,12 @@ MonoBehaviour:
   _useBGFunc: 0
   m_TouchRound: {fileID: 224205883153784886}
   m_DistanceRound: {fileID: 224904433121151174}
+  m_ShrinkRate: 1
+  m_MinShrinkRate: 0.2
   m_HoldingTime: 0.6
-  m_DragJudgeDistance: 80
+  m_DragJudgeDistance: 40
   m_SlipDistance: 150
-  m_SlipTimePoint: 0.6
+  m_SlipTimePoint: 0.2
   DragSpaceTime: 0.1
   DragDistancePer: 0.3
   DragSpaceFrame: 1

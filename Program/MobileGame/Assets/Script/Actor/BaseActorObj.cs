@@ -285,6 +285,7 @@ namespace GameScene
             character.OnSetImdHSpeed += this.SetImdHSpeed;
             character.OnSetImdVSpeed += this.SetImdVSpeed;
             character.OnSetImdMoveSpeed += this.SetImdSpeed;
+            character.OnSetInAirImdVSpeed += this.SetInAirImdVSpeed;
         }
         #endregion
         #region BUFF
@@ -436,7 +437,6 @@ namespace GameScene
             {
                 return;
             }
-            speed *= FaceDir.x;
             m_Physic.SetSpeed(new Vector2(m_Physic.MoveSpeed.x, speed));
         }
         //设置空中瞬时水平速度

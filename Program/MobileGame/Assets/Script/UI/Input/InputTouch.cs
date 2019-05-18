@@ -25,6 +25,12 @@ namespace UI
         [SerializeField]
         Transform m_DistanceRound;
         [SerializeField]
+        [Header("压扁缩放率")]
+        float m_ShrinkRate;
+        [SerializeField]
+        [Header("最小压扁比例")]
+        float m_MinShrinkRate;
+        [SerializeField]
         [Header("长按限定时间")]
         float m_HoldingTime;
         [SerializeField]
@@ -273,7 +279,11 @@ namespace UI
                     distance /= touchRoundTransform.localScale.x;
                     newSizeDelta = touchRoundTransform.sizeDelta;
                     newSizeDelta.x = distance;
-                    newSizeDelta.y = touchPointRadiu / (distance / touchPointRadiu);
+                    float shrinkRate = (touchPointRadiu/distance) ;
+                    shrinkRate = shrinkRate * m_InputTouch.m_ShrinkRate;
+                    shrinkRate = shrinkRate < m_InputTouch.m_MinShrinkRate ? m_InputTouch.m_MinShrinkRate : shrinkRate;
+
+                    newSizeDelta.y = touchPointRadiu * shrinkRate;
                 }
                 else
                 {

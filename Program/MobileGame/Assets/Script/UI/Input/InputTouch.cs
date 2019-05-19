@@ -280,7 +280,7 @@ namespace UI
                     newSizeDelta = touchRoundTransform.sizeDelta;
                     newSizeDelta.x = distance;
                     float shrinkRate = (touchPointRadiu/distance) ;
-                    shrinkRate = shrinkRate * m_InputTouch.m_ShrinkRate;
+                    shrinkRate = (1-(1 - shrinkRate) * m_InputTouch.m_ShrinkRate);
                     shrinkRate = shrinkRate < m_InputTouch.m_MinShrinkRate ? m_InputTouch.m_MinShrinkRate : shrinkRate;
 
                     newSizeDelta.y = touchPointRadiu * shrinkRate;

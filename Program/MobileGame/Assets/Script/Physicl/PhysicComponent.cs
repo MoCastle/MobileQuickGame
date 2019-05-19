@@ -315,6 +315,48 @@ namespace GameScene
             }
         }
 
+        //衰减速度
+        void ReduceSpeed()
+        {
+            m_RealSpeed *= (1 - m_PhysicData.ReduceRate);
+        }
+
+        //每帧计算一次下落速度
+        float CountFallSpeed()
+        {
+            float fallSpeed = 0; ;
+            if (RealSpeed.y <= 0)
+            {
+                float speed = m_PhysicData.FallingGravityCurve.Evaluate(FallingTimeScale) * m_GravityScale;
+                speed = speed < 0.01f ? 0 : speed;
+                fallSpeed = -speed * m_PhysicData.MaxFallingSpeed;
+            }
+            else
+            {
+                float minuSpeed = EvgGraphic * Time.deltaTime;
+                fallSpeed = RealSpeed.y > minuSpeed ? RealSpeed.y - minuSpeed : 0;
+            }
+            float resalFallspeed = (IsOnGround && fallSpeed < (-EvgGraphic / 10)) ? -EvgGraphic / 10 : fallSpeed;
+            return resalFallspeed;
+        }
+
+        //计算实际速度
+        void CountSpeed()
+        {
+            Vector2 realSpeed = RealSpeed;
+            if (m_MoveSpeed.y == 0)
+                realSpeed.y = CountFallSpeed();
+            else
+                realSpeed.y = m_MoveSpeed.y;
+            if (m_MoveSpeed.x != 0)
+                realSpeed.x = m_MoveSpeed.x;
+            m_MoveSpeed = Vector2.zero;
+
+            RealSpeed = realSpeed;
+            //m_RigidBody.velocity = RealSpeed;
+            m_RigidBody.velocity = m_NormalTrans * RealSpeed;
+        }
+
         #endregion
         #region 流程
         private void Awake()
@@ -374,60 +416,23 @@ namespace GameScene
             }
         }
         #endregion
-        #region 速度计算
-        //衰减速度
-        void ReduceSpeed()
-        {
-            m_RealSpeed *= (1 - m_PhysicData.ReduceRate);
-        }
-
-        //每帧计算一次下落速度
-        float CountFallSpeed()
-        {
-            float fallSpeed = 0; ;
-            if (RealSpeed.y <= 0)
-            {
-                float speed = m_PhysicData.FallingGravityCurve.Evaluate(FallingTimeScale) * m_GravityScale;
-                speed = speed < 0.01f ? 0 : speed;
-                fallSpeed = -speed * m_PhysicData.MaxFallingSpeed;
-            }
-            else
-            {
-                float minuSpeed = EvgGraphic * Time.deltaTime;
-                fallSpeed = RealSpeed.y > minuSpeed ? RealSpeed.y - minuSpeed : 0;
-            }
-            float resalFallspeed = (IsOnGround && fallSpeed < (-EvgGraphic / 10)) ? -EvgGraphic / 10 : fallSpeed;
-            return resalFallspeed;
-        }
-
-        //计算实际速度
-        void CountSpeed()
-        {
-            Vector2 realSpeed = RealSpeed;
-            if (m_MoveSpeed.y == 0)
-                realSpeed.y = CountFallSpeed();
-            else
-                realSpeed.y = m_MoveSpeed.y;
-            if (m_MoveSpeed.x != 0)
-                realSpeed.x = m_MoveSpeed.x;
-            m_MoveSpeed = Vector2.zero;
-
-            RealSpeed = realSpeed;
-            //m_RigidBody.velocity = RealSpeed;
-            m_RigidBody.velocity = m_NormalTrans * RealSpeed;
-        }
-        #endregion
         #region 设置速度
         public void SetSpeed(Vector2 speed)
         {
+            Debug.Log(speed);
             if (m_IsPausing)
                 m_BackUpSpeed = speed;
             else
+            {
+                if (speed.y > 0)
+                    onMoveUp();
                 MoveSpeed = speed;
+            }
         }
 
         public void SetSpeed(float speed)
         {
+            Debug.Log(speed);
             Vector2 dir = Vector2.right * transform.localScale.x;
             if (m_IsPausing)
                 m_BackUpSpeed = dir * speed;
@@ -487,7 +492,10 @@ namespace GameScene
                 OnLeaveGround();
             }
         }
-
+        void onMoveUp()
+        {
+            m_LastFallingTime = 0;
+        }
         #endregion
     }
 }

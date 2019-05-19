@@ -25,56 +25,6 @@ namespace GameScene
         }
 
         #region 手势获取
-        /*
-        //缓存对应动画的输入
-        InputInfo[] _InputArr;
-        //当前输入指针
-        int _CurInputPoint = 0;
-
-        //前一个手势输入
-        public InputInfo PreInput
-        {
-            get
-            {
-                return _InputArr[(_CurInputPoint + 1) % 2];
-            }
-        }
-        //存储
-        public void TakeInput()
-        {
-            _CurInputPoint = (_CurInputPoint + 1) % 2;
-        }
-
-        //当前手势输入
-        public InputInfo CurInput
-        {
-            get
-            {
-                return _InputArr[_CurInputPoint];
-            }
-
-            set
-            {
-                //点击手势要单独处理 因为动作初始化时该手势的输入效果依赖于之前的点击效果
-                if (value.gesture == HandGesture.Click && CurInput.gesture == HandGesture.Click)
-                {
-                    if (Mathf.Abs(value.InputInfo.EndPs.x - CurInput.InputInfo.EndPs.x) > value.InputInfo.MaxDst * 0.15)
-                    {
-                        TakeInput();
-                        _InputArr[_CurInputPoint] = value;
-
-                    }
-                }
-                else
-                {
-                    TakeInput();
-
-                    _InputArr[_CurInputPoint] = value;
-
-                }
-
-            }
-        }*/
 
         //通过手势获取输入
         public InputInfo GetInputByGesture(HandGesture gesture)

@@ -48,8 +48,15 @@ public struct InputInfo
             else
             {
                 Vector2 direction = Vector2.zero;
-                float Rate = Mathf.Abs(Mathf.Abs(vector.y) / (Mathf.Abs(vector.x) > 0.001f ? Mathf.Abs(vector.x) : 0.001f));
-                if (Rate < (4f / 3f) && Rate > (3f / 4f))
+                float abY = Mathf.Abs(vector.y);
+                float abX = Mathf.Abs(vector.x);
+                float Rate = abY / (abX>0.0001f?abX:0.0001f);
+                if(abY<0.0001f&&abX<0.0001f)
+                {
+                    direction.x = 0;
+                    direction.y = 0;
+                }
+                else if (Rate < (4f / 3f) && Rate > (3f / 4f))
                 {
                     direction.x = 0.5f;
                     direction.y = 0.5f;

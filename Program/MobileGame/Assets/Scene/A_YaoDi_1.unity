@@ -286,6 +286,10 @@ Prefab:
       propertyPath: m_SceneName
       value: A_YaoDi_2
       objectReference: {fileID: 0}
+    - target: {fileID: 1764078581083422, guid: 79675f7cd73be924197cd15a5986689d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79675f7cd73be924197cd15a5986689d, type: 2}
   m_IsPrefabParent: 0
@@ -298,15 +302,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 34.30999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 35.80376
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalRotation.x
@@ -532,6 +536,10 @@ Prefab:
         type: 2}
       propertyPath: m_CloseSend
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764078581083422, guid: 79675f7cd73be924197cd15a5986689d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79675f7cd73be924197cd15a5986689d, type: 2}

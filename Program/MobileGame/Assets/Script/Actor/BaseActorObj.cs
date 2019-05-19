@@ -419,7 +419,6 @@ namespace GameScene
         //设置瞬时垂直速度
         public void SetImdVSpeed(float speed)
         {
-            speed *= FaceDir.x;
             m_Physic.SetSpeed(new Vector2(m_Physic.MoveSpeed.x, speed));
         }
 

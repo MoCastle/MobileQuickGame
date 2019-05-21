@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using FrameWork.Resource;
 namespace FrameWork
 {
@@ -33,13 +33,14 @@ namespace FrameWork
 
         private void LoadingScene()
         {
+            /*
             LinkedListNode<EditorLoadSceneInfo> firstNode = m_LoadSceneList.First;
             while(firstNode!=null)
             {
                 firstNode.Value.loadSceneCallbacks.LoadSceneSuccessCallback(firstNode.Value.name);
                 firstNode = firstNode.Next;
             }
-            m_LoadSceneList.Clear();
+            m_LoadSceneList.Clear();*/
         }
 
         public override void Update()

@@ -8,30 +8,30 @@ AnimatorController:
   m_Name: InputUI
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: pointDown
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: pointUp
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
   - m_Name: slipTimeCondition
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: clickTimeCondition
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: pointDown
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: pointDownTrigger
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: TouchRound
@@ -160,8 +160,8 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: pointUp
+  - m_ConditionMode: 2
+    m_ConditionEvent: pointDown
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102673233062198828}
@@ -184,8 +184,8 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: pointUp
+  - m_ConditionMode: 2
+    m_ConditionEvent: pointDown
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102223952710318224}
@@ -210,6 +210,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: pointDown
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: pointDownTrigger
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102793175333495602}
@@ -253,8 +256,8 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: pointUp
+  - m_ConditionMode: 2
+    m_ConditionEvent: pointDown
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: slipTimeCondition
@@ -282,6 +285,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: pointDown
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: pointDownTrigger
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102629222200184692}
@@ -367,8 +373,8 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: pointUp
+  - m_ConditionMode: 2
+    m_ConditionEvent: pointDown
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102479899082098442}
@@ -391,8 +397,8 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: pointUp
+  - m_ConditionMode: 2
+    m_ConditionEvent: pointDown
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: slipTimeCondition
@@ -718,13 +724,13 @@ AnimatorStateMachine:
     m_Position: {x: 72, y: 180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102793175333495602}
-    m_Position: {x: 528, y: 372, z: 0}
+    m_Position: {x: 552, y: 384, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102479899082098442}
-    m_Position: {x: 312, y: 252, z: 0}
+    m_Position: {x: 288, y: 288, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102228279526220102}
-    m_Position: {x: -108, y: 540, z: 0}
+    m_Position: {x: -120, y: 552, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102541543941786452}
     m_Position: {x: 396, y: 540, z: 0}

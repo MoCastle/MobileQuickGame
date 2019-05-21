@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GamePhysic;
+using UnityEngine.UI;
 
 namespace GameScene
 {
@@ -22,6 +23,10 @@ namespace GameScene
         [SerializeField]
         [Header("平台碰撞盒")]
         BoxCollider2D m_FootCollider2D;
+
+        [SerializeField]
+        [Header("平台碰撞盒")]
+        Text m_logText;
         //暂停事件补偿
         float m_PauseTime;
         //当前脚下
@@ -324,7 +329,8 @@ namespace GameScene
         //每帧计算一次下落速度
         float CountFallSpeed()
         {
-            float fallSpeed = 0; ;
+            float fallSpeed = 0;
+            m_logText.text = "RealSpeed " + RealSpeed;
             if (RealSpeed.y <= 0)
             {
                 float speed = m_PhysicData.FallingGravityCurve.Evaluate(FallingTimeScale) * m_GravityScale;
@@ -333,10 +339,18 @@ namespace GameScene
             }
             else
             {
+                
+                m_logText.text += "\n EvgGraphic " + EvgGraphic;
+                m_logText.text += "\n EvgGraphic " + EvgGraphic;
+                m_logText.text += "\n EvgGraphic " + Time.deltaTime;
                 float minuSpeed = EvgGraphic * Time.deltaTime;
+                m_logText.text += "\n minuSpeed " + minuSpeed;
                 fallSpeed = RealSpeed.y > minuSpeed ? RealSpeed.y - minuSpeed : 0;
+                m_logText.text += "\n FallSpeed " + fallSpeed;
+
             }
             float resalFallspeed = (IsOnGround && fallSpeed < (-EvgGraphic / 10)) ? -EvgGraphic / 10 : fallSpeed;
+            m_logText.text += "\n FallingSpeed " + resalFallspeed;
             return resalFallspeed;
         }
 
@@ -344,6 +358,7 @@ namespace GameScene
         void CountSpeed()
         {
             Vector2 realSpeed = RealSpeed;
+            m_logText.text = "" + m_MoveSpeed;
             if (m_MoveSpeed.y == 0)
                 realSpeed.y = CountFallSpeed();
             else
@@ -353,8 +368,8 @@ namespace GameScene
             m_MoveSpeed = Vector2.zero;
 
             RealSpeed = realSpeed;
-            //m_RigidBody.velocity = RealSpeed;
             m_RigidBody.velocity = m_NormalTrans * RealSpeed;
+            m_logText.text += "\n" + m_RigidBody.velocity;
         }
 
         #endregion
@@ -365,6 +380,7 @@ namespace GameScene
             m_RigidBody = GetComponent<Rigidbody2D>();
             m_GroundMask = 1 << LayerMask.NameToLayer("Ground");
             m_PlatFormMask = 1 << LayerMask.NameToLayer("PlatForm");
+            m_EvgGraphic = m_PhysicData.MaxFallingSpeed / m_PhysicData.FallingTime;
             if (m_Collider2D == null || m_FootCollider2D == null)
             {
                 string errorInfo = m_Collider2D == null ? "BodyCollider" : "FootCollider";

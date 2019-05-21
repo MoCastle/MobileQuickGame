@@ -112,7 +112,6 @@ namespace GameScene
                     ActionCtrl.SetBool("Hand_Holding", false);
                     break;
             }
-            ActionCtrl.SetFloat("sqrDragDistance", handInput.vector.sqrMagnitude);
         }
 
         public void ClearAnimParam()
@@ -126,8 +125,6 @@ namespace GameScene
             ActionCtrl.SetBool("Dir_Down", false);
             ActionCtrl.SetBool("Dir_Up", false);
             ActionCtrl.SetBool("Hand_Release", false);
-
-            ActionCtrl.SetFloat("sqrDragDistance", 0f);
         }
 
         public override void LogicUpdate()

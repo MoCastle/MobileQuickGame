@@ -254,12 +254,13 @@ namespace UI
             }
             public virtual void OnPointUp()
             {
-                m_InputTouch.m_Animator.SetTrigger("pointUp");
-
+                
+                m_InputTouch.m_Animator.SetBool("pointDown", false);
             }
             public virtual void OnPointDown()
             {
-                m_InputTouch.m_Animator.SetTrigger("pointDown");
+                m_InputTouch.m_Animator.SetTrigger("pointDownTrigger");
+                m_InputTouch.m_Animator.SetBool("pointDown", true);
             }
             protected void MouseFollowing()
             {
@@ -279,8 +280,8 @@ namespace UI
                     distance /= touchRoundTransform.localScale.x;
                     newSizeDelta = touchRoundTransform.sizeDelta;
                     newSizeDelta.x = distance;
-                    float shrinkRate = (touchPointRadiu/distance) ;
-                    shrinkRate = (1-(1 - shrinkRate) * m_InputTouch.m_ShrinkRate);
+                    float shrinkRate = (touchPointRadiu / distance);
+                    shrinkRate = (1 - (1 - shrinkRate) * m_InputTouch.m_ShrinkRate);
                     shrinkRate = shrinkRate < m_InputTouch.m_MinShrinkRate ? m_InputTouch.m_MinShrinkRate : shrinkRate;
 
                     newSizeDelta.y = touchPointRadiu * shrinkRate;
@@ -503,7 +504,7 @@ namespace UI
             }
         }
 
-        public class ReleaseState:BaseInputState
+        public class ReleaseState : BaseInputState
         {
             public ReleaseState(InputTouch inputTouch) : base(inputTouch) { }
 

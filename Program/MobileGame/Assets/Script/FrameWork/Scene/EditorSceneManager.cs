@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
+//using UnityEditor;
 using FrameWork.Resource;
 namespace FrameWork.Scene
 {
@@ -26,10 +26,12 @@ namespace FrameWork.Scene
 
         public override void onLoadSuccess(string sceneName)
         {
+            /*
             EditorApplication.LoadLevelInPlayMode(sceneName);
             Debug.Log(sceneName);
             EditorApplication.isPlaying = true;
             //UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+            */
         }
     }
 }

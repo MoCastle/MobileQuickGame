@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 1263194585}
   m_DoorCollision: {fileID: 450851928}
+  m_Camera: {fileID: 2142341655}
 --- !u!1 &133398305
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,15 +365,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 34.30999
       objectReference: {fileID: 0}
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 35.80376
       objectReference: {fileID: 0}
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalRotation.x
@@ -601,7 +602,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1764078581083422, guid: 79675f7cd73be924197cd15a5986689d, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79675f7cd73be924197cd15a5986689d, type: 2}
@@ -1202,11 +1203,6 @@ Prefab:
     - {fileID: 114758974409662600, guid: bebbdc77f4f624641b4be60caef487e2, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: bebbdc77f4f624641b4be60caef487e2, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1623091477 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4770434722079886, guid: 8de1b769c6ca4234a98b147ad40749d7,
-    type: 2}
-  m_PrefabInternal: {fileID: 1306924576}
 --- !u!4 &1753069777 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4991524437379382, guid: 135e3680be8b2e34286c274a339a34ec,
@@ -1329,8 +1325,8 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_LookAt: {fileID: 1623091477}
-  m_Follow: {fileID: 1623091477}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10

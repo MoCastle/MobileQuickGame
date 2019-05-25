@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace FrameWork.Resource
+using FrameWork.Resource;
+namespace FrameWork
 {
     public interface IResourceManager
     {

@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Base;
+using BaseFunc;
 using FrameWork;
 using FrameWork.Resource;
 
-namespace Game
+namespace GameRun
 {
     public class GameResourceManager :BaseGameManager<GameResourceManager,IResourceManager>  {
         public GameResourceManager()
@@ -14,12 +14,12 @@ namespace Game
             if (GameEntry.Singleton.IsEditor)
             {
                 m_FrameManager = new EditorResourceManager();
-                m_FrameWork.AddManager<EditorResourceManager>(m_FrameManager as EditorResourceManager);
+                //m_FrameWork.AddManager<EditorResourceManager>(m_FrameManager as EditorResourceManager);
             }
             else
             {
                 m_FrameManager = new ResourceManager();
-                m_FrameWork.AddManager<ResourceManager>(m_FrameManager as ResourceManager);
+                //m_FrameWork.AddManager<ResourceManager>(m_FrameManager as ResourceManager);
             }
         }
 
@@ -34,13 +34,13 @@ namespace Game
             if (GameEntry.Singleton.IsEditor)
             {
                 EditorResourceManager resourceManager = new EditorResourceManager();
-                frmWork.AddManager<EditorResourceManager>(resourceManager);
+                //frmWork.AddManager<EditorResourceManager>(resourceManager);
                 m_FrameManager = resourceManager;
             }
             else
             {
                 ResourceManager resourceManager = new ResourceManager();
-                frmWork.AddManager<ResourceManager>(resourceManager);
+                //frmWork.AddManager<ResourceManager>(resourceManager);
                 m_FrameManager = resourceManager;
             }
         }

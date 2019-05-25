@@ -15,7 +15,7 @@ public class GameCtrl
             return _Pool;
         }
     }
-    SceneMgr _SceneMgr;
+   // SceneMgr _SceneMgr;
     #endregion
     //暂停功能
     #region

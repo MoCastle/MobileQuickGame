@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Base;
+using BaseFunc;
 
-namespace Game
+namespace FrameWork
 {
-    public class GameUIManager:BaseSingleton<GameUIManager>
+    public class GameUIManager:BaseFrameWorkManager
     {
         #region 对外接口
         //清理整个UI
@@ -45,8 +45,6 @@ namespace Game
         Dictionary<string, float> _GCUIDict;
 
         #endregion
-
-
         #region 初始化相关
         //初始化UI画布
         void InitWindowCanvas()
@@ -264,6 +262,14 @@ namespace Game
         void CloseOPForUI()
         {
             _BG.gameObject.SetActive(false);
+        }
+
+        public override void Update()
+        {
+        }
+
+        public override void Start()
+        {
         }
         #endregion
     }

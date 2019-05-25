@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game;
+using GameRun;
 
 public class GameDriver : MonoBehaviour {
     private GameEntry m_GameEntry;

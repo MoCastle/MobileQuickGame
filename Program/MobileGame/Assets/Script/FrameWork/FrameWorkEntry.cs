@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Base;
+using BaseFunc;
 
 namespace FrameWork
 {
@@ -18,10 +18,10 @@ namespace FrameWork
             m_FMDict = new Dictionary<string, BaseFrameWorkManager>();
             m_FMManagerList = new LinkedList<BaseFrameWorkManager>();
         }
-        public void AddManager<T>(T manager) where T : BaseFrameWorkManager
+        public void AddManager<T>() where T : BaseFrameWorkManager,new ()
         {
             Type type = typeof(T);
-            m_FMDict.Add(type.Name, manager);
+            m_FMDict.Add(type.Name, new T());
         }
         public void Update()
         {

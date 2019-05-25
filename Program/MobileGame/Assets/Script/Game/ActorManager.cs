@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameScene;
-using Base;
-namespace Game
+using BaseFunc;
+namespace GameRun
 {
 
-    public class ActorManager : Base.BaseSingleton<ActorManager>
+    public class ActorManager : BaseFunc.BaseSingleton<ActorManager>
     {
         Dictionary<int, Propty> _ActorsInfoDict;
         string m_Road = "Cfg\\";

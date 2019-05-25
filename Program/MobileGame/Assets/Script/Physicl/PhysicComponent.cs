@@ -24,9 +24,6 @@ namespace GameScene
         [Header("平台碰撞盒")]
         BoxCollider2D m_FootCollider2D;
 
-        [SerializeField]
-        [Header("平台碰撞盒")]
-        Text m_logText;
         //暂停事件补偿
         float m_PauseTime;
         //当前脚下
@@ -330,7 +327,6 @@ namespace GameScene
         float CountFallSpeed()
         {
             float fallSpeed = 0;
-            m_logText.text = "RealSpeed " + RealSpeed;
             if (RealSpeed.y <= 0)
             {
                 float speed = m_PhysicData.FallingGravityCurve.Evaluate(FallingTimeScale) * m_GravityScale;
@@ -340,17 +336,11 @@ namespace GameScene
             else
             {
                 
-                m_logText.text += "\n EvgGraphic " + EvgGraphic;
-                m_logText.text += "\n EvgGraphic " + EvgGraphic;
-                m_logText.text += "\n EvgGraphic " + Time.deltaTime;
                 float minuSpeed = EvgGraphic * Time.deltaTime;
-                m_logText.text += "\n minuSpeed " + minuSpeed;
                 fallSpeed = RealSpeed.y > minuSpeed ? RealSpeed.y - minuSpeed : 0;
-                m_logText.text += "\n FallSpeed " + fallSpeed;
 
             }
             float resalFallspeed = (IsOnGround && fallSpeed < (-EvgGraphic / 10)) ? -EvgGraphic / 10 : fallSpeed;
-            m_logText.text += "\n FallingSpeed " + resalFallspeed;
             return resalFallspeed;
         }
 
@@ -358,7 +348,6 @@ namespace GameScene
         void CountSpeed()
         {
             Vector2 realSpeed = RealSpeed;
-            m_logText.text = "" + m_MoveSpeed;
             if (m_MoveSpeed.y == 0)
                 realSpeed.y = CountFallSpeed();
             else
@@ -369,7 +358,6 @@ namespace GameScene
 
             RealSpeed = realSpeed;
             m_RigidBody.velocity = m_NormalTrans * RealSpeed;
-            m_logText.text += "\n" + m_RigidBody.velocity;
         }
 
         #endregion
@@ -448,7 +436,6 @@ namespace GameScene
 
         public void SetSpeed(float speed)
         {
-            Debug.Log(speed);
             Vector2 dir = Vector2.right * transform.localScale.x;
             if (m_IsPausing)
                 m_BackUpSpeed = dir * speed;

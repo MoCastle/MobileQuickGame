@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game;
+using FrameWork;
+using GameRun;
 
 public enum UIType
 {
@@ -64,7 +65,7 @@ public class BaseUI : MonoBehaviour {
         {
             if( _uiMgr == null )
             {
-                _uiMgr = GameUIManager.Singleton;
+                _uiMgr = GameEntry.Singleton.GetManager<GameUIManager>();
             }
             return _uiMgr;
         }

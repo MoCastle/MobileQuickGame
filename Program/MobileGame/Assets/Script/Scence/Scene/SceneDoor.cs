@@ -82,7 +82,7 @@ namespace GameScene
         void JumpScene()
         {
             BattleSceneInfo info = new BattleSceneInfo();
-            BattleSceneMap.Singleton.GoTo(m_SceneName,m_Idx);
+            //BattleSceneMap.Singleton.GoTo(m_SceneName,m_Idx);
         }
     }
 }

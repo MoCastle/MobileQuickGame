@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Base;
+using BaseFunc;
 using FrameWork;
 
-namespace Game
+namespace GameRun
 {
     public abstract class BaseGameManager<GameManagerType, FrameManagerType> : BaseSingleton<GameManagerType> where GameManagerType : BaseSingleton<GameManagerType>
     {

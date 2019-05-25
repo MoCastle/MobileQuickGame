@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrameWork;
-using Base;
-namespace Game
+using BaseFunc;
+namespace GameRun
 {
     public class GameEntry : BaseSingleton<GameEntry>
     {
@@ -30,11 +30,21 @@ namespace Game
             m_FrameWorkEntry = new FrameWorkEntry();
 
             IsEditor = true;
+            Init();
+        }
+        public void Init()
+        {
+            m_FrameWorkEntry.AddManager<GameUIManager>();
+            m_FrameWorkEntry.AddManager<GameSceneManager>();
         }
 
         public void Update()
         {
             m_FrameWorkEntry.Update();
+        }
+        public T GetManager<T> () where T: BaseFrameWorkManager
+        {
+            return m_FrameWorkEntry.GetManager<T>() as T;
         }
 
     }

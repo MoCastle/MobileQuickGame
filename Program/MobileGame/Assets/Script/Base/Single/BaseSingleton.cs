@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using System.Reflection;
 
-namespace Base
+namespace BaseFunc
 {
     public abstract class BaseSingleton<T> where T:BaseSingleton<T>
     {

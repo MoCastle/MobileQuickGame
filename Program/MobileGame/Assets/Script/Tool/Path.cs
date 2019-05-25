@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Base;
+using BaseFunc;
 namespace GameTool
 {
     public static class Path

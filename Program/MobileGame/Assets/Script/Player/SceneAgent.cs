@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Base;
+using BaseFunc;
 namespace PlayerAgent
 {
     public class SceneAgent 

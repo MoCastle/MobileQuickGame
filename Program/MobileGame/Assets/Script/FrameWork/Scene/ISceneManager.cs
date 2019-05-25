@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrameWork.Resource;
-namespace FrameWork.Scene
+using FrameWork.Scene;
+namespace FrameWork
 {
     public interface ISceneManager
     {
@@ -21,6 +22,11 @@ namespace FrameWork.Scene
         /// </summary>
         /// <param name="scene"></param>
         void ChangeScene(string sceneName);
+        /// <summary>
+        /// 进入场景通知
+        /// </summary>
+        /// <param name="mainSceneDirector"></param>
+        void OnEnterScene(IMainSceneDirector mainSceneDirector);
     }
 }
 

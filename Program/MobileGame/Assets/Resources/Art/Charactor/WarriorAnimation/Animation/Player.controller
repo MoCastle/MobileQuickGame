@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6e2116479f34d4fb9bdf904056f7e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontResetInput: 0
+  dontResetInput: 1
   ActionName: 
   SkillInfo:
     ID: 0
@@ -3195,7 +3195,7 @@ AnimatorStateMachine:
     m_Position: {x: 216, y: -924, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102202090678461832}
-    m_Position: {x: 756, y: -600, z: 0}
+    m_Position: {x: 792, y: -636, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102669041314442584}
     m_Position: {x: 780, y: -432, z: 0}

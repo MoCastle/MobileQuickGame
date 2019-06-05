@@ -132,6 +132,25 @@ MonoBehaviour:
   m_Player: {fileID: 1263194585}
   m_DoorCollision: {fileID: 450851928}
   m_Camera: {fileID: 2142341655}
+  m_EnterLeaveScene: {fileID: 95046229812112812, guid: a6ef681001a0efe4b97733fb05090a46,
+    type: 2}
+--- !u!95 &57676626
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 57676624}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &133398305
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +370,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1764078581083422, guid: 79675f7cd73be924197cd15a5986689d, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79675f7cd73be924197cd15a5986689d, type: 2}
@@ -365,15 +384,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 34.30999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 35.80376
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4049624565082304, guid: 6c0f38e21756a914dbf75223e10846ee, type: 2}
       propertyPath: m_LocalRotation.x
@@ -794,7 +813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

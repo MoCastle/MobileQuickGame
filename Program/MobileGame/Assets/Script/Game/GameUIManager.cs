@@ -16,7 +16,7 @@ namespace FrameWork
             ClearUIQue(_LowQue);
         }
         #endregion
-        #region 内部功能
+        #region 内部
         void ClearUIQue(Transform uiQue)
         {
             for (int StartIdx = uiQue.childCount - 1; StartIdx >= 0; --StartIdx)
@@ -31,6 +31,7 @@ namespace FrameWork
             InitWindowCanvas();
         }
         #region 画布属性、层级属性
+        #region 内部属性
         Transform _UICanvas;
         //底层UI栈
         Transform _LowQue;
@@ -39,7 +40,8 @@ namespace FrameWork
         //通用BG
         Transform _BG;
         EventTrigger _BGTrigger;
-
+        Transform m_EffectCanvas;
+        #endregion 
         //当前已打开的UI
         Dictionary<string, Transform> _CurShowUI;
         Dictionary<string, float> _GCUIDict;
@@ -56,7 +58,7 @@ namespace FrameWork
             {
                 GameObject.Destroy(ilegalCanvas);
             }
-
+            
             //Object uiCanvas = Resources.Load("Prefab\\Base\\UI\\UIFrame");
             Object uiCanvas = Resources.Load("Prefab\\Base\\UIFrame");
 
@@ -80,6 +82,21 @@ namespace FrameWork
             }
             _CurShowUI = new Dictionary<string, Transform>();
             _GCUIDict = new Dictionary<string, float>();
+
+            GameObject effectCanvas = GameObject.Find("m_EffectCanvas");
+            if (effectCanvas != null)
+            {
+                GameObject.Destroy(effectCanvas);
+            }
+            Object uiEffectCanvas = Resources.Load("Prefab\\Base\\EffectCanvas");
+            if (uiEffectCanvas == null)
+            {
+                Debug.Log("Canvas Prefab Missed");
+                return;
+            }
+            GameObject uiEffectCanvasObject = GameObject.Instantiate(uiCanvas) as GameObject;
+            GameObject.DontDestroyOnLoad(uiEffectCanvasObject);
+            m_EffectCanvas = uiEffectCanvasObject.transform;
         }
         #endregion
 
@@ -129,6 +146,28 @@ namespace FrameWork
             _GCUIDict.Remove(UIName);
 
             return UIScr;
+        }
+
+        public GameObject ShowEffectUI(string UIName)
+        {
+            Transform effectUI = m_EffectCanvas.Find(UIName);
+            if(effectUI==null)
+            {
+                GameObject newEffectUI = LoadUI(UIName);
+                newEffectUI.transform.parent = m_EffectCanvas;
+                effectUI = newEffectUI.transform;
+            }
+            effectUI.gameObject.active = true;
+            return effectUI.gameObject;
+        }
+
+        public void CloseEffectUI(string UIName)
+        {
+            Transform effectUI = m_EffectCanvas.Find(UIName);
+            if (effectUI != null)
+            {
+                effectUI.gameObject.active = false;
+            }
         }
 
         //关闭窗口操作

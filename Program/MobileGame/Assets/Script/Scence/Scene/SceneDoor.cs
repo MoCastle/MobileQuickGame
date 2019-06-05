@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameRun;
 
 namespace GameScene
 {
@@ -81,8 +82,7 @@ namespace GameScene
 
         void JumpScene()
         {
-            BattleSceneInfo info = new BattleSceneInfo();
-            //BattleSceneMap.Singleton.GoTo(m_SceneName,m_Idx);
+            BattleManager.Singleton.JumpEnterScene(m_SceneName, m_Idx);
         }
     }
 }

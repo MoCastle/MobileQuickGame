@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4538685352427622}
   - component: {fileID: 61645582682456768}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: SkillCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 114411928385569130}
   - component: {fileID: 114072609615729246}
   - component: {fileID: 50944571829645834}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4295872188362304}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: CameraPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 95269114120104862}
   - component: {fileID: 212489002746281736}
   - component: {fileID: 114574097459277214}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4904242281132730}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: FootCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4605250746706570}
   - component: {fileID: 61835526490923744}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: PlaneFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4913201084305890}
   - component: {fileID: 61459396608792886}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Body
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1255538905010850}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.8, y: -1.8, z: 0}
+  m_LocalPosition: {x: 34.30999, y: 35.80376, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4904242281132730}

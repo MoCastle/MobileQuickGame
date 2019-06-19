@@ -56,14 +56,11 @@ namespace GameScene
         #region 流程
         private void Awake()
         {
-            Animator enterLeaveScene = GameObject.Instantiate<Animator>(m_EnterLeaveScene);
-            m_EnterLeaveScene = enterLeaveScene;
-
-            m_EnterLeaveScene.Play("EnterScene");
             UIManager.Singleton.ShowUI("ScrollArea");
-            m_Leaved = false;
             SetPlayer();
-            
+
+            m_Leaved = false;
+
             if (m_Camera != null)
             {
                 m_Camera.LookAt = m_Player.transform;
@@ -72,6 +69,23 @@ namespace GameScene
             SceneDoor startDoor = GetDoor(0);
             startDoor.GenPlayer(player.transform);
             SceneManager.Singleton.SceneStarted(this);
+            StartScene();
+
+        }
+        private void StartScene()
+        {
+
+            Animator enterLeaveScene = GameObject.Instantiate<Animator>(m_EnterLeaveScene);
+            m_EnterLeaveScene = enterLeaveScene;
+
+            ScreenMask mask = m_EnterLeaveScene.GetComponent<ScreenMask>();
+            mask.onAnimEnd = StartSceneComplete;
+            m_EnterLeaveScene.Play("EnterScene");
+        }
+        private void StartSceneComplete()
+        {
+            playerEnterGame();
+            npcsEnterGame();
         }
         private void Update()
         {
@@ -98,6 +112,20 @@ namespace GameScene
             return door;
         }
         #endregion
+        #region 角色管理
+        private void playerEnterGame()
+        {
+            player.EnterGame();
+        }
+        private void npcsEnterGame()
+        {
+            foreach(Transform npcTransform in m_NPCList)
+            {
+                BaseActorObj npc = npcTransform.GetComponent<BaseActorObj>();
+                npc.EnterGame();
+            }
+        }
+        #endregion
         #region 初始设置
         private void SetPlayer()
         {
@@ -113,11 +141,37 @@ namespace GameScene
             ScreenMask mask = m_EnterLeaveScene.GetComponent<ScreenMask>();
             mask.onAnimEnd += LeavedAnimPlayed;
             m_EnterLeaveScene.Play("LeaveScene");
+            foreach(Transform actorTrans in m_NPCList)
+            {
+                BaseActorObj actor = actorTrans.GetComponent<BaseActorObj>();
+                actor.StopGame();
+            }
+            m_Player.StopGame();
+        }
+        private void LeavingScene()
+        {
+            m_Leaved = true;
+            foreach(Transform actorTrans in m_NPCList)
+            {
+                BaseActorObj actor = actorTrans.GetComponent<BaseActorObj>();
+                if(!actor.endGameComplete)
+                {
+                    m_Leaved = false;
+                }
+            }
+            if (!m_Player.endGameComplete)
+            {
+                m_Leaved = false;
+            }
+            if (m_Leaved)
+            {
+                onUpdate = null;
+            }
         }
 
         public void LeavedAnimPlayed()
         {
-            m_Leaved = true;
+            onUpdate = LeavingScene;
         }
 
         public Action onUpdate;

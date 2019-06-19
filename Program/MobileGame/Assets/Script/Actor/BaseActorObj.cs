@@ -33,7 +33,7 @@ namespace GameScene
         //敌人识别层级
         protected int m_IDLayer;
         BoxCollider2D m_ColliderCtrl;
-        ActionCtrler m_ActionCtrler;
+        protected ActionCtrler m_ActionCtrler;
         #endregion
         #region 对外接口
         public bool Alive
@@ -99,7 +99,7 @@ namespace GameScene
             }
         }
         #endregion
-        #region 接口
+        #region 属性
         public CharacterAnim Anim
         {
             get
@@ -182,8 +182,15 @@ namespace GameScene
                 return dir;
             }
         }
+        public bool endGameComplete
+        {
+            get
+            {
+                return m_ActionCtrler.gameGoing == false && m_ActionCtrler.JudgIsTag("init");
+            }
+        }
         #endregion
-        #region 移动
+        #region 角色控制
         //左右移动
         /// <summary>
         /// 向一方向移动
@@ -217,20 +224,34 @@ namespace GameScene
         }
         #endregion
         #region 流程
+        public virtual void EnterGame()
+        {
+            m_ActionCtrler.gameGoing = true;
+        }
+        public virtual void Pause()
+        {
+            m_ActionCtrler.gameGoing = false;
+        }
+        public virtual void ContinueGame()
+        {
+            m_ActionCtrler.gameGoing = true;
+        }
+        public virtual void StopGame()
+        {
+            m_ActionCtrler.gameGoing = false;
+        }
         private void Awake()
         {
             m_BuffList = new LinkedList<BaseBuff>();
-            m_ActionCtrler = new ActionCtrler(this, m_CharacterAnim.Animator);//, info.ActorActionList);
-            LogicAwake();
+            Init();
         }
+        protected abstract void Init();
         private void Start()
         {
             m_Physic = GetComponent<PhysicComponent>();
             RegistPhysicEvent();
             RegistAnimEvent();
         }
-
-        protected abstract void LogicAwake();
 
         //出生
         public void Birth()
@@ -253,7 +274,15 @@ namespace GameScene
 
         }
         #endregion
-        #region 技能
+        #region 静态方法
+        public static BaseActorObj GetActorByColliderTransfor(Transform transform)
+        {
+            return GetActorByAnimatorTransform(transform.parent);
+        }
+        public static BaseActorObj GetActorByAnimatorTransform(Transform transform)
+        {
+            return transform.parent.GetComponent<BaseActorObj>();
+        }
         #endregion
         #region 玩家角色信息提取接口 以后可能会挪到非对象脚本里
 
@@ -320,10 +349,9 @@ namespace GameScene
         {
             m_ActorPropty.ModLifeValue(Damage * -1);
         }
-        #region
-
-        #endregion
         
+
+
         #region 事件
         public void OnGround()
         {
@@ -468,8 +496,9 @@ namespace GameScene
 
         }
         //转换状态
-        public virtual void SwitchAction()
+        public virtual void SwitchAction(BaseAction action)
         {
+            m_ActionCtrler.SwitchAction(action);
         }
         //召唤
         public virtual void CallPuppet(string objName)

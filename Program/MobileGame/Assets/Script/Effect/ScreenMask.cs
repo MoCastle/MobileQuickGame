@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class ScreenMask : MonoBehaviour {
     public Action onAnimEnd;
-	// Use this for initialization
-	
-	// Update is called once per frame
-	public void OnAnimEnd() {
+    Animator animator;
+    public void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+    // Use this for initialization
+
+    public void OnAnimEnd() {
         if(onAnimEnd!=null)
             onAnimEnd();
         onAnimEnd = null;

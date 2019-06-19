@@ -19,11 +19,12 @@ namespace GameScene
             }
         }
         #endregion
-        protected override void LogicAwake()
+        protected override void Init()
         {
             m_IDLayer = 1 << LayerMask.NameToLayer("Enemy");
-        }
+            m_ActionCtrler = new ActionCtrler(this, m_CharacterAnim.Animator);//, info.ActorActionList);
 
+        }
         #region 手势获取
 
         //通过手势获取输入
@@ -142,8 +143,9 @@ namespace GameScene
         #endregion
 
         #region 事件
-        public override void SwitchAction()
+        public override void SwitchAction(BaseAction baseAction)
         {
+            base.SwitchAction(baseAction);
             ClearAnimParam();
         }
 

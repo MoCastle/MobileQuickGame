@@ -1,16 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameScene;
 
-public class NPCAttackAction : MonoBehaviour {
+public class NPCAttackAction : NpcBaseAction
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public NPCAttackAction(BaseActorObj baseActorObj, SkillInfo skillInfo) : base(baseActorObj, skillInfo)
+    {
+        npcActor = baseActorObj as EnemyObj;
+    }
 }

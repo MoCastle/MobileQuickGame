@@ -87,9 +87,6 @@ public class BaseAction : BaseState
             return ReturnVect;
         }
     }
-    #endregion
-    #region 流程
-    //运动方向
     protected virtual Vector2 MoveDir
     {
         get
@@ -97,6 +94,9 @@ public class BaseAction : BaseState
             return Vector2.right * (m_ActorObj.transform.localScale.x > 0 ? 1 : -1);
         }
     }
+    #endregion
+    #region 流程
+    //运动方向
 
     public BaseAction(BaseActorObj baseActorObj, SkillInfo skillInfo)
     {
@@ -130,12 +130,11 @@ public class BaseAction : BaseState
     }
     public override void Start()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void End()
     {
-        throw new System.NotImplementedException();
+        LeaveHardTime();
     }
     //逻辑每帧事件
     public virtual void LogicUpdate()
@@ -159,18 +158,16 @@ public class BaseAction : BaseState
         {
             if (m_HardTime < Time.time)
             {
-                m_ActionCtrl.AnimSpeed = 1;
-                m_ActorObj.Physic.CountinuePhysic();
-                m_HardTime = 0;
-            }
-            else
-            {
-                m_ActionCtrl.AnimSpeed = 0;
-                m_ActorObj.Physic.PausePhysic();
+                LeaveHardTime();
             }
         }
     }
-
+    protected void LeaveHardTime()
+    {
+        m_ActionCtrl.AnimSpeed = 1;
+        m_ActorObj.Physic.CountinuePhysic();
+        m_HardTime = 0;
+    }
     // 攻击判定
     public virtual void SkillAttack()
     {
@@ -178,14 +175,14 @@ public class BaseAction : BaseState
         {
             return;
         }
-        Collider2D[] TargetList = AttackList();
+        Collider2D[] TargetList = GetAttackList();
         foreach (Collider2D TargetCollider in TargetList)
         {
             if (TargetCollider == null)
             {
                 return;
             }
-            BaseActorObj targetActor = TargetCollider.transform.parent.GetComponent<BaseActorObj>();
+            BaseActorObj targetActor = TargetCollider.transform.parent.parent.GetComponent<BaseActorObj>();
            
             if (targetActor != null && targetActor.Alive && !m_AttackDict.ContainsKey(targetActor))
             {
@@ -315,10 +312,8 @@ public class BaseAction : BaseState
     //硬直时间
     public virtual void SetHardTime(float time)
     {
-        m_HardTime = Time.time + time;
-        m_ActionCtrl.AnimSpeed = 0;
-        m_ActorObj.Physic.PausePhysic();
-        m_ActionCtrl.AnimSpeed = 0;
+        if (time > 0)
+            EnterHardTime(Time.time + time);
     }
 
     public virtual void CallPuppet(PuppetNpc puppet)
@@ -326,13 +321,12 @@ public class BaseAction : BaseState
         Vector3 newPs = m_ActorObj.transform.position;
         newPs.y += m_ActorObj.BodyCollider.offset.y;
         puppet.transform.position = newPs;
-        puppet.AICtrler.SetTargetActor(((EnemyObj)m_ActorObj).AICtrler.TargetActor);
         puppet.Master = m_ActorObj;
         puppet.SetIDLayer(m_ActorObj.IDLayer);
 
     }
 
-    public virtual Collider2D[] AttackList()
+    public virtual Collider2D[] GetAttackList()
     {
         Collider2D[] ColliderList = new Collider2D[100];
         ContactFilter2D ContactFilter = new ContactFilter2D();

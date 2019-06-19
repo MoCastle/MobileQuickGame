@@ -21,7 +21,6 @@ public class FlySkillAnimAdapt : AnimAdapt
         Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
         Type GetState = assembly.GetType(ActionName);
         BaseAction NewState = (BaseAction)Activator.CreateInstance(GetState, new object[] { NoticeObject, SkillInfo }); // 创建类的实例，返回为 object 类型，需要强制类型转换
-        NoticeObject.ActionCtrl.CurAction = NewState;
-        NoticeObject.SwitchAction();
+        NoticeObject.SwitchAction(NewState);
     }
 }

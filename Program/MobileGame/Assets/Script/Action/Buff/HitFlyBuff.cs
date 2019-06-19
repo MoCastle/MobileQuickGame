@@ -8,6 +8,14 @@ public class HitFlyBuff : BaseBuff
     private SkillInfo m_SkillInfo;
     private float m_Direction;
     private BaseActorObj m_Attackter;
+    public BaseActorObj attackter
+    {
+        get
+        {
+            return m_Attackter;
+        }
+    }
+
     public float hardTime
     {
         get

@@ -16,21 +16,23 @@ public class AnimAdapt : StateMachineBehaviour
     
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(ActionName== null || ActionName == "")
+        BaseActorObj NoticeObject = animator.gameObject.GetComponentInParent<BaseActorObj>();
+        BaseAction NewState = (BaseAction)GenState(animator, NoticeObject); // 创建类的实例，返回为 object 类型，需要强制类型转换
+        NoticeObject.SwitchAction(NewState);
+    }
+
+    protected virtual object GenState(Animator animator, BaseActorObj baseActorObj)
+    {
+        if (ActionName == null || ActionName == "")
         {
             ActionName = "BaseAction";
         }
-        BaseActorObj NoticeObject = animator.gameObject.GetComponentInParent<BaseActorObj>();
+        BaseActorObj NoticeObject = baseActorObj;
         Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
         Type GetState = assembly.GetType(ActionName);
-        BaseAction NewState = (BaseAction)Activator.CreateInstance(GetState, new object[] { NoticeObject, SkillInfo }); // 创建类的实例，返回为 object 类型，需要强制类型转换
-        NoticeObject.ActionCtrl.CurAction = NewState;
-        if(!dontResetInput)
-        {
-            NoticeObject.SwitchAction();
-        }
+        return Activator.CreateInstance(GetState, new object[] { NoticeObject, SkillInfo });
     }
-    
+
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         BaseActorObj NoticeObject = animator.gameObject.GetComponent<BaseActorObj>();

@@ -6,14 +6,28 @@ using System;
 using System.Reflection;
 using GameScene;
 
-public class EnemyObj : BaseActorObj
+public class EnemyObj : NPCObj
 {
+    #region 编辑
+    [SerializeField]
+    [Header("巡逻范围")]
+    public Vector2 guardSize;
+    [Header("偏移量")]
+    public Vector3 guardShiftValue;
+    public Color guardDrawColor;
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = guardDrawColor;//为随后绘制的gizmos设置颜色。
+        Gizmos.DrawCube(transform.position + guardShiftValue, guardSize);
+    }
+    #endregion
     #region 内部变量
     [SerializeField]
     [Header("守卫区域")]
     BoxCollider2D _GuardBox;
 
-    BoxCollider2D _GuardinArea
+    public BoxCollider2D GuardinArea
     {
         get
         {
@@ -37,32 +51,23 @@ public class EnemyObj : BaseActorObj
     }
     #endregion
     #region 属性
-    public string AICtrlerName;
-    BaseAICtrler _AICtrler;
 
-    public BaseAICtrler AICtrler
+    //堆对象缓存 提快计算速度
+    BoxCollider2D[] _ColliderList;
+    public NPCActionControler actionControler
     {
         get
         {
-            if(_AICtrler == null)
-            {
-                Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-                Type GetState = assembly.GetType(AICtrlerName);
-                _AICtrler = (BaseAICtrler)Activator.CreateInstance(GetState, new object[] { this, ActionCtrl }); // 创建类的实例，返回为 object 类型，需要强制类型转换
-            }
-            return _AICtrler;
+            return m_ActionCtrler as NPCActionControler;
         }
     }
-    
-    //堆对象缓存 提快计算速度
-    BoxCollider2D[] _ColliderList;
     #endregion
 
     #region 对外接口
     //寻找敌人
     public Collider2D[] FindEnemy( int Layer )
     {
-        if(!_GuardinArea.enabled)
+        if(!GuardinArea.enabled)
         {
             return null;
         }
@@ -72,29 +77,23 @@ public class EnemyObj : BaseActorObj
         }
         ContactFilter2D _contactFilter = new ContactFilter2D();
         _contactFilter.SetLayerMask(Layer);
-        _GuardinArea.OverlapCollider(_contactFilter, _ColliderList);
+        GuardinArea.OverlapCollider(_contactFilter, _ColliderList);
         return _ColliderList;
     }
     #endregion
-
-    protected override void LogicAwake()
+    protected override void Init()
     {
-        //throw new System.NotImplementedException();
+        m_Animator = transform.Find("Animator").GetComponent<Animator>();
         m_IDLayer = 1 << LayerMask.NameToLayer("Player");
 
         Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-        Type GetState = assembly.GetType(AICtrlerName);
-        _AICtrler = (BaseAICtrler)Activator.CreateInstance(GetState, new object[] { this,ActionCtrl }); // 创建类的实例，返回为 object 类型，需要强制类型转换
         m_IDLayer = 1 << LayerMask.NameToLayer("Player");
+        m_ActionCtrler = new NPCActionControler(this);
     }
+    
     public override void LogicUpdate()
     {
-        //Debug.Log(_ActorPropty.ph);
         base.LogicUpdate();
-        if(_AICtrler!=null)
-        {
-            _AICtrler.Update();
-        }
         LifeSlider.value = m_ActorPropty.percentLife;
     }
 
@@ -110,14 +109,9 @@ public class EnemyObj : BaseActorObj
         }
     }
 
-    public override void SwitchAction()
-    {
-        base.SwitchAction();
-    }
     #region 事件
     public override void BeBreak()
     {
-        _AICtrler.BeBreak();
     }
     #endregion
 }

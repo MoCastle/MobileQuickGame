@@ -7,8 +7,13 @@ public class ClickFlyAction : HurtAction {
     HitFlyBuff m_HitFlyBuff;
 	public ClickFlyAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
-        SetFaceLock(true);
-        BaseBuff baseBuff = baseActorObj.GetBuffByType(BuffType.HitFly);
+    }
+    
+    public override void startPrepare()
+    {
+        base.startPrepare();
+        HitFlyBuff baseBuff = m_ActorObj.GetBuffByType(BuffType.HitFly) as HitFlyBuff;
+        m_ActorObj.FaceToDir(baseBuff.attackter.transform.position - m_ActorObj.transform.position);
         m_HitFlyBuff = baseBuff == null ? new HitFlyBuff() : baseBuff as HitFlyBuff;
         float hardTime = m_HitFlyBuff.hardTime;
         SetHardTime(hardTime);
@@ -16,19 +21,7 @@ public class ClickFlyAction : HurtAction {
         flySpeed.x *= flySpeed.x * m_ActorObj.FaceDir.x < 0 ? -1 : 1;
         m_ActorObj.Physic.SetSpeed(flySpeed);
         m_ActorObj.ActionCtrl.AnimSpeed = 0;
-    }
-
-    public override void EnterPrepare()
-    {
-        _Effect = m_ActorObj.BeHitEffect;
-        m_ActorObj.BeHitEffect.HardValue = 0;
-        m_ActorObj.BeHitEffect.Delegate = null;
-        m_ActorObj.Physic.PausePhysic();
-
-        Vector2 moveSpeed = _Effect.MoveVector;
-        m_ActorObj.Physic.SetSpeed(moveSpeed);
-        float hardTime = 0;// _Effect.HardValue * m_ActorObj.ActorPropty.HeavyRate;
-        SetHardTime(hardTime);
+        SetFaceLock(true);
     }
     public override void Update()
     {

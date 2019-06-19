@@ -8,13 +8,29 @@ using BaseFunc;
 
 public class ActionCtrler:BaseFSM {
     #region 私有属性
+    private bool m_GameGoing;
     float m_AnimSpeed = 1;
-    BaseActorObj m_ActorObj;
+    protected BaseActorObj m_ActorObj;
     Animator m_Animator;
     int m_CurAnimName;
     BaseAction m_CurAction;
     #endregion
-    #region 对外接口
+    #region 属性
+    public bool gameGoing
+    {
+        get
+        {
+            return m_GameGoing;
+        }
+        set
+        {
+            if(value!= m_GameGoing)
+            {
+                m_GameGoing = value;
+                m_Animator.SetBool("gameGoing", value);
+            }
+        }
+    }
     public float AnimSpeed
     {
         get
@@ -61,6 +77,13 @@ public class ActionCtrler:BaseFSM {
             return m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
         }
     }
+    public AnimatorStateInfo curAnimatorStateInfo
+    {
+        get
+        {
+            return m_Animator.GetCurrentAnimatorStateInfo(0);
+        }
+    }
     #endregion
     #region 流程
     public ActionCtrler(BaseActorObj actor, Animator animator)//, List<ActionInfo> actionList)
@@ -72,7 +95,7 @@ public class ActionCtrler:BaseFSM {
         //_ActionList = actionList;
     }
 
-    public void Update()
+    public virtual void Update()
     {
         m_Animator.SetFloat("AnimTime", m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         if (m_CurAction != null)
@@ -80,13 +103,17 @@ public class ActionCtrler:BaseFSM {
             m_CurAction.Update();
         }
     }
-    public void SwitchState(BaseState state)
+    public void SwitchAction(BaseAction state)
     {
         base.Switch(state);
-        m_CurAction = state as BaseAction;
+        m_CurAction = state;
     }
     #endregion
     #region 动画
+    public bool JudgIsTag(string tag)
+    {
+        return curAnimatorStateInfo.IsTag(tag);
+    }
     //List<ActionInfo> _ActionList;
     public void SetTriiger(string name)
     {
@@ -109,7 +136,7 @@ public class ActionCtrler:BaseFSM {
         return m_Animator.GetCurrentAnimatorStateInfo(0).IsTag(name);
     }
 
-    public void PlayerAnim(string stateName)
+    public void PlayAnim(string stateName)
     {
         m_Animator.Play(stateName, -1, 0f);
         m_Animator.Update(0);

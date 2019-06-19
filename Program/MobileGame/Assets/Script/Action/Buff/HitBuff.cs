@@ -7,7 +7,7 @@ public class HitBuff : BaseBuff
 {
     SkillInfo m_SkillInfo;
     float m_direction;
-    BaseActorObj Attackter;
+    public BaseActorObj Attackter;
 
     public float hardTime
     {

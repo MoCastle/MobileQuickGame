@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameScene;
-public class NPCRunAction : BaseAction
+public class NPCRunAction : NpcBaseAction
 {
     protected virtual float speed
     {
@@ -15,8 +15,9 @@ public class NPCRunAction : BaseAction
     {
 
     }
-    public override void LogicUpdate()
+    public override void Update()
     {
+        base.Update();
         m_ActorObj.Physic.SetSpeed(speed);
     }
 }

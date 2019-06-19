@@ -423,7 +423,6 @@ namespace GameScene
         #region 设置速度
         public void SetSpeed(Vector2 speed)
         {
-            Debug.Log(speed);
             if (m_IsPausing)
                 m_BackUpSpeed = speed;
             else

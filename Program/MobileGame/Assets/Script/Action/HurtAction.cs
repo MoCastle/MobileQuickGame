@@ -10,11 +10,15 @@ public class HurtAction : BaseAction {
     float _DeNum;
     public HurtAction(BaseActorObj baseActorObj, SkillInfo skillInfo) :base(baseActorObj, skillInfo)
     {
-        baseActorObj.BeBreak();
-        SetFaceLock(true);
-        EnterPrepare();
     }
-    public virtual void EnterPrepare()
+    public override void Start()
+    {
+        base.Start();
+        m_ActorObj.BeBreak();
+        SetFaceLock(true);
+        startPrepare();
+    }
+    public virtual void startPrepare()
     {
         if (m_ActorObj.ActionCtrl.IsName("HitBack"))
         {
@@ -25,8 +29,15 @@ public class HurtAction : BaseAction {
         //_ActorObj.PhysicCtrl.SetSpeed(moveSpeed);
         float numSpeed = moveSpeed.magnitude;
         SetSpeed(-1* numSpeed);
-        float hardTime = 0;// _Effect.HardValue * m_ActorObj.ActorPropty.HeavyRate;
-        SetHardTime(hardTime);
+        HitBuff buff = m_ActorObj.GetBuffByType(BuffType.Hit) as HitBuff;
+
+        if (buff !=null)
+        {
+            m_ActorObj.FaceToDir(buff.Attackter.transform.position - m_ActorObj.transform.position);
+            float hardTime = buff.hardTime;// _Effect.HardValue * m_ActorObj.ActorPropty.HeavyRate;
+            SetHardTime(hardTime);
+        }
+        
     }
 
     public override void Update()

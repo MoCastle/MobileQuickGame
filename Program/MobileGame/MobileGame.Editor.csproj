@@ -300,7 +300,6 @@
     <Compile Include="Assets\Editor\EditAPP.cs" />
     <Compile Include="Assets\Editor\EditorWnd\BaseEditorWindow.cs" />
     <Compile Include="Assets\Editor\EditorWnd\ItemEditor.cs" />
-    <Compile Include="Assets\Editor\NPCEditor.cs" />
     <Compile Include="Assets\Editor\NPCMgr.cs" />
     <Compile Include="Assets\Editor\PathologicalGames\Common\PGEditorUtils.cs" />
     <Compile Include="Assets\Editor\PathologicalGames\PoolManager\PreRuntimePoolItemInspector.cs" />

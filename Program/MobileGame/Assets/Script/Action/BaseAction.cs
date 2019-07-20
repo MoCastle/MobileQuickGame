@@ -316,13 +316,8 @@ public class BaseAction : BaseState
             EnterHardTime(Time.time + time);
     }
 
-    public virtual void CallPuppet(PuppetNpc puppet)
+    public virtual void CallPuppet()
     {
-        Vector3 newPs = m_ActorObj.transform.position;
-        newPs.y += m_ActorObj.BodyCollider.offset.y;
-        puppet.transform.position = newPs;
-        puppet.Master = m_ActorObj;
-        puppet.SetIDLayer(m_ActorObj.IDLayer);
 
     }
 

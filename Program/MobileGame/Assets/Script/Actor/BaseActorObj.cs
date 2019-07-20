@@ -503,9 +503,9 @@ namespace GameScene
         //召唤
         public virtual void CallPuppet(string objName)
         {
-            BaseActorObj Obj = ActorManager.Mgr.GenActor(objName);
-            PuppetNpc puppet = Obj as PuppetNpc;
-            m_ActionCtrler.CurAction.CallPuppet(puppet);
+            //BaseActorObj Obj = ActorManager.Mgr.GenActor(objName);
+            //PuppetNpc puppet = Obj as PuppetNpc;
+            //m_ActionCtrler.CurAction.CallPuppet(puppet);
 
         }
         //被打断

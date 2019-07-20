@@ -122,7 +122,7 @@ namespace GameScene
             foreach(Transform npcTransform in m_NPCList)
             {
                 BaseActorObj npc = npcTransform.GetComponent<BaseActorObj>();
-                npc.EnterGame();
+                //npc.EnterGame();
             }
         }
         #endregion
